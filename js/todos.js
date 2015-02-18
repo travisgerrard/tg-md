@@ -156,7 +156,7 @@ $(function() {
       //"keypress #new-todo":  "createOnEnter",
       //"click #clear-completed": "clearCompleted",
       //"click #toggle-all": "toggleAllComplete",
-      //"click .log-out": "logOut",
+      "click .log-out": "logOut",
       //"click ul#filters a": "selectFilter"
     },
 
