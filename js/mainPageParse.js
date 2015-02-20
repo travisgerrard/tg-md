@@ -181,9 +181,9 @@ $(function() {
 
       // Setup the query for the collection to look for todos from the current user
       this.todos.query = new Parse.Query(Todo);
-      this.todos.query.equalTo("user", Parse.User.current().escape("username"));
       this.todos.query.notEqualTo("hidden", true);
       this.todos.query.descending("date")
+	  this.todos.query.limit(1); 
 
       this.todos.bind('add',     this.addOne);
       this.todos.bind('reset',   this.addAll);
@@ -388,11 +388,8 @@ $(function() {
 
     // We simply test to see if there is a logged in user to determine which view to show
     render: function() {
-      if (Parse.User.current()) {
         new ManageTodosView();
-      } else {
-        new LogInView();
-      }
+      
     }
   });
 
