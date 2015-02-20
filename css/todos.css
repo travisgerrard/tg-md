@@ -21,10 +21,8 @@ button {
 body {
     font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: 1.4em;
-    background: #eeeeee url('../images/bg.png');
-    color: #4d4d4d;
-    min-width: 150px;
-    max-width: 700px;
+    background-image: url('../images/bg.png');
+    color: #777777;
     margin: 0 auto;
     -webkit-font-smoothing: antialiased;
     -moz-font-smoothing: antialiased;
@@ -56,13 +54,15 @@ body {
 }
 
 #todoapp h1 {
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-weight: 300;
+    font-size: 70px;
+
     position: absolute;
     top: -120px;
     width: 100%;
-    font-size: 70px;
-    font-weight: bold;
     text-align: center;
-    color: #888;
+    color: ;
     -webkit-text-rendering: optimizeLegibility;
     -moz-text-rendering: optimizeLegibility;
     -ms-text-rendering: optimizeLegibility;
@@ -87,21 +87,22 @@ body {
     left: 0;
     height: 15px;
     z-index: 2;
-    border-bottom: 1px solid #6c615c;
-    background: #8d7d77;
-    background: -webkit-gradient(linear, left top, left bottom, from(rgba(132, 110, 100, 0.8)),to(rgba(101, 84, 76, 0.8)));
-    background: -webkit-linear-gradient(top, rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
-    background: -moz-linear-gradient(top, rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
-    background: -o-linear-gradient(top, rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
-    background: -ms-linear-gradient(top, rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
-    background: linear-gradient(top, rgba(132, 110, 100, 0.8), rgba(101, 84, 76, 0.8));
+    //border-bottom: 1px solid #6c615c;
+    //background: #8d7d77;
+    /*
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0.8)),to(rgba(255, 255, 255, 0.8)));
+    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.8), rgba(255, 255, 255, 0.8));
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.8), rgba(255, 255, 255, 0.8));
+    background: -o-linear-gradient(top, rgba(0, 0, 0, 0.8), rgba(255, 255, 255, 0.8));
+    background: -ms-linear-gradient(top, rgba(0, 0, 0, 0.8), rgba(255, 255, 255, 0.8));
+    background: linear-gradient(top, rgba(0, 0, 0, 0.8), rgba(255, 255, 255, 0.8));*/
     filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,StartColorStr='#9d8b83', EndColorStr='#847670');
     border-top-left-radius: 1px;
     border-top-right-radius: 1px;
 }
 
 #new-todo,
-.edit {
+.edit { 
     position: relative;
     margin: 0;
     width: 100%;
@@ -487,5 +488,47 @@ label[for='toggle-all'] {
 
 #credits a {
     color: #888;
+}
+
+/*
+ * Masthead for nav
+ */
+
+.blog-masthead {
+  background-color: #000;
+  -webkit-box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
+          box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
+}
+
+/* Nav links */
+.blog-nav-item {
+  position: relative;
+  display: inline-block;
+  padding: 10px;
+  font-weight: 500;
+  color: #fff;
+}
+.blog-nav-item:hover,
+.blog-nav-item:focus {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Active state gets a caret at the bottom */
+.blog-nav .active {
+  color: #fff;
+}
+.blog-nav .active:after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -5px;
+  vertical-align: middle;
+  content: " ";
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid;
+  border-left: 5px solid transparent;
 }
 
