@@ -14,10 +14,14 @@ html, body {
 
 /* padded section */
 .pad-section {
-  padding: 50px 0;
+    text-align: center;
+  vertical-align: middle;
+    padding-bottom: 40px;
+
 }
 .pad-section img {
   width: 100%;
+
 }
 
 /* vertical-centered text */
@@ -74,7 +78,8 @@ html, body {
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
+  background-size: 100%;
+  background-color: #fff;
 }
 #information .panel {
   opacity: 0.85;
@@ -93,4 +98,10 @@ footer .glyphicon {
 }
 footer .glyphicon:hover {
   color: #fff;
+}
+
+video {
+  width: 250px    !important;
+  height: auto   !important;
+  padding-top: 25px;
 }
