@@ -105,3 +105,8 @@ video {
   height: auto   !important;
   padding-top: 25px;
 }
+
+#chromeLogo {
+  padding-top: 250px;
+  padding-bottom: 20px;
+}
