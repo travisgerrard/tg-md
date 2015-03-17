@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 
     <title>QuoteIt App</title>
-    <link href="css/todos.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="css/base.css" media="all" rel="stylesheet" type="text/css"/>
     <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
     <script src="js/underscore.js"></script>
     <script src="http://www.parsecdn.com/js/parse-1.2.13.min.js"></script>
@@ -119,23 +119,20 @@
 
         <div id="main">
           
-          <ul id="todo-list">
+          <ul id="quoteList">
             <img src='images/spinner.gif' class='spinner' />
           </ul>
         </div>
 
-        <div id="todo-stats"></div>
       </div>
     </script>
 
 
+
     <script type="text/template" id="item-template">
-		    
 
 		<div class="view">
         
- 		<span class="label label-info"><%= console.log(date) %></span>
-
 		  <label class="date-label"><%= jQuery.timeago(date.iso) %></label>
 
 		  <label class="selection-label"><%= _.escape(selection) %></label>
