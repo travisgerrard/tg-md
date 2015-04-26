@@ -217,7 +217,8 @@ function logOutPressed() {
 var LogInView = Parse.View.extend({
 	events: {
 	  "submit form.login-form": "logIn",
-	  "submit form.signup-form": "signUp"
+	  "submit form.signup-form": "signUp",
+	  "clicked fb-login-button": "fbLogIn"
 	},
 
 	el: ".content",
@@ -225,6 +226,10 @@ var LogInView = Parse.View.extend({
 	initialize: function() {
 	  _.bindAll(this, "logIn", "signUp");
 	  this.render();
+	},
+
+	fbLogIn: functoin(e) {
+		alert("FB Login Button Clicked")
 	},
 
 	logIn: function(e) {
