@@ -238,7 +238,6 @@ var LogInView = Parse.View.extend({
 		    }
 		  loggedIn();
 	 	  showButtonsOnLogin();
-	      self.undelegateEvents();
 	      delete self;
 
 		  },
