@@ -228,7 +228,7 @@ var LogInView = Parse.View.extend({
 	  this.render();
 	},
 
-	fbLogIn: functoin(e) {
+	fbLogIn: function(e) {
 		alert("FB Login Button Clicked")
 	},
 
