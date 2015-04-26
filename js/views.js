@@ -218,7 +218,7 @@ var LogInView = Parse.View.extend({
 	events: {
 	  "submit form.login-form": "logIn",
 	  "submit form.signup-form": "signUp",
-	  "click fblogin-button": "fbLogIn"
+	  "click .fblogin-button": "fbLogIn"
 	},
 
 	el: ".content",
