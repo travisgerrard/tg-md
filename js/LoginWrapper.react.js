@@ -131,18 +131,18 @@ var LoginWrapper = React.createClass({
 	facebookLogin: function() {
 		Parse.FacebookUtils.logIn(null, {
 		  success: function(user) {
-			  self.setState({
-				error: null
-			  });
+
 	      delete self;
 
 		  },
 		  error: function(user, error) {
-			self.setState({
-				error: 'Seomthing not right with Facebook login'
-			});
+			
 		  }
-		});
+		}).then(function() {
+					self.setState({
+						error: null
+					});
+				});
 	},
 
 	logOut: function() {
