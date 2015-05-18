@@ -131,13 +131,9 @@ var LoginWrapper = React.createClass({
 	facebookLogin: function() {
 		Parse.FacebookUtils.logIn(null, {
 		  success: function(user) {
-		    if (!user.existed()) {
-		      alert("User signed up and logged in through Facebook!");
-		    } else {
-		      alert("User logged in through Facebook!");
-		    }
-		  loggedIn();
-	 	  showButtonsOnLogin();
+		  self.setState({
+			error: null
+		  });
 	      delete self;
 
 		  },
