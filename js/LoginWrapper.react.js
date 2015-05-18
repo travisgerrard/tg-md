@@ -139,7 +139,6 @@ var LoginWrapper = React.createClass({
 			
 		  }
 		}).then(function() {
-			alert("Facebook loggin in")
 					self.setState({
 						error: null
 					});
