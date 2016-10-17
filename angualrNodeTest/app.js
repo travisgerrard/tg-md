@@ -36,7 +36,7 @@ app.factory('posts', ['$http',
         };
 
         o.getAll = function() {
-            return $http.get('http://localhost:3000/posts').success(function(data) {
+            return $http.get('http://7a0cf305.ngrok.io/posts').success(function(data) {
                 angular.copy(data, o.posts);
             });
         };
