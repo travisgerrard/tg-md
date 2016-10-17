@@ -1,5 +1,7 @@
 var app = angular.module('flapperNews', ['ui.router']);
 
+var connectionAddress = 'http://7a0cf305.ngrok.io/posts/';
+
 app.config([
     '$stateProvider',
     '$urlRouterProvider',
@@ -20,7 +22,12 @@ app.config([
             .state('posts', {
                 url: '/posts/{id}',
                 templateUrl: '/posts.html',
-                controller: 'PostsCtrl'
+                controller: 'PostsCtrl',
+                resolve: {
+                    post: ['$stateParams', 'posts', function($stateParams, posts) {
+                        return posts.get($stateParams.id);
+                    }]
+                }
             });
 
         $urlRouterProvider.otherwise('home');
@@ -36,11 +43,39 @@ app.factory('posts', ['$http',
         };
 
         o.getAll = function() {
-            return $http.get('http://7a0cf305.ngrok.io/posts').success(function(data) {
+            return $http.get(connectionAddress).success(function(data) {
                 angular.copy(data, o.posts);
             });
         };
 
+        o.create = function(post) {
+            return $http.post(connectionAddress, post).success(function(data) {
+                o.posts.push(data);
+            });
+        };
+
+        o.upvote = function(post) {
+            return $http.put(connectionAddress + post._id + '/upvote').success(function(data) {
+                post.upvote += 1;
+            });
+        };
+
+        o.get = function(id) {
+            return $http.get(connectionAddress + id).then(function(res) {
+                return res.data;
+            });
+        };
+
+        o.addComment = function(id, comment) {
+            return $http.post(connectionAddress + id + '/comments', comment);
+        };
+
+        o.upvoteComment = function(post, comment) {
+            return $http.put(connectionAddress + post._id + '/comments/' + comment._id + '/upvote')
+                .success(function(data) {
+                    comment.upvotes += 1;
+                });
+        };
         return o;
     }
 ]);
@@ -56,48 +91,45 @@ app.controller('MainCtrl', [
                 if (!$scope.title || $scope.title === '') {
                     return;
                 }
-                $scope.posts.push({
+                posts.create({
                     title: $scope.title,
-                    link: $scope.link,
-                    upvotes: 0,
-                    comments: [{
-                        author: 'Joe',
-                        body: 'Cool post!',
-                        upvotes: 0
-                    }, {
-                        author: 'Bob',
-                        body: 'Great idea but everything is wrong',
-                        upvotes: 0
-                    }]
+                    link: $scope.link
                 });
+
                 $scope.title = '';
                 $scope.link = '';
             };
 
             $scope.incrementUpvotes = function(post) {
-                post.upvotes += 1;
+                //post.upvotes += 1;
+                posts.upvote(post);
             };
 
         }
     ])
     .controller('PostsCtrl', [
         '$scope',
-        '$stateParams',
         'posts',
-        function($scope, $stateParams, posts) {
+        'post',
+        function($scope, posts, post) {
 
-            $scope.post = posts.posts[$stateParams.id];
+            $scope.post = post;
 
             $scope.addComment = function() {
                 if ($scope.body === '') {
                     return;
                 }
-                $scope.post.comments.push({
+                posts.addComment(post._id, {
                     body: $scope.body,
                     author: 'user',
-                    upvotes: 0
+                }).success(function(comment) {
+                    $scope.post.comments.push(comment);
                 });
                 $scope.body = '';
+            };
+
+            $scope.upvote = function(comment) {
+                posts.upvoteComment(post, comment);
             };
         }
     ]);
