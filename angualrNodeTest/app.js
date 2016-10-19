@@ -1,6 +1,7 @@
 var app = angular.module('flapperNews', ['ui.router']);
 
-var connectionAddress = 'http://7a0cf305.ngrok.io/posts/';
+//var connectionAddress = 'http://7a0cf305.ngrok.io/posts/';
+var connectionAddress = 'http://ec2-35-160-139-221.us-west-2.compute.amazonaws.com:3000/posts/'
 
 app.config([
     '$stateProvider',

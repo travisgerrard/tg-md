@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 require('./models/Posts');
 require('./models/Comments');
-mongoose.connect('mongodb://travisgerrard:iw78NfQb@ec2-35-160-139-221.us-west-2.compute.amazonaws.com:27017/news');
+mongoose.connect('mongodb://travisg:frisky@ec2-35-160-139-221.us-west-2.compute.amazonaws.com:27017/dummyDB');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
