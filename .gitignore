@@ -1,1 +1,5 @@
 .DS_Store
+node_modules/
+.gitignore
+.elasticbeanstalk/
+flapper-news/node_modules
