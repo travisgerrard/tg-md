@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Patient Parser</title>
+
+
+
+      <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.10/angular.min.js"></script>
+      <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.10/angular-ui-router.js"></script>
+
+      <script src="app.js"></script>
+
+    <style>
+        #patientTotalInfo {
+            width: 100%;
+            text-align: left;
+        }
+
+        #patientInfo {
+            width: 200px;
+            /*float: left;*/
+            display: inline-block;
+            zoom: 1;
+        }
+
+        #dailyTodo {
+            width: 225px;
+            /*font-size: 12px;*/
+            /*float: left;*/
+            display: inline-block;
+            zoom: 1;
+        }
+
+        #dailyTodo li:before {
+            content: "\2610";
+            margin-right: 5px;
+        }
+
+        #followUps {
+            width: 150px;
+            /*float: left;*/
+            display: inline-block;
+            zoom: 1;
+        }
+
+        #followUps li:before {
+            content: "\2610";
+            margin-right: 5px;
+        }
+
+        #cbcAndBmr {
+            width: 140px;
+            /*float: left;*/
+            display: inline-block;
+            zoom: 1;
+        }
+
+        ul {
+            list-style: none;
+        }
+        /*
+        li:before {
+            content: "\2610";
+            margin-right: 5px;
+        }
+*/
+
+        #nameText {
+            font-weight: bold;
+        }
+
+        ;
+    </style>
+</head>
+
+<body ng-app="patientParser"
+    ng-controller="MainCtrl">
+
+    <textarea id="listInfo"
+        rows="4"
+        cols="50">		test1, test1	8CP 853 02	72 years	Male	1014542	  0.8 Days
+		test2, test2	18J J1809 01	36 years	Male	1346624	 15.5 Days
+		test3, test3	10H 1067 01	33 years	Male	6619729	  7.1 Days</textarea>
+    <button type="button"
+        id="submitButton">Submit</button>
+
+        <ui-view></ui-view>
+
+
+    <div id="printArea">
+
+    </div>
+
+    <input type="button"
+        onclick="printDiv('printArea')"
+        value="print a div!" />
+
+
+        <script type="text/ng-template" id="/home.html">
+
+          <div id="patientTotalInfo">
+            <div id="patientInfo">
+              <div id="nameText">test1, test1</div>
+              <div style="white-space: pre;">Room 8CP 853 02        ☐</div>
+              <div>Age: 72 years</div><div>Gender: Male</div>
+              <div style="white-space: pre;">MRN: 1014542            I/O:</div>
+              <div>LOS:   0.8 Days
+          </div>
+        </div>
+        <div id="cbcAndBmr" style="">
+          <ul>
+            <li> \____/</li>
+            <li> /<span style="white-space: pre;">        </span>\</li>
+            <li> <span style="white-space: pre;">        </span></li>
+            <li> <span style="white-space: pre;">        </span></li>
+            <li>___|____|___/</li>
+            <li><span style="white-space: pre;">      |        |      \</span></li>
+            <li> </li>
+          </ul>
+        </div>
+
+          <div id="dailyTodo" class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+              <div class='checkbox' ng-repeat="dailyTodo in dailyTodos">
+                <label>
+                  <input type="checkbox"> {{ dailyTodo }} </input>
+                </label>
+              </div>
+            </div>
+
+          </div>
+          <div id="followUps" class="row">
+            <div class="col-sm-4 col-sm-offset-4">
+              <div class='checkbox' ng-repeat="newTodo in newTodos track by $index">
+                <label>
+                  <input type="checkbox"> {{ newTodo }} </input>
+                </label>
+              </div>
+          </div>
+        </div>
+
+        </script>
+
+    <script>
+        document.getElementById("submitButton").addEventListener("click", buttonClicked);
+
+        function buttonClicked() {
+            var dailyToDos = [
+                "Consults",
+                "Andon - ☐ VTE/Glucose",
+                "MAR 48: ☐ IV meds",
+                "AM Labs",
+                "Disharge/Dispo",
+                "Learning"
+            ];
+            var followUps = ["___________________",
+                "___________________",
+                "___________________",
+                "___________________",
+                "___________________",
+                "___________________"
+            ];
+            var cbcAndBmr = [
+
+                "       \\____/",
+                "       /        \\",
+
+                " ",
+
+                "___|____|___/",
+                "      |        |      \\",
+                " "
+
+            ];
+
+            var beginString = document.getElementById("listInfo").value.trim()
+            var choppedStringOne = beginString.split("		");
+            for (let stringOne of choppedStringOne) { //Breaks entered text into patient specific chunks
+                var choppedStringTwo = stringOne.split("	");
+                var i = 0;
+                var elementOne = document.createElement("div");
+                elementOne.id = "patientTotalInfo"
+                var elementTwo = document.createElement("div");
+                elementTwo.id = "patientInfo"
+                elementOne.appendChild(elementTwo);
+                for (let stringTwo of choppedStringTwo) { //Breaks a patient chunck into it's specific parts
+                    switch (i) {
+                        case 0:
+                            var nameText = `${stringTwo}`;
+                            console.log(nameText);
+                            var elementThree = document.createElement("div");
+                            elementThree.id = "nameText";
+                            elementThree.appendChild(document.createTextNode(nameText));
+                            elementTwo.appendChild(elementThree);
+                            break;
+                        case 1:
+                            var roomText = `Room ${stringTwo}        ☐`;
+                            console.log(roomText);
+                            var elementThree = document.createElement("div");
+                            elementThree.style.whiteSpace = "pre";
+                            elementThree.appendChild(document.createTextNode(roomText));
+                            elementTwo.appendChild(elementThree);
+                            break;
+                        case 2:
+                            var ageText = `Age: ${stringTwo}`;
+                            console.log(ageText)
+                            var elementThree = document.createElement("div");
+                            elementThree.appendChild(document.createTextNode(ageText));
+                            elementTwo.appendChild(elementThree);
+                            break;
+                        case 3:
+                            var genderText = `Gender: ${stringTwo}`;
+                            console.log(genderText)
+                            var elementThree = document.createElement("div");
+                            elementThree.appendChild(document.createTextNode(genderText));
+                            elementTwo.appendChild(elementThree);
+                            break;
+                        case 4:
+                            var mrnText = `MRN: ${stringTwo}            I/O:`;
+                            console.log(mrnText);
+                            var elementThree = document.createElement("div");
+                            elementThree.style.whiteSpace = "pre";
+                            elementThree.appendChild(document.createTextNode(mrnText));
+                            elementTwo.appendChild(elementThree);
+                            break;
+                        case 5:
+                            var losText = `LOS: ${stringTwo}`;
+                            console.log(losText);
+                            var elementThree = document.createElement("div");
+                            elementThree.appendChild(document.createTextNode(losText));
+                            elementTwo.appendChild(elementThree);
+                            break;
+                        case 6:
+                            // Add rounding order
+                            var raText = `Rounding order _____`;
+                            var elementRoundingOrder = document.createElement("div");
+                            elementRoundingOrder.appendChild(document.createTextNode(raText));
+                            elementTwo.appendChild(elementRoundingOrder);
+                            break;
+                        default:
+
+
+                    }
+
+                    document.getElementById('printArea').appendChild(elementOne);
+                    i++;
+                }
+
+                // create and add daily cbc and bmr...
+                var elementSix = document.createElement("div");
+                elementSix.id = "cbcAndBmr";
+                elementSix.style.whiteSpace = "pre";
+                elementSix.appendChild(makeUL(cbcAndBmr));
+                elementOne.appendChild(elementSix);
+
+
+                // create and add the daily todos
+                var elementFour = document.createElement("div");
+                elementFour.id = "dailyTodo";
+                elementFour.appendChild(makeUL(dailyToDos));
+                elementOne.appendChild(elementFour);
+
+                // creat and add some blanks for followups
+                var elementFive = document.createElement("div");
+                elementFive.id = "followUps";
+                elementFive.appendChild(makeUL(followUps));
+                elementOne.appendChild(elementFive);
+            }
+
+
+        };
+
+        function makeUL(array) {
+            // Create the list element:
+            var list = document.createElement('ul');
+
+            for (var i = 0; i < array.length; i++) {
+                // Create the list item:
+                var item = document.createElement('li');
+
+                // Set its contents:
+                item.appendChild(document.createTextNode(array[i]));
+
+                // Add it to the list:
+                list.appendChild(item);
+            }
+
+            // Finally, return the constructed list:
+            return list;
+        }
+
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+        }
+    </script>
+    <br />
+    <a href="./index.html">Main Page</a>
+
+</body>
+
+</html>
