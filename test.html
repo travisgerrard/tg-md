@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Test</title>
+    <style>
+        input {
+            width: 20px;
+            outline: none;
+            border-width: 0 0 0 0;
+        }
+
+        #parent {
+            display: flex;
+        }
+
+        #parentBottom {
+            margin: 0 0 0 27px;
+        }
+
+        #textInputLower {
+            position: relative;
+            bottom: -9px;
+        }
+
+        #edgeBoxBottom {
+            position: relative;
+            bottom: 9px;
+        }
+
+        #underlineInput {
+            border-width: 0 0 2px 0;
+            border-style: solid;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="parentTop">
+        <input type="text" id="textInputLower" />
+        <label>\</label>
+        <input type="text" id="underlineInput" />
+        <label>/</label>
+    </div>
+    <div id="parentBottom">
+        <label>/</label>
+        <input type="text" />
+        <label>\</label>
+        <input type="text" id="edgeBoxBottom" />
+    </div>
+    <br />
+    <div id="BMRTop">
+        <input type="text" id="underlineInput" />
+        <label>|</label>
+        <input type="text" id="underlineInput" />
+        <label>|</label>
+        <input type="text" id="underlineInput" />
+        <label>/</label>
+        <input type="text" id="textInputLower" />
+    </div>
+    <div class="BMRBottom">
+        <input type="text" />
+        <label>|</label>
+        <input type="text" />
+        <label>|</label>
+        <input type="text" />
+        <label>\</label>
+    </div>
+    <br />
+    <div class="InsAndOuts">
+        <label>Input</label>
+        <input type="text" />
+        <label>Output</label>
+        <input type="text" />
+    </div>
+</body>
+
+</html>
