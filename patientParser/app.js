@@ -21,6 +21,7 @@ app.controller('MainCtrl', [
     function($scope) {
         $scope.test = 'Hello world!';
 
+
         $scope.dailyTodos = ['Consults', 'Andon - VTE/Glucose', 'MAR 48', 'IV Meds', 'AM Labs', 'Discharge/Dispo', 'Learning'];
         $scope.newTodos = ['________________', '________________', '________________', '________________', '________________', '________________', '________________'];
 
