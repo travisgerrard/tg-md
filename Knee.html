@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>knee</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+    <style>
+    ul {
+      list-style-type: none;
+    }
+    </style>
+
+</head>
+
+<body>
+    <div id="main">
+    </div>
+    <script type="text/babel">
+
+    var standingExam = [
+        { test: 'alignment',  infoGained: 'valgus and varus alignment' },
+        { test: 'gait',  infoGained: 'limping, overpronation'},
+    ];
+
+    var sittingExam = [
+        { test: 'hipROM', infoGained: 'internal and external rotation of the leg'},
+        { test: 'crepitus', infoGained: 'medial, lateral, or patellofemoral compartments; often related to osteoarthritis, patellofemoral syndrome'},
+        { test: 'jointLineTenderness', infoGained: 'find the joint line on either side of the patellar tendon; palpate firmly'},
+        { test: 'tendernessAboveAndBelowTheJointLine', infoGained: 'generalized tenderness of osteoarthritis; tenderness along the collateral ligaments'},
+        { test: 'pesAnserineTenderness', infoGained: 'just medial to the tibial tubercule'},
+    ];
+
+    var supineExam = [
+        { test: 'effusion', infoGained: 'note if there is a effusion, size, warmth, overlying skin change'},
+        { test: 'patellar Alignment', infoGained: 'increased Q-angle predisposes to patellofemoral syndrome'},
+        { test: 'patellarApprehension', infoGained: 'suggestive of patellar instability'},
+        { test: 'patellarGrind', infoGained: 'often more painful in patellofemoral syndrome'},
+        { test: 'menisacalExam', infoGained: 'McMurray\'s test'},
+        { test: 'collateralLigamentExam', infoGained: 'valgus (MCL), and varus (LCL) stress testing'},
+        { test: 'cruciateLigamentExamDrawerTesting', infoGained: 'anterior (ACL) and posterior (PCL) drawer; less reliable than Lachman\'s'},
+        { test: 'cruciateLigamentExamLachmansTest', infoGained: 'for ACL; need relaxed hamstring'},
+    ];
+
+    var ddx = [
+      { test: 'Osteoarthritis', infoGained: 'bony and synovial hypertrophy, diffuse tenderness, xrays' },
+      { test: 'Patellofemoral syndrome', infoGained: 'feet, alignment, quadriceps atrophy, patellar facet pain, patellar grind'},
+      { test: 'Patellar instability', infoGained: 'patellar apprehension'},
+      { test: 'Meniscal tear', infoGained: 'join line tenderness, McMurry\'s test'},
+      { test: 'Collateral ligament sprain (MCL, LCL)', infoGained: 'tenderness, pain and/or laxity with valgus or varus stress'},
+      { test: 'Cruciate ligament sprain (ACL, PCL)', infoGained: 'drawer testing, Lachman test'},
+      { test: 'Fracture', infoGained: 'xrays'},
+    ];
+
+    var ExamRow = React.createClass({
+      render: function() {
+        return(
+
+            <li>{this.props.component.test} : {this.props.component.infoGained}</li>
+          
+        )
+      }
+    });
+
+    var ExamList = React.createClass({
+      render: function() {
+        var examRows = this.props.components.map(function(component) {
+          return <ExamRow key={component.test} component={component} />
+        });
+        return (
+          <div>
+            <ul>
+            {examRows}
+            </ul>
+          </div>
+        )
+      }
+    });
+
+    var PhysicalExam = React.createClass({
+      render: function() {
+        return (
+          <div>
+              <h1>The KNEE</h1>
+              <h1>Standing</h1>
+             <ExamList components={standingExam} />
+             <h1>Sitting</h1>
+             <ExamList components={sittingExam} />
+             <h1>Supine</h1>
+             <ExamList components={supineExam} />
+             <h1>DDx</h1>
+             <ExamList components={ddx} />
+          </div>
+        )
+      }
+    });
+
+    ReactDOM.render(
+      <PhysicalExam />,
+      document.getElementById('main')
+    );
+    </script>
+
+</body>
+
+</html>
