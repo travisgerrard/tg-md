@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Shoulder</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+    <style>
+    ul {
+      list-style-type: none;
+    }
+    </style>
+
+</head>
+
+<body>
+    <div id="main">
+    </div>
+    <script type="text/babel">
+
+    var palpation = [
+        { test: 'AC joint',  infoGained: '' },
+        { test: 'Lateral acromion',  infoGained: ''},
+        { test: 'Bicepts tendon',  infoGained: ''},
+    ];
+
+    var rangeOfMotion = [
+        { test: 'Forward flexion',  infoGained: '0 - 180 degrees' },
+        { test: 'External rotation',  infoGained: '0 - 80 degrees'},
+        { test: 'Internal rotation',  infoGained: 'T2 - Superior angle of the scapula / T4 - scapular spine / T7 - inferior angle of the scapula'},
+    ];
+
+    var rotatorCuffTestSITS = [
+        { test: 'Forward flexion',  infoGained: 'Supraspinatus' },
+        { test: 'External rotation',  infoGained: 'Infraspinatus and teres minor'},
+        { test: 'Internal rotation',  infoGained: 'Subscapularis'},
+    ];
+
+    var provocativeManeuvers = [
+        { test: 'Impingement tests',  infoGained: 'Hawkins test / Neers test' },
+        { test: 'AC Joint compression',  infoGained: ''},
+        { test: 'Bicepts tendon signs',  infoGained: 'Yergason test / Speed sign'},
+    ];
+
+    var instability = [
+        { test: 'Sulcus sign', infoGained: ''},
+        { test: 'Apprehension and relocation', infoGained: ''},
+    ];
+
+    var ddx = [
+      { test: 'Fracture', infoGained: 'Tenderness, xrays' },
+      { test: 'Dislocation', infoGained: 'deformity, weakness, xrays'},
+      { test: 'Arthritis', infoGained: 'AC - tenderness, cross arm adduction, xrays / Glenohumeral - ROM, weakness 2/2 pain, xrays' },
+      { test: 'Impingement', infoGained: 'ROM, impingement signs' },
+      { test: 'Rotator cuff tendonitis or tears', infoGained: 'ROM, weakness' },
+      { test: 'Adhesive capsulitis', infoGained: 'ROM' },
+      { test: 'Biceps tendonitis', infoGained: 'Tenderness, bicepts tendon signs' },
+      { test: 'Instability', infoGained: 'sulcus sign, apprehension and relocation' },
+      { test: 'Sprain', infoGained: 'tenderness, ROM, weakness' },
+      { test: 'referred pain', infoGained: 'Spurlings maneuver'},
+    ];
+
+    var ExamRow = React.createClass({
+      render: function() {
+        return(
+
+            <li>{this.props.component.test} : {this.props.component.infoGained}</li>
+
+        )
+      }
+    });
+
+    var ExamList = React.createClass({
+      render: function() {
+        var examRows = this.props.components.map(function(component) {
+          return <ExamRow key={component.test} component={component} />
+        });
+        return (
+          <div>
+            <ul>
+            {examRows}
+            </ul>
+          </div>
+        )
+      }
+    });
+
+    var PhysicalExam = React.createClass({
+      render: function() {
+        return (
+          <div>
+              <h1>The Shoulder</h1>
+              <h1>Palpation</h1>
+             <ExamList components={palpation} />
+             <h1>Range Of Motion</h1>
+             <ExamList components={rangeOfMotion} />
+             <h1>Rotator cuff test (SITS)</h1>
+             <ExamList components={rotatorCuffTestSITS} />
+             <h1>Provocative Maneuvers</h1>
+             <ExamList components={provocativeManeuvers} />
+             <h1>Instability</h1>
+             <ExamList components={instability} />
+             <h1>DDx</h1>
+             <ExamList components={ddx} />
+          </div>
+        )
+      }
+    });
+
+    ReactDOM.render(
+      <PhysicalExam />,
+      document.getElementById('main')
+    );
+    </script>
+
+</body>
+
+</html>
