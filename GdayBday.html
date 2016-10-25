@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Hello React!</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+
+		<style>
+		th, td {border: 1px solid silver; padding: 2px;}
+		table {border-collapse: collapse};
+	</style>
+
+	</head>
+	<body>
+		<div id="main"></div>
+		<script type="text/babel">
+		var BugFilter = React.createClass({
+		  render: function() {
+		    return (
+		      <div>A way to filter the list of bugs would come here.</div>
+		    )
+		  }
+		});
+
+		var BugRow = React.createClass({
+		  render: function() {
+		    return (
+		      <tr>
+		        <td>{this.props.bug.question}</td>
+		      </tr>
+		    )
+		  }
+		});
+
+		var BugTable = React.createClass({
+		  render: function() {
+		    var bugRows = this.props.bugs.map(function(bug) {
+		      return <BugRow key={bug.question} bug={bug} />
+		    });
+		    return (
+		      <table>
+		        <thead>
+		          <tr>
+		            <th>question</th>
+			          </tr>
+		        </thead>
+		        <tbody>
+		          {bugRows}
+		        </tbody>
+		      </table>
+		    )
+		  }
+		});
+
+		var BugAdd = React.createClass({
+		  render: function() {
+		    return (
+		      <div>A form to add a new bug would come here.</div>
+		    )
+		  }
+		});
+
+		var inOrOut = [
+			{ question: 'Inpatient' },
+			{ question: 'Outpatient'},
+		];
+
+		var progYear = [
+			{ question: 'MS3' },
+			{ question: 'MS4' },
+			{ question: 'PGY-1 (MEDICINE)' },
+			{ question: 'PGY-1 (Preliminary / transitional / PA)' },
+			{ question: 'PGY -2 (Senior)' },
+			{ question: 'PGY-3 (Senior)' },
+			{ question: 'PGY-4 (Amy and Ana)' },
+			{ question: 'PGY-5 or more (Alvin, Paul)' },
+		];
+
+		var purpose = [
+			{ question: 'I have a very clear idea about the purpose or meaning of my life' },
+			{ question: 'I have a pretty good idea about the purpose or meaning of my life' },
+			{ question: 'I have a hint about my purpose in life' },
+			{ question: 'I do not know the purpose or meaning of my life' },
+			{ question: 'My life does not have any purpose or meaning' },
+		];
+
+		var joy = [
+			{ question: 'My life is filled with joy' },
+			{ question: 'I have much more joy than sorrow in my life' },
+			{ question: 'I have more joy than sorrow in my life' },
+			{ question: 'I have neither sorrow nor joy in my life' },
+			{ question: 'I have sorrow in my life' },
+		];
+
+		var interest = [
+			{ question: 'Most of the time I feel fascinated by what I am doing' },
+			{ question: 'Most of the time I feel quite interested in what I am doing' },
+			{ question: 'Most of the time I feel interested in what I am doing' },
+			{ question: 'Most of the time I feel neither bored nor interested in what I am doing' },
+			{ question: 'Most of the time I feel bored' },
+		];
+
+		var work = [
+			{ question: 'I truly love my work' },
+			{ question: 'I really like my work' },
+			{ question: 'For the most part, I like my work' },
+			{ question: 'I feel neutral about my work' },
+			{ question: 'I do not like my work (paid or unpaid)' },
+		];
+
+		var future = [
+			{ question: 'I feel extraordinarily optimistic about my future' },
+			{ question: 'I feel quite optimistic about my future' },
+			{ question: 'I feel somewhat optimistic about my future' },
+			{ question: 'I am neither optimistic nor pessimistic about my future' },
+			{ question: 'I am pessimistic about my future' },
+		];
+
+		var skill = [
+			{ question: 'My skills are always appropriately challenged by the situations I encounter' },
+			{ question: 'My skills are often appropriately challenged by the situations I encounter' },
+			{ question: 'My skills are sometimes appropriately challenged by the situations I encounter' },
+			{ question: 'My skills are occasionally appropriately challenged by the situations I encounter' },
+			{ question: 'My skills are never appropriately challenged by the situations I encounter' },
+		];
+
+		var qualityOfLife = [
+			{ question: 'As good as it can be' },
+			{ question: 'Somewhat good' },
+			{ question: 'Neutral' },
+			{ question: 'Somewhat bad' },
+			{ question: 'As bad as it can be' },
+		];
+
+		var BugList = React.createClass({
+		  render: function() {
+		    return (
+		      <div>
+		        <h1>Bug Tracker</h1>
+		        <BugFilter />
+		        <hr />
+		        <BugTable bugs={inOrOut}/>
+						<BugTable bugs={progYear}/>
+						<BugTable bugs={purpose}/>
+						<BugTable bugs={joy}/>
+						<BugTable bugs={interest}/>
+						<BugTable bugs={work}/>
+						<BugTable bugs={future}/>
+						<BugTable bugs={skill}/>
+						<BugTable bugs={qualityOfLife}/>
+		        <hr />
+		        <BugAdd />
+		      </div>
+		    )
+		  }
+		});
+
+		ReactDOM.render(
+		  <BugList />,
+		  document.getElementById('main')
+		);
+		</script>
+	</body>
+</html>
