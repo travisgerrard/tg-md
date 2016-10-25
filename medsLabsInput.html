@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Patient Parser</title>
+    <style>
+        #patientTotalInfo {
+            width: 100%;
+            text-align: left;
+        }
+
+        #patientInfo {
+            width: 200px;
+            /*float: left;*/
+            display: inline-block;
+            zoom: 1;
+        }
+
+        #dailyTodo {
+            width: 225px;
+            /*font-size: 12px;*/
+            /*float: left;*/
+            display: inline-block;
+            zoom: 1;
+        }
+
+        #dailyTodo li:before {
+            content: "\2610";
+            margin-right: 5px;
+        }
+
+        #followUps {
+            width: 150px;
+            /*float: left;*/
+            display: inline-block;
+            zoom: 1;
+        }
+
+        #followUps li:before {
+            content: "\2610";
+            margin-right: 5px;
+        }
+
+        #cbcAndBmr {
+            width: 140px;
+            /*float: left;*/
+            display: inline-block;
+            zoom: 1;
+        }
+
+        ul {
+            list-style: none;
+        }
+        /*
+        li:before {
+            content: "\2610";
+            margin-right: 5px;
+        }
+*/
+
+        #nameText {
+            font-weight: bold;
+        }
+
+        ;
+    </style>
+</head>
+
+<body>
+    <textarea id="listInfo"
+        rows="4"
+        cols="50">
+Scheduled (8)
+
+
+Next Dose
+
+
+acetaminophen (acetaminophen oral tablet)650 mg, 2 tab(s), PO, Q6 HR10/24/16 12:00
+
+
+
+
+ondansetron4 mg, 2 mL, IV, Q6 HR10/24/16 12:00
+
+
+
+
+pancrelipase (pancrelipase 20,880 unit(s)-78,300 unit(s)-78,300 unit(s) oral tablet)1 tab(s), PO, TID With Meals10/24/16 12:30
+
+
+
+
+gabapentin600 mg, 2 cap(s), PO, Q8 HR10/24/16 14:00
+
+
+
+
+sodium chloride (saline lock flush-peripheral line)3 mL, IV, Q12 HR10/24/16 21:00
+
+
+
+
+sodium chloride (saline lock flush-peripheral line)3 mL, IV, Q12 HR10/24/16 21:00
+
+
+
+
+omeprazole20 mg, 1 cap(s), PO, Daily Before Breakfast10/25/16 07:30
+
+
+
+
+DULoxetine60 mg, 2 cap(s), PO, Daily10/25/16 09:00
+
+
+
+
+-Continuous (1)
+
+
+
+
+Dextrose 5% with 0.9% NaCl 1,000 mL100 mL/hr, IV
+
+
+
+
+-PRN/Unscheduled Available (6)
+
+
+Last Dose
+
+
+HYDROmorphone PCA 0.4 mg/mL12 mg, 30 mL, 0 mL/hr, IV, Q8 HR, PRN: Pain10/24/16 09:12
+
+
+
+
+metoclopramide10 mg, 2 mL, IV, Q6 HR, PRN: Nausea10/23/16 21:38
+
+
+
+
+docusate100 mg, 1 cap(s), PO, Daily, PRN: Constipation10/23/16 14:15
+
+
+
+
+naloxone0.1 mg, 0.25 mL, IV, Q1 Minute, PRN: Respiratory Rate <8 and Unarousable
+
+
+
+
+polyethylene glycol 3350 (MIRALAX / generic equiv.)17 g, 1 packet(s), PO, BID, PRN: Constipation
+
+
+
+
+senna1 tab(s), PO, Q12 HR, PRN: Constipation
+
+
+
+
++Administered (8) Last 12 hours
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-Suspended (0)
+
+
++Discontinued (2) Last 12 hours
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Labs
+
+
+
+Last 7 days for all visits
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Today
+within
+
+Previous
+within
+
+
+
+
+-General Lab (74)
+
+
+
+White Blood Cell Count  17.3
+5 hrs
+
+
+  22.3
+29 hrs
+
+
+  25.9
+3 days
+
+
+
+Red Blood Cell Count  3.19
+5 hrs
+
+
+  3.79
+29 hrs
+
+
+  3.98
+3 days
+
+
+
+Hemoglobin  8.7
+56 mins
+
+
+  9.0
+5 hrs
+
+
+  8.5
+7 hrs
+
+
+
+Hematocrit  27
+5 hrs
+
+
+  32
+29 hrs
+
+
+  34
+3 days
+
+
+
+Mean Corpuscular Volume 84
+5 hrs
+
+
+ 84
+29 hrs
+
+
+ 84
+3 days
+
+
+
+Mean Corpuscular HGB 28
+5 hrs
+
+
+ 28
+29 hrs
+
+
+ 28
+3 days
+
+
+
+Mean Corpuscular HGB Concentrn 34
+5 hrs
+
+
+ 34
+29 hrs
+
+
+ 33
+3 days
+
+
+
+RBC Distribution Width  16.7
+5 hrs
+
+
+  16.9
+29 hrs
+
+
+  16.8
+3 days
+
+
+
+Platelet Count  487
+5 hrs
+
+
+  460
+29 hrs
+
+
+  413
+3 days
+
+
+
+Lymphocytes, Percent -- 5.6
+3 days
+
+
+ 12.9
+3 days
+
+
+
+Monocytes, Percent -- 9.4
+3 days
+
+
+ 10.3
+3 days
+
+
+
+Granulocytes, Percent -- 84.2
+3 days
+
+
+ 74.8
+3 days
+
+
+
+Eosinophils, Percent -- 0.5
+3 days
+
+
+ 1.3
+3 days
+
+
+
+Basophils, Percent -- 0.3
+3 days
+
+
+ 0.7
+3 days
+
+
+
+Lymphocytes, Absolute Count --  0.9
+3 days
+
+
+ 1.9
+3 days
+
+
+
+Monocytes, Absolute Count --  1.5
+3 days
+
+
+  1.5
+3 days
+
+
+
+Granulocytes, Absolute Count --  13.4
+3 days
+
+
+  11.0
+3 days
+
+
+
+Eosinophils, Absolute Count -- 0.1
+3 days
+
+
+ 0.2
+3 days
+
+
+
+Basophils, Absolute Count -- 0.1
+3 days
+
+
+ 0.1
+3 days
+
+
+
+Lymphocytes Percent -- 10
+29 hrs
+
+
+ 4
+3 days
+
+
+
+Monocytes Percent -- 11
+29 hrs
+
+
+ 6
+3 days
+
+
+
+Polymorphonuclear Leukocytes Percent -- 76
+29 hrs
+
+
+ 85
+3 days
+
+
+
+Bands Percent -- 2
+29 hrs
+
+
+ 4
+3 days
+
+
+
+Eosinophils Percent -- 0
+29 hrs
+
+
+ 0
+3 days
+
+
+
+Basophils Percent -- 0
+29 hrs
+
+
+ 0
+3 days
+
+
+
+Metamyelocytes Percent --  1
+29 hrs
+
+
+  1
+3 days
+
+
+
+Lymphocytes Absolute Count -- 2.23
+29 hrs
+
+
+ 1.04
+3 days
+
+
+
+Monocytes Absolute Count --  2.45
+29 hrs
+
+
+  1.55
+3 days
+
+
+
+Polymorphonuclear Leuk Absolute Count --  16.95
+29 hrs
+
+
+  22.02
+3 days
+
+
+
+Bands Absolute Count -- 0.45
+29 hrs
+
+
+  1.04
+3 days
+
+
+
+Eosinophils Absolute Count -- 0.00
+29 hrs
+
+
+ 0.00
+3 days
+
+
+
+Basophils Absolute Count -- 0.00
+29 hrs
+
+
+ 0.00
+3 days
+
+
+
+Metamyelocytes Absolute Count --  0.22
+29 hrs
+
+
+  0.26
+3 days
+
+
+
+Morphology -- Done
+29 hrs
+
+
+ Done
+3 days
+
+
+
+Polychromasia -- 1+
+29 hrs
+
+
+ 1+
+3 days
+
+
+
+Prothrombin Time -- 13.8
+3 days
+
+
+ --
+INR -- 1.1
+3 days
+
+
+ --
+Anti-Xa - Heparin, Unfractionated -- <0.1
+20 hrs
+
+
+ <0.1
+6 days
+
+
+
+Sodium Level  131
+5 hrs
+
+
+  131
+29 hrs
+
+
+  131
+3 days
+
+
+
+Potassium Level 4.6
+5 hrs
+
+
+ 4.2
+29 hrs
+
+
+ 4.2
+3 days
+
+
+
+Chloride Level  95
+5 hrs
+
+
+  93
+29 hrs
+
+
+  98
+3 days
+
+
+
+Carbon Dioxide Content (CO2) 28
+5 hrs
+
+
+ 27
+29 hrs
+
+
+ 22
+3 days
+
+
+
+Anion Gap, Blood 8
+5 hrs
+
+
+ 11
+29 hrs
+
+
+ 11
+3 days
+
+
+
+Creatinine, Serum  0.53
+5 hrs
+
+
+  0.54
+29 hrs
+
+
+  0.50
+3 days
+
+
+
+eGFR (NonAfrican-American) >60
+5 hrs
+
+
+ >60
+29 hrs
+
+
+ >60
+3 days
+
+
+
+eGFR (African-American) >60
+5 hrs
+
+
+ >60
+29 hrs
+
+
+ >60
+3 days
+
+
+
+Urea Nitrogen  5
+5 hrs
+
+
+  5
+29 hrs
+
+
+  5
+3 days
+
+
+
+Total Protein Plasma --  5.5
+29 hrs
+
+
+ --
+Albumin Level --  2.3
+29 hrs
+
+
+ --
+Calcium Level --  8.4
+29 hrs
+
+
+ --
+Magnesium Level --  1.6
+29 hrs
+
+
+  1.4
+3 days
+
+
+
+Phosphorus Level --  5.1
+29 hrs
+
+
+  5.5
+3 days
+
+
+
+Alkaline Phosphatase -- 124
+29 hrs
+
+
+  161
+3 days
+
+
+
+ALT (SGPT) -- 6
+29 hrs
+
+
+ --
+AST (SGOT) -- 13
+29 hrs
+
+
+ --
+Bilirubin Total Level -- 0.7
+29 hrs
+
+
+ --
+Glucose Random 109
+5 hrs
+
+
+  162
+29 hrs
+
+
+  163
+3 days
+
+
+
+Troponin I -- <0.030
+29 hrs
+
+
+ <0.030
+3 days
+
+
+
+Glucose Fingerstick 114
+3 hrs
+
+
+ 111
+11 hrs
+
+
+ 101
+16 hrs
+
+
+
+Lactic Acid, Whole Blood -- 1.0
+29 hrs
+
+
+ --
+pH, Urine -- 6.0
+5 days
+
+
+ --
+Specific Gravity, Urine -- 1.024
+5 days
+
+
+ --
+Protein, Urine -- negative (Arkray Protein)
+5 days
+
+
+ --
+Glucose, Qualitative Urine --  1+
+5 days
+
+
+ --
+Ketones, Urine -- negative (Arkray)
+5 days
+
+
+ --
+Blood, Urine -- negative (Arkray)
+5 days
+
+
+ --
+Urine Leukocyte Esterase -- negative (Arkray)
+5 days
+
+
+ --
+Urine Nitrite -- negative (Arkray)
+5 days
+
+
+ --
+U Sediment -- ABNORMAL AUTO
+5 days
+
+
+ --
+Urine C/S If Indicated -- Not Indicated
+5 days
+
+
+ --
+UA RBC Auto --  1+
+5 days
+
+
+ --
+UA WBC Auto --  1+
+5 days
+
+
+ --
+Epithelial Cells -- 1+
+5 days
+
+
+ --
+Add On Lab -- Added
+28 hrs
+
+
+ Added
+48 hrs
+
+
+
+
+
+-Blood Bank (4)
+
+
+
+Red Blood Cells -- See BB MPage
+3 days
+
+
+ --
+Electronic Crossmatch Allocation -- Eligible
+3 days
+
+
+ --
+Specimen for PSBC Crossmatch -- Sent to PSBC
+3 days
+
+
+ --
+Confirmatory ABO/Rh second sample -- Sent to PSBC
+3 days
+
+
+ --
+
+
+ Intake and Output
+
+
+
+Selected visit (24 hour periods starting at 07:00)
+
+
+
+
+
+10/24/16*
+
+10/23/16
+
+10/22/16
+
+
+
+
+Total Summary
+
+IntakemL   2527 4736
+OutputmL   895 1275
+Fluid Balance   1632 3461
+
+
+-Intake (7)
+
+
+
+Lactated Ringers Injection     2000
+sodium chloride     6
+Sodium Chloride 0.9%     1000
+sterile water + magnesium sulfate   100 100
+Dextrose 5% in Water + HYDROmorphone   90 60
+Dextrose 5% with 0.45% NaCl 1,000 mLmL   2217
+
+
+ 1570
+
+
+
+Nasojejunal Nostril, rightmL   120
+Total   2527 4736
+
+
+-Output (2)
+
+
+
+Urine voidedmL   895 825
+EmesismL     450
+Total   895 1275
+</textarea>
+    <button type="button"
+        id="submitButton">Submit</button>
+    <div id="printArea">
+
+    </div>
+
+    <input type="button"
+        onclick="printDiv('printArea')"
+        value="print a div!" />
+    <script>
+        document.getElementById("submitButton").addEventListener("click", buttonClicked);
+
+        function buttonClicked() {
+
+
+            var beginString = document.getElementById("listInfo").value.trim()
+            var choppedStringOne = beginString.split("		");
+            console.log(choppedStringOne);
+            for (let stringOne of choppedStringOne) { //Breaks entered text into patient specific chunks
+                var choppedStringTwo = stringOne.split("	");
+                var i = 0;
+                var elementOne = document.createElement("div");
+                elementOne.id = "patientTotalInfo"
+                var elementTwo = document.createElement("div");
+                elementTwo.id = "patientInfo"
+                elementOne.appendChild(elementTwo);
+                for (let stringTwo of choppedStringTwo) { //Breaks a patient chunck into it's specific parts
+                    switch (i) {
+                        case 0:
+                            var nameText = `${stringTwo}`;
+                            console.log(nameText);
+                            var elementThree = document.createElement("div");
+                            elementThree.id = "nameText";
+                            elementThree.appendChild(document.createTextNode(nameText));
+                            elementTwo.appendChild(elementThree);
+                            break;
+                        case 1:
+                            var roomText = `Room ${stringTwo}        ☐`;
+                            console.log(roomText);
+                            var elementThree = document.createElement("div");
+                            elementThree.style.whiteSpace = "pre";
+                            elementThree.appendChild(document.createTextNode(roomText));
+                            elementTwo.appendChild(elementThree);
+                            break;
+                        case 2:
+                            var ageText = `Age: ${stringTwo}`;
+                            console.log(ageText)
+                            var elementThree = document.createElement("div");
+                            elementThree.appendChild(document.createTextNode(ageText));
+                            elementTwo.appendChild(elementThree);
+                            break;
+                        case 3:
+                            var genderText = `Gender: ${stringTwo}`;
+                            console.log(genderText)
+                            var elementThree = document.createElement("div");
+                            elementThree.appendChild(document.createTextNode(genderText));
+                            elementTwo.appendChild(elementThree);
+                            break;
+                        case 4:
+                            var mrnText = `MRN: ${stringTwo}            I/O:`;
+                            console.log(mrnText);
+                            var elementThree = document.createElement("div");
+                            elementThree.style.whiteSpace = "pre";
+                            elementThree.appendChild(document.createTextNode(mrnText));
+                            elementTwo.appendChild(elementThree);
+                            break;
+                        case 5:
+                            var losText = `LOS: ${stringTwo}`;
+                            console.log(losText);
+                            var elementThree = document.createElement("div");
+                            elementThree.appendChild(document.createTextNode(losText));
+                            elementTwo.appendChild(elementThree);
+                            break;
+                        case 6:
+                            // Add rounding order
+                            var raText = `Rounding order _____`;
+                            var elementRoundingOrder = document.createElement("div");
+                            elementRoundingOrder.appendChild(document.createTextNode(raText));
+                            elementTwo.appendChild(elementRoundingOrder);
+                            break;
+                        default:
+
+
+                    }
+
+                    document.getElementById('printArea').appendChild(elementOne);
+                    i++;
+                }
+
+                // create and add daily cbc and bmr...
+                var elementSix = document.createElement("div");
+                elementSix.id = "cbcAndBmr";
+                elementSix.style.whiteSpace = "pre";
+                elementSix.appendChild(makeUL(cbcAndBmr));
+                elementOne.appendChild(elementSix);
+
+
+                // create and add the daily todos
+                var elementFour = document.createElement("div");
+                elementFour.id = "dailyTodo";
+                elementFour.appendChild(makeUL(dailyToDos));
+                elementOne.appendChild(elementFour);
+
+                // creat and add some blanks for followups
+                var elementFive = document.createElement("div");
+                elementFive.id = "followUps";
+                elementFive.appendChild(makeUL(followUps));
+                elementOne.appendChild(elementFive);
+            }
+
+
+        };
+
+        function makeUL(array) {
+            // Create the list element:
+            var list = document.createElement('ul');
+
+            for (var i = 0; i < array.length; i++) {
+                // Create the list item:
+                var item = document.createElement('li');
+
+                // Set its contents:
+                item.appendChild(document.createTextNode(array[i]));
+
+                // Add it to the list:
+                list.appendChild(item);
+            }
+
+            // Finally, return the constructed list:
+            return list;
+        }
+
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+        }
+    </script>
+    <br />
+    <a href="./index.html">Main Page</a>
+
+</body>
+
+</html>
