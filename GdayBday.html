@@ -28,7 +28,7 @@
 		  render: function() {
 		    return (
 		      <tr>
-		        <td><input type="radio" name={this.props.bug.category} value ={this.props.bug.question} /> {this.props.bug.question}</td>
+		        <td><input type="radio" name={this.props.bug.category} ref={this.props.bug.category} value ={this.props.bug.question} /> {this.props.bug.question}</td>
 		      </tr>
 		    )
 		  }
@@ -132,12 +132,37 @@
 			{ question: 'As bad as it can be', category: "qualityOfLife" },
 		];
 
+		var fieldValues = {
+		  inOrOut     : null,
+		  progYear    : null,
+		  purpose : null,
+		  joy      : null,
+		  interest   : null,
+			work   : null,
+			future   : null,
+			skill   : null,
+			qualityOfLife   : null,
+		};
+
 		var BugList = React.createClass({
-			handleSubmit(event) {
+			getInitialState: function() {
+					return {
+						step: 1
+					}
+				},
+
+			handleSubmit() {
 			    console.log("Hello");
+					console.log(this.name.inOrOut.getDOMNode().value)
+					this.setState({
+						step : this.state.step + 1
+					})
 			  },
 
 			render: function() {
+				console.log(this.state.step);
+				switch (this.state.step) {
+			case 1:
 		    return (
 		      <div>
 					<form>
@@ -163,6 +188,11 @@
 					</form>
 		      </div>
 		    )
+				case 2:
+					return (
+						<h2>You submitted the form</h2>
+					)
+			}
 		  }
 		});
 
