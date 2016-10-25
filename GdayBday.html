@@ -7,9 +7,9 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
 
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<style>
-		th, td {border: 1px solid silver; padding: 2px;}
-		table {border-collapse: collapse};
+		table {border: 1px solid silver; padding: 2px;};
 	</style>
 
 	</head>
@@ -28,7 +28,7 @@
 		  render: function() {
 		    return (
 		      <tr>
-		        <td>{this.props.bug.question}</td>
+		        <td><input type="radio" name={this.props.bug.category} value ={this.props.bug.question} /> {this.props.bug.question}</td>
 		      </tr>
 		    )
 		  }
@@ -40,16 +40,14 @@
 		      return <BugRow key={bug.question} bug={bug} />
 		    });
 		    return (
-		      <table>
-		        <thead>
-		          <tr>
-		            <th>question</th>
-			          </tr>
-		        </thead>
+					<fieldset id={this.props.bugs[0].category}>
+		      <table calss="table table-hover">
 		        <tbody>
-		          {bugRows}
+						  {bugRows}
 		        </tbody>
 		      </table>
+					</fieldset>
+
 		    )
 		  }
 		});
@@ -63,95 +61,106 @@
 		});
 
 		var inOrOut = [
-			{ question: 'Inpatient' },
-			{ question: 'Outpatient'},
+			{ question: 'Inpatient', category: "inOrOut" },
+			{ question: 'Outpatient', category: "inOrOut" },
 		];
 
 		var progYear = [
-			{ question: 'MS3' },
-			{ question: 'MS4' },
-			{ question: 'PGY-1 (MEDICINE)' },
-			{ question: 'PGY-1 (Preliminary / transitional / PA)' },
-			{ question: 'PGY -2 (Senior)' },
-			{ question: 'PGY-3 (Senior)' },
-			{ question: 'PGY-4 (Amy and Ana)' },
-			{ question: 'PGY-5 or more (Alvin, Paul)' },
+			{ question: 'MS3', category: "progYear" },
+			{ question: 'MS4', category: "progYear" },
+			{ question: 'PGY-1 (MEDICINE)', category: "progYear" },
+			{ question: 'PGY-1 (Preliminary / transitional / PA)', category: "progYear" },
+			{ question: 'PGY -2 (Senior)', category: "progYear" },
+			{ question: 'PGY-3 (Senior)', category: "progYear" },
+			{ question: 'PGY-4 (Amy and Ana)', category: "progYear" },
+			{ question: 'PGY-5 or more (Alvin, Paul)', category: "progYear" },
 		];
 
 		var purpose = [
-			{ question: 'I have a very clear idea about the purpose or meaning of my life' },
-			{ question: 'I have a pretty good idea about the purpose or meaning of my life' },
-			{ question: 'I have a hint about my purpose in life' },
-			{ question: 'I do not know the purpose or meaning of my life' },
-			{ question: 'My life does not have any purpose or meaning' },
+			{ question: 'I have a very clear idea about the purpose or meaning of my life', category: "purpose" },
+			{ question: 'I have a pretty good idea about the purpose or meaning of my life', category: "purpose"  },
+			{ question: 'I have a hint about my purpose in life', category: "purpose"  },
+			{ question: 'I do not know the purpose or meaning of my life', category: "purpose"  },
+			{ question: 'My life does not have any purpose or meaning', category: "purpose"  },
 		];
 
 		var joy = [
-			{ question: 'My life is filled with joy' },
-			{ question: 'I have much more joy than sorrow in my life' },
-			{ question: 'I have more joy than sorrow in my life' },
-			{ question: 'I have neither sorrow nor joy in my life' },
-			{ question: 'I have sorrow in my life' },
+			{ question: 'My life is filled with joy', category: "joy" },
+			{ question: 'I have much more joy than sorrow in my life', category: "joy" },
+			{ question: 'I have more joy than sorrow in my life', category: "joy" },
+			{ question: 'I have neither sorrow nor joy in my life', category: "joy" },
+			{ question: 'I have sorrow in my life', category: "joy" },
 		];
 
 		var interest = [
-			{ question: 'Most of the time I feel fascinated by what I am doing' },
-			{ question: 'Most of the time I feel quite interested in what I am doing' },
-			{ question: 'Most of the time I feel interested in what I am doing' },
-			{ question: 'Most of the time I feel neither bored nor interested in what I am doing' },
-			{ question: 'Most of the time I feel bored' },
+			{ question: 'Most of the time I feel fascinated by what I am doing', category: "interest" },
+			{ question: 'Most of the time I feel quite interested in what I am doing', category: "interest" },
+			{ question: 'Most of the time I feel interested in what I am doing', category: "interest" },
+			{ question: 'Most of the time I feel neither bored nor interested in what I am doing', category: "interest" },
+			{ question: 'Most of the time I feel bored', category: "interest" },
 		];
 
 		var work = [
-			{ question: 'I truly love my work' },
-			{ question: 'I really like my work' },
-			{ question: 'For the most part, I like my work' },
-			{ question: 'I feel neutral about my work' },
-			{ question: 'I do not like my work (paid or unpaid)' },
+			{ question: 'I truly love my work', category: "work" },
+			{ question: 'I really like my work', category: "work" },
+			{ question: 'For the most part, I like my work', category: "work" },
+			{ question: 'I feel neutral about my work', category: "work" },
+			{ question: 'I do not like my work (paid or unpaid)', category: "work" },
 		];
 
 		var future = [
-			{ question: 'I feel extraordinarily optimistic about my future' },
-			{ question: 'I feel quite optimistic about my future' },
-			{ question: 'I feel somewhat optimistic about my future' },
-			{ question: 'I am neither optimistic nor pessimistic about my future' },
-			{ question: 'I am pessimistic about my future' },
+			{ question: 'I feel extraordinarily optimistic about my future', category: "future" },
+			{ question: 'I feel quite optimistic about my future', category: "future" },
+			{ question: 'I feel somewhat optimistic about my future', category: "future" },
+			{ question: 'I am neither optimistic nor pessimistic about my future', category: "future" },
+			{ question: 'I am pessimistic about my future', category: "future" },
 		];
 
 		var skill = [
-			{ question: 'My skills are always appropriately challenged by the situations I encounter' },
-			{ question: 'My skills are often appropriately challenged by the situations I encounter' },
-			{ question: 'My skills are sometimes appropriately challenged by the situations I encounter' },
-			{ question: 'My skills are occasionally appropriately challenged by the situations I encounter' },
-			{ question: 'My skills are never appropriately challenged by the situations I encounter' },
+			{ question: 'My skills are always appropriately challenged by the situations I encounter', category: "skill" },
+			{ question: 'My skills are often appropriately challenged by the situations I encounter', category: "skill"  },
+			{ question: 'My skills are sometimes appropriately challenged by the situations I encounter', category: "skill"  },
+			{ question: 'My skills are occasionally appropriately challenged by the situations I encounter', category: "skill"  },
+			{ question: 'My skills are never appropriately challenged by the situations I encounter', category: "skill"  },
 		];
 
 		var qualityOfLife = [
-			{ question: 'As good as it can be' },
-			{ question: 'Somewhat good' },
-			{ question: 'Neutral' },
-			{ question: 'Somewhat bad' },
-			{ question: 'As bad as it can be' },
+			{ question: 'As good as it can be', category: "qualityOfLife" },
+			{ question: 'Somewhat good', category: "qualityOfLife" },
+			{ question: 'Neutral', category: "qualityOfLife" },
+			{ question: 'Somewhat bad', category: "qualityOfLife" },
+			{ question: 'As bad as it can be', category: "qualityOfLife" },
 		];
 
 		var BugList = React.createClass({
-		  render: function() {
+			handleSubmit(event) {
+			    console.log("Hello");
+			  },
+
+			render: function() {
 		    return (
 		      <div>
-		        <h1>Bug Tracker</h1>
-		        <BugFilter />
-		        <hr />
+					<form>
 		        <BugTable bugs={inOrOut}/>
+						<br />
 						<BugTable bugs={progYear}/>
+						<br />
 						<BugTable bugs={purpose}/>
+						<br />
 						<BugTable bugs={joy}/>
+						<br />
 						<BugTable bugs={interest}/>
+						<br />
 						<BugTable bugs={work}/>
+						<br />
 						<BugTable bugs={future}/>
+						<br />
 						<BugTable bugs={skill}/>
+						<br />
+						<h3>Qulity of life</h3>
 						<BugTable bugs={qualityOfLife}/>
-		        <hr />
-		        <BugAdd />
+						<button onClick={this.handleSubmit}>Submit</button>
+					</form>
 		      </div>
 		    )
 		  }
