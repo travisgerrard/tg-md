@@ -1,3 +1,7 @@
+var React = require('react');
+var ReactDom = require('react-dom');
+var $ = require('jquery');
+
 var BugFilter = React.createClass({
   displayName: "BugFilter",
 
@@ -22,7 +26,7 @@ var BugRow = React.createClass({
       React.createElement(
         "td",
         null,
-        this.props.bug.id
+        this.props.bug._id
       ),
       React.createElement(
         "td",
@@ -54,7 +58,7 @@ var BugTable = React.createClass({
   render: function () {
     console.log("Rendering bug table, num items:", this.props.bugs.length);
     var bugRows = this.props.bugs.map(function (bug) {
-      return React.createElement(BugRow, { key: bug.id, bug: bug });
+      return React.createElement(BugRow, { key: bug._id, bug: bug });
     });
     return React.createElement(
       "table",
