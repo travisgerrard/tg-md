@@ -25,10 +25,16 @@
 		});
 
 		var BugRow = React.createClass({
+			handleChange: function(event) {
+				console.log(this.props.bug);
+				var itemSelected = event.target.value;
+				this.props.onUpdate(this.props.bug);
+			},
+
 		  render: function() {
 		    return (
 		      <tr>
-		        <td><input type="radio" name={this.props.bug.category} ref={this.props.bug.category} value ={this.props.bug.question} /> {this.props.bug.question}</td>
+		        <td><input type="radio" name={this.props.bug.category} value ={this.props.bug.question} onChange={this.handleChange}/> {this.props.bug.question}</td>
 		      </tr>
 		    )
 		  }
@@ -37,8 +43,8 @@
 		var BugTable = React.createClass({
 		  render: function() {
 		    var bugRows = this.props.bugs.map(function(bug) {
-		      return <BugRow key={bug.question} bug={bug} />
-		    });
+		      return <BugRow key={bug.question} bug={bug} onUpdate={this.props.onUpdate}/>
+		    }.bind(this));
 		    return (
 					<fieldset id={this.props.bugs[0].category}>
 		      <table calss="table table-hover">
@@ -47,9 +53,9 @@
 		        </tbody>
 		      </table>
 					</fieldset>
-
 		    )
-		  }
+		  },
+
 		});
 
 		var BugAdd = React.createClass({
@@ -147,56 +153,159 @@
 		var BugList = React.createClass({
 			getInitialState: function() {
 					return {
-						step: 1
+						step: 1,
+						inOrOut     : null,
+						progYear    : null,
+						purpose : null,
+						joy      : null,
+						interest   : null,
+						work   : null,
+						future   : null,
+						skill   : null,
+						qualityOfLife   : null
 					}
 				},
 
-			handleSubmit() {
-			    console.log("Hello");
-					console.log(this.name.inOrOut.getDOMNode().value)
-					this.setState({
-						step : this.state.step + 1
-					})
+			handleSubmit: function(e) {
+					e.preventDefault();
+					if (this.state.inOrOut
+						&& this.state.progYear
+						&& this.state.purpose
+						&& this.state.joy
+						&& this.state.interest
+						&& this.state.work
+						&& this.state.skill
+						&& this.state.future
+					  && this.state.qualityOfLife) {
+						this.setState({
+							step : this.state.step + 1
+						});
+					} else {
+						console.log("A field is empty");
+					}
+
 			  },
 
+				onUpdate: function(val){
+					console.log("radio selected", this.state);
+
+						switch (val.category) {
+							case "inOrOut":
+									this.setState({
+										inOrOut: val.question
+									});
+									break;
+							case "progYear":
+									this.setState({
+										progYear: val.question
+									});
+									break;
+							case "purpose":
+									this.setState({
+										purpose: val.question
+									});
+									break;
+							case "joy":
+									this.setState({
+										joy: val.question
+									});
+									break;
+							case "interest":
+									this.setState({
+										interest: val.question
+									});
+									break;
+							case "work":
+									this.setState({
+										work: val.question
+									});
+									break;
+							case "future":
+									this.setState({
+										future: val.question
+									});
+									break;
+							case "skill":
+									this.setState({
+										skill: val.question
+									});
+									break;
+							case "qualityOfLife":
+									this.setState({
+										qualityOfLife: val.question
+									});
+								break;
+							default:
+						}
+				},
+
+
 			render: function() {
-				console.log(this.state.step);
 				switch (this.state.step) {
 			case 1:
 		    return (
 		      <div>
 					<form>
-		        <BugTable bugs={inOrOut}/>
+		        <BugTable bugs={inOrOut} onUpdate={this.onUpdate}/>
 						<br />
-						<BugTable bugs={progYear}/>
+						<BugTable bugs={progYear} onUpdate={this.onUpdate}/>
 						<br />
-						<BugTable bugs={purpose}/>
+						<BugTable bugs={purpose} onUpdate={this.onUpdate}/>
 						<br />
-						<BugTable bugs={joy}/>
+						<BugTable bugs={joy} onUpdate={this.onUpdate}/>
 						<br />
-						<BugTable bugs={interest}/>
+						<BugTable bugs={interest} onUpdate={this.onUpdate}/>
 						<br />
-						<BugTable bugs={work}/>
+						<BugTable bugs={work} onUpdate={this.onUpdate}/>
 						<br />
-						<BugTable bugs={future}/>
+						<BugTable bugs={future} onUpdate={this.onUpdate}/>
 						<br />
-						<BugTable bugs={skill}/>
+						<BugTable bugs={skill} onUpdate={this.onUpdate}/>
 						<br />
 						<h3>Qulity of life</h3>
-						<BugTable bugs={qualityOfLife}/>
+						<BugTable bugs={qualityOfLife} onUpdate={this.onUpdate}/>
 						<button onClick={this.handleSubmit}>Submit</button>
 					</form>
 		      </div>
 		    )
 				case 2:
 					return (
+						<div>
 						<h2>You submitted the form</h2>
+						<ul>
+							<li>
+								{this.state.inOrOut}
+							</li>
+							<li>
+								{this.state.progYear}
+							</li>
+							<li>
+								{this.state.purpose}
+							</li>
+							<li>
+								{this.state.joy}
+							</li>
+							<li>
+								{this.state.interest}
+							</li>
+							<li>
+								{this.state.work}
+							</li>
+							<li>
+								{this.state.future}
+							</li>
+							<li>
+								{this.state.skill}
+							</li>
+						</ul>
+						</div>
+
 					)
 			}
 		  }
 		});
 
-		ReactDOM.render(
+		var formRendered = ReactDOM.render(
 		  <BugList />,
 		  document.getElementById('main')
 		);
