@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Hello React!</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<style>
+		table {border: 2px solid silver; padding: 2px; margin: 5px auto; }
+		th, td { padding: 0 5px 0 5px; }
+	</style>
+
+	</head>
+	<body>
+		<div id="main"></div>
+		<script type="text/babel">
+		var BugFilter = React.createClass({
+		  render: function() {
+		    return (
+		      <div>A way to filter the list of bugs would come here.</div>
+		    )
+		  }
+		});
+
+		var BugRow = React.createClass({
+			handleChange: function(event) {
+				console.log(this.props.bug);
+				var itemSelected = event.target.value;
+				this.props.onUpdate(this.props.bug);
+			},
+
+		  render: function() {
+		    return (
+		      <tr>
+		        <td><label><input type="radio" name={this.props.bug.category} value ={this.props.bug.question} onChange={this.handleChange}/> {this.props.bug.question}</label></td>
+		      </tr>
+		    )
+		  }
+		});
+
+		var BugTable = React.createClass({
+		  render: function() {
+		    var bugRows = this.props.bugs.map(function(bug) {
+		      return <BugRow key={bug.question} bug={bug} onUpdate={this.props.onUpdate}/>
+		    }.bind(this));
+		    return (
+					<fieldset id={this.props.bugs[0].category}>
+		      <table calss="table table-hover">
+		        <tbody>
+						  {bugRows}
+		        </tbody>
+		      </table>
+					</fieldset>
+		    )
+		  },
+
+		});
+
+		var BugAdd = React.createClass({
+		  render: function() {
+		    return (
+		      <div>A form to add a new bug would come here.</div>
+		    )
+		  }
+		});
+
+		var inOrOut = [
+			{ id: 1, question: 'Inpatient', category: "inOrOut" },
+			{ id: 2, question: 'Outpatient', category: "inOrOut" },
+		];
+
+		var progYear = [
+			{ id: 1, question: 'MS3', category: "progYear" },
+			{ id: 2, question: 'MS4', category: "progYear" },
+			{ id: 3, question: 'PGY-1 (MEDICINE)', category: "progYear" },
+			{ id: 4, question: 'PGY-1 (Preliminary / transitional / PA)', category: "progYear" },
+			{ id: 5, question: 'PGY -2 (Senior)', category: "progYear" },
+			{ id: 6, question: 'PGY-3 (Senior)', category: "progYear" },
+			{ id: 7, question: 'PGY-4 (Amy and Ana)', category: "progYear" },
+			{ id: 8, question: 'PGY-5 or more (Alvin, Paul)', category: "progYear" },
+		];
+
+		var purpose = [
+			{ id: 1, question: 'I have a very clear idea about the purpose or meaning of my life', category: "purpose" },
+			{ id: 2, question: 'I have a pretty good idea about the purpose or meaning of my life', category: "purpose"  },
+			{ id: 3, question: 'I have a hint about my purpose in life', category: "purpose"  },
+			{ id: 4, question: 'I do not know the purpose or meaning of my life', category: "purpose"  },
+			{ id: 5, question: 'My life does not have any purpose or meaning', category: "purpose"  },
+		];
+
+		var joy = [
+			{ id: 1, question: 'My life is filled with joy', category: "joy" },
+			{ id: 2, question: 'I have much more joy than sorrow in my life', category: "joy" },
+			{ id: 3, question: 'I have more joy than sorrow in my life', category: "joy" },
+			{ id: 4, question: 'I have neither sorrow nor joy in my life', category: "joy" },
+			{ id: 5, question: 'I have sorrow in my life', category: "joy" },
+		];
+
+		var interest = [
+			{ id: 1, question: 'Most of the time I feel fascinated by what I am doing', category: "interest" },
+			{ id: 2, question: 'Most of the time I feel quite interested in what I am doing', category: "interest" },
+			{ id: 3, question: 'Most of the time I feel interested in what I am doing', category: "interest" },
+			{ id: 4, question: 'Most of the time I feel neither bored nor interested in what I am doing', category: "interest" },
+			{ id: 5, question: 'Most of the time I feel bored', category: "interest" },
+		];
+
+		var work = [
+			{ id: 1, question: 'I truly love my work', category: "work" },
+			{ id: 2, question: 'I really like my work', category: "work" },
+			{ id: 3, question: 'For the most part, I like my work', category: "work" },
+			{ id: 4, question: 'I feel neutral about my work', category: "work" },
+			{ id: 5, question: 'I do not like my work (paid or unpaid)', category: "work" },
+		];
+
+		var future = [
+			{ id: 1, question: 'I feel extraordinarily optimistic about my future', category: "future" },
+			{ id: 2, question: 'I feel quite optimistic about my future', category: "future" },
+			{ id: 3, question: 'I feel somewhat optimistic about my future', category: "future" },
+			{ id: 4, question: 'I am neither optimistic nor pessimistic about my future', category: "future" },
+			{ id: 5, question: 'I am pessimistic about my future', category: "future" },
+		];
+
+		var skill = [
+			{ id: 1, question: 'My skills are always appropriately challenged by the situations I encounter', category: "skill" },
+			{ id: 2, question: 'My skills are often appropriately challenged by the situations I encounter', category: "skill"  },
+			{ id: 3, question: 'My skills are sometimes appropriately challenged by the situations I encounter', category: "skill"  },
+			{ id: 4, question: 'My skills are occasionally appropriately challenged by the situations I encounter', category: "skill"  },
+			{ id: 5, question: 'My skills are never appropriately challenged by the situations I encounter', category: "skill"  },
+		];
+
+		var qualityOfLife = [
+			{ id: 1, question: 'As good as it can be', category: "qualityOfLife" },
+			{ id: 2, question: 'Somewhat good', category: "qualityOfLife" },
+			{ id: 3, question: 'Neutral', category: "qualityOfLife" },
+			{ id: 4, question: 'Somewhat bad', category: "qualityOfLife" },
+			{ id: 5, question: 'As bad as it can be', category: "qualityOfLife" },
+		];
+
+		var fieldValues = {
+		  inOrOut     : null,
+		  progYear    : null,
+		  purpose : null,
+		  joy      : null,
+		  interest   : null,
+			work   : null,
+			future   : null,
+			skill   : null,
+			qualityOfLife   : null,
+		};
+
+		var BugList = React.createClass({
+			getInitialState: function() {
+					return {
+						step: 1,
+						inOrOut     : null,
+						progYear    : null,
+						purpose : null,
+						joy      : null,
+						interest   : null,
+						work   : null,
+						future   : null,
+						skill   : null,
+						qualityOfLife   : null
+					}
+				},
+
+			handleSubmit: function(e) {
+					e.preventDefault();
+					if (this.state.inOrOut
+						&& this.state.progYear
+						&& this.state.purpose
+						&& this.state.joy
+						&& this.state.interest
+						&& this.state.work
+						&& this.state.skill
+						&& this.state.future
+					  && this.state.qualityOfLife) {
+							console.log(JSON.stringify(this.state));
+							$.ajax({
+					      type: 'POST', url: 'http://localhost:3000/api/gdaybday', contentType: 'application/json',
+					      data: JSON.stringify(this.state),
+					      success: function(data) {
+									console.log("Success in saving to server")
+					      }.bind(this),
+					      error: function(xhr, status, err) {
+					        // ideally, show error to user.
+					        console.log("Error saving to server:", err);
+					      }
+					    });
+						this.setState({
+							//step : this.state.step + 1
+						});
+					} else {
+						console.log("A field is empty");
+					}
+
+			  },
+
+				onUpdate: function(val){
+					console.log("radio selected", this.state);
+
+						switch (val.category) {
+							case "inOrOut":
+									this.setState({
+										inOrOut: val.question
+									});
+									break;
+							case "progYear":
+									this.setState({
+										progYear: val.question
+									});
+									break;
+							case "purpose":
+									this.setState({
+										purpose: val.question
+									});
+									break;
+							case "joy":
+									this.setState({
+										joy: val.question
+									});
+									break;
+							case "interest":
+									this.setState({
+										interest: val.question
+									});
+									break;
+							case "work":
+									this.setState({
+										work: val.question
+									});
+									break;
+							case "future":
+									this.setState({
+										future: val.question
+									});
+									break;
+							case "skill":
+									this.setState({
+										skill: val.question
+									});
+									break;
+							case "qualityOfLife":
+									this.setState({
+										qualityOfLife: val.question
+									});
+								break;
+							default:
+						}
+				},
+
+
+			render: function() {
+				switch (this.state.step) {
+			case 1:
+		    return (
+		      <div className="container">
+					<div className="row">
+						<div className="col-md-12">
+							<form>
+						  	<h3 className="text-center">Good day / Bad day</h3>
+				        <BugTable bugs={inOrOut} onUpdate={this.onUpdate}/>
+								<BugTable bugs={progYear} onUpdate={this.onUpdate}/>
+								<BugTable bugs={purpose} onUpdate={this.onUpdate}/>
+								<BugTable bugs={joy} onUpdate={this.onUpdate}/>
+								<BugTable bugs={interest} onUpdate={this.onUpdate}/>
+								<BugTable bugs={work} onUpdate={this.onUpdate}/>
+								<BugTable bugs={future} onUpdate={this.onUpdate}/>
+								<BugTable bugs={skill} onUpdate={this.onUpdate}/>
+								<h3 className="text-center">Quality of life</h3>
+								<BugTable bugs={qualityOfLife} onUpdate={this.onUpdate}/>
+								<button onClick={this.handleSubmit} className="btn btn-primary center-block">Submit</button>
+							</form>
+							</div>
+			      </div>
+					</div>
+		    )
+				case 2:
+					return (
+						<div>
+						<h2>You submitted the form</h2>
+						<ul>
+							<li>
+								{this.state.inOrOut}
+							</li>
+							<li>
+								{this.state.progYear}
+							</li>
+							<li>
+								{this.state.purpose}
+							</li>
+							<li>
+								{this.state.joy}
+							</li>
+							<li>
+								{this.state.interest}
+							</li>
+							<li>
+								{this.state.work}
+							</li>
+							<li>
+								{this.state.future}
+							</li>
+							<li>
+								{this.state.skill}
+							</li>
+						</ul>
+						</div>
+
+					)
+			}
+		  }
+		});
+
+		var formRendered = ReactDOM.render(
+		  <BugList />,
+		  document.getElementById('main')
+		);
+		</script>
+	</body>
+</html>
