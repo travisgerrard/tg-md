@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8" />
-		<title>Hello React!</title>
+		<title>How's the day</title>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
@@ -182,9 +182,14 @@
 						&& this.state.future
 					  && this.state.qualityOfLife) {
 							console.log(JSON.stringify(this.state));
+              function replacer(key,value)
+              {
+                  if (key=="step") return undefined;
+                  else return value;
+              }
 							$.ajax({
-					      type: 'POST', url: 'http://localhost:3000/api/gdaybday', contentType: 'application/json',
-					      data: JSON.stringify(this.state),
+					      type: 'POST', url: 'http://ec2-35-160-139-221.us-west-2.compute.amazonaws.com:3000/api/gdaybday', contentType: 'application/json',
+					      data: JSON.stringify(this.state, replacer),
 					      success: function(data) {
 									console.log("Success in saving to server")
 					      }.bind(this),
@@ -194,7 +199,7 @@
 					      }
 					    });
 						this.setState({
-							//step : this.state.step + 1
+							step : this.state.step + 1
 						});
 					} else {
 						console.log("A field is empty");
@@ -202,53 +207,55 @@
 
 			  },
 
+
+
 				onUpdate: function(val){
 					console.log("radio selected", this.state);
 
 						switch (val.category) {
 							case "inOrOut":
 									this.setState({
-										inOrOut: val.question
+										inOrOut: val.id
 									});
 									break;
 							case "progYear":
 									this.setState({
-										progYear: val.question
+										progYear: val.id
 									});
 									break;
 							case "purpose":
 									this.setState({
-										purpose: val.question
+										purpose: val.id
 									});
 									break;
 							case "joy":
 									this.setState({
-										joy: val.question
+										joy: val.id
 									});
 									break;
 							case "interest":
 									this.setState({
-										interest: val.question
+										interest: val.id
 									});
 									break;
 							case "work":
 									this.setState({
-										work: val.question
+										work: val.id
 									});
 									break;
 							case "future":
 									this.setState({
-										future: val.question
+										future: val.id
 									});
 									break;
 							case "skill":
 									this.setState({
-										skill: val.question
+										skill: val.id
 									});
 									break;
 							case "qualityOfLife":
 									this.setState({
-										qualityOfLife: val.question
+										qualityOfLife: val.id
 									});
 								break;
 							default:
@@ -284,33 +291,7 @@
 				case 2:
 					return (
 						<div>
-						<h2>You submitted the form</h2>
-						<ul>
-							<li>
-								{this.state.inOrOut}
-							</li>
-							<li>
-								{this.state.progYear}
-							</li>
-							<li>
-								{this.state.purpose}
-							</li>
-							<li>
-								{this.state.joy}
-							</li>
-							<li>
-								{this.state.interest}
-							</li>
-							<li>
-								{this.state.work}
-							</li>
-							<li>
-								{this.state.future}
-							</li>
-							<li>
-								{this.state.skill}
-							</li>
-						</ul>
+						<h2>Thanks so much for your submission!</h2>
 						</div>
 
 					)

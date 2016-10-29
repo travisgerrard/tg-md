@@ -179,6 +179,15 @@
 			'Discharge/Dispo',
 			'Learning'];
 
+		var followUps = [
+			'________________',
+			'________________',
+			'________________',
+			'________________',
+			'________________',
+			'________________',
+			'________________'];
+
 		var PatientDailyTodo = React.createClass({
 			render: function() {
 				return (
@@ -189,6 +198,15 @@
 			}
 		})
 
+		var PatientFollowUps = React.createClass({
+			redner: function() {
+				return (
+					<div>
+						<ul> {followUps.map((object:string,i:number)=>{ return <li><label><input type="checkbox">{object}</input></label></li> })} </ul>
+					</div>
+				)
+			}
+		})
 
     var PatientAll = React.createClass({
 			getInitialState: function() {
@@ -211,7 +229,7 @@
 							<PatientDailyTodo />
 						</div>
 						<div className="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-							Hey hey hey
+							<PatientFollowUps />
 						</div>
 							</div>
 			      </div>

@@ -32,7 +32,7 @@ app.post('/api/gdaybday/', function(req, res) {
   });
 });
 
-MongoClient.connect('mongodb://localhost/gdaybday', function(err, dbConnection) {
+MongoClient.connect('mongodb://travisg:frisky@ec2-35-160-139-221.us-west-2.compute.amazonaws.com:27017/gdaybday', function(err, dbConnection) {
   db = dbConnection;
   var server = app.listen(3000, function() {
 	  var port = server.address().port;
