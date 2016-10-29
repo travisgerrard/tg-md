@@ -164,16 +164,31 @@
 						<input type="text" id="underlineInput" />
 						<label>/</label>
 						 <input type="text" id="underlineInput" />
-
-
-
 					</div>
 				</div>
-
-
 				)
 			}
 		})
+
+		var dailyTodos = [
+			'Consults',
+			'Andon - VTE/Glucose',
+			'MAR 48',
+			'IV Meds',
+			'AM Labs',
+			'Discharge/Dispo',
+			'Learning'];
+
+		var PatientDailyTodo = React.createClass({
+			render: function() {
+				return (
+					<div>
+						<ul> {dailyTodos.map((object:string,i:number)=>{ return <li><label><input type="checkbox">{object}</input></label></li> })} </ul>
+					</div>
+				)
+			}
+		})
+
 
     var PatientAll = React.createClass({
 			getInitialState: function() {
@@ -186,16 +201,20 @@
 		    return (
 		      <div className="container">
 					<div className="row">
-						<div className="col-md-12">
-							<form>
-              <h3 className="text-center">Good day / Bad day</h3>
+						<div className="col-xs-6 col-sm-3 col-md-3 col-lg-3">
               <PatientGeneral />
-							<br />
+						</div>
+						<div className="col-xs-6 col-sm-3 col-md-3 col-lg-3">
 							<PatientLabs />
-							</form>
+						</div>
+						<div className="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+							<PatientDailyTodo />
+						</div>
+						<div className="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+							Hey hey hey
+						</div>
 							</div>
 			      </div>
-					</div>
 		    )
 		  }
 		});
