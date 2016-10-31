@@ -18,7 +18,6 @@ var users = require('./routes/users');
 // To loging to Amazon AWS....
 // sudo ssh -i flapper-news.pem ec2-35-160-139-221.us-west-2.compute.amazonaws.com -l bitnami
 
-
 var app = express();
 
 app.use(function(req, res, next) {
