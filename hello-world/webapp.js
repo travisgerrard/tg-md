@@ -18,7 +18,7 @@ app.post('/api/bugs', function(req, res) {
   console.log("Req body:", req.body);
   var newBug = req.body;
   db.collection("bugs").insertOne(newBug, function(err, result) {
-    var newId = result.insertId;
+    var newId = result.insertedId;
     db.collection("bugs").find({_id: newId}).next(function(err, doc) {
       res.json(doc);
     });

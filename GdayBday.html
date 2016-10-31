@@ -166,7 +166,8 @@
 						work   : null,
 						future   : null,
 						skill   : null,
-						qualityOfLife   : null
+						qualityOfLife   : null,
+            createdAt : null
 					}
 				},
 
@@ -181,12 +182,15 @@
 						&& this.state.skill
 						&& this.state.future
 					  && this.state.qualityOfLife) {
-							console.log(JSON.stringify(this.state));
               function replacer(key,value)
               {
                   if (key=="step") return undefined;
                   else return value;
               }
+              var currentDate = new Date();
+
+              console.log(JSON.stringify(this.state));
+
 							$.ajax({
 					      type: 'POST', url: 'http://ec2-35-160-139-221.us-west-2.compute.amazonaws.com:3000/api/gdaybday', contentType: 'application/json',
 					      data: JSON.stringify(this.state, replacer),

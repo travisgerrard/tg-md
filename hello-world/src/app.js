@@ -1,7 +1,7 @@
-/*var React = require('react');
-var ReactDom = require('react-dom');
+var React = require('react');
+var ReactDOM = require('react-dom');
 var $ = require('jquery');
-*/
+
 var BugFilter = React.createClass({
   render: function() {
     console.log("Rendering BugFilter");
