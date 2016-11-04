@@ -14,6 +14,7 @@
 		<style>
 		table {border: 2px solid silver; padding: 2px; margin: 5px auto; }
 		th, td { padding: 0 5px 0 5px; }
+		button { margin: 5px }
 	</style>
 
 	</head>
@@ -69,6 +70,11 @@
 		    )
 		  }
 		});
+
+		var goodBad = [
+			{ id: 1, question: 'Good day', category: "goodBad" },
+			{ id: 2, question: 'Bad day', category: "goodBad" },
+		];
 
 		var inOrOut = [
 			{ id: 1, question: 'Inpatient', category: "inOrOut" },
@@ -158,6 +164,7 @@
 			getInitialState: function() {
 					return {
 						step: 1,
+						goodBad     : null,
 						inOrOut     : null,
 						progYear    : null,
 						purpose : null,
@@ -174,6 +181,7 @@
 			handleSubmit: function(e) {
 					e.preventDefault();
 					if (this.state.inOrOut
+						&& this.state.goodBad
 						&& this.state.progYear
 						&& this.state.purpose
 						&& this.state.joy
@@ -206,6 +214,7 @@
 							step : this.state.step + 1
 						});
 					} else {
+						alert('A field is empty');
 						console.log("A field is empty");
 					}
 
@@ -215,51 +224,58 @@
 
 				onUpdate: function(val){
 					console.log("radio selected", this.state);
-
+					this.setState({
+						createdAt: new Date()
+					});
 						switch (val.category) {
+							case "goodBad":
+									this.setState({
+										goodBad: val.question
+									});
+									break;
 							case "inOrOut":
 									this.setState({
-										inOrOut: val.id
+										inOrOut: val.question
 									});
 									break;
 							case "progYear":
 									this.setState({
-										progYear: val.id
+										progYear: val.question
 									});
 									break;
 							case "purpose":
 									this.setState({
-										purpose: val.id
+										purpose: val.question
 									});
 									break;
 							case "joy":
 									this.setState({
-										joy: val.id
+										joy: val.question
 									});
 									break;
 							case "interest":
 									this.setState({
-										interest: val.id
+										interest: val.question
 									});
 									break;
 							case "work":
 									this.setState({
-										work: val.id
+										work: val.question
 									});
 									break;
 							case "future":
 									this.setState({
-										future: val.id
+										future: val.question
 									});
 									break;
 							case "skill":
 									this.setState({
-										skill: val.id
+										skill: val.question
 									});
 									break;
 							case "qualityOfLife":
 									this.setState({
-										qualityOfLife: val.id
+										qualityOfLife: val.question
 									});
 								break;
 							default:
@@ -276,6 +292,7 @@
 						<div className="col-md-12">
 							<form>
 						  	<h3 className="text-center">Good day / Bad day</h3>
+								<BugTable bugs={goodBad} onUpdate={this.onUpdate}/>
 				        <BugTable bugs={inOrOut} onUpdate={this.onUpdate}/>
 								<BugTable bugs={progYear} onUpdate={this.onUpdate}/>
 								<BugTable bugs={purpose} onUpdate={this.onUpdate}/>
@@ -288,6 +305,7 @@
 								<BugTable bugs={qualityOfLife} onUpdate={this.onUpdate}/>
 								<button onClick={this.handleSubmit} className="btn btn-primary center-block">Submit</button>
 							</form>
+							<br />
 							</div>
 			      </div>
 					</div>
