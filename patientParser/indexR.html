@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8" />
 		<title>The List</title>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -192,14 +192,14 @@
 			render: function() {
 				return (
 					<div>
-						<ul> {dailyTodos.map((object:string,i:number)=>{ return <li><label><input type="checkbox">{object}</input></label></li> })} </ul>
+						<ul> { dailyTodos.map((object:string,i:number)=>{ return <li><label><input type="checkbox">{object}</input></label></li> })} </ul>
 					</div>
 				)
 			}
 		})
 
 		var PatientFollowUps = React.createClass({
-			redner: function() {
+			render: function() {
 				return (
 					<div>
 						<ul> {followUps.map((object:string,i:number)=>{ return <li><label><input type="checkbox">{object}</input></label></li> })} </ul>
@@ -237,8 +237,22 @@
 		  }
 		});
 
+		var PatientAllList = React.createClass({
+			render: function() {
+				return (
+					<div>
+					<ul>
+						{[0,1].map(element => <li><PatientAll /></li>)}
+					</ul>
+					</div>
+
+
+				)
+			}
+		});
+
 		var formRendered = ReactDOM.render(
-		  <PatientAll />,
+		  <PatientAllList />,
 		  document.getElementById('main')
 		);
 		</script>
