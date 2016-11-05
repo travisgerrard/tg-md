@@ -10,90 +10,7 @@
 
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-
-		<style>
-		#patientTotalInfo {
-				width: 100%;
-				text-align: left;
-		}
-
-
-		#patientInfo {
-				width: 200px;
-				/*float: left;*/
-				display: inline-block;
-				zoom: 1;
-		}
-
-		#dailyTodo {
-				width: 225px;
-				/*font-size: 12px;*/
-				/*float: left;*/
-				display: inline-block;
-				zoom: 1;
-		}
-
-		#dailyTodo li:before {
-				content: "\2610";
-				margin-right: 5px;
-		}
-
-		#followUps {
-				width: 150px;
-				/*float: left;*/
-				display: inline-block;
-				zoom: 1;
-		}
-
-		#followUps li:before {
-				content: "\2610";
-				margin-right: 5px;
-		}
-
-		#cbcAndBmr {
-				width: 140px;
-				display: inline-block;
-				/*zoom: 1;*/
-		}
-
-		ul {
-				list-style: none;
-		}
-
-		#nameText {
-				font-weight: bold;
-		}
-
-
-		#cbcAndBmr input {
-				width: 20px;
-				outline: none;
-				border-width: 0 0 0 0;
-		}
-
-		#parent {
-				display: flex;
-		}
-
-		#parentBottom {
-				margin: 0 0 0 21px;
-		}
-
-		#textInputLower {
-				position: relative;
-				bottom: -9px;
-		}
-
-		#edgeBoxBottom {
-				position: relative;
-				bottom: 9px;
-		}
-
-		#cbcAndBmr #underlineInput {
-				border-width: 0 0 2px 0;
-				border-style: solid;
-		}
-	</style>
+		<link rel="stylesheet" type="text/css" href="./style.css">
 
 	</head>
 	<body>
@@ -150,7 +67,7 @@
 							<label>/</label>
 							<input type="text" id="textInputLower" />
 					</div>
-					<div class="BMRBottom">
+					<div id="BMRBottom">
 							<input type="text" />
 							<label>|</label>
 							<input type="text" />
@@ -159,7 +76,7 @@
 							<label>\</label>
 					</div>
 					<br />
-					<div class="InAndOut">
+					<div id="InAndOut">
 						<label>I/O</label>
 						<input type="text" id="underlineInput" />
 						<label>/</label>
@@ -192,7 +109,16 @@
 			render: function() {
 				return (
 					<div>
-						<ul> { dailyTodos.map((object:string,i:number)=>{ return <li><label><input type="checkbox">{object}</input></label></li> })} </ul>
+						<ul>
+						{ this.props.listToRender.map((object:string,i:number) =>
+									<li key={i}>
+										<label>
+											<input type="checkbox" value={object}/>{object}
+										</label>
+									</li>
+
+						)}
+						</ul>
 					</div>
 				)
 			}
@@ -200,21 +126,24 @@
 
 		var PatientFollowUps = React.createClass({
 			render: function() {
+				var followUpRow = this.props.listToRender.map((object:string,i:number) =>
+							<li key={i}>
+								<label>
+									<input type="checkbox" value={object}/>{object}
+								</label>
+							</li>
+						)
 				return (
 					<div>
-						<ul> {followUps.map((object:string,i:number)=>{ return <li><label><input type="checkbox">{object}</input></label></li> })} </ul>
+						<ul>
+						{followUpRow}
+						</ul>
 					</div>
 				)
 			}
 		})
 
     var PatientAll = React.createClass({
-			getInitialState: function() {
-					return {
-            step: 1,
-					}
-				},
-
 			render: function() {
 		    return (
 		      <div className="container">
@@ -226,10 +155,10 @@
 							<PatientLabs />
 						</div>
 						<div className="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-							<PatientDailyTodo />
+							<PatientDailyTodo listToRender={dailyTodos} />
 						</div>
 						<div className="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-							<PatientFollowUps />
+							<PatientFollowUps listToRender={followUps} />
 						</div>
 							</div>
 			      </div>
@@ -238,16 +167,47 @@
 		});
 
 		var PatientAllList = React.createClass({
+			getInitialState: function() {
+					return {
+						patients: []
+					}
+				},
+
+			handleSubmit: function(e) {
+					e.preventDefault();
+					var patientTemp = [0];
+					if (this.state.patients === undefined || this.state.patients.length == 0) {
+						patientTemp = [0];
+						console.log("0");
+					} else {
+						patientTemp = this.state.patients.slice();
+						patientTemp.push(patientTemp.length);
+						console.log("1");
+					}
+
+					this.setState({
+						patients: patientTemp
+					});
+			},
+
+
 			render: function() {
-				return (
-					<div>
-					<ul>
-						{[0,1].map(element => <li><PatientAll /></li>)}
-					</ul>
-					</div>
+				console.log(this.state.patients);
 
-
-				)
+				if (this.state.patients === undefined || this.state.patients.length == 0) {
+					return (
+						<button onClick={this.handleSubmit} className="btn btn-primary center-block">Add Patient</button>
+					)
+				} else {
+					return (
+						<div>
+						<ul>
+							{this.state.patients.map(element => <li key={element}><PatientAll /><br /></li>)}
+						</ul>
+						<button onClick={this.handleSubmit} className="btn btn-primary center-block">Add Patient</button>
+						</div>
+					)
+				}
 			}
 		});
 
