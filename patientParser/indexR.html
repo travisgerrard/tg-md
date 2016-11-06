@@ -25,7 +25,6 @@
 			},
 
       render: function() {
-				console.log(this.props);
         return (
         <div>
         <label>Name:</label>
@@ -106,28 +105,52 @@
 			'Discharge/Dispo',
 			'Learning'];
 
-		var followUps = [
-			'________________',
-			'________________',
-			'________________',
-			'________________',
-			'________________',
-			'________________',
-			'________________'];
-
 		var PatientDailyTodo = React.createClass({
+			handleChange: function(event) {
+				//console.log(event.target.value);
+				//console.log(this.props.patientData.consults);
+				this.props.onUpdate(event.target, this.props.patientData._id);
+			},
+
 			render: function() {
 				return (
 					<div>
 						<ul>
-						{ this.props.listToRender.map((object:string,i:number) =>
-									<li key={i}>
-										<label>
-											<input type="checkbox" value={object}/>{object}
-										</label>
-									</li>
-
-						)}
+							<li>
+								<label>
+									<input type="checkbox" className="Consults" value="consult" onChange={this.handleChange} defaultChecked={this.props.patientData.consults} />{this.props.listToRender[0]}
+								</label>
+							</li>
+							<li>
+								<label>
+								<input type="checkbox" className="Andon" value="andon" onChange={this.handleChange} defaultChecked={this.props.patientData.andon} />{this.props.listToRender[1]}
+								</label>
+							</li>
+							<li>
+								<label>
+								<input type="checkbox" className="Mar" value="mar" onChange={this.handleChange} defaultChecked={this.props.patientData.mar} />{this.props.listToRender[2]}
+								</label>
+							</li>
+							<li>
+								<label>
+								<input type="checkbox" className="IVMed" value="ivmed" onChange={this.handleChange} defaultChecked={this.props.patientData.ivmed} />{this.props.listToRender[3]}
+								</label>
+							</li>
+							<li>
+								<label>
+								<input type="checkbox" className="AMLab" value="amlab" onChange={this.handleChange} defaultChecked={this.props.patientData.amlab} />{this.props.listToRender[4]}
+								</label>
+							</li>
+							<li>
+								<label>
+								<input type="checkbox" className="Dispo" value="dispo" onChange={this.handleChange} defaultChecked={this.props.patientData.dispo} />{this.props.listToRender[5]}
+								</label>
+							</li>
+							<li>
+								<label>
+								<input type="checkbox" className="Learning" value="learning" onChange={this.handleChange} defaultChecked={this.props.patientData.learning} />{this.props.listToRender[6]}
+								</label>
+							</li>
 						</ul>
 					</div>
 				)
@@ -135,21 +158,39 @@
 		})
 
 		var PatientFollowUps = React.createClass({
+			handleChange: function(event) {
+				console.log(event.target.value);
+				//console.log(this.props.patientData.consults);
+				//this.props.onUpdate(event.target, this.props.patientData._id);
+			},
+
+			_handleKeyPress: function(e) {
+				if (e.key === 'Enter') {
+					this.props.onUpdate(e.target, this.props.patientData._id);
+					e.currentTarget.value = ""
+				}
+			},
+
 			render: function() {
-				var followUpRow = this.props.listToRender.map((object:string,i:number) =>
-							<li key={i}>
-								<label>
-									<input type="checkbox" value={object}/>{object}
-								</label>
-							</li>
-						)
+				if (this.props.patientData.followup !== undefined) {
 				return (
 					<div>
+					<input type="text" className="AddFollowUp" onKeyPress={this._handleKeyPress} />
 						<ul>
-						{followUpRow}
+							{this.props.patientData.followup.map(element => <li key={element.followUpText}>
+								<input type="checkbox" className="FollowUp" value={element.followUpText} onChange={this.handleChange} defaultChecked={element.complete} />{element.followUpText}
+								</li>
+							)}
 						</ul>
 					</div>
 				)
+				} else {
+				return (
+					<div>
+					<input type="text" className="AddFollowUp" onKeyPress={this._handleKeyPress} />
+					</div>
+				)
+				}
 			}
 		})
 
@@ -162,44 +203,68 @@
 				console.log("Where it was entered into was", val.className);
 				console.log("Patient ID is ", patientID);
 
+				var patient = {};
+
 				// Standard Info
-				if (val.className === "Name")	var patient = {name: val.value};
-				if (val.className === "Room")	var patient = {room: val.value};
-				if (val.className === "Age")	var patient = {age: val.value};
-				if (val.className === "MRN")	var patient = {mrn: val.value};
-				if (val.className === "LOS")	var patient = {los: val.value};
+				if (val.className === "Name") patient = {name: val.value};
+				if (val.className === "Room") patient = {room: val.value};
+				if (val.className === "Age") patient = {age: val.value};
+				if (val.className === "MRN") patient = {mrn: val.value};
+				if (val.className === "LOS") patient = {los: val.value};
 
 				// CBC
-				if (val.className === "WBC")	var patient = {wbc: val.value};
-				if (val.className === "Hg")	var patient = {hg: val.value};
-				if (val.className === "Hct")	var patient = {hct: val.value};
-				if (val.className === "plt")	var patient = {plt: val.value};
+				if (val.className === "WBC") patient = {wbc: val.value};
+				if (val.className === "Hg") patient = {hg: val.value};
+				if (val.className === "Hct") patient = {hct: val.value};
+				if (val.className === "plt") patient = {plt: val.value};
 
 				// BMR
-				if (val.className === "Na")	var patient = {na: val.value};
-				if (val.className === "K")	var patient = {k: val.value};
-				if (val.className === "Cl")	var patient = {cl: val.value};
-				if (val.className === "Bicarb")	var patient = {bicarb: val.value};
-				if (val.className === "BUN")	var patient = {bun: val.value};
-				if (val.className === "Cr")	var patient = {cr: val.value};
-				if (val.className === "Gluc")	var patient = {gluc: val.value};
+				if (val.className === "Na") patient = {na: val.value};
+				if (val.className === "K") patient = {k: val.value};
+				if (val.className === "Cl") patient = {cl: val.value};
+				if (val.className === "Bicarb") patient = {bicarb: val.value};
+				if (val.className === "BUN") patient = {bun: val.value};
+				if (val.className === "Cr") patient = {cr: val.value};
+				if (val.className === "Gluc") patient = {gluc: val.value};
 
 				// I/O
-				if (val.className === "Input")	var patient = {input: val.value};
-				if (val.className === "Output")	var patient = {output: val.value};
+				if (val.className === "Input") patient = {input: val.value};
+				if (val.className === "Output") patient = {output: val.value};
+
+
+				// DailyTodos, using a ternary operator
+				if (val.className === "Consults") patient = (this.props.patientData.consults === true) ? {consults: false} : {consults: true};
+				if (val.className === "Andon") patient = (this.props.patientData.andon === true) ? {andon: false} : {andon: true};
+				if (val.className === "Mar") patient = (this.props.patientData.mar === true) ? {mar: false} : {mar: true};
+				if (val.className === "IVMed") patient = (this.props.patientData.ivmed === true) ? {ivmed: false} : {ivmed: true};
+				if (val.className === "AMLab") patient = (this.props.patientData.amlab === true) ? {amlab: false} : {amlab: true};
+				if (val.className === "Dispo") patient = (this.props.patientData.dispo === true) ? {dispo: false} : {dispo: true};
+				if (val.className === "Learning") patient = (this.props.patientData.learning === true) ? {learning: false} : {learning: true};
+
+				// Adding to list of Todos, again using ternary operator!
+				if (val.className === "AddFollowUp") patient = (this.props.patientData.followup === undefined) ? {followup: [{complete: false, followUpText: val.value}]} : {followup: this.props.patientData.followup.concat({complete: false, followUpText: val.value})};
+
+				console.log(patient);
 
 		    $.ajax({
 		      url: 'http://localhost:3000/api/runTheList/' + patientID, type: 'PUT', contentType:'application/json',
 		      data: JSON.stringify(patient),
 		      dataType: 'json',
 		      success: function(patient) {
-		        console.log("Updated Something")
+						//Update the state if were clicking a checkbox
+						if (val.className === "Consults" ||
+							val.className === "Andon" ||
+							val.className === "Mar" ||
+							val.className === "IVMed" ||
+							val.className === "AMLab" ||
+							val.className === "Dispo" ||
+							val.className === "Learning" ||
+							val.className === "AddFollowUp") this.props.updateTheState();
 		      }.bind(this),
 		    });
 			},
 
 			render: function() {
-				console.log(this.props);
 		    return (
 		      <div className="container">
 					<div className="row">
@@ -210,10 +275,10 @@
 							<PatientLabs onUpdate={this.onUpdate} patientData={this.props.patientData}/>
 						</div>
 						<div className="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-							<PatientDailyTodo listToRender={dailyTodos} />
+							<PatientDailyTodo listToRender={dailyTodos} onUpdate={this.onUpdate} patientData={this.props.patientData}/>
 						</div>
 						<div className="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-							<PatientFollowUps listToRender={followUps} />
+							<PatientFollowUps onUpdate={this.onUpdate} patientData={this.props.patientData} />
 						</div>
 							</div>
 			      </div>
@@ -238,6 +303,12 @@
 		      this.setState({ patients: data });
 		    }.bind(this));
 		  },
+
+			updateTheState: function() {
+				$.ajax('http://localhost:3000/api/runTheList').done(function (data) {
+		      this.setState({ patients: data });
+		    }.bind(this));
+			},
 
 			addPatient: function(patientToAdd) {
 		    console.log("Adding patient:", patientToAdd);
@@ -267,7 +338,7 @@
 					return (
 						<div>
 						<ul>
-							{this.state.patients.map(element => <li key={element._id}><PatientAll patientData={element}/><br /></li>)}
+							{this.state.patients.map(element => <li key={element._id}><PatientAll patientData={element} updateTheState={this.updateTheState}/><br /></li>)}
 						</ul>
 						<button onClick={this.handleSubmit} className="btn btn-primary center-block">Add Patient</button>
 						</div>
