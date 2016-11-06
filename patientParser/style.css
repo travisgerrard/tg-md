@@ -52,7 +52,7 @@ ul {
 
 
 #cbcAndBmr input {
-    width: 20px;
+    width: 25px;
     outline: none;
     border-width: 0 0 0 0;
 }
@@ -62,7 +62,7 @@ ul {
 }
 
 #parentBottom {
-    margin: 0 0 0 21px;
+    margin: 0 0 0 25px;
 }
 
 #textInputLower {
@@ -72,10 +72,14 @@ ul {
 
 #edgeBoxBottom {
     position: relative;
-    bottom: 9px;
+    bottom: 10px;
 }
 
 #cbcAndBmr #underlineInput {
     border-width: 0 0 2px 0;
     border-style: solid;
+}
+
+#InAndOut #underlineInput {
+  width: 35px;
 }

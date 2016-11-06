@@ -97,8 +97,7 @@
     </style>
 </head>
 
-<body ng-app="patientParser"
-    ng-controller="MainCtrl">
+<body>
 
     <textarea id="listInfo"
         rows="4"
@@ -108,9 +107,6 @@
     <button type="button"
         id="submitButton">Submit</button>
 
-        <ui-view></ui-view>
-
-
     <div id="printArea">
 
     </div>
@@ -119,93 +115,6 @@
         onclick="printDiv('printArea')"
         value="print a div!" />
 
-
-        <script type="text/ng-template" id="/home.html">
-
-          <div id="patientTotalInfo" class="shadow">
-            <div id="patientInfo">
-              <label>Name:</label>
-              <input type="text" />
-              <br  />
-              <label>Room:</label>
-              <input type="text" />
-              <br  />
-              <label>Age:</label>
-              <input type="text" />
-              <br  />
-              <label>MRN:</label>
-              <input type="text" />
-              <br  />
-              <label>LOS:</label>
-              <input type="text" />
-
-
-        </div>
-
-        <div id="cbcAndBmr" style="">
-          <div id="parentTop">
-              <input type="text" id="textInputLower" />
-              <label>\</label>
-              <input type="text" id="underlineInput" />
-              <label>/</label>
-          </div>
-          <div id="parentBottom">
-              <label>/</label>
-              <input type="text" />
-              <label>\</label>
-              <input type="text" id="edgeBoxBottom" />
-          </div>
-          <br />
-          <div id="BMRTop">
-              <input type="text" id="underlineInput" />
-              <label>|</label>
-              <input type="text" id="underlineInput" />
-              <label>|</label>
-              <input type="text" id="underlineInput" />
-              <label>/</label>
-              <input type="text" id="textInputLower" />
-          </div>
-          <div class="BMRBottom">
-              <input type="text" />
-              <label>|</label>
-              <input type="text" />
-              <label>|</label>
-              <input type="text" />
-              <label>\</label>
-          </div>
-          <br />
-          <div class="InAndOut">
-            <label>I/O</label>
-            <input type="text" id="underlineInput" />
-            <label>/</label>
-             <input type="text" id="underlineInput" />
-
-
-
-          </div>
-        </div>
-
-          <div id="dailyTodo" class="row">
-            <div class="col-sm-4 col-sm-offset-4">
-              <div class='checkbox' ng-repeat="dailyTodo in dailyTodos">
-                <label>
-                  <input type="checkbox"> {{ dailyTodo }} </input>
-                </label>
-              </div>
-            </div>
-
-          </div>
-          <div id="followUps" class="row">
-            <div class="col-sm-4 col-sm-offset-4">
-              <div class='checkbox' ng-repeat="newTodo in newTodos track by $index">
-                <label>
-                  <input type="checkbox"> {{ newTodo }} </input>
-                </label>
-              </div>
-          </div>
-        </div>
-
-        </script>
 
     <script>
         document.getElementById("submitButton").addEventListener("click", buttonClicked);
@@ -239,10 +148,11 @@
 
             ];
 
-            var beginString = document.getElementById("listInfo").value.trim()
+            var beginString = document.getElementById("listInfo").value.trim();
             var choppedStringOne = beginString.split("		");
             for (let stringOne of choppedStringOne) { //Breaks entered text into patient specific chunks
                 var choppedStringTwo = stringOne.split("	");
+                console.log(choppedStringTwo);
                 var i = 0;
                 var elementOne = document.createElement("div");
                 elementOne.id = "patientTotalInfo"

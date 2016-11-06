@@ -19,68 +19,78 @@
 		<script type="text/babel">
 
     var PatientGeneral = React.createClass({
+
+			handleChange: function(event) {
+				this.props.onUpdate(event.target, this.props.patientData._id);
+			},
+
       render: function() {
+				console.log(this.props);
         return (
         <div>
         <label>Name:</label>
-        <input type="text" />
+        <input type="text" className="Name" onChange={this.handleChange} defaultValue={this.props.patientData.name} />
         <br  />
         <label>Room:</label>
-        <input type="text" />
+        <input type="text" className="Room" onChange={this.handleChange} defaultValue={this.props.patientData.room}/>
         <br  />
         <label>Age:</label>
-        <input type="text" />
+        <input type="text" className="Age" onChange={this.handleChange} defaultValue={this.props.patientData.age}/>
         <br  />
         <label>MRN:</label>
-        <input type="text" />
+        <input type="text" className="MRN" onChange={this.handleChange} defaultValue={this.props.patientData.mrn}/>
         <br  />
         <label>LOS:</label>
-        <input type="text" />
+        <input type="text" className="LOS" onChange={this.handleChange} defaultValue={this.props.patientData.los}/>
         </div>
 				)
       }
     })
 
 		var PatientLabs = React.createClass({
+			handleChange: function(event) {
+				this.props.onUpdate(event.target, this.props.patientData._id);
+			},
+
 			render: function() {
 				return (
 					<div id="cbcAndBmr">
 					<div id="parentTop">
-							<input type="text" id="textInputLower" />
+							<input type="text" id="textInputLower" className="WBC" onChange={this.handleChange} defaultValue={this.props.patientData.wbc}/>
 							<label>\</label>
-							<input type="text" id="underlineInput" />
+							<input type="text" id="underlineInput" className="Hg" onChange={this.handleChange} defaultValue={this.props.patientData.hg}/>
 							<label>/</label>
 					</div>
 					<div id="parentBottom">
 							<label>/</label>
-							<input type="text" />
+							<input type="text" className="Hct" onChange={this.handleChange} defaultValue={this.props.patientData.hct}/>
 							<label>\</label>
-							<input type="text" id="edgeBoxBottom" />
+							<input type="text" id="edgeBoxBottom" className="plt" onChange={this.handleChange} defaultValue={this.props.patientData.plt}/>
 					</div>
 					<br />
 					<div id="BMRTop">
-							<input type="text" id="underlineInput" />
+							<input type="text" id="underlineInput" className="Na" onChange={this.handleChange} defaultValue={this.props.patientData.na}/>
 							<label>|</label>
-							<input type="text" id="underlineInput" />
+							<input type="text" id="underlineInput" className="Cl" onChange={this.handleChange} defaultValue={this.props.patientData.cl}/>
 							<label>|</label>
-							<input type="text" id="underlineInput" />
+							<input type="text" id="underlineInput" className="BUN" onChange={this.handleChange} defaultValue={this.props.patientData.bun}/>
 							<label>/</label>
-							<input type="text" id="textInputLower" />
+							<input type="text" id="textInputLower" className="Gluc" onChange={this.handleChange} defaultValue={this.props.patientData.gluc}/>
 					</div>
 					<div id="BMRBottom">
-							<input type="text" />
+							<input type="text" id="potassium" className="K" onChange={this.handleChange} defaultValue={this.props.patientData.k}/>
 							<label>|</label>
-							<input type="text" />
+							<input type="text" className="Bicarb" onChange={this.handleChange} defaultValue={this.props.patientData.bicarb}/>
 							<label>|</label>
-							<input type="text" />
+							<input type="text" className="Cr" onChange={this.handleChange} defaultValue={this.props.patientData.cr}/>
 							<label>\</label>
 					</div>
 					<br />
 					<div id="InAndOut">
 						<label>I/O</label>
-						<input type="text" id="underlineInput" />
+						<input type="text" id="underlineInput" className="Input" onChange={this.handleChange} defaultValue={this.props.patientData.input}/>
 						<label>/</label>
-						 <input type="text" id="underlineInput" />
+						 <input type="text" id="underlineInput" className="Output" onChange={this.handleChange} defaultValue={this.props.patientData.output}/>
 					</div>
 				</div>
 				)
@@ -143,16 +153,61 @@
 			}
 		})
 
+
     var PatientAll = React.createClass({
+
+			onUpdate: function(val, patientID){
+				console.log("val is", val);
+				console.log("Entered Text is", val.value);
+				console.log("Where it was entered into was", val.className);
+				console.log("Patient ID is ", patientID);
+
+				// Standard Info
+				if (val.className === "Name")	var patient = {name: val.value};
+				if (val.className === "Room")	var patient = {room: val.value};
+				if (val.className === "Age")	var patient = {age: val.value};
+				if (val.className === "MRN")	var patient = {mrn: val.value};
+				if (val.className === "LOS")	var patient = {los: val.value};
+
+				// CBC
+				if (val.className === "WBC")	var patient = {wbc: val.value};
+				if (val.className === "Hg")	var patient = {hg: val.value};
+				if (val.className === "Hct")	var patient = {hct: val.value};
+				if (val.className === "plt")	var patient = {plt: val.value};
+
+				// BMR
+				if (val.className === "Na")	var patient = {na: val.value};
+				if (val.className === "K")	var patient = {k: val.value};
+				if (val.className === "Cl")	var patient = {cl: val.value};
+				if (val.className === "Bicarb")	var patient = {bicarb: val.value};
+				if (val.className === "BUN")	var patient = {bun: val.value};
+				if (val.className === "Cr")	var patient = {cr: val.value};
+				if (val.className === "Gluc")	var patient = {gluc: val.value};
+
+				// I/O
+				if (val.className === "Input")	var patient = {input: val.value};
+				if (val.className === "Output")	var patient = {output: val.value};
+
+		    $.ajax({
+		      url: 'http://localhost:3000/api/runTheList/' + patientID, type: 'PUT', contentType:'application/json',
+		      data: JSON.stringify(patient),
+		      dataType: 'json',
+		      success: function(patient) {
+		        console.log("Updated Something")
+		      }.bind(this),
+		    });
+			},
+
 			render: function() {
+				console.log(this.props);
 		    return (
 		      <div className="container">
 					<div className="row">
 						<div className="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-              <PatientGeneral />
+              <PatientGeneral onUpdate={this.onUpdate} patientData={this.props.patientData}/>
 						</div>
 						<div className="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-							<PatientLabs />
+							<PatientLabs onUpdate={this.onUpdate} patientData={this.props.patientData}/>
 						</div>
 						<div className="col-xs-6 col-sm-3 col-md-3 col-lg-3">
 							<PatientDailyTodo listToRender={dailyTodos} />
@@ -175,25 +230,35 @@
 
 			handleSubmit: function(e) {
 					e.preventDefault();
-					var patientTemp = [0];
-					if (this.state.patients === undefined || this.state.patients.length == 0) {
-						patientTemp = [0];
-						console.log("0");
-					} else {
-						patientTemp = this.state.patients.slice();
-						patientTemp.push(patientTemp.length);
-						console.log("1");
-					}
-
-					this.setState({
-						patients: patientTemp
-					});
+					this.addPatient({hidden: false})
 			},
 
+			componentDidMount: function () {
+		    $.ajax('http://localhost:3000/api/runTheList').done(function (data) {
+		      this.setState({ patients: data });
+		    }.bind(this));
+		  },
+
+			addPatient: function(patientToAdd) {
+		    console.log("Adding patient:", patientToAdd);
+		    $.ajax({
+		      type: 'POST', url: 'http://localhost:3000/api/runTheList', contentType: 'application/json',
+		      data: JSON.stringify(patientToAdd),
+		      success: function(data) {
+						console.log("the Data is", data);
+		        var patient = data;
+		        // We're advised not to modify the state, it's immutable. So, make a copy.
+		        var patientsModified = this.state.patients.concat(patient);
+		        this.setState({patients: patientsModified});
+		      }.bind(this),
+		      error: function(xhr, status, err) {
+		        // ideally, show error to user.
+		        console.log("Error adding pateint:", err);
+		      }
+		    });
+		  },
 
 			render: function() {
-				console.log(this.state.patients);
-
 				if (this.state.patients === undefined || this.state.patients.length == 0) {
 					return (
 						<button onClick={this.handleSubmit} className="btn btn-primary center-block">Add Patient</button>
@@ -202,7 +267,7 @@
 					return (
 						<div>
 						<ul>
-							{this.state.patients.map(element => <li key={element}><PatientAll /><br /></li>)}
+							{this.state.patients.map(element => <li key={element._id}><PatientAll patientData={element}/><br /></li>)}
 						</ul>
 						<button onClick={this.handleSubmit} className="btn btn-primary center-block">Add Patient</button>
 						</div>
