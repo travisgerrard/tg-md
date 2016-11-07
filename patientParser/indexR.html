@@ -159,9 +159,12 @@
 
 		var PatientFollowUps = React.createClass({
 			handleChange: function(event) {
-				console.log(event.target.value);
+				//console.log(event);
+				//using the name field to get at the key value of the
+				//console.log(event.target.name);
+				//console.log(this.props.patientData.followup[event.target.name]);
 				//console.log(this.props.patientData.consults);
-				//this.props.onUpdate(event.target, this.props.patientData._id);
+				this.props.onUpdate(event.target, this.props.patientData._id);
 			},
 
 			_handleKeyPress: function(e) {
@@ -171,14 +174,22 @@
 				}
 			},
 
+			handelDelete: function(event) {
+				console.log(event.target.name);
+				this.props.onUpdate(event.target, this.props.patientData._id);
+			},
+
 			render: function() {
+				console.log(this.props.patientData.followup);
 				if (this.props.patientData.followup !== undefined) {
 				return (
 					<div>
 					<input type="text" className="AddFollowUp" onKeyPress={this._handleKeyPress} />
 						<ul>
-							{this.props.patientData.followup.map(element => <li key={element.followUpText}>
-								<input type="checkbox" className="FollowUp" value={element.followUpText} onChange={this.handleChange} defaultChecked={element.complete} />{element.followUpText}
+							{this.props.patientData.followup.map((element, key) =>
+								<li key={element.followUpText}>
+								<input type="checkbox" className="FollowUp" name={key} value={element.followUpText} onChange={this.handleChange} defaultChecked={element.complete} />{element.followUpText}
+								<a className="deleteFollowUp" name={key} onClick={this.handelDelete}>{element.complete ? "_X_" : ""}</a>
 								</li>
 							)}
 						</ul>
@@ -242,9 +253,22 @@
 				if (val.className === "Learning") patient = (this.props.patientData.learning === true) ? {learning: false} : {learning: true};
 
 				// Adding to list of Todos, again using ternary operator!
-				if (val.className === "AddFollowUp") patient = (this.props.patientData.followup === undefined) ? {followup: [{complete: false, followUpText: val.value}]} : {followup: this.props.patientData.followup.concat({complete: false, followUpText: val.value})};
+				if (val.className === "AddFollowUp") patient = (this.props.patientData.followup === undefined) ? {followup: [{complete: false, followUpText: val.value, hidden: false}]} : {followup: this.props.patientData.followup.concat({complete: false, followUpText: val.value, hidden: false})};
 
-				console.log(patient);
+				if (val.className === "FollowUp") {
+					var tempArray = this.props.patientData.followup.concat();
+					var object = tempArray[val.name];
+					object = (object.complete === true) ? object.complete = false : object.complete = true;
+					console.log(tempArray);
+					patient = {followup: tempArray};
+				}
+
+				if (val.className === "deleteFollowUp") {
+					var tempArray = this.props.patientData.followup.concat();
+					tempArray.splice(val.name, 1);
+					patient = {followup: tempArray};
+				}
+
 
 		    $.ajax({
 		      url: 'http://localhost:3000/api/runTheList/' + patientID, type: 'PUT', contentType:'application/json',
@@ -259,7 +283,9 @@
 							val.className === "AMLab" ||
 							val.className === "Dispo" ||
 							val.className === "Learning" ||
-							val.className === "AddFollowUp") this.props.updateTheState();
+							val.className === "AddFollowUp" ||
+							val.className === "FollowUp" ||
+							val.className === "deleteFollowUp") this.props.updateTheState();
 		      }.bind(this),
 		    });
 			},
