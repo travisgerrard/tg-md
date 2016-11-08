@@ -54,7 +54,7 @@ var BugList = React.createClass({
     return (
       <div>
         <h1>Bug Tracker</h1>
-        <BugFilter />
+        <BugFilter submitHandler={this.loadData}/>
         <hr />
         <BugTable bugs={this.state.bugs}/>
         <hr />
@@ -64,8 +64,12 @@ var BugList = React.createClass({
   },
 
   componentDidMount: function() {
-    $.ajax('/api/bugs').done(function(data) {
-      this.setState({bugs: data});
+    this.loadData({});
+  },
+
+  loadData: function(filter) {
+    $.ajax('/api/bugs', {data: filter}).done(function(data2) {
+      this.setState({bugs: data2});
     }.bind(this));
   },
 
