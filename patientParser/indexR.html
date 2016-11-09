@@ -7,6 +7,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
 
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -175,12 +176,12 @@
 			},
 
 			handelDelete: function(event) {
-				console.log(event.target.name);
+				//console.log(event.target.name);
 				this.props.onUpdate(event.target, this.props.patientData._id);
 			},
 
 			render: function() {
-				console.log(this.props.patientData.followup);
+				//console.log(this.props.patientData.followup);
 				if (this.props.patientData.followup !== undefined) {
 				return (
 					<div>
@@ -259,7 +260,7 @@
 					var tempArray = this.props.patientData.followup.concat();
 					var object = tempArray[val.name];
 					object = (object.complete === true) ? object.complete = false : object.complete = true;
-					console.log(tempArray);
+					//console.log(tempArray);
 					patient = {followup: tempArray};
 				}
 
@@ -315,7 +316,17 @@
 		var PatientAllList = React.createClass({
 			getInitialState: function() {
 					return {
-						patients: []
+						patients: [],
+						secretCode: null
+					}
+				},
+
+				_handleKeyPress: function(e) {
+					if (e.key === 'Enter') {
+						console.log(e.target.value);
+						var encrypted = CryptoJS.AES.encrypt("Secret message", e.target.value);
+						console.log(encrypted.toString());
+						console.log(CryptoJS.AES.decrypt(encrypted, e.target.value).toString(CryptoJS.enc.Utf8))
 					}
 				},
 
@@ -363,6 +374,7 @@
 				} else {
 					return (
 						<div>
+						<input type="text" className="SecretCodeInput" onKeyPress={this._handleKeyPress} />
 						<ul>
 							{this.state.patients.map(element => <li key={element._id}><PatientAll patientData={element} updateTheState={this.updateTheState}/><br /></li>)}
 						</ul>
