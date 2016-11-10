@@ -20,14 +20,41 @@
 		<script type="text/babel">
 
     var PatientGeneral = React.createClass({
+			getInitialState() {
+					return {
+						dob: (this.props.patientData.dob === undefined) ? "" : this.decodeString(this.props.patientData.dob),
+						admitDate: this.props.patientData.los,
+					}
+				},
+
 			decodeString: function(stringToDecode) {
 				var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);
-				console.log(decodedString);
 				return decodedString;
+			},
+
+			calcAge: function(dob) {
+				var birthdate = new Date(dob);
+				var cur = new Date();
+				var diff = cur-birthdate;
+				var age = Math.floor(diff/31536000000);
+				return age;
+			},
+
+			calcDays: function(admitDate) {
+				var one_day=1000*60*60*24;
+				var startDate = new Date(admitDate);
+				var cur = new Date();
+				var diff = cur-startDate;
+				var days = Math.floor(diff/one_day);
+				return days;
 			},
 
 			handleChange: function(event) {
 				this.props.onUpdate(event.target, this.props.patientData._id);
+
+				if (event.target.className === "DOB") this.setState({ dob: event.target.value});
+				if (event.target.className === "LOS") this.setState({ admitDate: event.target.value});
+
 			},
 
       render: function() {
@@ -41,20 +68,36 @@
         <br  />
         <label>DOB:</label>
         <input type="text" className="DOB" onChange={this.handleChange} defaultValue={(this.props.patientData.dob === undefined) ? "" : this.decodeString(this.props.patientData.dob)}/>
+				<label>Age: {this.calcAge(this.state.dob)}</label>
         <br  />
         <label>MRN:</label>
         <input type="text" className="MRN" onChange={this.handleChange} defaultValue={(this.props.patientData.mrn === undefined) ? "" : this.decodeString(this.props.patientData.mrn)}/>
         <br  />
-        <label>LOS:</label>
+        <label>Admit:</label>
         <input type="text" className="LOS" onChange={this.handleChange} defaultValue={this.props.patientData.los}/>
+				<label>Day: {this.calcDays(this.state.admitDate)}</label>
+				<br  />
+				<label>RO:</label>
+				<input type="text" className="RO" onChange={this.handleChange} defaultValue={this.props.patientData.ro}/>
         </div>
 				)
       }
     })
 
 		var PatientLabs = React.createClass({
+			getInitialState() {
+			    return {
+			      input: this.props.patientData.input,
+			      output: this.props.patientData.output,
+			    }
+			  },
+
 			handleChange: function(event) {
 				this.props.onUpdate(event.target, this.props.patientData._id);
+
+				if (event.target.className === "Input") this.setState({ input: event.target.value});
+				if (event.target.className === "Output") this.setState({ output: event.target.value});
+
 			},
 
 			render: function() {
@@ -95,7 +138,12 @@
 						<label>I/O</label>
 						<input type="text" id="underlineInput" className="Input" onChange={this.handleChange} defaultValue={this.props.patientData.input}/>
 						<label>/</label>
-						 <input type="text" id="underlineInput" className="Output" onChange={this.handleChange} defaultValue={this.props.patientData.output}/>
+						<input type="text" id="underlineInput" className="Output" onChange={this.handleChange} defaultValue={this.props.patientData.output}/>
+						<label>: {this.state.input - this.state.output}</label>
+					</div>
+					<br />
+					<div id="OtherLabs">
+						<textarea className="OtherLabs" onChange={this.handleChange} defaultValue={this.props.patientData.otherLabs}/>
 					</div>
 				</div>
 				)
@@ -164,6 +212,11 @@
 		})
 
 		var PatientFollowUps = React.createClass({
+			decodeString: function(stringToDecode) {
+				var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);
+				return decodedString;
+			},
+
 			handleChange: function(event) {
 				//console.log(event);
 				//using the name field to get at the key value of the
@@ -194,7 +247,7 @@
 						<ul>
 							{this.props.patientData.followup.map((element, key) =>
 								<li key={element.followUpText}>
-								<input type="checkbox" className="FollowUp" name={key} value={element.followUpText} onChange={this.handleChange} defaultChecked={element.complete} />{element.followUpText}
+								<input type="checkbox" className="FollowUp" name={key} value={this.decodeString(element.followUpText)} onChange={this.handleChange} defaultChecked={element.complete} />{this.decodeString(element.followUpText)}
 								<a className="deleteFollowUp" name={key} onClick={this.handelDelete}>{element.complete ? "_X_" : ""}</a>
 								</li>
 							)}
@@ -224,10 +277,12 @@
 			},
 
 			onUpdate: function(val, patientID){
+				/*
 				console.log("val is", val);
 				console.log("Entered Text is", val.value);
 				console.log("Where it was entered into was", val.className);
 				console.log("Patient ID is ", patientID);
+				*/
 
 				var patient = {};
 
@@ -237,6 +292,8 @@
 				if (val.className === "DOB") patient = {dob: this.encodeString(val.value)};
 				if (val.className === "MRN") patient = {mrn: this.encodeString(val.value)};
 				if (val.className === "LOS") patient = {los: val.value};
+				if (val.className === "RO") patient = {ro: val.value};
+
 
 				// CBC
 				if (val.className === "WBC") patient = {wbc: val.value};
@@ -256,6 +313,7 @@
 				// I/O
 				if (val.className === "Input") patient = {input: val.value};
 				if (val.className === "Output") patient = {output: val.value};
+				if (val.className === "OtherLabs") patient = {otherLabs: val.value};
 
 
 				// DailyTodos, using a ternary operator
@@ -268,7 +326,7 @@
 				if (val.className === "Learning") patient = (this.props.patientData.learning === true) ? {learning: false} : {learning: true};
 
 				// Adding to list of Todos, again using ternary operator!
-				if (val.className === "AddFollowUp") patient = (this.props.patientData.followup === undefined) ? {followup: [{complete: false, followUpText: val.value, hidden: false}]} : {followup: this.props.patientData.followup.concat({complete: false, followUpText: val.value, hidden: false})};
+				if (val.className === "AddFollowUp") patient = (this.props.patientData.followup === undefined) ? {followup: [{complete: false, followUpText: this.encodeString(val.value), hidden: false}]} : {followup: this.props.patientData.followup.concat({complete: false, followUpText: this.encodeString(val.value), hidden: false})};
 
 				if (val.className === "FollowUp") {
 					var tempArray = this.props.patientData.followup.concat();
@@ -306,7 +364,6 @@
 			},
 
 			render: function() {
-				console.log(this.props.secretCode);
 
 		    return (
 		      <div className="container">
@@ -321,7 +378,7 @@
 							<PatientDailyTodo listToRender={dailyTodos} onUpdate={this.onUpdate} patientData={this.props.patientData}/>
 						</div>
 						<div className="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-							<PatientFollowUps onUpdate={this.onUpdate} patientData={this.props.patientData} />
+							<PatientFollowUps onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode}/>
 						</div>
 							</div>
 			      </div>
@@ -343,8 +400,8 @@
 			getInitialState: function() {
 					return {
 						patients: [],
-						secretCode: null,
-						step: 1
+						secretCode: 'frisky', //Should be null when using for production
+						step: 2 //Should be one when using for production
 					}
 				},
 
@@ -356,19 +413,26 @@
 						var encrypted1 = CryptoJS.AES.encrypt("Secret message", e.target.value);
 						var encrypted2 = CryptoJS.AES.encrypt("Secret message", e.target.value).toString();
 
+/*
 						console.log(this.encodeString("Secret message", e.target.value));
 						console.log(CryptoJS.AES.encrypt("Secret message", e.target.value).toString());
 						console.log(CryptoJS.AES.encrypt("Secret message", e.target.value).toString());
 
 						console.log(CryptoJS.AES.decrypt(encrypted1, e.target.value).toString(CryptoJS.enc.Utf8))
 						console.log(this.decodeString(encrypted2, e.target.value));
-
+*/
 					}
 				},
 
 			handleSubmit: function(e) {
 					e.preventDefault();
 					this.addPatient({hidden: false})
+			},
+
+			filterByRoundingOrder: function() {
+				$.ajax('http://localhost:3000/api/runTheList?sortByRo=ro').done(function (data) {
+					this.setState({ patients: data });
+				}.bind(this));
 			},
 
 			componentDidMount: function () {
@@ -419,7 +483,7 @@
 							return (
 								<div>
 								<ul>
-									{this.state.patients.map(element => <li key={element._id}><PatientAll patientData={element} updateTheState={this.updateTheState} secretCode={this.state.secretCode}/><br /></li>)}
+									{this.state.patients.map(element => <li key={element._id}><PatientAll patientData={element} updateTheState={this.updateTheState} secretCode={this.state.secretCode}/><br /><hr /></li>)}
 								</ul>
 								<button onClick={this.handleSubmit} className="btn btn-primary center-block">Add Patient</button>
 								</div>
