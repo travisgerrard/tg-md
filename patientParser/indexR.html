@@ -20,6 +20,11 @@
 		<script type="text/babel">
 
     var PatientGeneral = React.createClass({
+			decodeString: function(stringToDecode) {
+				var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);
+				console.log(decodedString);
+				return decodedString;
+			},
 
 			handleChange: function(event) {
 				this.props.onUpdate(event.target, this.props.patientData._id);
@@ -29,16 +34,16 @@
         return (
         <div>
         <label>Name:</label>
-        <input type="text" className="Name" onChange={this.handleChange} defaultValue={this.props.patientData.name} />
+        <input type="text" className="Name" onChange={this.handleChange} defaultValue={(this.props.patientData.name === undefined) ? "" : this.decodeString(this.props.patientData.name)} />
         <br  />
         <label>Room:</label>
         <input type="text" className="Room" onChange={this.handleChange} defaultValue={this.props.patientData.room}/>
         <br  />
-        <label>Age:</label>
-        <input type="text" className="Age" onChange={this.handleChange} defaultValue={this.props.patientData.age}/>
+        <label>DOB:</label>
+        <input type="text" className="DOB" onChange={this.handleChange} defaultValue={(this.props.patientData.dob === undefined) ? "" : this.decodeString(this.props.patientData.dob)}/>
         <br  />
         <label>MRN:</label>
-        <input type="text" className="MRN" onChange={this.handleChange} defaultValue={this.props.patientData.mrn}/>
+        <input type="text" className="MRN" onChange={this.handleChange} defaultValue={(this.props.patientData.mrn === undefined) ? "" : this.decodeString(this.props.patientData.mrn)}/>
         <br  />
         <label>LOS:</label>
         <input type="text" className="LOS" onChange={this.handleChange} defaultValue={this.props.patientData.los}/>
@@ -208,6 +213,15 @@
 
 
     var PatientAll = React.createClass({
+			encodeString: function(stringToEncode) {
+				var encodedString = CryptoJS.AES.encrypt(stringToEncode, this.props.secretCode).toString();
+				return encodedString;
+			},
+
+			decodeString: function(stringToDecode) {
+				var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);
+				return decodedString;
+			},
 
 			onUpdate: function(val, patientID){
 				console.log("val is", val);
@@ -218,10 +232,10 @@
 				var patient = {};
 
 				// Standard Info
-				if (val.className === "Name") patient = {name: val.value};
+				if (val.className === "Name") patient = {name: this.encodeString(val.value)};
 				if (val.className === "Room") patient = {room: val.value};
-				if (val.className === "Age") patient = {age: val.value};
-				if (val.className === "MRN") patient = {mrn: val.value};
+				if (val.className === "DOB") patient = {dob: this.encodeString(val.value)};
+				if (val.className === "MRN") patient = {mrn: this.encodeString(val.value)};
 				if (val.className === "LOS") patient = {los: val.value};
 
 				// CBC
@@ -298,7 +312,7 @@
 		      <div className="container">
 					<div className="row">
 						<div className="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-              <PatientGeneral onUpdate={this.onUpdate} patientData={this.props.patientData}/>
+              <PatientGeneral onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode}/>
 						</div>
 						<div className="col-xs-6 col-sm-3 col-md-3 col-lg-3">
 							<PatientLabs onUpdate={this.onUpdate} patientData={this.props.patientData}/>
@@ -321,6 +335,11 @@
 				return encodedString;
 			},
 
+			decodeString: function(stringToDecode, secretCode) {
+				var decodedString = CryptoJS.AES.decrypt(stringToDecode, secretCode).toString(CryptoJS.enc.Utf8);
+				return decodedString;
+			},
+
 			getInitialState: function() {
 					return {
 						patients: [],
@@ -335,14 +354,14 @@
 						this.setState({	step : this.state.step + 1 });
 
 						var encrypted1 = CryptoJS.AES.encrypt("Secret message", e.target.value);
-						var encrypted2 = CryptoJS.AES.encrypt("Secret message", e.target.value);
+						var encrypted2 = CryptoJS.AES.encrypt("Secret message", e.target.value).toString();
 
 						console.log(this.encodeString("Secret message", e.target.value));
 						console.log(CryptoJS.AES.encrypt("Secret message", e.target.value).toString());
 						console.log(CryptoJS.AES.encrypt("Secret message", e.target.value).toString());
 
 						console.log(CryptoJS.AES.decrypt(encrypted1, e.target.value).toString(CryptoJS.enc.Utf8))
-						console.log(CryptoJS.AES.decrypt(encrypted2, e.target.value).toString(CryptoJS.enc.Utf8))
+						console.log(this.decodeString(encrypted2, e.target.value));
 
 					}
 				},
