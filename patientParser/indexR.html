@@ -60,25 +60,27 @@
       render: function() {
         return (
         <div>
-        <label>Name:</label>
-        <input type="text" className="Name" onChange={this.handleChange} defaultValue={(this.props.patientData.name === undefined) ? "" : this.decodeString(this.props.patientData.name)} />
+        <label id="PatientGen">Name:</label>
+        <input id="PatientInput" type="text" className="Name" onChange={this.handleChange} defaultValue={(this.props.patientData.name === undefined) ? "" : this.decodeString(this.props.patientData.name)} />
         <br  />
-        <label>Room:</label>
-        <input type="text" className="Room" onChange={this.handleChange} defaultValue={this.props.patientData.room}/>
+        <label id="PatientGen">Room:</label>
+        <input id="PatientInput" type="text" className="Room" onChange={this.handleChange} defaultValue={this.props.patientData.room}/>
         <br  />
-        <label>DOB:</label>
-        <input type="text" className="DOB" onChange={this.handleChange} defaultValue={(this.props.patientData.dob === undefined) ? "" : this.decodeString(this.props.patientData.dob)}/>
+        <label id="PatientGen">DOB:</label>
+        <input id="PatientInput" type="text" className="DOB" onChange={this.handleChange} defaultValue={(this.props.patientData.dob === undefined) ? "" : this.decodeString(this.props.patientData.dob)}/>
+				<br />
 				<label>Age: {this.calcAge(this.state.dob)}</label>
         <br  />
-        <label>MRN:</label>
-        <input type="text" className="MRN" onChange={this.handleChange} defaultValue={(this.props.patientData.mrn === undefined) ? "" : this.decodeString(this.props.patientData.mrn)}/>
+        <label id="PatientGen">MRN:</label>
+        <input id="PatientInput" type="text" className="MRN" onChange={this.handleChange} defaultValue={(this.props.patientData.mrn === undefined) ? "" : this.decodeString(this.props.patientData.mrn)}/>
         <br  />
-        <label>Admit:</label>
-        <input type="text" className="LOS" onChange={this.handleChange} defaultValue={this.props.patientData.los}/>
+        <label id="PatientGen">Admit:</label>
+        <input id="PatientInput" type="text" className="LOS" onChange={this.handleChange} defaultValue={this.props.patientData.los}/>
+				<br />
 				<label>Day: {this.calcDays(this.state.admitDate)}</label>
 				<br  />
-				<label>RO:</label>
-				<input type="text" className="RO" onChange={this.handleChange} defaultValue={this.props.patientData.ro}/>
+				<label id="PatientGen">RO:</label>
+				<input id="PatientInput" type="text" className="RO" onChange={this.handleChange} defaultValue={this.props.patientData.ro}/>
         </div>
 				)
       }
@@ -243,10 +245,12 @@
 				if (this.props.patientData.followup !== undefined) {
 				return (
 					<div>
+					<label>Follow Ups</label>
+					<br />
 					<input type="text" className="AddFollowUp" onKeyPress={this._handleKeyPress} />
-						<ul>
+						<ul id="followUpUl">
 							{this.props.patientData.followup.map((element, key) =>
-								<li key={element.followUpText}>
+								<li key={element.followUpText} id="followUpLi">
 								<input type="checkbox" className="FollowUp" name={key} value={this.decodeString(element.followUpText)} onChange={this.handleChange} defaultChecked={element.complete} />{this.decodeString(element.followUpText)}
 								<a className="deleteFollowUp" name={key} onClick={this.handelDelete}>{element.complete ? "_X_" : ""}</a>
 								</li>
@@ -257,6 +261,8 @@
 				} else {
 				return (
 					<div>
+					<label>Follow Ups</label>
+					<br />
 					<input type="text" className="AddFollowUp" onKeyPress={this._handleKeyPress} />
 					</div>
 				)

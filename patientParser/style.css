@@ -57,6 +57,10 @@ ul {
     border-width: 0 0 0 0;
 }
 
+#cbcAndBmr input:hover {
+    border: 1px solid #d0d0d0;
+}
+
 #parent {
     display: flex;
 }
@@ -82,4 +86,33 @@ ul {
 
 #InAndOut #underlineInput {
   width: 35px;
+}
+
+#followUpUl {
+  display: table;
+  margin-left: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+#followUpLi {
+  display: table-row;
+}
+
+#followUpLi:before{
+    display: table-cell;
+    padding-right: 0.4em;
+}
+
+#PatientGen{
+    display:inline-block;
+    width:50px;
+}
+
+#PatientInput {
+    border: 1px solid #FFFFFF;
+}
+
+#PatientInput:hover {
+    border: 1px solid #d0d0d0;
 }

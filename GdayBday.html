@@ -15,6 +15,7 @@
 		table {border: 2px solid silver; padding: 2px; margin: 5px auto; }
 		th, td { padding: 0 5px 0 5px; }
 		button { margin: 5px }
+		textarea { display: block; margin-left: auto; margin-right: auto; padding: 5px; }
 	</style>
 
 	</head>
@@ -174,7 +175,8 @@
 						future   : null,
 						skill   : null,
 						qualityOfLife   : null,
-            createdAt : null
+            createdAt : null,
+						freetext: null
 					}
 				},
 
@@ -279,6 +281,10 @@
 									});
 								break;
 							default:
+								this.setState({
+									freetext: val.target.value
+								});
+								break;
 						}
 				},
 
@@ -303,6 +309,7 @@
 								<BugTable bugs={skill} onUpdate={this.onUpdate}/>
 								<h3 className="text-center">Quality of life</h3>
 								<BugTable bugs={qualityOfLife} onUpdate={this.onUpdate}/>
+								<textarea onChange={this.onUpdate} placeholder="Enter any questions, comments or concerns"/>
 								<button onClick={this.handleSubmit} className="btn btn-primary center-block">Submit</button>
 							</form>
 							<br />
