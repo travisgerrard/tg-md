@@ -87,6 +87,11 @@
     })
 
 		var PatientLabs = React.createClass({
+			decodeString: function(stringToDecode) {
+				var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);
+				return decodedString;
+			},
+
 			getInitialState() {
 			    return {
 			      input: this.props.patientData.input,
@@ -106,33 +111,33 @@
 				return (
 					<div id="cbcAndBmr">
 					<div id="parentTop">
-							<input type="text" id="textInputLower" className="WBC" onChange={this.handleChange} defaultValue={this.props.patientData.wbc}/>
+							<input type="text" id="textInputLower" className="WBC" onChange={this.handleChange} defaultValue={(this.props.patientData.wbc === undefined) ? "" : this.decodeString(this.props.patientData.wbc)}/>
 							<label>\</label>
-							<input type="text" id="underlineInput" className="Hg" onChange={this.handleChange} defaultValue={this.props.patientData.hg}/>
+							<input type="text" id="underlineInput" className="Hg" onChange={this.handleChange} defaultValue={(this.props.patientData.hg === undefined) ? "" : this.decodeString(this.props.patientData.hg)}/>
 							<label>/</label>
 					</div>
 					<div id="parentBottom">
 							<label>/</label>
-							<input type="text" className="Hct" onChange={this.handleChange} defaultValue={this.props.patientData.hct}/>
+							<input type="text" className="Hct" onChange={this.handleChange} defaultValue={(this.props.patientData.hct === undefined) ? "" : this.decodeString(this.props.patientData.hct)}/>
 							<label>\</label>
-							<input type="text" id="edgeBoxBottom" className="plt" onChange={this.handleChange} defaultValue={this.props.patientData.plt}/>
+							<input type="text" id="edgeBoxBottom" className="plt" onChange={this.handleChange} defaultValue={(this.props.patientData.plt === undefined) ? "" : this.decodeString(this.props.patientData.plt)}/>
 					</div>
 					<br />
 					<div id="BMRTop">
-							<input type="text" id="underlineInput" className="Na" onChange={this.handleChange} defaultValue={this.props.patientData.na}/>
+							<input type="text" id="underlineInput" className="Na" onChange={this.handleChange} defaultValue={(this.props.patientData.na === undefined) ? "" : this.decodeString(this.props.patientData.na)}/>
 							<label>|</label>
-							<input type="text" id="underlineInput" className="Cl" onChange={this.handleChange} defaultValue={this.props.patientData.cl}/>
+							<input type="text" id="underlineInput" className="Cl" onChange={this.handleChange} defaultValue={(this.props.patientData.cl === undefined) ? "" : this.decodeString(this.props.patientData.cl)}/>
 							<label>|</label>
-							<input type="text" id="underlineInput" className="BUN" onChange={this.handleChange} defaultValue={this.props.patientData.bun}/>
+							<input type="text" id="underlineInput" className="BUN" onChange={this.handleChange} defaultValue={(this.props.patientData.bun === undefined) ? "" : this.decodeString(this.props.patientData.bun)}/>
 							<label>/</label>
-							<input type="text" id="textInputLower" className="Gluc" onChange={this.handleChange} defaultValue={this.props.patientData.gluc}/>
+							<input type="text" id="textInputLower" className="Gluc" onChange={this.handleChange} defaultValue={(this.props.patientData.gluc === undefined) ? "" : this.decodeString(this.props.patientData.gluc)}/>
 					</div>
 					<div id="BMRBottom">
-							<input type="text" id="potassium" className="K" onChange={this.handleChange} defaultValue={this.props.patientData.k}/>
+							<input type="text" id="potassium" className="K" onChange={this.handleChange} defaultValue={(this.props.patientData.k === undefined) ? "" : this.decodeString(this.props.patientData.k)}/>
 							<label>|</label>
-							<input type="text" className="Bicarb" onChange={this.handleChange} defaultValue={this.props.patientData.bicarb}/>
+							<input type="text" className="Bicarb" onChange={this.handleChange} defaultValue={(this.props.patientData.bicarb === undefined) ? "" : this.decodeString(this.props.patientData.bicarb)}/>
 							<label>|</label>
-							<input type="text" className="Cr" onChange={this.handleChange} defaultValue={this.props.patientData.cr}/>
+							<input type="text" className="Cr" onChange={this.handleChange} defaultValue={(this.props.patientData.cr === undefined) ? "" : this.decodeString(this.props.patientData.cr)}/>
 							<label>\</label>
 					</div>
 					<br />
@@ -145,7 +150,7 @@
 					</div>
 					<br />
 					<div id="OtherLabs">
-						<textarea className="OtherLabs" onChange={this.handleChange} defaultValue={this.props.patientData.otherLabs}/>
+						<textarea className="OtherLabs" onChange={this.handleChange} defaultValue={(this.props.patientData.otherLabs === undefined) ? "" : this.decodeString(this.props.patientData.otherLabs)}/>
 					</div>
 				</div>
 				)
@@ -367,24 +372,24 @@
 
 
 				// CBC
-				if (val.className === "WBC") patient = {wbc: val.value};
-				if (val.className === "Hg") patient = {hg: val.value};
-				if (val.className === "Hct") patient = {hct: val.value};
-				if (val.className === "plt") patient = {plt: val.value};
+				if (val.className === "WBC") patient = {wbc: this.encodeString(val.value)};
+				if (val.className === "Hg") patient = {hg: this.encodeString(val.value)};
+				if (val.className === "Hct") patient = {hct: this.encodeString(val.value)};
+				if (val.className === "plt") patient = {plt: this.encodeString(val.value)};
 
 				// BMR
-				if (val.className === "Na") patient = {na: val.value};
-				if (val.className === "K") patient = {k: val.value};
-				if (val.className === "Cl") patient = {cl: val.value};
-				if (val.className === "Bicarb") patient = {bicarb: val.value};
-				if (val.className === "BUN") patient = {bun: val.value};
-				if (val.className === "Cr") patient = {cr: val.value};
-				if (val.className === "Gluc") patient = {gluc: val.value};
+				if (val.className === "Na") patient = {na: this.encodeString(val.value)};
+				if (val.className === "K") patient = {k: this.encodeString(val.value)};
+				if (val.className === "Cl") patient = {cl: this.encodeString(val.value)};
+				if (val.className === "Bicarb") patient = {bicarb: this.encodeString(val.value)};
+				if (val.className === "BUN") patient = {bun: this.encodeString(val.value)};
+				if (val.className === "Cr") patient = {cr: this.encodeString(val.value)};
+				if (val.className === "Gluc") patient = {gluc: this.encodeString(val.value)};
 
 				// I/O
 				if (val.className === "Input") patient = {input: val.value};
 				if (val.className === "Output") patient = {output: val.value};
-				if (val.className === "OtherLabs") patient = {otherLabs: val.value};
+				if (val.className === "OtherLabs") patient = {otherLabs: this.encodeString(val.value)};
 
 
 				// DailyTodos, using a ternary operator
@@ -470,7 +475,7 @@
               <PatientGeneral onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode}/>
 						</div>
 						<div className="col">
-							<PatientLabs onUpdate={this.onUpdate} patientData={this.props.patientData}/>
+							<PatientLabs onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode}/>
 						</div>
 						<div className="col">
 							<PatientDailyTodo listToRender={dailyTodos} onUpdate={this.onUpdate} patientData={this.props.patientData}/>
@@ -571,6 +576,24 @@
 		    });
 		  },
 
+			resetLabsAndTodos: function() {
+
+				this.state.patients.map(element =>
+					{
+						var patient = {wbc: "", hg: "", hct: "", plt: "", na: "", k: "", cl: "", bicarb: "", bun: "", cr: "", gluc: "", input: "", output: "", consults: false, andon: false, mar: false, ivmed: false, amlab: false, dispo: false, learning: false};
+
+						$.ajax({
+				      url: this.state.webSiteConnect + element._id, type: 'PUT', contentType:'application/json',
+				      data: JSON.stringify(patient),
+				      dataType: 'json',
+				      success: function(patient) {
+								console.log("success");
+							}
+
+					});
+				});
+			},
+
 			render: function() {
 				switch (this.state.step) {
 					case 1:
@@ -591,6 +614,7 @@
 									{this.state.patients.map(element => <li key={element._id}><PatientAll patientData={element} updateTheState={this.updateTheState} secretCode={this.state.secretCode} url={this.state.webSiteConnect}/><br /><hr /></li>)}
 								</ul>
 								<button onClick={this.handleSubmit} className="btn btn-primary center-block">Add Patient</button>
+								<button onClick={this.resetLabsAndTodos} className="btn btn-primary center-block">ResetLabsAndTodos</button>
 								</div>
 							)
 						}
