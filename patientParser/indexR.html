@@ -270,6 +270,73 @@
 			}
 		})
 
+		var PatientLearning = React.createClass({
+			decodeString: function(stringToDecode) {
+				var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);
+				return decodedString;
+			},
+
+			handleChange: function(event) {
+				//console.log(event);
+				//using the name field to get at the key value of the
+				//console.log(event.target.name);
+				//console.log(this.props.patientData.followup[event.target.name]);
+				//console.log(this.props.patientData.consults);
+				this.props.onUpdate(event.target, this.props.patientData._id);
+			},
+
+			_handleKeyPress: function(e) {
+				if (e.key === 'Enter') {
+					this.props.onUpdate(e.target, this.props.patientData._id);
+					e.currentTarget.value = ""
+				}
+			},
+
+			handelDelete: function(event) {
+				//console.log(event.target.name);
+				this.props.onUpdate(event.target, this.props.patientData._id);
+			},
+
+			handleDeletePatient: function(event) {
+				console.log("deletes a patient");
+			},
+
+			render: function() {
+				if (this.props.patientData.learningList !== undefined) {
+				return (
+					<div>
+					<label>Learning</label>
+					<br />
+					<input type="text" className="AddLearning" onKeyPress={this._handleKeyPress} />
+						<ul id="followUpUl">
+							{this.props.patientData.learningList.map((element, key) =>
+								<li key={element.learningText} id="followUpLi">
+								<input type="checkbox" className="LearningList" name={key} value={this.decodeString(element.learningText)} onChange={this.handleChange} defaultChecked={element.complete} />{this.decodeString(element.learningText)}
+								<a className="deleteLearning" name={key} onClick={this.handelDelete}>{element.complete ? "_X_" : ""}</a>
+								</li>
+							)}
+						</ul>
+						<button onClick={this.handleDeletePatient}>Delete Patient</button>
+
+					</div>
+				)
+				} else {
+				return (
+					<div>
+						<div>
+							<label>Learning</label>
+							<br />
+							<input type="text" className="AddLearning" onKeyPress={this._handleKeyPress} />
+						</div>
+
+						<button onClick={this.handleDeletePatient}>Delete Patient</button>
+
+					</div>
+
+					)
+				}
+			}
+		})
 
     var PatientAll = React.createClass({
 
@@ -332,9 +399,10 @@
 				if (val.className === "Dispo") patient = (this.props.patientData.dispo === true) ? {dispo: false} : {dispo: true};
 				if (val.className === "Learning") patient = (this.props.patientData.learning === true) ? {learning: false} : {learning: true};
 
-				// Adding to list of Todos, again using ternary operator!
+				// Adding to list of followups, again using ternary operator!
 				if (val.className === "AddFollowUp") patient = (this.props.patientData.followup === undefined) ? {followup: [{complete: false, followUpText: this.encodeString(val.value), hidden: false}]} : {followup: this.props.patientData.followup.concat({complete: false, followUpText: this.encodeString(val.value), hidden: false})};
 
+				// checking off a followup
 				if (val.className === "FollowUp") {
 					var tempArray = this.props.patientData.followup.concat();
 					var object = tempArray[val.name];
@@ -343,12 +411,31 @@
 					patient = {followup: tempArray};
 				}
 
+				// deleting a followup
 				if (val.className === "deleteFollowUp") {
 					var tempArray = this.props.patientData.followup.concat();
 					tempArray.splice(val.name, 1);
 					patient = {followup: tempArray};
 				}
 
+				// Adding to list of learning, again using ternary operator!
+				if (val.className === "AddLearning") patient = (this.props.patientData.learningList === undefined) ? {learningList: [{complete: false, learningText: this.encodeString(val.value), hidden: false}]} : {learningList: this.props.patientData.learningList.concat({complete: false, learningText: this.encodeString(val.value), hidden: false})};
+
+				// checking off a learning
+				if (val.className === "LearningList") {
+					var tempArray = this.props.patientData.learningList.concat();
+					var object = tempArray[val.name];
+					object = (object.complete === true) ? object.complete = false : object.complete = true;
+					//console.log(tempArray);
+					patient = {learningList: tempArray};
+				}
+
+				// deleting a learning
+				if (val.className === "deleteLearning") {
+					var tempArray = this.props.patientData.learningList.concat();
+					tempArray.splice(val.name, 1);
+					patient = {learningList: tempArray};
+				}
 
 		    $.ajax({
 		      url: this.props.url + patientID, type: 'PUT', contentType:'application/json',
@@ -365,7 +452,10 @@
 							val.className === "Learning" ||
 							val.className === "AddFollowUp" ||
 							val.className === "FollowUp" ||
-							val.className === "deleteFollowUp") this.props.updateTheState();
+							val.className === "deleteFollowUp" ||
+							val.className === "AddLearning" ||
+							val.className === "Learning" ||
+							val.className === "deleteLearning") this.props.updateTheState();
 		      }.bind(this),
 		    });
 			},
@@ -373,22 +463,23 @@
 			render: function() {
 
 		    return (
-		      <div className="container">
-					<div className="row">
-						<div className="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+					<div className="flex-grid">
+						<div className="col">
               <PatientGeneral onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode}/>
 						</div>
-						<div className="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+						<div className="col">
 							<PatientLabs onUpdate={this.onUpdate} patientData={this.props.patientData}/>
 						</div>
-						<div className="col-xs-6 col-sm-3 col-md-3 col-lg-3">
+						<div className="col">
 							<PatientDailyTodo listToRender={dailyTodos} onUpdate={this.onUpdate} patientData={this.props.patientData}/>
 						</div>
-						<div className="col-xs-6 col-sm-3 col-md-3 col-lg-3">
-							<PatientFollowUps onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode}/>
+						<div className="col">
+							<PatientFollowUps onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
 						</div>
-							</div>
-			      </div>
+						<div className="col">
+							<PatientLearning onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
+						</div>
+					</div>
 		    )
 		  }
 		});

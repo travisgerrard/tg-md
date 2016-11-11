@@ -1,3 +1,4 @@
+
 #patientTotalInfo {
     width: 100%;
     text-align: left;
@@ -115,4 +116,18 @@ ul {
 
 #PatientInput:hover {
     border: 1px solid #d0d0d0;
+}
+
+/* Flexbot grid stuff */
+.flex-grid {
+  display: flex;
+}
+.col {
+  flex: 1;
+}
+
+@media (max-width: 400px) {
+  .flex-grid {
+    display: block;
+  }
 }
