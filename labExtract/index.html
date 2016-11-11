@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Hello React!</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+	</head>
+	<body>
+		<div id="main"></div>
+		<script type="text/babel">
+
+      var LabSubmit = React.createClass({
+        getInitialState: function() {
+					return {
+            rawData: null,
+          }
+        },
+
+        onUpdate: function(v) {
+          this.setState({ rawData: v.target.value });
+        },
+
+        parseLab: function(parseBy, toParse) {
+          var chopOne = toParse.split(parseBy);
+          var chopTwo = chopOne[1].split("\n");
+
+          return [chopTwo[0], chopTwo[1]];
+        },
+
+        submitLabs: function(e) {
+          var rawData = prompt("Please enter your name", "");
+
+          if (rawData != null) {
+
+            var ivMeds = rawData.split("IV");
+            var medNames = [];
+            /*var wbc = this.parseLab("White Blood Cell Count -- ", rawData);
+            var hg = this.parseLab("Hemoglobin -- ", rawData);
+            var plt = this.parseLab("Platelet Count ", rawData);
+            var na = this.parseLab("Sodium Level -- ", rawData);
+            var k = this.parseLab("Potassium Level -- ", rawData);
+            var cl = this.parseLab("Chloride Level -- ", rawData);
+            var bicarb = this.parseLab("Carbon Dioxide Content (CO2) -- ", rawData);
+            var bun = this.parseLab("Urea Nitrogen -- ", rawData);
+            var cr = this.parseLab("Creatinine, Serum -- ", rawData);
+            var gluc = this.parseLab("Glucose Random -- ", rawData);
+
+
+            var commonLabs =
+              {
+                wbc: wbc,
+                hg: hg,
+                plt: plt,
+                na: na,
+                k: k,
+                cl: cl,
+                bicarb: bicarb,
+                bun: bun,
+                cr: cr,
+                gluc: gluc
+              };
+              */
+              if (ivMeds.length > 1) {
+                for (var i = 0; i < ivMeds.length - 1; i++) {
+                  var temp = ivMeds[i].split("\n")
+                  console.log(temp.slice(-1).pop());
+                  medNames.push(temp.slice(-1).pop());
+                }
+                alert(medNames.map(element => element));
+              }
+            console.log(ivMeds.length);
+            this.setState({ rawData: medNames });
+          }
+
+        },
+
+        render: function() {
+          return (
+            <div>
+              <br />
+              <button onClick={this.submitLabs}>Submit</button>
+              <ul>
+                {(this.state.rawData) ? this.state.rawData.map(element => <li>
+                  {element}
+                </li>) : ""}
+              </ul>
+            </div>
+          )
+        }
+      })
+
+
+			ReactDOM.render(
+			<LabSubmit />,
+			document.getElementById('main')
+			);
+		</script>
+	</body>
+</html>
