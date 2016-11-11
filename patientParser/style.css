@@ -126,6 +126,14 @@ ul {
   flex: 1;
 }
 
+#LearningDiv #DeleteButton {
+  display: none;
+}
+
+#LearningDiv:hover #DeleteButton {
+  display: inline;
+}
+
 @media (max-width: 400px) {
   .flex-grid {
     display: block;

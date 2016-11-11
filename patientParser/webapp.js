@@ -17,7 +17,7 @@ app.use(function(req, res, next) {
 
 app.get('/api/runTheList', function(req, res) {
   console.log("A request");
-  db.collection("runTheList").find().sort({ro: 1}).toArray(function(err, docs) {
+  db.collection("runTheList").find({hidden: false}).sort({ro: 1}).toArray(function(err, docs) {
     res.json(docs);
   });
 });

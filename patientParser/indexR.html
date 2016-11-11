@@ -298,14 +298,15 @@
 			},
 
 			handleDeletePatient: function(event) {
-				console.log("deletes a patient");
+				if(confirm("Are you sure?")) this.props.onUpdate(event.target, this.props.patientData._id);
 			},
 
 			render: function() {
 				if (this.props.patientData.learningList !== undefined) {
 				return (
-					<div>
+					<div id="LearningDiv">
 					<label>Learning</label>
+					<button id="DeleteButton" className="DeleteButton" onClick={this.handleDeletePatient}>Delete Patient</button>
 					<br />
 					<input type="text" className="AddLearning" onKeyPress={this._handleKeyPress} />
 						<ul id="followUpUl">
@@ -316,21 +317,17 @@
 								</li>
 							)}
 						</ul>
-						<button onClick={this.handleDeletePatient}>Delete Patient</button>
-
 					</div>
 				)
 				} else {
 				return (
 					<div>
-						<div>
+						<div id="LearningDiv">
 							<label>Learning</label>
+							<button id="DeleteButton" className="DeleteButton" onClick={this.handleDeletePatient}>Delete Patient</button>
 							<br />
 							<input type="text" className="AddLearning" onKeyPress={this._handleKeyPress} />
 						</div>
-
-						<button onClick={this.handleDeletePatient}>Delete Patient</button>
-
 					</div>
 
 					)
@@ -437,6 +434,10 @@
 					patient = {learningList: tempArray};
 				}
 
+				// Deleteing a patient
+				if (val.className === "DeleteButton") patient = {hidden: true};
+
+
 		    $.ajax({
 		      url: this.props.url + patientID, type: 'PUT', contentType:'application/json',
 		      data: JSON.stringify(patient),
@@ -455,7 +456,8 @@
 							val.className === "deleteFollowUp" ||
 							val.className === "AddLearning" ||
 							val.className === "LearningList" ||
-							val.className === "deleteLearning") this.props.updateTheState();
+							val.className === "deleteLearning" ||
+							val.className === "DeleteButton") this.props.updateTheState();
 		      }.bind(this),
 		    });
 			},
@@ -504,7 +506,7 @@
 						patients: [],
 						secretCode: 'frisky', //Should be null when using for production
 						step: 2,
-						webSiteConnect: 'http://a58d4232.ngrok.io/api/runTheList/', //Should be one when using for production
+						webSiteConnect: 'http://localhost:3000/api/runTheList/' //'http://a58d4232.ngrok.io/api/runTheList/', //Should be one when using for production
 					}
 				},
 
