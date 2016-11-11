@@ -272,6 +272,7 @@
 
 
     var PatientAll = React.createClass({
+
 			encodeString: function(stringToEncode) {
 				var encodedString = CryptoJS.AES.encrypt(stringToEncode, this.props.secretCode).toString();
 				return encodedString;
@@ -350,7 +351,7 @@
 
 
 		    $.ajax({
-		      url: 'http://localhost:3000/api/runTheList/' + patientID, type: 'PUT', contentType:'application/json',
+		      url: this.props.url + patientID, type: 'PUT', contentType:'application/json',
 		      data: JSON.stringify(patient),
 		      dataType: 'json',
 		      success: function(patient) {
@@ -393,6 +394,10 @@
 		});
 
 		var PatientAllList = React.createClass({
+
+			//var webSiteConnect = 'http://a58d4232.ngrok.io/api/runTheList/';
+			//var webSiteConnect = 'http://localhost:3000/api/runTheList';
+
 			encodeString: function(stringToEncode, secretCode) {
 				var encodedString = CryptoJS.AES.encrypt(stringToEncode, secretCode).toString();
 				return encodedString;
@@ -407,7 +412,8 @@
 					return {
 						patients: [],
 						secretCode: 'frisky', //Should be null when using for production
-						step: 2 //Should be one when using for production
+						step: 2,
+						webSiteConnect: 'http://a58d4232.ngrok.io/api/runTheList/', //Should be one when using for production
 					}
 				},
 
@@ -442,13 +448,13 @@
 			},
 
 			componentDidMount: function () {
-		    $.ajax('http://localhost:3000/api/runTheList').done(function (data) {
+		    $.ajax(this.state.webSiteConnect).done(function (data) {
 		      this.setState({ patients: data });
 		    }.bind(this));
 		  },
 
 			updateTheState: function() {
-				$.ajax('http://localhost:3000/api/runTheList').done(function (data) {
+				$.ajax(this.state.webSiteConnect).done(function (data) {
 		      this.setState({ patients: data });
 		    }.bind(this));
 			},
@@ -456,7 +462,7 @@
 			addPatient: function(patientToAdd) {
 		    console.log("Adding patient:", patientToAdd);
 		    $.ajax({
-		      type: 'POST', url: 'http://localhost:3000/api/runTheList', contentType: 'application/json',
+		      type: 'POST', url: this.state.webSiteConnect, contentType: 'application/json',
 		      data: JSON.stringify(patientToAdd),
 		      success: function(data) {
 						console.log("the Data is", data);
@@ -489,7 +495,7 @@
 							return (
 								<div>
 								<ul>
-									{this.state.patients.map(element => <li key={element._id}><PatientAll patientData={element} updateTheState={this.updateTheState} secretCode={this.state.secretCode}/><br /><hr /></li>)}
+									{this.state.patients.map(element => <li key={element._id}><PatientAll patientData={element} updateTheState={this.updateTheState} secretCode={this.state.secretCode} url={this.state.webSiteConnect}/><br /><hr /></li>)}
 								</ul>
 								<button onClick={this.handleSubmit} className="btn btn-primary center-block">Add Patient</button>
 								</div>
