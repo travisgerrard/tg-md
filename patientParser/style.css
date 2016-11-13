@@ -118,12 +118,44 @@ ul {
     border: 1px solid #d0d0d0;
 }
 
+#addPatientButton {
+  margin-bottom: 25px;
+}
+
+#DeleteButton {
+  font-size: 8px;
+}
+
+.Name {
+  font-weight: bold;
+  font-size: 18px;
+}
+
 /* Flexbot grid stuff */
 .flex-grid {
   display: flex;
 }
+
 .col {
+  flex-direction: row;
   flex: 1;
+}
+
+html, body {
+    height: 100%;
+}
+
+.flexbox-login-container {
+    display: -ms-flexbox;
+  	display: -webkit-flex;
+  	display: flex;
+
+  	-ms-flex-align: center;
+  	-webkit-align-items: center;
+  	-webkit-box-align: center;
+
+    align-items: center;
+    justify-content: center;
 }
 
 #LearningDiv #DeleteButton {
@@ -139,3 +171,40 @@ ul {
     display: block;
   }
 }
+
+.main-nav {
+  background: #eee;
+}
+.main-nav ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    list-style: none;
+  }
+.main-nav a {
+    padding: 1.25rem 0.5rem;
+    font-size: 1.6rem;
+    max-width: 140px;
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: flex-start;
+    color: #333;
+}
+.main-nav a:hover, a:focus {
+      background: #ccc;
+      color: black;
+      span {
+        color: black;
+      }
+    }
+
+.main-nav span {
+    display: block;
+    font-size: 1rem;
+    font-weight: normal;
+    color: #888;
+    margin: 0.25rem 0 0 0;
+  }

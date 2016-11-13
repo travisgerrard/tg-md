@@ -36,32 +36,6 @@
 
             var ivMeds = rawData.split("IV");
             var medNames = [];
-            /*var wbc = this.parseLab("White Blood Cell Count -- ", rawData);
-            var hg = this.parseLab("Hemoglobin -- ", rawData);
-            var plt = this.parseLab("Platelet Count ", rawData);
-            var na = this.parseLab("Sodium Level -- ", rawData);
-            var k = this.parseLab("Potassium Level -- ", rawData);
-            var cl = this.parseLab("Chloride Level -- ", rawData);
-            var bicarb = this.parseLab("Carbon Dioxide Content (CO2) -- ", rawData);
-            var bun = this.parseLab("Urea Nitrogen -- ", rawData);
-            var cr = this.parseLab("Creatinine, Serum -- ", rawData);
-            var gluc = this.parseLab("Glucose Random -- ", rawData);
-
-
-            var commonLabs =
-              {
-                wbc: wbc,
-                hg: hg,
-                plt: plt,
-                na: na,
-                k: k,
-                cl: cl,
-                bicarb: bicarb,
-                bun: bun,
-                cr: cr,
-                gluc: gluc
-              };
-              */
               if (ivMeds.length > 1) {
                 for (var i = 0; i < ivMeds.length - 1; i++) {
                   var temp = ivMeds[i].split("\n")

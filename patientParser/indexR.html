@@ -19,6 +19,7 @@
 
 		<script type="text/babel">
 
+		// Name, birth date
     var PatientGeneral = React.createClass({
 			getInitialState() {
 					return {
@@ -40,6 +41,7 @@
 				return age;
 			},
 
+			//Number of days patient has been in the hospital
 			calcDays: function(admitDate) {
 				var one_day=1000*60*60*24;
 				var startDate = new Date(admitDate);
@@ -49,6 +51,7 @@
 				return days;
 			},
 
+			// updates calculations for age or length of stay when data is input
 			handleChange: function(event) {
 				this.props.onUpdate(event.target, this.props.patientData._id);
 
@@ -60,32 +63,59 @@
       render: function() {
         return (
         <div>
-        <label id="PatientGen">Name:</label>
-        <input id="PatientInput" type="text" className="Name" onChange={this.handleChange} defaultValue={(this.props.patientData.name === undefined) ? "" : this.decodeString(this.props.patientData.name)} />
-        <br  />
+				<div className="flex-grid">
+				<div className="col">
+
+        <input id="PatientInput" type="text" className="Name" placeholder="Name" onChange={this.handleChange} defaultValue={(this.props.patientData.name === undefined) ? "" : this.decodeString(this.props.patientData.name)} />
+				</div>
+				<div className="col">
+
         <label id="PatientGen">Room:</label>
         <input id="PatientInput" type="text" className="Room" onChange={this.handleChange} defaultValue={this.props.patientData.room}/>
-        <br  />
+				</div>
+
+				<div className="col">
+
         <label id="PatientGen">DOB:</label>
         <input id="PatientInput" type="text" className="DOB" onChange={this.handleChange} defaultValue={(this.props.patientData.dob === undefined) ? "" : this.decodeString(this.props.patientData.dob)}/>
-				<br />
+				</div>
+
+				<div className="col">
+
 				<label>Age: {this.calcAge(this.state.dob)}</label>
-        <br  />
+				</div>
+
+				<div className="col">
+
         <label id="PatientGen">MRN:</label>
         <input id="PatientInput" type="text" className="MRN" onChange={this.handleChange} defaultValue={(this.props.patientData.mrn === undefined) ? "" : this.decodeString(this.props.patientData.mrn)}/>
-        <br  />
+				</div>
+
+				<div className="col">
+
         <label id="PatientGen">Admit:</label>
         <input id="PatientInput" type="text" className="LOS" onChange={this.handleChange} defaultValue={this.props.patientData.los}/>
-				<br />
+				</div>
+
+				<div className="col">
+
 				<label>Day: {this.calcDays(this.state.admitDate)}</label>
-				<br  />
+				</div>
+
+				<div className="col">
+
 				<label id="PatientGen">RO:</label>
 				<input id="PatientInput" type="text" className="RO" onChange={this.handleChange} defaultValue={this.props.patientData.ro}/>
+				</div>
+
         </div>
+				<br />
+				</div>
 				)
       }
     })
 
+		// Labs setup and display
 		var PatientLabs = React.createClass({
 			decodeString: function(stringToDecode) {
 				var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);
@@ -99,6 +129,7 @@
 			    }
 			  },
 
+				// Caclulates from input and output
 			handleChange: function(event) {
 				this.props.onUpdate(event.target, this.props.patientData._id);
 
@@ -173,6 +204,28 @@
 				this.props.onUpdate(event.target, this.props.patientData._id);
 			},
 
+			// popup that checks for IV meds
+			ivMedChecker: function() {
+				var rawData = prompt("Please enter your name", "");
+
+				if (rawData != null) {
+
+					var ivMeds = rawData.split("IV");
+					var medNames = [];
+						if (ivMeds.length > 1) {
+							for (var i = 0; i < ivMeds.length - 1; i++) {
+								var temp = ivMeds[i].split("\n")
+								medNames.push(temp.slice(-1).pop());
+							}
+							alert(medNames.map(element => element));
+						} else {
+							alert("No IV meds found");
+						}
+					this.setState({ rawData: medNames });
+				}
+
+			},
+
 			render: function() {
 				return (
 					<div>
@@ -195,7 +248,7 @@
 							<li>
 								<label>
 								<input type="checkbox" className="IVMed" value="ivmed" onChange={this.handleChange} defaultChecked={this.props.patientData.ivmed} />{this.props.listToRender[3]}
-								</label>
+								</label><a onClick={this.ivMedChecker}>Check</a>
 							</li>
 							<li>
 								<label>
@@ -218,21 +271,19 @@
 			}
 		})
 
+		// Ender and handle follow ups
 		var PatientFollowUps = React.createClass({
 			decodeString: function(stringToDecode) {
 				var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);
 				return decodedString;
 			},
 
+			// Updates model that action was checked
 			handleChange: function(event) {
-				//console.log(event);
-				//using the name field to get at the key value of the
-				//console.log(event.target.name);
-				//console.log(this.props.patientData.followup[event.target.name]);
-				//console.log(this.props.patientData.consults);
 				this.props.onUpdate(event.target, this.props.patientData._id);
 			},
 
+			// sends new followUp to model
 			_handleKeyPress: function(e) {
 				if (e.key === 'Enter') {
 					this.props.onUpdate(e.target, this.props.patientData._id);
@@ -240,6 +291,7 @@
 				}
 			},
 
+			// Sends actions to delete follow up from model
 			handelDelete: function(event) {
 				//console.log(event.target.name);
 				this.props.onUpdate(event.target, this.props.patientData._id);
@@ -275,21 +327,19 @@
 			}
 		})
 
+		// Patient learning
 		var PatientLearning = React.createClass({
 			decodeString: function(stringToDecode) {
 				var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);
 				return decodedString;
 			},
 
+			// Updates model that action was checked
 			handleChange: function(event) {
-				//console.log(event);
-				//using the name field to get at the key value of the
-				//console.log(event.target.name);
-				//console.log(this.props.patientData.followup[event.target.name]);
-				//console.log(this.props.patientData.consults);
 				this.props.onUpdate(event.target, this.props.patientData._id);
 			},
 
+			// Adds new learning when enter pressed
 			_handleKeyPress: function(e) {
 				if (e.key === 'Enter') {
 					this.props.onUpdate(e.target, this.props.patientData._id);
@@ -302,6 +352,7 @@
 				this.props.onUpdate(event.target, this.props.patientData._id);
 			},
 
+			// Added a buddton to delete patient to this section... This handels that button
 			handleDeletePatient: function(event) {
 				if(confirm("Are you sure?")) this.props.onUpdate(event.target, this.props.patientData._id);
 			},
@@ -311,7 +362,7 @@
 				return (
 					<div id="LearningDiv">
 					<label>Learning</label>
-					<button id="DeleteButton" className="DeleteButton" onClick={this.handleDeletePatient}>Delete Patient</button>
+					<button id="DeleteButton" className="DeleteButton" onClick={this.handleDeletePatient}>X</button>
 					<br />
 					<input type="text" className="AddLearning" onKeyPress={this._handleKeyPress} />
 						<ul id="followUpUl">
@@ -340,18 +391,22 @@
 			}
 		})
 
+		// The master model and set up for individual patients
     var PatientAll = React.createClass({
 
+			// encrypts data with a key
 			encodeString: function(stringToEncode) {
 				var encodedString = CryptoJS.AES.encrypt(stringToEncode, this.props.secretCode).toString();
 				return encodedString;
 			},
 
+			// decrypts data with a key
 			decodeString: function(stringToDecode) {
 				var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);
 				return decodedString;
 			},
 
+			// The called from children when models needs to be updated
 			onUpdate: function(val, patientID){
 				/*
 				console.log("val is", val);
@@ -360,7 +415,7 @@
 				console.log("Patient ID is ", patientID);
 				*/
 
-				var patient = {};
+				var patient = {}; //Serves as vessel to be delivered to the backend on update
 
 				// Standard Info
 				if (val.className === "Name") patient = {name: this.encodeString(val.value)};
@@ -409,7 +464,6 @@
 					var tempArray = this.props.patientData.followup.concat();
 					var object = tempArray[val.name];
 					object = (object.complete === true) ? object.complete = false : object.complete = true;
-					//console.log(tempArray);
 					patient = {followup: tempArray};
 				}
 
@@ -428,7 +482,6 @@
 					var tempArray = this.props.patientData.learningList.concat();
 					var object = tempArray[val.name];
 					object = (object.complete === true) ? object.complete = false : object.complete = true;
-					//console.log(tempArray);
 					patient = {learningList: tempArray};
 				}
 
@@ -442,7 +495,7 @@
 				// Deleteing a patient
 				if (val.className === "DeleteButton") patient = {hidden: true};
 
-
+				// POSTs new data to the server using ajax. Updates local info if change is warrented
 		    $.ajax({
 		      url: this.props.url + patientID, type: 'PUT', contentType:'application/json',
 		      data: JSON.stringify(patient),
@@ -462,18 +515,23 @@
 							val.className === "AddLearning" ||
 							val.className === "LearningList" ||
 							val.className === "deleteLearning" ||
-							val.className === "DeleteButton") this.props.updateTheState();
+							val.className === "DeleteButton" ||
+						  val.className === "RO") this.props.updateTheState();
 		      }.bind(this),
 		    });
 			},
 
+			// using flexbox to layout everything
 			render: function() {
 
 		    return (
+					<div>
 					<div className="flex-grid">
 						<div className="col">
               <PatientGeneral onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode}/>
 						</div>
+					</div>
+					<div className="flex-grid">
 						<div className="col">
 							<PatientLabs onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode}/>
 						</div>
@@ -487,10 +545,12 @@
 							<PatientLearning onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
 						</div>
 					</div>
+					</div>
 		    )
 		  }
 		});
 
+		// Manages all the patient data
 		var PatientAllList = React.createClass({
 
 			//var webSiteConnect = 'http://a58d4232.ngrok.io/api/runTheList/';
@@ -509,12 +569,14 @@
 			getInitialState: function() {
 					return {
 						patients: [],
-						secretCode: 'frisky', //Should be null when using for production
-						step: 2,
+						secretCode: null,//null, //Should be null when using for production
+						step: 1,
+						pageType: 'basic',
 						webSiteConnect: 'http://localhost:3000/api/runTheList/' //'http://a58d4232.ngrok.io/api/runTheList/', //Should be one when using for production
 					}
 				},
 
+				// On entering our key, this runs
 				_handleKeyPress: function(e) {
 					if (e.key === 'Enter') {
 						this.setState({ secretCode: e.target.value});
@@ -523,42 +585,31 @@
 						var encrypted1 = CryptoJS.AES.encrypt("Secret message", e.target.value);
 						var encrypted2 = CryptoJS.AES.encrypt("Secret message", e.target.value).toString();
 
-/*
-						console.log(this.encodeString("Secret message", e.target.value));
-						console.log(CryptoJS.AES.encrypt("Secret message", e.target.value).toString());
-						console.log(CryptoJS.AES.encrypt("Secret message", e.target.value).toString());
-
-						console.log(CryptoJS.AES.decrypt(encrypted1, e.target.value).toString(CryptoJS.enc.Utf8))
-						console.log(this.decodeString(encrypted2, e.target.value));
-*/
 					}
 				},
 
+				// Handles add patient button click, calls add patient function
 			handleSubmit: function(e) {
 					e.preventDefault();
 					this.addPatient({hidden: false})
 			},
 
-			filterByRoundingOrder: function() {
-				$.ajax('http://localhost:3000/api/runTheList?sortByRo=ro').done(function (data) {
-					this.setState({ patients: data });
-				}.bind(this));
-			},
-
+			// Runs at initial loading of patient info. calls server for data
 			componentDidMount: function () {
 		    $.ajax(this.state.webSiteConnect).done(function (data) {
-		      this.setState({ patients: data });
+					  this.setState({ patients: data });
 		    }.bind(this));
 		  },
 
+			// When we need to reload server data this runs
 			updateTheState: function() {
 				$.ajax(this.state.webSiteConnect).done(function (data) {
 		      this.setState({ patients: data });
 		    }.bind(this));
 			},
 
+			// Saves new patient to the data base
 			addPatient: function(patientToAdd) {
-		    console.log("Adding patient:", patientToAdd);
 		    $.ajax({
 		      type: 'POST', url: this.state.webSiteConnect, contentType: 'application/json',
 		      data: JSON.stringify(patientToAdd),
@@ -576,8 +627,8 @@
 		    });
 		  },
 
+			// Does what it says...
 			resetLabsAndTodos: function() {
-
 				this.state.patients.map(element =>
 					{
 						var patient = {wbc: "", hg: "", hct: "", plt: "", na: "", k: "", cl: "", bicarb: "", bun: "", cr: "", gluc: "", input: "", output: "", consults: false, andon: false, mar: false, ivmed: false, amlab: false, dispo: false, learning: false};
@@ -594,12 +645,62 @@
 				});
 			},
 
+			// lets us sort our patient data before we deisplay it
+			componentWillReceiveProps(nextProps) {
+				//console.log(nextProps);
+				if (nextProps.pageType === 'room') {
+					var tempData = this.state.patients.slice();
+					tempData.sort(function (a, b) {
+						if (a.room > b.room) {
+							return 1;
+						}
+						if (a.room < b.room) {
+							return -1;
+						}
+						return 0;
+					});
+					this.setState({ patients: tempData });
+					this.setState({ step: 2 });
+
+				}
+				if (nextProps.pageType === 'basic') {
+					var tempData = this.state.patients.slice();
+					tempData.sort(function (a, b) {
+						if (a.ro > b.ro) {
+							return 1;
+						}
+						if (a.ro < b.ro) {
+							return -1;
+						}
+						return 0;
+					});
+					this.setState({ patients: tempData });
+					this.setState({ step: 2 });
+
+				}
+				if (nextProps.pageType === 'printOutRO') {
+					var tempData = this.state.patients.slice();
+					tempData.sort(function (a, b) {
+						if (a.ro > b.ro) {
+							return 1;
+						}
+						if (a.ro < b.ro) {
+							return -1;
+						}
+						return 0;
+					});
+					this.setState({ patients: tempData });
+					this.setState({ step: 3 });
+				}
+			},
+
+			// Renders side. Case 1 is enter password. 2 is normale display, 3 print out rounding order, 4 dispay learning
 			render: function() {
 				switch (this.state.step) {
 					case 1:
 					return (
-						<div>
-							<input type="text" className="SecretCodeInput" onKeyPress={this._handleKeyPress} />
+						<div className="flexbox-login-container">
+								<input type="password" className="SecretCodeInput" placeholder='key' onKeyPress={this._handleKeyPress} autoFocus />
 						</div>
 					)
 					case 2:
@@ -613,17 +714,99 @@
 								<ul>
 									{this.state.patients.map(element => <li key={element._id}><PatientAll patientData={element} updateTheState={this.updateTheState} secretCode={this.state.secretCode} url={this.state.webSiteConnect}/><br /><hr /></li>)}
 								</ul>
-								<button onClick={this.handleSubmit} className="btn btn-primary center-block">Add Patient</button>
+								<button id="addPatientButton" onClick={this.handleSubmit} className="btn btn-primary center-block">Add Patient</button>
 								<button onClick={this.resetLabsAndTodos} className="btn btn-primary center-block">ResetLabsAndTodos</button>
 								</div>
 							)
 						}
+					case 3:
+					if (this.state.patients === undefined || this.state.patients.length == 0) {
+						return (
+							<button onClick={this.handleSubmit} className="btn btn-primary center-block">Add Patient</button>
+						)
+					} else {
+						return (
+							<div>
+							<ul>
+								Hello
+							</ul>
+							</div>
+						)
 					}
+				}
 			}
 		});
 
+		// our navbar
+		var NavBar = React.createClass({
+			navClick: function(e) {
+				this.props.changeSort(e.target.outerText);
+			},
+
+			render: function() {
+				return(
+					<nav role='navigation' className="main-nav" id="main-nav">
+						<ul id="main-nav-list">
+							<li>
+								<a onClick={this.navClick}>
+									<div>
+										basic
+									</div>
+								</a>
+							</li>
+							<li>
+								<a onClick={this.navClick}>
+									<div>
+										room
+									</div>
+								</a>
+							</li>
+							<li>
+								<a onClick={this.navClick}>
+									<div>
+										printOutRO
+									</div>
+								</a>
+							</li>
+							<li>
+								<a onClick={this.navClick}>
+									<div>
+										learning
+									</div>
+								</a>
+							</li>
+						</ul>
+					</nav>
+				)
+			}
+		});
+
+		// Makes it so we have both navebar and regular
+		var TopLevel = React.createClass({
+			getInitialState: function() {
+					return {
+						pageType: 'basic',
+					}
+				},
+
+			changeSort: function(val) {
+					console.log(val);
+					this.setState({ pageType: val });
+				},
+
+			render: function() {
+				return (
+					<div>
+						<NavBar changeSort={this.changeSort}/>
+						<PatientAllList pageType={this.state.pageType}/>
+					</div>
+				)
+			}
+		});
+
+
 		var formRendered = ReactDOM.render(
-		  <PatientAllList />,
+			<TopLevel />,
 		  document.getElementById('main')
 		);
 		</script>
