@@ -586,7 +586,8 @@
 						secretCode: null,//null, //Should be null when using for production
 						step: 1,
 						pageType: 'basic',
-						webSiteConnect: 'http://localhost:3000/api/runTheList/' //'http://a58d4232.ngrok.io/api/runTheList/', //Should be one when using for production
+						webSiteConnect: 'http://localhost:3000/api/runTheList/', //'http://a58d4232.ngrok.io/api/runTheList/', //Should be one when using for production
+						sortBy: 'basic'
 					}
 				},
 
@@ -619,6 +620,7 @@
 			updateTheState: function() {
 				$.ajax(this.state.webSiteConnect).done(function (data) {
 		      this.setState({ patients: data });
+					this.sortPatient(this.state.sortBy);
 		    }.bind(this));
 			},
 
@@ -659,10 +661,8 @@
 				});
 			},
 
-			// lets us sort our patient data before we deisplay it
-			componentWillReceiveProps(nextProps) {
-				//console.log(nextProps);
-				if (nextProps.pageType === 'room') {
+			sortPatient: function(sortBy) {
+				if (sortBy === 'room') {
 					var tempData = this.state.patients.slice();
 					tempData.sort(function (a, b) {
 						if (a.room > b.room) {
@@ -675,9 +675,10 @@
 					});
 					this.setState({ patients: tempData });
 					this.setState({ step: 2 });
+					this.setState({ sortBy: sortBy })
 
 				}
-				if (nextProps.pageType === 'basic') {
+				if (sortBy === 'basic') {
 					var tempData = this.state.patients.slice();
 					tempData.sort(function (a, b) {
 						if (a.ro > b.ro) {
@@ -690,9 +691,10 @@
 					});
 					this.setState({ patients: tempData });
 					this.setState({ step: 2 });
+					this.setState({ sortBy: sortBy })
 
 				}
-				if (nextProps.pageType === 'printOutRO') {
+				if (sortBy === 'printOutRO') {
 					var tempData = this.state.patients.slice();
 					tempData.sort(function (a, b) {
 						if (a.ro > b.ro) {
@@ -706,6 +708,12 @@
 					this.setState({ patients: tempData });
 					this.setState({ step: 3 });
 				}
+			},
+
+			// lets us sort our patient data before we deisplay it
+			componentWillReceiveProps(nextProps) {
+				//console.log(nextProps);
+				this.sortPatient(nextProps.pageType);
 			},
 
 			// Renders side. Case 1 is enter password. 2 is normale display, 3 print out rounding order, 4 dispay learning
