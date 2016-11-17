@@ -575,8 +575,9 @@
 				return encodedString;
 			},
 
-			decodeString: function(stringToDecode, secretCode) {
-				var decodedString = CryptoJS.AES.decrypt(stringToDecode, secretCode).toString(CryptoJS.enc.Utf8);
+			// decrypts data with a key
+			decodeString: function(stringToDecode) {
+				var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.state.secretCode).toString(CryptoJS.enc.Utf8);
 				return decodedString;
 			},
 
@@ -596,9 +597,6 @@
 					if (e.key === 'Enter') {
 						this.setState({ secretCode: e.target.value});
 						this.setState({	step : this.state.step + 1 });
-
-						var encrypted1 = CryptoJS.AES.encrypt("Secret message", e.target.value);
-						var encrypted2 = CryptoJS.AES.encrypt("Secret message", e.target.value).toString();
 
 					}
 				},
@@ -662,6 +660,7 @@
 			},
 
 			sortPatient: function(sortBy) {
+
 				if (sortBy === 'room') {
 					var tempData = this.state.patients.slice();
 					tempData.sort(function (a, b) {
@@ -689,6 +688,23 @@
 						}
 						return 0;
 					});
+					this.setState({ patients: tempData });
+					this.setState({ step: 2 });
+					this.setState({ sortBy: sortBy })
+
+				}
+				if (sortBy === 'name') {
+					var tempData = this.state.patients.slice();
+					tempData.sort(function (a, b) {
+						if (this.decodeString(a.name) > this.decodeString(b.name)) {
+							return 1;
+						}
+						if (this.decodeString(a.name) < this.decodeString(b.name)) {
+							return -1;
+						}
+
+						return 0;
+					}.bind(this));
 					this.setState({ patients: tempData });
 					this.setState({ step: 2 });
 					this.setState({ sortBy: sortBy })
@@ -780,6 +796,13 @@
 								<a onClick={this.navClick}>
 									<div>
 										room
+									</div>
+								</a>
+							</li>
+							<li>
+								<a onClick={this.navClick}>
+									<div>
+										name
 									</div>
 								</a>
 							</li>
