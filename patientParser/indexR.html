@@ -199,9 +199,48 @@
 
 		var PatientDailyTodo = React.createClass({
 			handleChange: function(event) {
-				//console.log(event.target.value);
-				//console.log(this.props.patientData.consults);
-				this.props.onUpdate(event.target, this.props.patientData._id);
+				var value = event.target.value;
+				var className = event.target.className;
+
+				// Here we handle changes locally while sending changes to server
+				switch(value) {
+					case 'labsback':
+						this.props.onUpdate({className: className, trueFalse: this.state.labsback}, this.props.patientData._id);
+						(this.state.labsback === true) ? this.setState({ labsback : false }) : this.setState({ labsback : true });
+						break;
+					case 'consults':
+						this.props.onUpdate({className: className, trueFalse: this.state.consults}, this.props.patientData._id);
+						(this.state.consults === true) ? this.setState({ consults : false }) : this.setState({ consults : true });
+						break;
+					case 'andon':
+						this.props.onUpdate({className: className, trueFalse: this.state.andon}, this.props.patientData._id);
+						(this.state.andon === true) ? this.setState({ andon : false }) : this.setState({ andon : true });
+						break;
+					case 'mar':
+						this.props.onUpdate({className: className, trueFalse: this.state.mar}, this.props.patientData._id);
+						(this.state.mar === true) ? this.setState({ mar : false }) : this.setState({ mar : true });
+						break;
+					case 'ivmed':
+						this.props.onUpdate({className: className, trueFalse: this.state.ivmed}, this.props.patientData._id);
+						(this.state.ivmed === true) ? this.setState({ ivmed : false }) : this.setState({ ivmed : true });
+						break;
+					case 'amlab':
+						this.props.onUpdate({className: className, trueFalse: this.state.amlab}, this.props.patientData._id);
+						(this.state.amlab === true) ? this.setState({ amlab : false }) : this.setState({ amlab : true });
+						break;
+					case 'dispo':
+						this.props.onUpdate({className: className, trueFalse: this.state.dispo}, this.props.patientData._id);
+						(this.state.dispo === true) ? this.setState({ dispo : false }) : this.setState({ dispo : true });
+						break;
+					case 'learning':
+						this.props.onUpdate({className: className, trueFalse: this.state.learning}, this.props.patientData._id);
+						(this.state.learning === true) ? this.setState({ learning : false }) : this.setState({ learning : true });
+						break;
+					case 'seen':
+						this.props.onUpdate({className: className, trueFalse: this.state.seen}, this.props.patientData._id);
+						(this.state.seen === true) ? this.setState({ seen : false }) : this.setState({ seen : true });
+						break;
+				}
 			},
 
 			// popup that checks for IV meds
@@ -226,18 +265,32 @@
 
 			},
 
+			getInitialState: function() {
+					return {
+						labsback: this.props.patientData.labsback,
+						consults: this.props.patientData.consults,
+						andon: this.props.patientData.andon,
+						mar: this.props.patientData.mar,
+						ivmed: this.props.patientData.ivmed,
+						amlab: this.props.patientData.amlab,
+						dispo: this.props.patientData.dispo,
+						learning: this.props.patientData.learning,
+						seen: this.props.patientData.seen,
+					}
+				},
+
 			render: function() {
 				return (
 					<div>
 						<ul>
 						<li>
 								<label>
-									<input type="checkbox" className="LabsBack" value="labsback" onChange={this.handleChange} defaultChecked={this.props.patientData.labsback} />Labs back
+									<input type="checkbox" className="LabsBack" value="labsback" onChange={this.handleChange} defaultChecked={this.state.labsback} />Labs back
 								</label>
 							</li>
 							<li>
 								<label>
-									<input type="checkbox" className="Consults" value="consult" onChange={this.handleChange} defaultChecked={this.props.patientData.consults} />{this.props.listToRender[0]}
+									<input type="checkbox" className="Consults" value="consults" onChange={this.handleChange} defaultChecked={this.props.patientData.consults} />{this.props.listToRender[0]}
 								</label>
 							</li>
 							<li>
@@ -458,15 +511,15 @@
 
 
 				// DailyTodos, using a ternary operator
-				if (val.className === "LabsBack") patient = (this.props.patientData.labsback === true) ? {labsback: false} : {labsback: true};
-				if (val.className === "Consults") patient = (this.props.patientData.consults === true) ? {consults: false} : {consults: true};
-				if (val.className === "Andon") patient = (this.props.patientData.andon === true) ? {andon: false} : {andon: true};
-				if (val.className === "Mar") patient = (this.props.patientData.mar === true) ? {mar: false} : {mar: true};
-				if (val.className === "IVMed") patient = (this.props.patientData.ivmed === true) ? {ivmed: false} : {ivmed: true};
-				if (val.className === "AMLab") patient = (this.props.patientData.amlab === true) ? {amlab: false} : {amlab: true};
-				if (val.className === "Dispo") patient = (this.props.patientData.dispo === true) ? {dispo: false} : {dispo: true};
-				if (val.className === "Learning") patient = (this.props.patientData.learning === true) ? {learning: false} : {learning: true};
-				if (val.className === "Seen") patient = (this.props.patientData.seen === true) ? {seen: false} : {seen: true};
+				if (val.className === "LabsBack") patient = (val.trueFalse === true) ? {labsback: false} : {labsback: true};
+				if (val.className === "Consults") patient = (val.trueFalse === true) ? {consults: false} : {consults: true};
+				if (val.className === "Andon") patient = (val.trueFalse === true) ? {andon: false} : {andon: true};
+				if (val.className === "Mar") patient = (val.trueFalse === true) ? {mar: false} : {mar: true};
+				if (val.className === "IVMed") patient = (val.trueFalse === true) ? {ivmed: false} : {ivmed: true};
+				if (val.className === "AMLab") patient = (val.trueFalse === true) ? {amlab: false} : {amlab: true};
+				if (val.className === "Dispo") patient = (val.trueFalse === true) ? {dispo: false} : {dispo: true};
+				if (val.className === "Learning") patient = (val.trueFalse === true) ? {learning: false} : {learning: true};
+				if (val.className === "Seen") patient = (val.trueFalse === true) ? {seen: false} : {seen: true};
 
 				// Adding to list of followups, again using ternary operator!
 				if (val.className === "AddFollowUp") patient = (this.props.patientData.followup === undefined) ? {followup: [{complete: false, followUpText: this.encodeString(val.value), hidden: false}]} : {followup: this.props.patientData.followup.concat({complete: false, followUpText: this.encodeString(val.value), hidden: false})};
@@ -514,16 +567,7 @@
 		      dataType: 'json',
 		      success: function(patient) {
 						//Update the state if were clicking a checkbox
-						if (val.className === "LabsBack" ||
-							val.className === "Consults" ||
-							val.className === "Andon" ||
-							val.className === "Mar" ||
-							val.className === "IVMed" ||
-							val.className === "AMLab" ||
-							val.className === "Dispo" ||
-							val.className === "Learning" ||
-							val.className === "Seen" ||
-							val.className === "AddFollowUp" ||
+						if (val.className === "AddFollowUp" ||
 							val.className === "FollowUp" ||
 							val.className === "deleteFollowUp" ||
 							val.className === "AddLearning" ||
@@ -584,8 +628,8 @@
 			getInitialState: function() {
 					return {
 						patients: [],
-						secretCode: null,//null, //Should be null when using for production
-						step: 1,
+						secretCode: 'frisky',//null, //Should be null when using for production
+						step: 2, //1 in productino
 						pageType: 'basic',
 						webSiteConnect: 'http://localhost:3000/api/runTheList/', //'http://a58d4232.ngrok.io/api/runTheList/', //Should be one when using for production
 						sortBy: 'basic'
