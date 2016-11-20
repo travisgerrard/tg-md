@@ -22,6 +22,13 @@ app.get('/api/runTheList', function(req, res) {
   });
 });
 
+app.get('/api/runTheListLearning', function(req, res) {
+  console.log("A request");
+  db.collection("runTheList").find().sort({ro: 1}).toArray(function(err, docs) {
+    res.json(docs);
+  });
+});
+
 app.use(bodyParser.json());
 
 app.post('/api/runTheList/', function(req, res) {

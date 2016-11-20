@@ -628,8 +628,8 @@
 			getInitialState: function() {
 					return {
 						patients: [],
-						secretCode: 'frisky',//null, //Should be null when using for production
-						step: 2, //1 in productino
+						secretCode: null,//null, //Should be null when using for production
+						step: 1, //1 in productino
 						pageType: 'basic',
 						webSiteConnect: 'http://localhost:3000/api/runTheList/', //'http://a58d4232.ngrok.io/api/runTheList/', //Should be one when using for production
 						sortBy: 'basic'
@@ -696,7 +696,7 @@
 				      data: JSON.stringify(patient),
 				      dataType: 'json',
 				      success: function(patient) {
-								console.log("success");
+
 							}
 
 					});
@@ -705,7 +705,7 @@
 
 			sortPatient: function(sortBy) {
 
-				if (sortBy === 'room') {
+				if (sortBy === 'Room') {
 					var tempData = this.state.patients.slice();
 					tempData.sort(function (a, b) {
 						if (a.room > b.room) {
@@ -721,7 +721,7 @@
 					this.setState({ sortBy: sortBy })
 
 				}
-				if (sortBy === 'basic') {
+				if (sortBy === 'Rounding Order') {
 					var tempData = this.state.patients.slice();
 					tempData.sort(function (a, b) {
 						if (a.ro > b.ro) {
@@ -737,7 +737,7 @@
 					this.setState({ sortBy: sortBy })
 
 				}
-				if (sortBy === 'name') {
+				if (sortBy === 'Name') {
 					var tempData = this.state.patients.slice();
 					tempData.sort(function (a, b) {
 						if (this.decodeString(a.name) > this.decodeString(b.name)) {
@@ -753,6 +753,15 @@
 					this.setState({ step: 2 });
 					this.setState({ sortBy: sortBy })
 
+				}
+				if (sortBy === 'Seen') {
+					var tempData = this.state.patients.slice();
+					tempData.sort(function (a, b) {
+						return (a.seen === b.seen)? 0 : a.seen? 1 : -1;
+					});
+					this.setState({ patients: tempData });
+					this.setState({ step: 2 });
+					this.setState({ sortBy: sortBy })
 				}
 				if (sortBy === 'printOutRO') {
 					var tempData = this.state.patients.slice();
@@ -779,13 +788,13 @@
 			// Renders side. Case 1 is enter password. 2 is normale display, 3 print out rounding order, 4 dispay learning
 			render: function() {
 				switch (this.state.step) {
-					case 1:
+					case 1: //Enter password
 					return (
 						<div className="flexbox-login-container">
 								<input type="password" className="SecretCodeInput" placeholder='key' onKeyPress={this._handleKeyPress} autoFocus />
 						</div>
 					)
-					case 2:
+					case 2: //The main site
 						if (this.state.patients === undefined || this.state.patients.length == 0) {
 							return (
 								<button onClick={this.handleSubmit} className="btn btn-primary center-block">Add Patient</button>
@@ -801,7 +810,7 @@
 								</div>
 							)
 						}
-					case 3:
+					case 3: //Case 3 is for learning site...
 					if (this.state.patients === undefined || this.state.patients.length == 0) {
 						return (
 							<button onClick={this.handleSubmit} className="btn btn-primary center-block">Add Patient</button>
@@ -832,21 +841,28 @@
 							<li>
 								<a onClick={this.navClick}>
 									<div>
-										basic
+										Rounding Order
 									</div>
 								</a>
 							</li>
 							<li>
 								<a onClick={this.navClick}>
 									<div>
-										room
+										Room
 									</div>
 								</a>
 							</li>
 							<li>
 								<a onClick={this.navClick}>
 									<div>
-										name
+										Name
+									</div>
+								</a>
+							</li>
+							<li>
+								<a onClick={this.navClick}>
+									<div>
+										Seen
 									</div>
 								</a>
 							</li>
