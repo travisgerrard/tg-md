@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8" />
-		<title>The List</title>
+		<title>Learning</title>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react-dom.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
@@ -65,48 +65,14 @@
         <div>
 				<div className="flex-grid">
 				<div className="col">
-
-        <input id="PatientInput" type="text" className="Name" placeholder="Name" onChange={this.handleChange} defaultValue={(this.props.patientData.name === undefined) ? "" : this.decodeString(this.props.patientData.name)} />
+        <h3>{(this.props.patientData.name === undefined) ? "" : this.decodeString(this.props.patientData.name)}</h3>
 				</div>
 				<div className="col">
 
-        <label id="PatientGen">Room:</label>
-        <input id="PatientInput" type="text" className="Room" onChange={this.handleChange} defaultValue={this.props.patientData.room}/>
+
+        <label id="PatientGen">Admit: {this.props.patientData.los}</label>
 				</div>
 
-				<div className="col">
-
-        <label id="PatientGen">DOB:</label>
-        <input id="PatientInput" type="text" className="DOB" onChange={this.handleChange} defaultValue={(this.props.patientData.dob === undefined) ? "" : this.decodeString(this.props.patientData.dob)}/>
-				</div>
-
-				<div className="col">
-
-				<label>Age: {this.calcAge(this.state.dob)}</label>
-				</div>
-
-				<div className="col">
-
-        <label id="PatientGen">MRN:</label>
-        <input id="PatientInput" type="text" className="MRN" onChange={this.handleChange} defaultValue={(this.props.patientData.mrn === undefined) ? "" : this.decodeString(this.props.patientData.mrn)}/>
-				</div>
-
-				<div className="col">
-
-        <label id="PatientGen">Admit:</label>
-        <input id="PatientInput" type="text" className="LOS" onChange={this.handleChange} defaultValue={this.props.patientData.los}/>
-				</div>
-
-				<div className="col">
-
-				<label>Day: {this.calcDays(this.state.admitDate)}</label>
-				</div>
-
-				<div className="col">
-
-				<label id="PatientGen">RO:</label>
-				<input id="PatientInput" type="text" className="RO" onChange={this.handleChange} defaultValue={this.props.patientData.ro}/>
-				</div>
 
         </div>
 				<br />
@@ -196,18 +162,6 @@
 			'AM Labs',
 			'Discharge/Dispo',
 			'Learning'];
-
-		var PatientOverview = React.createClass({
-			handleChange: function(event) {
-				console.log(event.target.value);
-			},
-
-			render: function() {
-				return (
-					<textarea className="Overview" onChange={this.handleChange} />
-				)
-			}
-		})
 
 		var PatientDailyTodo = React.createClass({
 			handleChange: function(event) {
@@ -437,14 +391,11 @@
 				return (
 					<div id="LearningDiv">
 					<label>Learning</label>
-					<button id="DeleteButton" className="DeleteButton" onClick={this.handleDeletePatient}>X</button>
 					<br />
-					<input type="textyh" className="AddLearning" onKeyPress={this._handleKeyPress} />
 						<ul id="followUpUl">
 							{this.props.patientData.learningList.map((element, key) =>
 								<li key={element.learningText} id="followUpLi">
-								<input type="checkbox" className="LearningList" name={key} value={this.decodeString(element.learningText)} onChange={this.handleChange} defaultChecked={element.complete} />{this.decodeString(element.learningText)}
-								<a className="deleteLearning" name={key} onClick={this.handelDelete}>{element.complete ? "_X_" : ""}</a>
+                  - {this.decodeString(element.learningText)}
 								</li>
 							)}
 						</ul>
@@ -454,10 +405,7 @@
 				return (
 					<div>
 						<div id="LearningDiv">
-							<label>Learning</label>
-							<button id="DeleteButton" className="DeleteButton" onClick={this.handleDeletePatient}>X</button>
 							<br />
-							<input type="text" className="AddLearning" onKeyPress={this._handleKeyPress} />
 						</div>
 					</div>
 
@@ -585,7 +533,8 @@
 							val.className === "AddLearning" ||
 							val.className === "LearningList" ||
 							val.className === "deleteLearning" ||
-							val.className === "DeleteButton") this.props.updateTheState();
+							val.className === "DeleteButton" ||
+						  val.className === "RO") this.props.updateTheState();
 		      }.bind(this),
 		    });
 			},
@@ -601,16 +550,7 @@
 						</div>
 					</div>
 					<div className="flex-grid">
-						<div className="col">
-							<PatientLabs onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode}/>
-						</div>
-						<div className="col">
-							<PatientDailyTodo listToRender={dailyTodos} onUpdate={this.onUpdate} patientData={this.props.patientData}/>
-						</div>
-						<div className="col">
-							<PatientFollowUps onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
-						</div>
-						<div className="col">
+					<div className="col">
 							<PatientLearning onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
 						</div>
 					</div>
@@ -639,10 +579,10 @@
 			getInitialState: function() {
 					return {
 						patients: [],
-						secretCode: null,//null, //Should be null when using for production
-						step: 1, //1 in productino
+						secretCode: 'frisky',//null, //Should be null when using for production
+						step: 2, //1 in productino
 						pageType: 'basic',
-						webSiteConnect: 'http://localhost:3000/api/runTheList/', //'http://a58d4232.ngrok.io/api/runTheList/', //Should be one when using for production
+						webSiteConnect: 'http://localhost:3000/api/runTheListLearning/', //'http://a58d4232.ngrok.io/api/runTheList/', //Should be one when using for production
 						sortBy: 'basic'
 					}
 				},
@@ -816,9 +756,7 @@
 								<ul>
 									{this.state.patients.map(element => <li key={element._id}><PatientAll patientData={element} updateTheState={this.updateTheState} secretCode={this.state.secretCode} url={this.state.webSiteConnect}/><br /><hr /></li>)}
 								</ul>
-								<button id="addPatientButton" onClick={this.handleSubmit} className="btn btn-primary center-block">Add Patient</button>
-								<button onClick={this.resetLabsAndTodos} className="btn btn-primary center-block">ResetLabsAndTodos</button>
-								</div>
+			          </div>
 							)
 						}
 					case 3: //Case 3 is for learning site...
@@ -913,7 +851,6 @@
 			render: function() {
 				return (
 					<div>
-						<NavBar changeSort={this.changeSort}/>
 						<PatientAllList pageType={this.state.pageType}/>
 					</div>
 				)

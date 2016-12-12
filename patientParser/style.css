@@ -126,6 +126,10 @@ ul {
   font-size: 8px;
 }
 
+.Overview {
+  width: 97%;
+}
+
 .Name {
   font-weight: bold;
   font-size: 18px;

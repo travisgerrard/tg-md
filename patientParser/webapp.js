@@ -24,7 +24,7 @@ app.get('/api/runTheList', function(req, res) {
 
 app.get('/api/runTheListLearning', function(req, res) {
   console.log("A request");
-  db.collection("runTheList").find().sort({ro: 1}).toArray(function(err, docs) {
+  db.collection("runTheList").find({"learningList":{$exists:true}}, {learningList: 1, name: 1, los: 1}).sort({los: 1}).toArray(function(err, docs) {
     res.json(docs);
   });
 });
