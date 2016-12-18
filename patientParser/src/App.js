@@ -3,89 +3,10 @@ var ReactDOM = require('react-dom');
 var $ = require('jquery');
 
 var PatientGeneral = require('./PatientGeneral');
-
+var PatientLabs = require('./PatientLabs');
 
 // Labs setup and display
-var PatientLabs = React.createClass({
-  decodeString: function(stringToDecode) {
-    var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);
-    return decodedString;
-  },
 
-  getInitialState() {
-      return {
-        input: this.props.patientData.input,
-        output: this.props.patientData.output,
-      }
-    },
-
-    // Caclulates from input and output
-  handleChange: function(event) {
-    this.props.onUpdate(event.target, this.props.patientData._id);
-
-    if (event.target.className === "Input") this.setState({ input: event.target.value});
-    if (event.target.className === "Output") this.setState({ output: event.target.value});
-
-  },
-
-  render: function() {
-    return (
-      <div id="cbcAndBmr">
-      <div id="parentTop">
-          <input type="text" id="textInputLower" className="WBC" onChange={this.handleChange} defaultValue={(this.props.patientData.wbc === undefined) ? "" : this.decodeString(this.props.patientData.wbc)}/>
-          <label>\</label>
-          <input type="text" id="underlineInput" className="Hg" onChange={this.handleChange} defaultValue={(this.props.patientData.hg === undefined) ? "" : this.decodeString(this.props.patientData.hg)}/>
-          <label>/</label>
-      </div>
-      <div id="parentBottom">
-          <label>/</label>
-          <input type="text" className="Hct" onChange={this.handleChange} defaultValue={(this.props.patientData.hct === undefined) ? "" : this.decodeString(this.props.patientData.hct)}/>
-          <label>\</label>
-          <input type="text" id="edgeBoxBottom" className="plt" onChange={this.handleChange} defaultValue={(this.props.patientData.plt === undefined) ? "" : this.decodeString(this.props.patientData.plt)}/>
-      </div>
-      <br />
-      <div id="BMRTop">
-          <input type="text" id="underlineInput" className="Na" onChange={this.handleChange} defaultValue={(this.props.patientData.na === undefined) ? "" : this.decodeString(this.props.patientData.na)}/>
-          <label>|</label>
-          <input type="text" id="underlineInput" className="Cl" onChange={this.handleChange} defaultValue={(this.props.patientData.cl === undefined) ? "" : this.decodeString(this.props.patientData.cl)}/>
-          <label>|</label>
-          <input type="text" id="underlineInput" className="BUN" onChange={this.handleChange} defaultValue={(this.props.patientData.bun === undefined) ? "" : this.decodeString(this.props.patientData.bun)}/>
-          <label>/</label>
-          <input type="text" id="textInputLower" className="Gluc" onChange={this.handleChange} defaultValue={(this.props.patientData.gluc === undefined) ? "" : this.decodeString(this.props.patientData.gluc)}/>
-      </div>
-      <div id="BMRBottom">
-          <input type="text" id="potassium" className="K" onChange={this.handleChange} defaultValue={(this.props.patientData.k === undefined) ? "" : this.decodeString(this.props.patientData.k)}/>
-          <label>|</label>
-          <input type="text" className="Bicarb" onChange={this.handleChange} defaultValue={(this.props.patientData.bicarb === undefined) ? "" : this.decodeString(this.props.patientData.bicarb)}/>
-          <label>|</label>
-          <input type="text" className="Cr" onChange={this.handleChange} defaultValue={(this.props.patientData.cr === undefined) ? "" : this.decodeString(this.props.patientData.cr)}/>
-          <label>\</label>
-      </div>
-      <br />
-      <div id="InAndOut">
-        <label>I/O</label>
-        <input type="text" id="underlineInput" className="Input" onChange={this.handleChange} defaultValue={this.props.patientData.input}/>
-        <label>/</label>
-        <input type="text" id="underlineInput" className="Output" onChange={this.handleChange} defaultValue={this.props.patientData.output}/>
-        <label>: {this.state.input - this.state.output}</label>
-      </div>
-      <br />
-      <div id="OtherLabs">
-        <textarea className="OtherLabs" onChange={this.handleChange} defaultValue={(this.props.patientData.otherLabs === undefined) ? "" : this.decodeString(this.props.patientData.otherLabs)}/>
-      </div>
-    </div>
-    )
-  }
-})
-
-var dailyTodos = [
-  'Consults',
-  'Andon - VTE/Glucose',
-  'MAR 48',
-  'IV Meds',
-  'AM Labs',
-  'Discharge/Dispo',
-  'Learning'];
 
 var PatientOverview = React.createClass({
   handleChange: function(event) {
@@ -192,37 +113,37 @@ var PatientDailyTodo = React.createClass({
           </li>
           <li>
             <label>
-              <input type="checkbox" className="Consults" value="consults" onChange={this.handleChange} defaultChecked={this.props.patientData.consults} />{this.props.listToRender[0]}
+              <input type="checkbox" className="Consults" value="consults" onChange={this.handleChange} defaultChecked={this.props.patientData.consults} />Consults
             </label>
           </li>
           <li>
             <label>
-            <input type="checkbox" className="Andon" value="andon" onChange={this.handleChange} defaultChecked={this.props.patientData.andon} />{this.props.listToRender[1]}
+            <input type="checkbox" className="Andon" value="andon" onChange={this.handleChange} defaultChecked={this.props.patientData.andon} />Andon - VTE/Glucose
             </label>
           </li>
           <li>
             <label>
-            <input type="checkbox" className="Mar" value="mar" onChange={this.handleChange} defaultChecked={this.props.patientData.mar} />{this.props.listToRender[2]}
+            <input type="checkbox" className="Mar" value="mar" onChange={this.handleChange} defaultChecked={this.props.patientData.mar} />MAR 48
             </label>
           </li>
           <li>
             <label>
-            <input type="checkbox" className="IVMed" value="ivmed" onChange={this.handleChange} defaultChecked={this.props.patientData.ivmed} />{this.props.listToRender[3]}
+            <input type="checkbox" className="IVMed" value="ivmed" onChange={this.handleChange} defaultChecked={this.props.patientData.ivmed} />IV Meds
             </label><a onClick={this.ivMedChecker}>Check</a>
           </li>
           <li>
             <label>
-            <input type="checkbox" className="AMLab" value="amlab" onChange={this.handleChange} defaultChecked={this.props.patientData.amlab} />{this.props.listToRender[4]}
+            <input type="checkbox" className="AMLab" value="amlab" onChange={this.handleChange} defaultChecked={this.props.patientData.amlab} />AM Labs
             </label>
           </li>
           <li>
             <label>
-            <input type="checkbox" className="Dispo" value="dispo" onChange={this.handleChange} defaultChecked={this.props.patientData.dispo} />{this.props.listToRender[5]}
+            <input type="checkbox" className="Dispo" value="dispo" onChange={this.handleChange} defaultChecked={this.props.patientData.dispo} />Discharge/Dispo
             </label>
           </li>
           <li>
             <label>
-            <input type="checkbox" className="Learning" value="learning" onChange={this.handleChange} defaultChecked={this.props.patientData.learning} />{this.props.listToRender[6]}
+            <input type="checkbox" className="Learning" value="learning" onChange={this.handleChange} defaultChecked={this.props.patientData.learning} />Learning
             </label>
           </li>
           <li>
@@ -495,7 +416,7 @@ var PatientAll = React.createClass({
           <PatientLabs onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode}/>
         </div>
         <div className="col">
-          <PatientDailyTodo listToRender={dailyTodos} onUpdate={this.onUpdate} patientData={this.props.patientData}/>
+          <PatientDailyTodo onUpdate={this.onUpdate} patientData={this.props.patientData}/>
         </div>
         <div className="col">
           <PatientFollowUps onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />

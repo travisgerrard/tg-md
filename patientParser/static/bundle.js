@@ -30685,37 +30685,10 @@ var ReactDOM = require('react-dom');
 var $ = require('jquery');
 
 var PatientGeneral = require('./PatientGeneral');
+var PatientLabs = require('./PatientLabs');
 
 // Labs setup and display
-var PatientLabs = React.createClass({
-  displayName: 'PatientLabs',
 
-  decodeString: function (stringToDecode) {
-    var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);
-    return decodedString;
-  },
-
-  getInitialState() {
-    return {
-      input: this.props.patientData.input,
-      output: this.props.patientData.output
-    };
-  },
-
-  // Caclulates from input and output
-  handleChange: function (event) {
-    this.props.onUpdate(event.target, this.props.patientData._id);
-
-    if (event.target.className === "Input") this.setState({ input: event.target.value });
-    if (event.target.className === "Output") this.setState({ output: event.target.value });
-  },
-
-  render: function () {
-    return React.createElement('div', { id: 'cbcAndBmr' }, React.createElement('div', { id: 'parentTop' }, React.createElement('input', { type: 'text', id: 'textInputLower', className: 'WBC', onChange: this.handleChange, defaultValue: this.props.patientData.wbc === undefined ? "" : this.decodeString(this.props.patientData.wbc) }), React.createElement('label', null, '\\'), React.createElement('input', { type: 'text', id: 'underlineInput', className: 'Hg', onChange: this.handleChange, defaultValue: this.props.patientData.hg === undefined ? "" : this.decodeString(this.props.patientData.hg) }), React.createElement('label', null, '/')), React.createElement('div', { id: 'parentBottom' }, React.createElement('label', null, '/'), React.createElement('input', { type: 'text', className: 'Hct', onChange: this.handleChange, defaultValue: this.props.patientData.hct === undefined ? "" : this.decodeString(this.props.patientData.hct) }), React.createElement('label', null, '\\'), React.createElement('input', { type: 'text', id: 'edgeBoxBottom', className: 'plt', onChange: this.handleChange, defaultValue: this.props.patientData.plt === undefined ? "" : this.decodeString(this.props.patientData.plt) })), React.createElement('br', null), React.createElement('div', { id: 'BMRTop' }, React.createElement('input', { type: 'text', id: 'underlineInput', className: 'Na', onChange: this.handleChange, defaultValue: this.props.patientData.na === undefined ? "" : this.decodeString(this.props.patientData.na) }), React.createElement('label', null, '|'), React.createElement('input', { type: 'text', id: 'underlineInput', className: 'Cl', onChange: this.handleChange, defaultValue: this.props.patientData.cl === undefined ? "" : this.decodeString(this.props.patientData.cl) }), React.createElement('label', null, '|'), React.createElement('input', { type: 'text', id: 'underlineInput', className: 'BUN', onChange: this.handleChange, defaultValue: this.props.patientData.bun === undefined ? "" : this.decodeString(this.props.patientData.bun) }), React.createElement('label', null, '/'), React.createElement('input', { type: 'text', id: 'textInputLower', className: 'Gluc', onChange: this.handleChange, defaultValue: this.props.patientData.gluc === undefined ? "" : this.decodeString(this.props.patientData.gluc) })), React.createElement('div', { id: 'BMRBottom' }, React.createElement('input', { type: 'text', id: 'potassium', className: 'K', onChange: this.handleChange, defaultValue: this.props.patientData.k === undefined ? "" : this.decodeString(this.props.patientData.k) }), React.createElement('label', null, '|'), React.createElement('input', { type: 'text', className: 'Bicarb', onChange: this.handleChange, defaultValue: this.props.patientData.bicarb === undefined ? "" : this.decodeString(this.props.patientData.bicarb) }), React.createElement('label', null, '|'), React.createElement('input', { type: 'text', className: 'Cr', onChange: this.handleChange, defaultValue: this.props.patientData.cr === undefined ? "" : this.decodeString(this.props.patientData.cr) }), React.createElement('label', null, '\\')), React.createElement('br', null), React.createElement('div', { id: 'InAndOut' }, React.createElement('label', null, 'I/O'), React.createElement('input', { type: 'text', id: 'underlineInput', className: 'Input', onChange: this.handleChange, defaultValue: this.props.patientData.input }), React.createElement('label', null, '/'), React.createElement('input', { type: 'text', id: 'underlineInput', className: 'Output', onChange: this.handleChange, defaultValue: this.props.patientData.output }), React.createElement('label', null, ': ', this.state.input - this.state.output)), React.createElement('br', null), React.createElement('div', { id: 'OtherLabs' }, React.createElement('textarea', { className: 'OtherLabs', onChange: this.handleChange, defaultValue: this.props.patientData.otherLabs === undefined ? "" : this.decodeString(this.props.patientData.otherLabs) })));
-  }
-});
-
-var dailyTodos = ['Consults', 'Andon - VTE/Glucose', 'MAR 48', 'IV Meds', 'AM Labs', 'Discharge/Dispo', 'Learning'];
 
 var PatientOverview = React.createClass({
   displayName: 'PatientOverview',
@@ -30813,7 +30786,7 @@ var PatientDailyTodo = React.createClass({
   },
 
   render: function () {
-    return React.createElement('div', null, React.createElement('ul', null, React.createElement('li', null, React.createElement('label', null, React.createElement('input', { type: 'checkbox', className: 'LabsBack', value: 'labsback', onChange: this.handleChange, defaultChecked: this.state.labsback }), 'Labs back')), React.createElement('li', null, React.createElement('label', null, React.createElement('input', { type: 'checkbox', className: 'Consults', value: 'consults', onChange: this.handleChange, defaultChecked: this.props.patientData.consults }), this.props.listToRender[0])), React.createElement('li', null, React.createElement('label', null, React.createElement('input', { type: 'checkbox', className: 'Andon', value: 'andon', onChange: this.handleChange, defaultChecked: this.props.patientData.andon }), this.props.listToRender[1])), React.createElement('li', null, React.createElement('label', null, React.createElement('input', { type: 'checkbox', className: 'Mar', value: 'mar', onChange: this.handleChange, defaultChecked: this.props.patientData.mar }), this.props.listToRender[2])), React.createElement('li', null, React.createElement('label', null, React.createElement('input', { type: 'checkbox', className: 'IVMed', value: 'ivmed', onChange: this.handleChange, defaultChecked: this.props.patientData.ivmed }), this.props.listToRender[3]), React.createElement('a', { onClick: this.ivMedChecker }, 'Check')), React.createElement('li', null, React.createElement('label', null, React.createElement('input', { type: 'checkbox', className: 'AMLab', value: 'amlab', onChange: this.handleChange, defaultChecked: this.props.patientData.amlab }), this.props.listToRender[4])), React.createElement('li', null, React.createElement('label', null, React.createElement('input', { type: 'checkbox', className: 'Dispo', value: 'dispo', onChange: this.handleChange, defaultChecked: this.props.patientData.dispo }), this.props.listToRender[5])), React.createElement('li', null, React.createElement('label', null, React.createElement('input', { type: 'checkbox', className: 'Learning', value: 'learning', onChange: this.handleChange, defaultChecked: this.props.patientData.learning }), this.props.listToRender[6])), React.createElement('li', null, React.createElement('label', null, React.createElement('input', { type: 'checkbox', className: 'Seen', value: 'seen', onChange: this.handleChange, defaultChecked: this.props.patientData.seen }), 'Seen'))));
+    return React.createElement('div', null, React.createElement('ul', null, React.createElement('li', null, React.createElement('label', null, React.createElement('input', { type: 'checkbox', className: 'LabsBack', value: 'labsback', onChange: this.handleChange, defaultChecked: this.state.labsback }), 'Labs back')), React.createElement('li', null, React.createElement('label', null, React.createElement('input', { type: 'checkbox', className: 'Consults', value: 'consults', onChange: this.handleChange, defaultChecked: this.props.patientData.consults }), 'Consults')), React.createElement('li', null, React.createElement('label', null, React.createElement('input', { type: 'checkbox', className: 'Andon', value: 'andon', onChange: this.handleChange, defaultChecked: this.props.patientData.andon }), 'Andon - VTE/Glucose')), React.createElement('li', null, React.createElement('label', null, React.createElement('input', { type: 'checkbox', className: 'Mar', value: 'mar', onChange: this.handleChange, defaultChecked: this.props.patientData.mar }), 'MAR 48')), React.createElement('li', null, React.createElement('label', null, React.createElement('input', { type: 'checkbox', className: 'IVMed', value: 'ivmed', onChange: this.handleChange, defaultChecked: this.props.patientData.ivmed }), 'IV Meds'), React.createElement('a', { onClick: this.ivMedChecker }, 'Check')), React.createElement('li', null, React.createElement('label', null, React.createElement('input', { type: 'checkbox', className: 'AMLab', value: 'amlab', onChange: this.handleChange, defaultChecked: this.props.patientData.amlab }), 'AM Labs')), React.createElement('li', null, React.createElement('label', null, React.createElement('input', { type: 'checkbox', className: 'Dispo', value: 'dispo', onChange: this.handleChange, defaultChecked: this.props.patientData.dispo }), 'Discharge/Dispo')), React.createElement('li', null, React.createElement('label', null, React.createElement('input', { type: 'checkbox', className: 'Learning', value: 'learning', onChange: this.handleChange, defaultChecked: this.props.patientData.learning }), 'Learning')), React.createElement('li', null, React.createElement('label', null, React.createElement('input', { type: 'checkbox', className: 'Seen', value: 'seen', onChange: this.handleChange, defaultChecked: this.props.patientData.seen }), 'Seen'))));
   }
 });
 
@@ -31016,7 +30989,7 @@ var PatientAll = React.createClass({
   // using flexbox to layout everything
   render: function () {
 
-    return React.createElement('div', null, React.createElement('div', { className: 'flex-grid' }, React.createElement('div', { className: 'col' }, React.createElement(PatientGeneral, { onUpdate: this.onUpdate, patientData: this.props.patientData, secretCode: this.props.secretCode }))), React.createElement('div', { className: 'flex-grid' }, React.createElement('div', { className: 'col' }, React.createElement(PatientLabs, { onUpdate: this.onUpdate, patientData: this.props.patientData, secretCode: this.props.secretCode })), React.createElement('div', { className: 'col' }, React.createElement(PatientDailyTodo, { listToRender: dailyTodos, onUpdate: this.onUpdate, patientData: this.props.patientData })), React.createElement('div', { className: 'col' }, React.createElement(PatientFollowUps, { onUpdate: this.onUpdate, patientData: this.props.patientData, secretCode: this.props.secretCode })), React.createElement('div', { className: 'col' }, React.createElement(PatientLearning, { onUpdate: this.onUpdate, patientData: this.props.patientData, secretCode: this.props.secretCode }))));
+    return React.createElement('div', null, React.createElement('div', { className: 'flex-grid' }, React.createElement('div', { className: 'col' }, React.createElement(PatientGeneral, { onUpdate: this.onUpdate, patientData: this.props.patientData, secretCode: this.props.secretCode }))), React.createElement('div', { className: 'flex-grid' }, React.createElement('div', { className: 'col' }, React.createElement(PatientLabs, { onUpdate: this.onUpdate, patientData: this.props.patientData, secretCode: this.props.secretCode })), React.createElement('div', { className: 'col' }, React.createElement(PatientDailyTodo, { onUpdate: this.onUpdate, patientData: this.props.patientData })), React.createElement('div', { className: 'col' }, React.createElement(PatientFollowUps, { onUpdate: this.onUpdate, patientData: this.props.patientData, secretCode: this.props.secretCode })), React.createElement('div', { className: 'col' }, React.createElement(PatientLearning, { onUpdate: this.onUpdate, patientData: this.props.patientData, secretCode: this.props.secretCode }))));
   }
 });
 
@@ -31250,7 +31223,7 @@ var TopLevel = React.createClass({
 
 var formRendered = ReactDOM.render(React.createElement(TopLevel, null), document.getElementById('main'));
 
-},{"./PatientGeneral":185,"jquery":2,"react":183,"react-dom":3}],185:[function(require,module,exports){
+},{"./PatientGeneral":185,"./PatientLabs":186,"jquery":2,"react":183,"react-dom":3}],185:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 
@@ -31301,5 +31274,39 @@ var PatientGeneral = React.createClass({
 });
 
 module.exports = PatientGeneral;
+
+},{"react":183,"react-dom":3}],186:[function(require,module,exports){
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+var PatientLabs = React.createClass({
+  displayName: 'PatientLabs',
+
+  decodeString: function (stringToDecode) {
+    var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);
+    return decodedString;
+  },
+
+  getInitialState() {
+    return {
+      input: this.props.patientData.input,
+      output: this.props.patientData.output
+    };
+  },
+
+  // Caclulates from input and output
+  handleChange: function (event) {
+    this.props.onUpdate(event.target, this.props.patientData._id);
+
+    if (event.target.className === "Input") this.setState({ input: event.target.value });
+    if (event.target.className === "Output") this.setState({ output: event.target.value });
+  },
+
+  render: function () {
+    return React.createElement('div', { id: 'cbcAndBmr' }, React.createElement('div', { id: 'parentTop' }, React.createElement('input', { type: 'text', id: 'textInputLower', className: 'WBC', onChange: this.handleChange, defaultValue: this.props.patientData.wbc === undefined ? "" : this.decodeString(this.props.patientData.wbc) }), React.createElement('label', null, '\\'), React.createElement('input', { type: 'text', id: 'underlineInput', className: 'Hg', onChange: this.handleChange, defaultValue: this.props.patientData.hg === undefined ? "" : this.decodeString(this.props.patientData.hg) }), React.createElement('label', null, '/')), React.createElement('div', { id: 'parentBottom' }, React.createElement('label', null, '/'), React.createElement('input', { type: 'text', className: 'Hct', onChange: this.handleChange, defaultValue: this.props.patientData.hct === undefined ? "" : this.decodeString(this.props.patientData.hct) }), React.createElement('label', null, '\\'), React.createElement('input', { type: 'text', id: 'edgeBoxBottom', className: 'plt', onChange: this.handleChange, defaultValue: this.props.patientData.plt === undefined ? "" : this.decodeString(this.props.patientData.plt) })), React.createElement('br', null), React.createElement('div', { id: 'BMRTop' }, React.createElement('input', { type: 'text', id: 'underlineInput', className: 'Na', onChange: this.handleChange, defaultValue: this.props.patientData.na === undefined ? "" : this.decodeString(this.props.patientData.na) }), React.createElement('label', null, '|'), React.createElement('input', { type: 'text', id: 'underlineInput', className: 'Cl', onChange: this.handleChange, defaultValue: this.props.patientData.cl === undefined ? "" : this.decodeString(this.props.patientData.cl) }), React.createElement('label', null, '|'), React.createElement('input', { type: 'text', id: 'underlineInput', className: 'BUN', onChange: this.handleChange, defaultValue: this.props.patientData.bun === undefined ? "" : this.decodeString(this.props.patientData.bun) }), React.createElement('label', null, '/'), React.createElement('input', { type: 'text', id: 'textInputLower', className: 'Gluc', onChange: this.handleChange, defaultValue: this.props.patientData.gluc === undefined ? "" : this.decodeString(this.props.patientData.gluc) })), React.createElement('div', { id: 'BMRBottom' }, React.createElement('input', { type: 'text', id: 'potassium', className: 'K', onChange: this.handleChange, defaultValue: this.props.patientData.k === undefined ? "" : this.decodeString(this.props.patientData.k) }), React.createElement('label', null, '|'), React.createElement('input', { type: 'text', className: 'Bicarb', onChange: this.handleChange, defaultValue: this.props.patientData.bicarb === undefined ? "" : this.decodeString(this.props.patientData.bicarb) }), React.createElement('label', null, '|'), React.createElement('input', { type: 'text', className: 'Cr', onChange: this.handleChange, defaultValue: this.props.patientData.cr === undefined ? "" : this.decodeString(this.props.patientData.cr) }), React.createElement('label', null, '\\')), React.createElement('br', null), React.createElement('div', { id: 'InAndOut' }, React.createElement('label', null, 'I/O'), React.createElement('input', { type: 'text', id: 'underlineInput', className: 'Input', onChange: this.handleChange, defaultValue: this.props.patientData.input }), React.createElement('label', null, '/'), React.createElement('input', { type: 'text', id: 'underlineInput', className: 'Output', onChange: this.handleChange, defaultValue: this.props.patientData.output }), React.createElement('label', null, ': ', this.state.input - this.state.output)), React.createElement('br', null), React.createElement('div', { id: 'OtherLabs' }, React.createElement('textarea', { className: 'OtherLabs', onChange: this.handleChange, defaultValue: this.props.patientData.otherLabs === undefined ? "" : this.decodeString(this.props.patientData.otherLabs) })));
+  }
+});
+
+module.exports = PatientLabs;
 
 },{"react":183,"react-dom":3}]},{},[184]);
