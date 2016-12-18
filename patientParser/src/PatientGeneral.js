@@ -1,6 +1,5 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var $ = require('jquery');
 
 var PatientGeneral = React.createClass({
   getInitialState() {
@@ -97,4 +96,4 @@ var PatientGeneral = React.createClass({
   }
 });
 
-module.exports = BugAdd;
+module.exports = PatientGeneral;
