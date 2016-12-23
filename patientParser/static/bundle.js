@@ -30691,10 +30691,6 @@ var PatientAll = require('./PatientAll');
 var PatientAllList = React.createClass({
   displayName: 'PatientAllList',
 
-
-  //var webSiteConnect = 'http://a58d4232.ngrok.io/api/runTheList/';
-  //var webSiteConnect = 'http://localhost:3000/api/runTheList';
-
   encodeString: function (stringToEncode, secretCode) {
     var encodedString = CryptoJS.AES.encrypt(stringToEncode, secretCode).toString();
     return encodedString;
@@ -30864,64 +30860,20 @@ var PatientAllList = React.createClass({
     switch (this.state.step) {
       case 1:
         //Enter password
-        return React.createElement(
-          'div',
-          { className: 'flexbox-login-container' },
-          React.createElement('input', { type: 'password', className: 'SecretCodeInput', placeholder: 'key', onKeyPress: this._handleKeyPress, autoFocus: true })
-        );
+        return React.createElement('div', { className: 'flexbox-login-container' }, React.createElement('input', { type: 'password', className: 'SecretCodeInput', placeholder: 'key', onKeyPress: this._handleKeyPress, autoFocus: true }));
       case 2:
         //The main site
         if (this.state.patients === undefined || this.state.patients.length == 0) {
-          return React.createElement(
-            'button',
-            { onClick: this.handleSubmit, className: 'btn btn-primary center-block' },
-            'Add Patient'
-          );
+          return React.createElement('button', { onClick: this.handleSubmit, className: 'btn btn-primary center-block' }, 'Add Patient');
         } else {
-          return React.createElement(
-            'div',
-            null,
-            React.createElement(
-              'ul',
-              null,
-              this.state.patients.map(element => React.createElement(
-                'li',
-                { key: element._id },
-                React.createElement(PatientAll, { patientData: element, updateTheState: this.updateTheState, secretCode: this.state.secretCode, url: this.state.webSiteConnect }),
-                React.createElement('br', null),
-                React.createElement('hr', null)
-              ))
-            ),
-            React.createElement(
-              'button',
-              { id: 'addPatientButton', onClick: this.handleSubmit, className: 'btn btn-primary center-block' },
-              'Add Patient'
-            ),
-            React.createElement(
-              'button',
-              { onClick: this.resetLabsAndTodos, className: 'btn btn-primary center-block' },
-              'ResetLabsAndTodos'
-            )
-          );
+          return React.createElement('div', null, React.createElement('ul', null, this.state.patients.map(element => React.createElement('li', { key: element._id }, React.createElement(PatientAll, { patientData: element, updateTheState: this.updateTheState, secretCode: this.state.secretCode, url: this.state.webSiteConnect }), React.createElement('br', null), React.createElement('hr', null)))), React.createElement('button', { id: 'addPatientButton', onClick: this.handleSubmit, className: 'btn btn-primary center-block' }, 'Add Patient'), React.createElement('button', { onClick: this.resetLabsAndTodos, className: 'btn btn-primary center-block' }, 'ResetLabsAndTodos'));
         }
       case 3:
         //Case 3 is for learning site...
         if (this.state.patients === undefined || this.state.patients.length == 0) {
-          return React.createElement(
-            'button',
-            { onClick: this.handleSubmit, className: 'btn btn-primary center-block' },
-            'Add Patient'
-          );
+          return React.createElement('button', { onClick: this.handleSubmit, className: 'btn btn-primary center-block' }, 'Add Patient');
         } else {
-          return React.createElement(
-            'div',
-            null,
-            React.createElement(
-              'ul',
-              null,
-              'Hello'
-            )
-          );
+          return React.createElement('div', null, React.createElement('ul', null, 'Hello'));
         }
     }
   }
@@ -30936,92 +30888,7 @@ var NavBar = React.createClass({
   },
 
   render: function () {
-    return React.createElement(
-      'nav',
-      { role: 'navigation', className: 'main-nav', id: 'main-nav' },
-      React.createElement(
-        'ul',
-        { id: 'main-nav-list' },
-        React.createElement(
-          'li',
-          null,
-          React.createElement(
-            'a',
-            { onClick: this.navClick },
-            React.createElement(
-              'div',
-              null,
-              'Rounding Order'
-            )
-          )
-        ),
-        React.createElement(
-          'li',
-          null,
-          React.createElement(
-            'a',
-            { onClick: this.navClick },
-            React.createElement(
-              'div',
-              null,
-              'Room'
-            )
-          )
-        ),
-        React.createElement(
-          'li',
-          null,
-          React.createElement(
-            'a',
-            { onClick: this.navClick },
-            React.createElement(
-              'div',
-              null,
-              'Name'
-            )
-          )
-        ),
-        React.createElement(
-          'li',
-          null,
-          React.createElement(
-            'a',
-            { onClick: this.navClick },
-            React.createElement(
-              'div',
-              null,
-              'Seen'
-            )
-          )
-        ),
-        React.createElement(
-          'li',
-          null,
-          React.createElement(
-            'a',
-            { onClick: this.navClick },
-            React.createElement(
-              'div',
-              null,
-              'printOutRO'
-            )
-          )
-        ),
-        React.createElement(
-          'li',
-          null,
-          React.createElement(
-            'a',
-            { onClick: this.navClick },
-            React.createElement(
-              'div',
-              null,
-              'learning'
-            )
-          )
-        )
-      )
-    );
+    return React.createElement('nav', { role: 'navigation', className: 'main-nav', id: 'main-nav' }, React.createElement('ul', { id: 'main-nav-list' }, React.createElement('li', null, React.createElement('a', { onClick: this.navClick }, React.createElement('div', null, 'Rounding Order'))), React.createElement('li', null, React.createElement('a', { onClick: this.navClick }, React.createElement('div', null, 'Room'))), React.createElement('li', null, React.createElement('a', { onClick: this.navClick }, React.createElement('div', null, 'Name'))), React.createElement('li', null, React.createElement('a', { onClick: this.navClick }, React.createElement('div', null, 'Seen'))), React.createElement('li', null, React.createElement('a', { onClick: this.navClick }, React.createElement('div', null, 'printOutRO'))), React.createElement('li', null, React.createElement('a', { onClick: this.navClick }, React.createElement('div', null, 'learning')))));
   }
 });
 
@@ -31041,12 +30908,7 @@ var TopLevel = React.createClass({
   },
 
   render: function () {
-    return React.createElement(
-      'div',
-      null,
-      React.createElement(NavBar, { changeSort: this.changeSort }),
-      React.createElement(PatientAllList, { pageType: this.state.pageType })
-    );
+    return React.createElement('div', null, React.createElement(NavBar, { changeSort: this.changeSort }), React.createElement(PatientAllList, { pageType: this.state.pageType }));
   }
 });
 
@@ -31062,7 +30924,7 @@ var PatientLabs = require('./PatientLabs');
 var PatientDailyTodo = require('./PatientDailyTodo');
 var PatientFollowUps = require('./PatientFollowUps');
 var PatientLearning = require('./PatientLearning');
-
+var PatientConsult = require('./PatientConsult');
 // The master model and set up for individual patients
 var PatientAll = React.createClass({
   displayName: 'PatientAll',
@@ -31125,7 +30987,6 @@ var PatientAll = React.createClass({
 
     // Adding to list of followups, again using ternary operator!
     if (val.className === "AddFollowUp") patient = this.props.patientData.followup === undefined ? { followup: [{ complete: false, followUpText: this.encodeString(val.value), hidden: false }] } : { followup: this.props.patientData.followup.concat({ complete: false, followUpText: this.encodeString(val.value), hidden: false }) };
-
     // checking off a followup
     if (val.className === "FollowUp") {
       var tempArray = this.props.patientData.followup.concat();
@@ -31133,12 +30994,27 @@ var PatientAll = React.createClass({
       object = object.complete === true ? object.complete = false : object.complete = true;
       patient = { followup: tempArray };
     }
-
     // deleting a followup
     if (val.className === "deleteFollowUp") {
       var tempArray = this.props.patientData.followup.concat();
       tempArray.splice(val.name, 1);
       patient = { followup: tempArray };
+    }
+
+    // Adding to list of consults, again using ternary operator!
+    if (val.className === "AddConsult") patient = this.props.patientData.consult === undefined ? { consult: [{ complete: false, consultText: this.encodeString(val.value), hidden: false }] } : { consult: this.props.patientData.consult.concat({ complete: false, consultText: this.encodeString(val.value), hidden: false }) };
+    // checking off a followup
+    if (val.className === "Consult") {
+      var tempArray = this.props.patientData.consult.concat();
+      var object = tempArray[val.name];
+      object = object.complete === true ? object.complete = false : object.complete = true;
+      patient = { consult: tempArray };
+    }
+    // deleting a followup
+    if (val.className === "deleteConsult") {
+      var tempArray = this.props.patientData.consult.concat();
+      tempArray.splice(val.name, 1);
+      patient = { consult: tempArray };
     }
 
     // Adding to list of learning, again using ternary operator!
@@ -31169,7 +31045,7 @@ var PatientAll = React.createClass({
       dataType: 'json',
       success: function (patient) {
         //Update the state if were clicking a checkbox
-        if (val.className === "AddFollowUp" || val.className === "FollowUp" || val.className === "deleteFollowUp" || val.className === "AddLearning" || val.className === "LearningList" || val.className === "deleteLearning" || val.className === "DeleteButton") this.props.updateTheState();
+        if (val.className === "AddFollowUp" || val.className === "FollowUp" || val.className === "deleteFollowUp" || val.className === "AddConsult" || val.className === "Consult" || val.className === "deleteConsult" || val.className === "AddLearning" || val.className === "LearningList" || val.className === "deleteLearning" || val.className === "DeleteButton") this.props.updateTheState();
       }.bind(this)
     });
   },
@@ -31177,13 +31053,56 @@ var PatientAll = React.createClass({
   // using flexbox to layout everything
   render: function () {
 
-    return React.createElement('div', null, React.createElement('div', { className: 'flex-grid' }, React.createElement('div', { className: 'col' }, React.createElement(PatientGeneral, { onUpdate: this.onUpdate, patientData: this.props.patientData, secretCode: this.props.secretCode }))), React.createElement('div', { className: 'flex-grid' }, React.createElement('div', { className: 'col' }, React.createElement(PatientLabs, { onUpdate: this.onUpdate, patientData: this.props.patientData, secretCode: this.props.secretCode })), React.createElement('div', { className: 'col' }, React.createElement(PatientDailyTodo, { onUpdate: this.onUpdate, patientData: this.props.patientData })), React.createElement('div', { className: 'col' }, React.createElement(PatientFollowUps, { onUpdate: this.onUpdate, patientData: this.props.patientData, secretCode: this.props.secretCode })), React.createElement('div', { className: 'col' }, React.createElement(PatientLearning, { onUpdate: this.onUpdate, patientData: this.props.patientData, secretCode: this.props.secretCode }))));
+    return React.createElement('div', null, React.createElement('div', { className: 'flex-grid' }, React.createElement('div', { className: 'col' }, React.createElement(PatientGeneral, { onUpdate: this.onUpdate, patientData: this.props.patientData, secretCode: this.props.secretCode }))), React.createElement('div', { className: 'flex-grid' }, React.createElement('div', { className: 'col' }, React.createElement(PatientLabs, { onUpdate: this.onUpdate, patientData: this.props.patientData, secretCode: this.props.secretCode })), React.createElement('div', { className: 'col' }, React.createElement(PatientDailyTodo, { onUpdate: this.onUpdate, patientData: this.props.patientData })), React.createElement('div', { className: 'col' }, React.createElement(PatientFollowUps, { onUpdate: this.onUpdate, patientData: this.props.patientData, secretCode: this.props.secretCode })), React.createElement('div', { className: 'col' }, React.createElement(PatientConsult, { onUpdate: this.onUpdate, patientData: this.props.patientData, secretCode: this.props.secretCode })), React.createElement('div', { className: 'col' }, React.createElement(PatientLearning, { onUpdate: this.onUpdate, patientData: this.props.patientData, secretCode: this.props.secretCode }))));
   }
 });
 
 module.exports = PatientAll;
 
-},{"./PatientDailyTodo":186,"./PatientFollowUps":187,"./PatientGeneral":188,"./PatientLabs":189,"./PatientLearning":190,"jquery":2,"react":183,"react-dom":3}],186:[function(require,module,exports){
+},{"./PatientConsult":186,"./PatientDailyTodo":187,"./PatientFollowUps":188,"./PatientGeneral":189,"./PatientLabs":190,"./PatientLearning":191,"jquery":2,"react":183,"react-dom":3}],186:[function(require,module,exports){
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+// Ender and handle follow ups
+var PatientConsult = React.createClass({
+  displayName: 'PatientConsult',
+
+  decodeString: function (stringToDecode) {
+    var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);
+    return decodedString;
+  },
+
+  // Updates model that action was checked
+  handleChange: function (event) {
+    this.props.onUpdate(event.target, this.props.patientData._id);
+  },
+
+  // sends new followUp to model
+  _handleKeyPress: function (e) {
+    if (e.key === 'Enter') {
+      this.props.onUpdate(e.target, this.props.patientData._id);
+      e.currentTarget.value = "";
+    }
+  },
+
+  // Sends actions to delete consult from model
+  handelDelete: function (event) {
+    //console.log(event.target.name);
+    this.props.onUpdate(event.target, this.props.patientData._id);
+  },
+
+  render: function () {
+    if (this.props.patientData.consult !== undefined) {
+      return React.createElement('div', null, React.createElement('label', null, 'Consults'), React.createElement('br', null), React.createElement('input', { type: 'text', className: 'AddConsult', onKeyPress: this._handleKeyPress }), React.createElement('ul', { id: 'consultUl' }, this.props.patientData.consult.map((element, key) => React.createElement('li', { key: element.consultText, id: 'consultLi' }, React.createElement('input', { type: 'checkbox', className: 'Consult', name: key, value: this.decodeString(element.consultText), onChange: this.handleChange, defaultChecked: element.complete }), this.decodeString(element.consultText), React.createElement('a', { className: 'deleteConsult', name: key, onClick: this.handelDelete }, element.complete ? "_X_" : "")))));
+    } else {
+      return React.createElement('div', null, React.createElement('label', null, 'Consults'), React.createElement('br', null), React.createElement('input', { type: 'text', className: 'AddConsult', onKeyPress: this._handleKeyPress }));
+    }
+  }
+});
+
+module.exports = PatientConsult;
+
+},{"react":183,"react-dom":3}],187:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 
@@ -31277,7 +31196,7 @@ var PatientDailyTodo = React.createClass({
 
 module.exports = PatientDailyTodo;
 
-},{"react":183,"react-dom":3}],187:[function(require,module,exports){
+},{"react":183,"react-dom":3}],188:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 
@@ -31356,7 +31275,7 @@ var PatientFollowUps = React.createClass({
 
 module.exports = PatientFollowUps;
 
-},{"react":183,"react-dom":3}],188:[function(require,module,exports){
+},{"react":183,"react-dom":3}],189:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 
@@ -31491,7 +31410,7 @@ var PatientGeneral = React.createClass({
 
 module.exports = PatientGeneral;
 
-},{"react":183,"react-dom":3}],189:[function(require,module,exports){
+},{"react":183,"react-dom":3}],190:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 
@@ -31635,7 +31554,7 @@ var PatientLabs = React.createClass({
 
 module.exports = PatientLabs;
 
-},{"react":183,"react-dom":3}],190:[function(require,module,exports){
+},{"react":183,"react-dom":3}],191:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 

@@ -8,9 +8,6 @@ var PatientAll = require('./PatientAll');
 // Manages all the patient data
 var PatientAllList = React.createClass({
 
-  //var webSiteConnect = 'http://a58d4232.ngrok.io/api/runTheList/';
-  //var webSiteConnect = 'http://localhost:3000/api/runTheList';
-
   encodeString: function(stringToEncode, secretCode) {
     var encodedString = CryptoJS.AES.encrypt(stringToEncode, secretCode).toString();
     return encodedString;

@@ -7,7 +7,7 @@ var PatientLabs = require('./PatientLabs');
 var PatientDailyTodo = require('./PatientDailyTodo');
 var PatientFollowUps = require('./PatientFollowUps');
 var PatientLearning = require('./PatientLearning');
-
+var PatientConsult = require('./PatientConsult');
 // The master model and set up for individual patients
 var PatientAll = React.createClass({
 
@@ -71,7 +71,6 @@ var PatientAll = React.createClass({
 
     // Adding to list of followups, again using ternary operator!
     if (val.className === "AddFollowUp") patient = (this.props.patientData.followup === undefined) ? {followup: [{complete: false, followUpText: this.encodeString(val.value), hidden: false}]} : {followup: this.props.patientData.followup.concat({complete: false, followUpText: this.encodeString(val.value), hidden: false})};
-
     // checking off a followup
     if (val.className === "FollowUp") {
       var tempArray = this.props.patientData.followup.concat();
@@ -79,12 +78,27 @@ var PatientAll = React.createClass({
       object = (object.complete === true) ? object.complete = false : object.complete = true;
       patient = {followup: tempArray};
     }
-
     // deleting a followup
     if (val.className === "deleteFollowUp") {
       var tempArray = this.props.patientData.followup.concat();
       tempArray.splice(val.name, 1);
       patient = {followup: tempArray};
+    }
+
+    // Adding to list of consults, again using ternary operator!
+    if (val.className === "AddConsult") patient = (this.props.patientData.consult === undefined) ? {consult: [{complete: false, consultText: this.encodeString(val.value), hidden: false}]} : {consult: this.props.patientData.consult.concat({complete: false, consultText: this.encodeString(val.value), hidden: false})};
+    // checking off a followup
+    if (val.className === "Consult") {
+      var tempArray = this.props.patientData.consult.concat();
+      var object = tempArray[val.name];
+      object = (object.complete === true) ? object.complete = false : object.complete = true;
+      patient = {consult: tempArray};
+    }
+    // deleting a followup
+    if (val.className === "deleteConsult") {
+      var tempArray = this.props.patientData.consult.concat();
+      tempArray.splice(val.name, 1);
+      patient = {consult: tempArray};
     }
 
     // Adding to list of learning, again using ternary operator!
@@ -118,6 +132,9 @@ var PatientAll = React.createClass({
         if (val.className === "AddFollowUp" ||
           val.className === "FollowUp" ||
           val.className === "deleteFollowUp" ||
+          val.className === "AddConsult" ||
+          val.className === "Consult" ||
+          val.className === "deleteConsult" ||
           val.className === "AddLearning" ||
           val.className === "LearningList" ||
           val.className === "deleteLearning" ||
@@ -145,6 +162,9 @@ var PatientAll = React.createClass({
         </div>
         <div className="col">
           <PatientFollowUps onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
+        </div>
+        <div className="col">
+          <PatientConsult onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
         </div>
         <div className="col">
           <PatientLearning onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
