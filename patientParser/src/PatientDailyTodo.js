@@ -109,11 +109,6 @@ var PatientDailyTodo = React.createClass({
           </li>
           <li>
             <label>
-            <input type="checkbox" className="IVMed" value="ivmed" onChange={this.handleChange} defaultChecked={this.props.patientData.ivmed} />IV Meds
-            </label><a onClick={this.ivMedChecker}>Check</a>
-          </li>
-          <li>
-            <label>
             <input type="checkbox" className="AMLab" value="amlab" onChange={this.handleChange} defaultChecked={this.props.patientData.amlab} />AM Labs
             </label>
           </li>
