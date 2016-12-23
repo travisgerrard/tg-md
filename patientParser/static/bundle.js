@@ -30687,99 +30687,8 @@ var $ = require('jquery');
 var PatientGeneral = require('./PatientGeneral');
 var PatientLabs = require('./PatientLabs');
 var PatientDailyTodo = require('./PatientDailyTodo');
-// Labs setup and display
-
-
-var PatientOverview = React.createClass({
-  displayName: 'PatientOverview',
-
-  handleChange: function (event) {
-    console.log(event.target.value);
-  },
-
-  render: function () {
-    return React.createElement('textarea', { className: 'Overview', onChange: this.handleChange });
-  }
-});
-
-// Ender and handle follow ups
-var PatientFollowUps = React.createClass({
-  displayName: 'PatientFollowUps',
-
-  decodeString: function (stringToDecode) {
-    var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);
-    return decodedString;
-  },
-
-  // Updates model that action was checked
-  handleChange: function (event) {
-    this.props.onUpdate(event.target, this.props.patientData._id);
-  },
-
-  // sends new followUp to model
-  _handleKeyPress: function (e) {
-    if (e.key === 'Enter') {
-      this.props.onUpdate(e.target, this.props.patientData._id);
-      e.currentTarget.value = "";
-    }
-  },
-
-  // Sends actions to delete follow up from model
-  handelDelete: function (event) {
-    //console.log(event.target.name);
-    this.props.onUpdate(event.target, this.props.patientData._id);
-  },
-
-  render: function () {
-    //console.log(this.props.patientData.followup);
-    if (this.props.patientData.followup !== undefined) {
-      return React.createElement('div', null, React.createElement('label', null, 'Follow Ups'), React.createElement('br', null), React.createElement('input', { type: 'text', className: 'AddFollowUp', onKeyPress: this._handleKeyPress }), React.createElement('ul', { id: 'followUpUl' }, this.props.patientData.followup.map((element, key) => React.createElement('li', { key: element.followUpText, id: 'followUpLi' }, React.createElement('input', { type: 'checkbox', className: 'FollowUp', name: key, value: this.decodeString(element.followUpText), onChange: this.handleChange, defaultChecked: element.complete }), this.decodeString(element.followUpText), React.createElement('a', { className: 'deleteFollowUp', name: key, onClick: this.handelDelete }, element.complete ? "_X_" : "")))));
-    } else {
-      return React.createElement('div', null, React.createElement('label', null, 'Follow Ups'), React.createElement('br', null), React.createElement('input', { type: 'text', className: 'AddFollowUp', onKeyPress: this._handleKeyPress }));
-    }
-  }
-});
-
-// Patient learning
-var PatientLearning = React.createClass({
-  displayName: 'PatientLearning',
-
-  decodeString: function (stringToDecode) {
-    var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);
-    return decodedString;
-  },
-
-  // Updates model that action was checked
-  handleChange: function (event) {
-    this.props.onUpdate(event.target, this.props.patientData._id);
-  },
-
-  // Adds new learning when enter pressed
-  _handleKeyPress: function (e) {
-    if (e.key === 'Enter') {
-      this.props.onUpdate(e.target, this.props.patientData._id);
-      e.currentTarget.value = "";
-    }
-  },
-
-  handelDelete: function (event) {
-    //console.log(event.target.name);
-    this.props.onUpdate(event.target, this.props.patientData._id);
-  },
-
-  // Added a buddton to delete patient to this section... This handels that button
-  handleDeletePatient: function (event) {
-    if (confirm("Are you sure?")) this.props.onUpdate(event.target, this.props.patientData._id);
-  },
-
-  render: function () {
-    if (this.props.patientData.learningList !== undefined) {
-      return React.createElement('div', { id: 'LearningDiv' }, React.createElement('label', null, 'Learning'), React.createElement('button', { id: 'DeleteButton', className: 'DeleteButton', onClick: this.handleDeletePatient }, 'X'), React.createElement('br', null), React.createElement('input', { type: 'textyh', className: 'AddLearning', onKeyPress: this._handleKeyPress }), React.createElement('ul', { id: 'followUpUl' }, this.props.patientData.learningList.map((element, key) => React.createElement('li', { key: element.learningText, id: 'followUpLi' }, React.createElement('input', { type: 'checkbox', className: 'LearningList', name: key, value: this.decodeString(element.learningText), onChange: this.handleChange, defaultChecked: element.complete }), this.decodeString(element.learningText), React.createElement('a', { className: 'deleteLearning', name: key, onClick: this.handelDelete }, element.complete ? "_X_" : "")))));
-    } else {
-      return React.createElement('div', null, React.createElement('div', { id: 'LearningDiv' }, React.createElement('label', null, 'Learning'), React.createElement('button', { id: 'DeleteButton', className: 'DeleteButton', onClick: this.handleDeletePatient }, 'X'), React.createElement('br', null), React.createElement('input', { type: 'text', className: 'AddLearning', onKeyPress: this._handleKeyPress })));
-    }
-  }
-});
+var PatientFollowUps = require('./PatientFollowUps');
+var PatientLearning = require('./PatientLearning');
 
 // The master model and set up for individual patients
 var PatientAll = React.createClass({
@@ -31135,7 +31044,7 @@ var TopLevel = React.createClass({
 
 var formRendered = ReactDOM.render(React.createElement(TopLevel, null), document.getElementById('main'));
 
-},{"./PatientDailyTodo":185,"./PatientGeneral":186,"./PatientLabs":187,"jquery":2,"react":183,"react-dom":3}],185:[function(require,module,exports){
+},{"./PatientDailyTodo":185,"./PatientFollowUps":186,"./PatientGeneral":187,"./PatientLabs":188,"./PatientLearning":189,"jquery":2,"react":183,"react-dom":3}],185:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 
@@ -31230,6 +31139,50 @@ var PatientDailyTodo = React.createClass({
 module.exports = PatientDailyTodo;
 
 },{"react":183,"react-dom":3}],186:[function(require,module,exports){
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+// Ender and handle follow ups
+var PatientFollowUps = React.createClass({
+  displayName: 'PatientFollowUps',
+
+  decodeString: function (stringToDecode) {
+    var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);
+    return decodedString;
+  },
+
+  // Updates model that action was checked
+  handleChange: function (event) {
+    this.props.onUpdate(event.target, this.props.patientData._id);
+  },
+
+  // sends new followUp to model
+  _handleKeyPress: function (e) {
+    if (e.key === 'Enter') {
+      this.props.onUpdate(e.target, this.props.patientData._id);
+      e.currentTarget.value = "";
+    }
+  },
+
+  // Sends actions to delete follow up from model
+  handelDelete: function (event) {
+    //console.log(event.target.name);
+    this.props.onUpdate(event.target, this.props.patientData._id);
+  },
+
+  render: function () {
+    //console.log(this.props.patientData.followup);
+    if (this.props.patientData.followup !== undefined) {
+      return React.createElement('div', null, React.createElement('label', null, 'Follow Ups'), React.createElement('br', null), React.createElement('input', { type: 'text', className: 'AddFollowUp', onKeyPress: this._handleKeyPress }), React.createElement('ul', { id: 'followUpUl' }, this.props.patientData.followup.map((element, key) => React.createElement('li', { key: element.followUpText, id: 'followUpLi' }, React.createElement('input', { type: 'checkbox', className: 'FollowUp', name: key, value: this.decodeString(element.followUpText), onChange: this.handleChange, defaultChecked: element.complete }), this.decodeString(element.followUpText), React.createElement('a', { className: 'deleteFollowUp', name: key, onClick: this.handelDelete }, element.complete ? "_X_" : "")))));
+    } else {
+      return React.createElement('div', null, React.createElement('label', null, 'Follow Ups'), React.createElement('br', null), React.createElement('input', { type: 'text', className: 'AddFollowUp', onKeyPress: this._handleKeyPress }));
+    }
+  }
+});
+
+module.exports = PatientFollowUps;
+
+},{"react":183,"react-dom":3}],187:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 
@@ -31364,7 +31317,7 @@ var PatientGeneral = React.createClass({
 
 module.exports = PatientGeneral;
 
-},{"react":183,"react-dom":3}],187:[function(require,module,exports){
+},{"react":183,"react-dom":3}],188:[function(require,module,exports){
 var React = require('react');
 var ReactDOM = require('react-dom');
 
@@ -31507,5 +31460,52 @@ var PatientLabs = React.createClass({
 });
 
 module.exports = PatientLabs;
+
+},{"react":183,"react-dom":3}],189:[function(require,module,exports){
+var React = require('react');
+var ReactDOM = require('react-dom');
+
+// Patient learning
+var PatientLearning = React.createClass({
+  displayName: 'PatientLearning',
+
+  decodeString: function (stringToDecode) {
+    var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);
+    return decodedString;
+  },
+
+  // Updates model that action was checked
+  handleChange: function (event) {
+    this.props.onUpdate(event.target, this.props.patientData._id);
+  },
+
+  // Adds new learning when enter pressed
+  _handleKeyPress: function (e) {
+    if (e.key === 'Enter') {
+      this.props.onUpdate(e.target, this.props.patientData._id);
+      e.currentTarget.value = "";
+    }
+  },
+
+  handelDelete: function (event) {
+    //console.log(event.target.name);
+    this.props.onUpdate(event.target, this.props.patientData._id);
+  },
+
+  // Added a buddton to delete patient to this section... This handels that button
+  handleDeletePatient: function (event) {
+    if (confirm("Are you sure?")) this.props.onUpdate(event.target, this.props.patientData._id);
+  },
+
+  render: function () {
+    if (this.props.patientData.learningList !== undefined) {
+      return React.createElement('div', { id: 'LearningDiv' }, React.createElement('label', null, 'Learning'), React.createElement('button', { id: 'DeleteButton', className: 'DeleteButton', onClick: this.handleDeletePatient }, 'X'), React.createElement('br', null), React.createElement('input', { type: 'textyh', className: 'AddLearning', onKeyPress: this._handleKeyPress }), React.createElement('ul', { id: 'followUpUl' }, this.props.patientData.learningList.map((element, key) => React.createElement('li', { key: element.learningText, id: 'followUpLi' }, React.createElement('input', { type: 'checkbox', className: 'LearningList', name: key, value: this.decodeString(element.learningText), onChange: this.handleChange, defaultChecked: element.complete }), this.decodeString(element.learningText), React.createElement('a', { className: 'deleteLearning', name: key, onClick: this.handelDelete }, element.complete ? "_X_" : "")))));
+    } else {
+      return React.createElement('div', null, React.createElement('div', { id: 'LearningDiv' }, React.createElement('label', null, 'Learning'), React.createElement('button', { id: 'DeleteButton', className: 'DeleteButton', onClick: this.handleDeletePatient }, 'X'), React.createElement('br', null), React.createElement('input', { type: 'text', className: 'AddLearning', onKeyPress: this._handleKeyPress })));
+    }
+  }
+});
+
+module.exports = PatientLearning;
 
 },{"react":183,"react-dom":3}]},{},[184]);
