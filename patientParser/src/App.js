@@ -157,20 +157,6 @@ var PatientAllList = React.createClass({
       this.setState({ step: 2 });
       this.setState({ sortBy: sortBy })
     }
-    if (sortBy === 'printOutRO') {
-      var tempData = this.state.patients.slice();
-      tempData.sort(function (a, b) {
-        if (a.ro > b.ro) {
-          return 1;
-        }
-        if (a.ro < b.ro) {
-          return -1;
-        }
-        return 0;
-      });
-      this.setState({ patients: tempData });
-      this.setState({ step: 3 });
-    }
   },
 
   // lets us sort our patient data before we deisplay it
@@ -257,13 +243,6 @@ var NavBar = React.createClass({
             <a onClick={this.navClick}>
               <div>
                 Seen
-              </div>
-            </a>
-          </li>
-          <li>
-            <a onClick={this.navClick}>
-              <div>
-                printOutRO
               </div>
             </a>
           </li>
