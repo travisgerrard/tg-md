@@ -22,7 +22,7 @@ var PatientOverview = React.createClass({
   render: function() {
     return(
       <div id="Overview">
-        <textarea className="Overview" onChange={this.handleChange} defaultValue={(this.props.patientData.otherLabs === undefined) ? "" : this.decodeString(this.props.patientData.otherLabs)}/>
+        <textarea className="Overview" onChange={this.handleChange} defaultValue={(this.props.patientData.overview === undefined) ? "" : this.decodeString(this.props.patientData.overview)}/>
       </div>
     )
   }

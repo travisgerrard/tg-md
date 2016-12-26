@@ -30976,6 +30976,9 @@ var PatientAll = React.createClass({
     if (val.className === "Output") patient = { output: val.value };
     if (val.className === "OtherLabs") patient = { otherLabs: this.encodeString(val.value) };
 
+    // Overview
+    if (val.className === "Overview") patient = { overview: this.encodeString(val.value) };
+
     // DailyTodos, using a ternary operator
     if (val.className === "LabsBack") patient = val.trueFalse === true ? { labsback: false } : { labsback: true };
     if (val.className === "Consults") patient = val.trueFalse === true ? { consults: false } : { consults: true };
@@ -31399,7 +31402,7 @@ var PatientOverview = React.createClass({
   },
 
   render: function () {
-    return React.createElement('div', { id: 'Overview' }, React.createElement('textarea', { className: 'Overview', onChange: this.handleChange, defaultValue: this.props.patientData.otherLabs === undefined ? "" : this.decodeString(this.props.patientData.otherLabs) }));
+    return React.createElement('div', { id: 'Overview' }, React.createElement('textarea', { className: 'Overview', onChange: this.handleChange, defaultValue: this.props.patientData.overview === undefined ? "" : this.decodeString(this.props.patientData.overview) }));
   }
 });
 

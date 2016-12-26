@@ -59,6 +59,8 @@ var PatientAll = React.createClass({
     if (val.className === "Output") patient = {output: val.value};
     if (val.className === "OtherLabs") patient = {otherLabs: this.encodeString(val.value)};
 
+    // Overview
+    if (val.className === "Overview") patient = {overview: this.encodeString(val.value)};
 
     // DailyTodos, using a ternary operator
     if (val.className === "LabsBack") patient = (val.trueFalse === true) ? {labsback: false} : {labsback: true};
