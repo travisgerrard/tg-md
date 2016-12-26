@@ -8,6 +8,8 @@ var PatientDailyTodo = require('./PatientDailyTodo');
 var PatientFollowUps = require('./PatientFollowUps');
 var PatientLearning = require('./PatientLearning');
 var PatientConsult = require('./PatientConsult');
+var PatientOverview = require('./PatientOverview');
+
 // The master model and set up for individual patients
 var PatientAll = React.createClass({
 
@@ -151,6 +153,11 @@ var PatientAll = React.createClass({
       <div className="flex-grid">
         <div className="col">
           <PatientGeneral onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode}/>
+        </div>
+      </div>
+      <div className="flex-grid">
+        <div className="col">
+          <PatientOverview onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode}/>
         </div>
       </div>
       <div className="flex-grid">
