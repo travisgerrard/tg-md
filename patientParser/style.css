@@ -4,7 +4,6 @@
     text-align: left;
 }
 
-
 #patientInfo {
     width: 200px;
     /*float: left;*/
@@ -37,11 +36,7 @@
     margin-right: 5px;
 }
 
-#cbcAndBmr {
-    width: 140px;
-    display: inline-block;
-    /*zoom: 1;*/
-}
+
 
 ul {
     list-style: none;
@@ -51,25 +46,11 @@ ul {
     font-weight: bold;
 }
 
-
-#cbcAndBmr input {
-    width: 32px;
-    outline: none;
-    border-width: 0 0 0 0;
-    text-align: center;
-}
-
-#cbcAndBmr input:hover {
-    border: 1px solid #d0d0d0;
-}
-
 #parent {
     display: flex;
 }
 
-#parentBottom {
-    margin: 0 0 0 32px;
-}
+
 
 #textInputLower {
     position: relative;
@@ -79,15 +60,6 @@ ul {
 #edgeBoxBottom {
     position: relative;
     bottom: 10px;
-}
-
-#cbcAndBmr #underlineInput {
-    border-width: 0 0 2px 0;
-    border-style: solid;
-}
-
-#InAndOut #underlineInput {
-  width: 35px;
 }
 
 textarea {

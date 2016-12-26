@@ -1,0 +1,29 @@
+#cbcAndBmr {
+    width: 140px;
+    display: inline-block;
+    /*zoom: 1;*/
+}
+
+#cbcAndBmr input {
+    width: 32px;
+    outline: none;
+    border-width: 0 0 0 0;
+    text-align: center;
+}
+
+#cbcAndBmr input:hover {
+    border: 1px solid #d0d0d0;
+}
+
+#parentBottom {
+    margin: 0 0 0 32px;
+}
+
+#InAndOut #underlineInput {
+  width: 35px;
+}
+
+#cbcAndBmr #underlineInput {
+    border-width: 0 0 2px 0;
+    border-style: solid;
+}

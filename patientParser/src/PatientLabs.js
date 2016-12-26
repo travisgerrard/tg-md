@@ -1,6 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+require('../sass/PatientLabs.scss');
+
 var PatientLabs = React.createClass({
   decodeString: function(stringToDecode) {
     var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);

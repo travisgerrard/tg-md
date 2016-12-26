@@ -1,22 +1,27 @@
-var webpack = require('webpack');
-var path = require('path');
+function getEntrySources(sources) {
+    if (process.env.NODE_ENV !== 'production') {
+        sources.push('webpack-dev-server/client?http://localhost:8080');
+        sources.push('webpack/hot/only-dev-server');
+    }
 
-var BUILD_DIR = path.resolve(__dirname, 'static');
-var APP_DIR = path.resolve(__dirname, 'src');
+    return sources;
+}
 
 var config = {
-  entry: APP_DIR + '/App.js',
-  output: {
-    path: BUILD_DIR,
-    filename: 'bundle.js'
+  entry: {
+    runTheList: getEntrySources([
+        './src/App.js'
+    ])
   },
+  output: {
+      publicPath: 'http://localhost:8080/',
+      filename: 'public/[name].js'
+  },
+
   module : {
     loaders : [
-      {
-        test : /\.jsx?/,
-        include : APP_DIR,
-        loader : 'babel'
-      }
+      { test: /\.js$/, loaders: ['react-hot', 'jsx', 'babel'], exclude: /node_modules/ },
+      { test: /\.scss$/, loaders: ['style', 'css', 'sass'] }
     ]
   },
 };
