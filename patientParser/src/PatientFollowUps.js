@@ -1,6 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+require('../sass/PatientFollowUps.scss');
+
 // Ender and handle follow ups
 var PatientFollowUps = React.createClass({
   decodeString: function(stringToDecode) {

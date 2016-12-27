@@ -1,6 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+require('../sass/PatientDailyTodo.scss');
+
 var PatientDailyTodo = React.createClass({
   handleChange: function(event) {
     var value = event.target.value;
@@ -86,7 +88,7 @@ var PatientDailyTodo = React.createClass({
   render: function() {
     return (
       <div>
-        <ul>
+        <ul id="dailyToDoUl">
         <li>
             <label>
               <input type="checkbox" className="LabsBack" value="labsback" onChange={this.handleChange} defaultChecked={this.state.labsback} />Labs Back

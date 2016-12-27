@@ -51,7 +51,7 @@ var PatientLabs = React.createClass({
             <input type="text" id="textInputLower" className="Gluc" onChange={this.handleChange} defaultValue={(this.props.patientData.gluc === undefined) ? "" : this.decodeString(this.props.patientData.gluc)}/>
         </div>
         <div id="BMRBottom">
-            <input type="text" id="potassium" className="K" onChange={this.handleChange} defaultValue={(this.props.patientData.k === undefined) ? "" : this.decodeString(this.props.patientData.k)}/>
+            <input type="text" className="K" onChange={this.handleChange} defaultValue={(this.props.patientData.k === undefined) ? "" : this.decodeString(this.props.patientData.k)}/>
             <label>|</label>
             <input type="text" className="Bicarb" onChange={this.handleChange} defaultValue={(this.props.patientData.bicarb === undefined) ? "" : this.decodeString(this.props.patientData.bicarb)}/>
             <label>|</label>

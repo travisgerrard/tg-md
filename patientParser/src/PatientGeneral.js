@@ -1,6 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+require('../sass/PatientGeneral.scss');
+
 var PatientGeneral = React.createClass({
   getInitialState() {
       return {

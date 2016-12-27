@@ -1,87 +1,10 @@
 
-#patientTotalInfo {
-    width: 100%;
-    text-align: left;
-}
-
-#patientInfo {
-    width: 200px;
-    /*float: left;*/
-    display: inline-block;
-    zoom: 1;
-}
-
-#dailyTodo {
-    width: 225px;
-    /*font-size: 12px;*/
-    /*float: left;*/
-    display: inline-block;
-    zoom: 1;
-}
-
-#dailyTodo li:before {
-    content: "\2610";
-    margin-right: 5px;
-}
-
-#followUps {
-    width: 150px;
-    /*float: left;*/
-    display: inline-block;
-    zoom: 1;
-}
-
-#followUps li:before {
-    content: "\2610";
-    margin-right: 5px;
-}
-
 ul {
     list-style: none;
 }
 
-#nameText {
-    font-weight: bold;
-}
-
 #parent {
     display: flex;
-}
-
-#followUpUl {
-  display: table;
-  margin-left: 0;
-  padding-left: 0;
-  list-style: none;
-}
-
-#consultUl {
-  display: table;
-  margin-left: 0;
-  padding-left: 0;
-  list-style: none;
-}
-
-#followUpLi {
-  display: table-row;
-}
-
-#followUpLi:before{
-    display: table-cell;
-    padding-right: 0.4em;
-}
-
-#PatientGen{
-    display:inline-block;
-    width:50px;
-}
-
-#PatientInput {
-    border: 1px solid #FFFFFF;
-}
-
-#PatientInput:hover {
-    border: 1px solid #d0d0d0;
 }
 
 #addPatientButton {
