@@ -68,7 +68,7 @@ var BugList = React.createClass({
   },
 
   loadData: function(filter) {
-    $.ajax('/api/bugs', {data: filter}).done(function(data2) {
+    $.ajax('http://localhost:3000/api/bugs', {data: filter}).done(function(data2) {
       this.setState({bugs: data2});
     }.bind(this));
   },
@@ -77,7 +77,7 @@ var BugList = React.createClass({
     console.log("Adding bug:", bug);
     // We're advised not to modify the state, it's immutable. So, make a copy.
     $.ajax({
-      type: 'POST', url: '/api/bugs', contentType: 'application/json',
+      type: 'POST', url: 'http://localhost:3000/api/bugs', contentType: 'application/json',
       data: JSON.stringify(bug),
       success: function(data) {
         var bug = data;
