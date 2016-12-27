@@ -36,8 +36,6 @@
     margin-right: 5px;
 }
 
-
-
 ul {
     list-style: none;
 }
@@ -48,23 +46,6 @@ ul {
 
 #parent {
     display: flex;
-}
-
-
-
-#textInputLower {
-    position: relative;
-    bottom: -9px;
-}
-
-#edgeBoxBottom {
-    position: relative;
-    bottom: 10px;
-}
-
-textarea {
-  width: 200px;
-  height: 75px;
 }
 
 #followUpUl {
