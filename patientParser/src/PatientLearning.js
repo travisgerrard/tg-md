@@ -1,6 +1,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
+require('../sass/PatientLearning.scss');
+
 // Patient learning
 var PatientLearning = React.createClass({
   decodeString: function(stringToDecode) {
@@ -39,9 +41,9 @@ var PatientLearning = React.createClass({
       <button id="DeleteButton" className="DeleteButton" onClick={this.handleDeletePatient}>X</button>
       <br />
       <input type="textyh" className="AddLearning" onKeyPress={this._handleKeyPress} />
-        <ul id="followUpUl">
+        <ul id="learningUl">
           {this.props.patientData.learningList.map((element, key) =>
-            <li key={element.learningText} id="followUpLi">
+            <li key={element.learningText} >
             <input type="checkbox" className="LearningList" name={key} value={this.decodeString(element.learningText)} onChange={this.handleChange} defaultChecked={element.complete} />{this.decodeString(element.learningText)}
             <a className="deleteLearning" name={key} onClick={this.handelDelete}>{element.complete ? "_X_" : ""}</a>
             </li>

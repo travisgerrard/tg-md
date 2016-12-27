@@ -38,7 +38,7 @@ var PatientConsult = React.createClass({
       <input type="text" className="AddConsult" onKeyPress={this._handleKeyPress} />
         <ul id="consultUl">
           {this.props.patientData.consult.map((element, key) =>
-            <li key={element.consultText} id="consultLi">
+            <li key={element.consultText} >
             <input type="checkbox" className="Consult" name={key} value={this.decodeString(element.consultText)} onChange={this.handleChange} defaultChecked={element.complete} />{this.decodeString(element.consultText)}
             <a className="deleteConsult" name={key} onClick={this.handelDelete}>{element.complete ? "_X_" : ""}</a>
             </li>

@@ -11,10 +11,6 @@ ul {
   margin-bottom: 25px;
 }
 
-#DeleteButton {
-  font-size: 8px;
-}
-
 .Overview {
   width: 97%;
   height: 50px;
@@ -52,13 +48,7 @@ html, body {
     justify-content: center;
 }
 
-#LearningDiv #DeleteButton {
-  display: none;
-}
 
-#LearningDiv:hover #DeleteButton {
-  display: inline;
-}
 
 @media (max-width: 400px) {
   .flex-grid {
