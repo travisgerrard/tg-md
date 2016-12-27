@@ -74,8 +74,8 @@ var BugList = React.createClass({
   },
 
   changeFilter: function(newFilter) {
-    this.props.history.push({search: '?' + $.param(newFilter)});
-    this,loadData(newFilter);
+    this.props.router.push({search: '?' + $.param(newFilter)});
+    this.loadData(newFilter);
   },
 
   addBug: function(bug) {

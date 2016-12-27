@@ -1,6 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-import { Router, Route, Link, Redirect, browserHistory } from 'react-router'
+import { Router, Route, Link, Redirect, browserHistory, withRouter } from 'react-router'
 
 var BugList = require('./BugList');
 
