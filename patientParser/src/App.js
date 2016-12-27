@@ -2,6 +2,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
 
+require('../sass/App.scss');
+
 // The master model and set up for individual patients
 var PatientAll = require('./PatientAll');
 

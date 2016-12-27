@@ -10,6 +10,8 @@ var PatientLearning = require('./PatientLearning');
 var PatientConsult = require('./PatientConsult');
 var PatientOverview = require('./PatientOverview');
 
+require('../sass/PatientAll.scss');
+
 // The master model and set up for individual patients
 var PatientAll = React.createClass({
 
