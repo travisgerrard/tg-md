@@ -29,7 +29,9 @@ var BugEdit = React.createClass({
           <br />
           Title: <input type="text" value={this.state.title} onChange={this.onChangeTitle} />
           <br />
-          <button type="submit">Submit</button><Link to="/bugs">Back to bug list</Link>
+          <button type="submit">Submit</button>
+          <br />
+          <Link to="/bugs">Back to bug list</Link>
         </form>
       </div>
     );
