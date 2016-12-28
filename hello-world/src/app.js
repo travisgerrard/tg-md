@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router, Route, Redirect, browserHistory } from 'react-router'
 
 import BugList from './BugList.js';
-import BugEdit from './BugEdit';
+import BugEdit from './BugEditES6.js';
 
 const NoMatch = () => <h2>No match for the route</h2>;
 /*
