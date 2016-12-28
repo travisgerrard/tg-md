@@ -31,5 +31,4 @@ export default class PatientOverview extends React.Component {
 
 }
 
-
 module.exports = PatientOverview;
