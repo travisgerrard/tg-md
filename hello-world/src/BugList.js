@@ -7,7 +7,7 @@ var BugAdd = require('./BugAdd');
 
 var BugRow = React.createClass({
   render: function() {
-    console.log("Rendering BugRow:", this.props.bug);
+    //console.log("Rendering BugRow:", this.props.bug);
     return (
       <tr>
         <td>{this.props.bug._id}</td>
@@ -22,7 +22,7 @@ var BugRow = React.createClass({
 
 var BugTable = React.createClass({
   render: function() {
-    console.log("Rendering bug table, num items:", this.props.bugs.length);
+    //console.log("Rendering bug table, num items:", this.props.bugs.length);
     var bugRows = this.props.bugs.map(function(bug) {
       return <BugRow key={bug._id} bug={bug} />
     });
@@ -50,7 +50,7 @@ var BugList = React.createClass({
     return {bugs: []}
   },
   render: function() {
-    console.log("Rendering bug list, num items:", this.state.bugs.length);
+    console.log("Rendering BugList, num items:", this.state.bugs.length);
     return (
       <div>
         <h1>Bug Tracker</h1>
@@ -64,18 +64,33 @@ var BugList = React.createClass({
   },
 
   componentDidMount: function() {
+    console.log("BugList: componentDidMount");
     this.loadData({});
   },
 
+  componentDidUpdate: function(prevProps) {
+    var oldQuery = prevProps.location.query;
+    var newQuery = this.props.location.query;
+    if (oldQuery.priority === newQuery.priority && oldQuery.status === newQuery.status) {
+      console.log("BugList: componentDidUpdate, no change in filter, not updating");
+      return
+    } else {
+      console.log("BugList: componentDidUpdate, loading data with new filter");
+      this.loadData();
+    }
+  },
+
   loadData: function(filter) {
-    $.ajax('http://localhost:3000/api/bugs', {data: filter}).done(function(data2) {
-      this.setState({bugs: data2});
+    var query = this.props.location.query || {};
+    var filter = {priority: query.priority, status: query.status};
+
+    $.ajax('http://localhost:3000/api/bugs', {data: filter}).done(function(data) {
+      this.setState({bugs: data});
     }.bind(this));
   },
 
   changeFilter: function(newFilter) {
     this.props.router.push({search: '?' + $.param(newFilter)});
-    this.loadData(newFilter);
   },
 
   addBug: function(bug) {
