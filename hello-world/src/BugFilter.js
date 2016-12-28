@@ -13,6 +13,7 @@ var BugFilter = React.createClass({
           <option value="New">New</option>
           <option value="Open">Open</option>
           <option value="Closed">Closed</option>
+          <option value="Fixed">Fixed</option>
         </select>
         <br/>
         Priority:

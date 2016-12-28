@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
+var Link = require('react-router').Link;
 
 var BugEdit = React.createClass({
   render: function() {
@@ -28,7 +29,7 @@ var BugEdit = React.createClass({
           <br />
           Title: <input type="text" value={this.state.title} onChange={this.onChangeTitle} />
           <br />
-          <button type="submit">Submit</button>
+          <button type="submit">Submit</button><Link to="/bugs">Back to bug list</Link>
         </form>
       </div>
     );
@@ -42,7 +43,7 @@ var BugEdit = React.createClass({
     this.loadData();
   },
 
-  componentDidUpdate: function (preProps) {
+  componentDidUpdate: function (prevProps) {
     console.log("BugEdit: componentDidUpdate", prevProps.params.id, this.props.params.id);
     if (this.props.params.id != prevProps.params.id) {
       this.loadData();
@@ -50,9 +51,9 @@ var BugEdit = React.createClass({
   },
 
   loadData: function () {
-    $.ajax('http://localhost:8080/api/bugs' + this.props.params.id) .done(function (bug) {
+    $.ajax('http://localhost:3000/api/bugs/' + this.props.params.id) .done(function (bug) {
       this.setState(bug);
-    }).bind(this);
+    }.bind(this));
   },
 
   onChangePriority: function (e) {
@@ -81,7 +82,7 @@ var BugEdit = React.createClass({
     }
 
     $.ajax({
-      url: 'http://localhost:8080/api/bugs' + this.props.params.id, type: 'PUT', contentType:'application/json',
+      url: 'http://localhost:3000/api/bugs/' + this.props.params.id, type: 'PUT', contentType:'application/json',
       data: JSON.stringify(bug),
       dataType: 'json',
       success: function(bug) {
