@@ -28,7 +28,7 @@ const LoginForm = ({
         <RaisedButton type="submit" label="Log in" primary />
       </div>
 
-      <CardText>Don't have an account? <Link to={'/signup'}>Log in</Link>.</CardText>
+      <CardText>Don't have an account? <Link to={'/signup'}>Sign up</Link>.</CardText>
     </form>
   </Card>
 );
