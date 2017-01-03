@@ -41631,7 +41631,6 @@
 	      xhr.responseType = 'json';
 	      xhr.addEventListener('load', function () {
 	        if (xhr.status === 200) {
-	          console.log(xhr.response.message);
 	          _this2.setState({
 	            secretData: xhr.response.message
 	          });
@@ -41647,7 +41646,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_Dashboard2.default, { secretData: this.secretData });
+	      return _react2.default.createElement(_Dashboard2.default, { secretData: this.state.secretData });
 	    }
 	  }]);
 
