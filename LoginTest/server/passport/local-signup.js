@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 const User = require('mongoose').model('User');
 const PassportLocalStrategy = require('passport-local').Strategy;
 
@@ -16,7 +18,7 @@ const PassportLocalStrategy = require('passport-local').Strategy;
      name: req.body.name.trim()
    };
 
-   const NewUser = new User(userData);
+   const newUser = new User(userData);
    newUser.save((err) => {
      if (err) { return done(err); }
 

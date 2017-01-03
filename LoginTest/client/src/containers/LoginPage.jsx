@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import Auth form '../modules/Auth';
+import Auth from '../modules/Auth';
 import LoginForm from '../components/LoginForm.jsx';
 
 class LoginPage extends React.Component {
@@ -7,7 +7,7 @@ class LoginPage extends React.Component {
   /**
     * Class constructor
     */
-  constructor(props) {
+  constructor(props, context) {
     super(props, context);
 
     const storedMessage = localStorage.getItem('successMessage');
@@ -21,6 +21,7 @@ class LoginPage extends React.Component {
     // set initial component state
     this.state = {
       errors: {},
+      successMessage,
       user: {
         email: '',
         password: ''
@@ -106,7 +107,7 @@ class LoginPage extends React.Component {
 }
 
 LoginPage.contextTypes = {
-  router: PropTypes.object.isRequired;
+  router: PropTypes.object.isRequired
 };
 
 export default LoginPage;

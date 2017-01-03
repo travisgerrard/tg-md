@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 const express = require('express');
 const validator = require('validator');
 const passport = require('passport');
@@ -99,6 +101,8 @@ function validateSignupForm(payload) {
          });
        }
 
+       console.log(err);
+
        return res.status(400).json({
          success: false,
          message: 'Could not process the form.'
@@ -130,6 +134,8 @@ function validateSignupForm(payload) {
            message: err.message
          });
        }
+
+       console.log(err);
 
        return res.status(400).json({
          success: false,

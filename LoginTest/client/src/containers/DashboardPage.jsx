@@ -2,7 +2,7 @@ import React from 'react';
 import Auth from '../modules/Auth';
 import Dashboard from '../components/Dashboard.jsx';
 
-class Dashboard extends React.Component {
+class DashboardPage extends React.Component {
   /**
     * Class constructor.
     */
@@ -21,13 +21,14 @@ class Dashboard extends React.Component {
 
     componentDidMount() {
       const xhr = new XMLHttpRequest();
-      xhr.open('get', '/api/dashobard');
+      xhr.open('get', '/api/dashboard');
       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
       // set the authorization HTTP header
       xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
       xhr.responseType = 'json';
-      xhr.addEventListener('load' () => {
+      xhr.addEventListener('load', () => {
         if (xhr.status === 200) {
+          console.log(xhr.response.message);
           this.setState({
             secretData: xhr.response.message
           });

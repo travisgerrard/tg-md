@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-improt { Card, CardTitle, CardText } from 'material-ui/Card';
+import { Card, CardTitle, CardText } from 'material-ui/Card';
 
 const Dashboard = ({ secretData }) => (
   <Card className="container">

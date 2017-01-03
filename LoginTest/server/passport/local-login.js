@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 const jwt = require('jsonwebtoken');
 const User = require('mongoose').model('User');
 const PassportLocalStrategy = require('passport-local').Strategy;
@@ -12,6 +14,11 @@ const config = require('../../config');
    session: false,
    passReqToCallback: true
  }, (req, email, password, done) => {
+
+   const userData = {
+     email: email.trim(),
+     password: password.trim()
+   };
 
    return User.findOne({ email: userData.email }, (err, user) => {
      if (err) { return done(err); }

@@ -6,8 +6,8 @@ class SignUpPage extends React.Component {
   /**
     * Class constructor
     */
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
 
     // set initial component state
     this.state = {
@@ -68,7 +68,7 @@ class SignUpPage extends React.Component {
         });
 
         // set a message
-        localStorage.setItme('successMessage', xhr.response.message);
+        localStorage.setItem('successMessage', xhr.response.message);
 
         // make a redirect
         this.context.router.replace('/login');
