@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-require('../sass/PatientOverview.scss');
+require('./sass/PatientOverview.scss');
 
 export default class PatientOverview extends React.Component {
   decodeString(stringToDecode) {

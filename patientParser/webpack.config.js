@@ -10,7 +10,7 @@ function getEntrySources(sources) {
 var config = {
   entry: {
     runTheList: getEntrySources([
-        './src/App.js'
+        './client/src/App.js'
     ])
   },
   output: {
@@ -21,6 +21,7 @@ var config = {
   module : {
     loaders : [
       { test: /\.js$/, loaders: ['react-hot', 'jsx', 'babel'], exclude: /node_modules/ },
+      { test: /\.jsx$/, loaders: ['react-hot', 'jsx', 'babel'], exclude: /node_modules/ },
       { test: /\.scss$/, loaders: ['style', 'css', 'sass'] }
     ]
   },

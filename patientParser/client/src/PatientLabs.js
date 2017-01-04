@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-require('../sass/PatientLabs.scss');
+require('./sass/PatientLabs.scss');
 
 var PatientLabs = React.createClass({
   decodeString: function(stringToDecode) {

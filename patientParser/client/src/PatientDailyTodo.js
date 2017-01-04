@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-require('../sass/PatientDailyTodo.scss');
+require('./sass/PatientDailyTodo.scss');
 
 var PatientDailyTodo = React.createClass({
   handleChange: function(event) {

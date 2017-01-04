@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-require('../sass/PatientLearning.scss');
+require('./sass/PatientLearning.scss');
 
 // Patient learning
 var PatientLearning = React.createClass({

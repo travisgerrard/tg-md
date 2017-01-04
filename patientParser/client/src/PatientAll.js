@@ -10,7 +10,9 @@ var PatientLearning = require('./PatientLearning');
 var PatientConsult = require('./PatientConsult');
 var PatientOverview = require('./PatientOverview');
 
-require('../sass/PatientAll.scss');
+import PatientOverviewPage from './containers/PatientOverviewPage.jsx';
+
+require('./sass/PatientAll.scss');
 
 // The master model and set up for individual patients
 var PatientAll = React.createClass({
@@ -161,7 +163,7 @@ var PatientAll = React.createClass({
       </div>
       <div className="flex-grid">
         <div className="col">
-          <PatientOverview onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode}/>
+          <PatientOverviewPage onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode}/>
         </div>
       </div>
       <div className="flex-grid">
