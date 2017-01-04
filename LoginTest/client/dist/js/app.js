@@ -34749,11 +34749,11 @@
 
 	var _DashboardPage2 = _interopRequireDefault(_DashboardPage);
 
-	var _LoginPage = __webpack_require__(463);
+	var _LoginPage = __webpack_require__(464);
 
 	var _LoginPage2 = _interopRequireDefault(_LoginPage);
 
-	var _SignUpPage = __webpack_require__(479);
+	var _SignUpPage = __webpack_require__(480);
 
 	var _SignUpPage2 = _interopRequireDefault(_SignUpPage);
 
@@ -41584,7 +41584,7 @@
 
 	var _Auth2 = _interopRequireDefault(_Auth);
 
-	var _Dashboard = __webpack_require__(481);
+	var _Dashboard = __webpack_require__(463);
 
 	var _Dashboard2 = _interopRequireDefault(_Dashboard);
 
@@ -41665,6 +41665,44 @@
 	  value: true
 	});
 
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Card = __webpack_require__(399);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Dashboard = function Dashboard(_ref) {
+	  var secretData = _ref.secretData;
+	  return _react2.default.createElement(
+	    _Card.Card,
+	    { className: 'container' },
+	    _react2.default.createElement(_Card.CardTitle, { title: 'Dashboard', subtitle: 'You should get access to this page only after authentication.' }),
+	    secretData && _react2.default.createElement(
+	      _Card.CardText,
+	      { style: { fontSize: '16px', color: 'green' } },
+	      secretData
+	    )
+	  );
+	};
+
+	Dashboard.propTypes = {
+	  secretData: _react.PropTypes.string.isRequired
+	};
+
+	exports.default = Dashboard;
+
+/***/ },
+/* 464 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
@@ -41675,7 +41713,7 @@
 
 	var _Auth2 = _interopRequireDefault(_Auth);
 
-	var _LoginForm = __webpack_require__(464);
+	var _LoginForm = __webpack_require__(465);
 
 	var _LoginForm2 = _interopRequireDefault(_LoginForm);
 
@@ -41813,7 +41851,7 @@
 	exports.default = LoginPage;
 
 /***/ },
-/* 464 */
+/* 465 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41830,11 +41868,11 @@
 
 	var _Card = __webpack_require__(399);
 
-	var _RaisedButton = __webpack_require__(465);
+	var _RaisedButton = __webpack_require__(466);
 
 	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 
-	var _TextField = __webpack_require__(467);
+	var _TextField = __webpack_require__(468);
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -41908,7 +41946,7 @@
 	exports.default = LoginForm;
 
 /***/ },
-/* 465 */
+/* 466 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -41918,7 +41956,7 @@
 	});
 	exports.default = undefined;
 
-	var _RaisedButton = __webpack_require__(466);
+	var _RaisedButton = __webpack_require__(467);
 
 	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 
@@ -41927,7 +41965,7 @@
 	exports.default = _RaisedButton2.default;
 
 /***/ },
-/* 466 */
+/* 467 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -42408,7 +42446,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 467 */
+/* 468 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -42418,7 +42456,7 @@
 	});
 	exports.default = undefined;
 
-	var _TextField = __webpack_require__(468);
+	var _TextField = __webpack_require__(469);
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -42427,7 +42465,7 @@
 	exports.default = _TextField2.default;
 
 /***/ },
-/* 468 */
+/* 469 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -42484,19 +42522,19 @@
 
 	var _transitions2 = _interopRequireDefault(_transitions);
 
-	var _EnhancedTextarea = __webpack_require__(469);
+	var _EnhancedTextarea = __webpack_require__(470);
 
 	var _EnhancedTextarea2 = _interopRequireDefault(_EnhancedTextarea);
 
-	var _TextFieldHint = __webpack_require__(476);
+	var _TextFieldHint = __webpack_require__(477);
 
 	var _TextFieldHint2 = _interopRequireDefault(_TextFieldHint);
 
-	var _TextFieldLabel = __webpack_require__(477);
+	var _TextFieldLabel = __webpack_require__(478);
 
 	var _TextFieldLabel2 = _interopRequireDefault(_TextFieldLabel);
 
-	var _TextFieldUnderline = __webpack_require__(478);
+	var _TextFieldUnderline = __webpack_require__(479);
 
 	var _TextFieldUnderline2 = _interopRequireDefault(_TextFieldUnderline);
 
@@ -43008,7 +43046,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 469 */
+/* 470 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -43053,7 +43091,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactEventListener = __webpack_require__(470);
+	var _reactEventListener = __webpack_require__(471);
 
 	var _reactEventListener2 = _interopRequireDefault(_reactEventListener);
 
@@ -43254,7 +43292,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 470 */
+/* 471 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -43297,7 +43335,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _reactAddonsShallowCompare = __webpack_require__(471);
+	var _reactAddonsShallowCompare = __webpack_require__(472);
 
 	var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 
@@ -43305,7 +43343,7 @@
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _supports = __webpack_require__(474);
+	var _supports = __webpack_require__(475);
 
 	var supports = _interopRequireWildcard(_supports);
 
@@ -43467,13 +43505,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 471 */
+/* 472 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(472);
+	module.exports = __webpack_require__(473);
 
 /***/ },
-/* 472 */
+/* 473 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -43488,7 +43526,7 @@
 
 	'use strict';
 
-	var shallowEqual = __webpack_require__(473);
+	var shallowEqual = __webpack_require__(474);
 
 	/**
 	 * Does a shallow comparison for props and state.
@@ -43502,7 +43540,7 @@
 	module.exports = shallowCompare;
 
 /***/ },
-/* 473 */
+/* 474 */
 /***/ function(module, exports) {
 
 	/**
@@ -43574,7 +43612,7 @@
 	module.exports = shallowEqual;
 
 /***/ },
-/* 474 */
+/* 475 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -43584,7 +43622,7 @@
 	});
 	exports.passiveOption = exports.detachEvent = exports.attachEvent = exports.removeEventListener = exports.addEventListener = exports.canUseDOM = undefined;
 
-	var _defineProperty = __webpack_require__(475);
+	var _defineProperty = __webpack_require__(476);
 
 	var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -43627,7 +43665,7 @@
 	}();
 
 /***/ },
-/* 475 */
+/* 476 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -43651,7 +43689,7 @@
 	}
 
 /***/ },
-/* 476 */
+/* 477 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -43733,7 +43771,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 477 */
+/* 478 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -43852,7 +43890,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 478 */
+/* 479 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -43990,7 +44028,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 479 */
+/* 480 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44005,7 +44043,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _SignUpForm = __webpack_require__(480);
+	var _SignUpForm = __webpack_require__(481);
 
 	var _SignUpForm2 = _interopRequireDefault(_SignUpForm);
 
@@ -44136,7 +44174,7 @@
 	exports.default = SignUpPage;
 
 /***/ },
-/* 480 */
+/* 481 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44153,11 +44191,11 @@
 
 	var _Card = __webpack_require__(399);
 
-	var _RaisedButton = __webpack_require__(465);
+	var _RaisedButton = __webpack_require__(466);
 
 	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 
-	var _TextField = __webpack_require__(467);
+	var _TextField = __webpack_require__(468);
 
 	var _TextField2 = _interopRequireDefault(_TextField);
 
@@ -44227,44 +44265,6 @@
 	};
 
 	exports.default = SignUpForm;
-
-/***/ },
-/* 481 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Card = __webpack_require__(399);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Dashboard = function Dashboard(_ref) {
-	  var secretData = _ref.secretData;
-	  return _react2.default.createElement(
-	    _Card.Card,
-	    { className: 'container' },
-	    _react2.default.createElement(_Card.CardTitle, { title: 'Dashboard', subtitle: 'You should get access to this page only after authentication.' }),
-	    secretData && _react2.default.createElement(
-	      _Card.CardText,
-	      { style: { fontSize: '16px', color: 'green' } },
-	      secretData
-	    )
-	  );
-	};
-
-	Dashboard.propTypes = {
-	  secretData: _react.PropTypes.string.isRequired
-	};
-
-	exports.default = Dashboard;
 
 /***/ }
 /******/ ]);

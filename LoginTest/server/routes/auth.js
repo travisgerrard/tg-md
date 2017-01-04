@@ -111,7 +111,7 @@ function validateSignupForm(payload) {
 
      return res.status(200).json({
        success: true,
-       message: 'Ypu have successfully signed up! Now you should be able to log in.'
+       message: 'You have successfully signed up! Now you should be able to log in.'
      });
    })(req, res, next);
  });
