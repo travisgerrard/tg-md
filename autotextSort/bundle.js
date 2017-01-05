@@ -183,13 +183,13 @@
 	      return _react2.default.createElement(
 	        _fixedDataTable.Table,
 	        {
-	          height: 40 + (this.state.rows.length + 1) * 30,
+	          height: 40 + (this.state.filteredDataList.length + 1) * 30,
 	          width: 1150,
-	          rowsCount: this.state.rows.length,
+	          rowsCount: this.state.filteredDataList.length,
 	          rowHeight: 30,
 	          headerHeight: 30,
 	          rowGetter: function (rowIndex) {
-	            return this.state.rows[rowIndex];
+	            return this.state.filteredDataList[rowIndex];
 	          }.bind(this) },
 	        _react2.default.createElement(_fixedDataTable.Column, { dataKey: 'id', width: 50,
 	          label: 'id' + (this.state.sortBy === 'id' ? sortDirArrow : ''),

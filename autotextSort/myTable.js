@@ -82,12 +82,12 @@ _sortRowsBy(cellDataKey) {
       sortDirArrow = this.state.sortDir === 'DESC' ? ' ↓' : ' ↑';
     }
       return <Table
-        height={40+((this.state.rows.length+1) * 30)}
+        height={40+((this.state.filteredDataList.length+1) * 30)}
         width={1150}
-        rowsCount={this.state.rows.length}
+        rowsCount={this.state.filteredDataList.length}
         rowHeight={30}
         headerHeight={30}
-        rowGetter={function(rowIndex) {return this.state.rows[rowIndex]; }.bind(this)}>
+        rowGetter={function(rowIndex) {return this.state.filteredDataList[rowIndex]; }.bind(this)}>
         <Column dataKey="id" width={50}
           label={'id' + (this.state.sortBy === 'id' ? sortDirArrow : '')}
           headerRenderer={this._renderHeader.bind(this)}/>
