@@ -19,15 +19,16 @@ class MyTable extends React.Component {
     }
   }
 
-  _renderHeader(label, cellDataKey) {
+  renderHeader(label, cellDataKey) {
     return <div>
-          <a onClick={this._sortRowsBy.bind(this, cellDataKey)}>{label}</a>
+          <span>{label}</span>
             <div>
               <br />
-              <input style={{width:90+'%'}} onChange={this._onFilterChange.bind(this, cellDataKey)}/>
+              <input type="text"/>
             </div>
         </div>;
   }
+
 
 _onFilterChange(cellDataKey, event) {
   if (!event.target.value) {
@@ -76,26 +77,54 @@ _sortRowsBy(cellDataKey) {
   this.setState({sortBy, sortDir, filteredDataList : rows});
 }
 
+_textFilterChange(cellDataKey, event) {
+  console.log("Filter changed", event.target);
+  if (!event.target.value) {
+    this.setState({
+      filteredDataList: this.rows,
+    });
+  }
+  var filterBy = event.target.value.toString().toLowerCase();
+  var size = this.rows.length;
+  var filteredList = [];
+  for (var index = 0; index < size; index++) {
+    var v = this.rows[index][cellDataKey];
+    if (v.toString().toLowerCase().indexOf(filterBy) !== -1) {
+      filteredList.push(this.rows[index]);
+    }
+  }
+  this.setState({
+    filteredDataList: filteredList,
+  });
+}
+
   render() {
     var sortDirArrow = '';
     if (this.state.sortDir !== null){
       sortDirArrow = this.state.sortDir === 'DESC' ? ' ↓' : ' ↑';
     }
-      return <Table
+      return (
+        <div>
+        <input
+          onChange={this._textFilterChange.bind(this)}
+          placeholder="Filter by First Name"
+        />
+        <Table
         height={40+((this.state.filteredDataList.length+1) * 30)}
         width={1150}
         rowsCount={this.state.filteredDataList.length}
         rowHeight={30}
         headerHeight={30}
         rowGetter={function(rowIndex) {return this.state.filteredDataList[rowIndex]; }.bind(this)}>
-        <Column dataKey="id" width={50}
+        <Column headerRenderer={this.renderHeader} dataKey="id" width={50}
           label={'id' + (this.state.sortBy === 'id' ? sortDirArrow : '')}
-          headerRenderer={this._renderHeader.bind(this)}/>
-        <Column dataKey="first_name" width={200} label="First Name" />
+          />
+        <Column  dataKey="first_name" width={200} label="First Name" />
         <Column  dataKey="last_name" width={200} label="Last Name" />
         <Column  dataKey="email" width={400} label="e-mail" />
         <Column  dataKey="country" width={300} label="Country" />
-      </Table>;
+      </Table>
+    </div>);
   }
 }
 
