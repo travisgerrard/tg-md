@@ -1,0 +1,11 @@
+[
+{
+  "ABBREVIATION" : "test1",
+  "UPDATED": "No",
+  "CONTENTS" : "text1_Contents"
+},
+{
+  "ABBREVIATION" : "test2",
+  "UPDATED": "No",
+  "CONTENTS" : "text2_Contents"
+}]
