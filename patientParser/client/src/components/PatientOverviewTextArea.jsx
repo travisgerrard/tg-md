@@ -5,13 +5,13 @@ const PatientOverviewTextArea = ({
   overview,
 }) => (
   <div id="Overview">
-    <textarea className="Overview" onChange={handleChange} defaultValue={(this.props.patientData.overview === undefined) ? "" : this.decodeString(this.props.patientData.overview)}/>
+    <textarea className="Overview" onChange={handleChange} defaultValue={overview}/>
   </div>
 );
 
 PatientOverviewTextArea.propTypes = {
   handleChange: PropTypes.func.isRequired,
   overview: PropTypes.string.isRequired
-}
+};
 
 export default PatientOverviewTextArea;

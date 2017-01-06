@@ -28,7 +28,7 @@ class PatientOverviewPage extends React.Component {
     render() {
       console.log(this.handleChange);
       return (
-        <PatientOverviewTextArea onChange={this.handleChange} overview={this.state.overview} />
+        <PatientOverviewTextArea handleChange={this.handleChange} overview={this.state.overview} />
       );
     }
 }
