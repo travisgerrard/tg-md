@@ -77,6 +77,9 @@ var PatientAll = React.createClass({
     if (val.className === "Dispo") patient = (val.trueFalse === true) ? {dispo: false} : {dispo: true};
     if (val.className === "Learning") patient = (val.trueFalse === true) ? {learning: false} : {learning: true};
     if (val.className === "Seen") patient = (val.trueFalse === true) ? {seen: false} : {seen: true};
+    if (val.className === "Lines") patient = (val.trueFalse === true) ? {lines: false} : {lines: true};
+    if (val.className === "Foley") patient = (val.trueFalse === true) ? {foley: false} : {foley: true};
+    if (val.className === "Mobility") patient = (val.trueFalse === true) ? {mobility: false} : {mobility: true};
 
     // Adding to list of followups, again using ternary operator!
     if (val.className === "AddFollowUp") patient = (this.props.patientData.followup === undefined) ? {followup: [{complete: false, followUpText: this.encodeString(val.value), hidden: false}]} : {followup: this.props.patientData.followup.concat({complete: false, followUpText: this.encodeString(val.value), hidden: false})};

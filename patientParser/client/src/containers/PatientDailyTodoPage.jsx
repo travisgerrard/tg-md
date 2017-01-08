@@ -20,7 +20,10 @@ class PatientDailyTodoPage extends React.Component {
         amlab: this.props.patientData.amlab,
         dispo: this.props.patientData.dispo,
         learning: this.props.patientData.learning,
-        seen: this.props.patientData.seen
+        seen: this.props.patientData.seen,
+        lines: this.props.patientData.lines,
+        foley: this.props.patientData.foley,
+        mobility: this.props.patientData.mobility
       };
 
       this.handleChange = this.handleChange.bind(this);
@@ -68,12 +71,24 @@ class PatientDailyTodoPage extends React.Component {
           this.props.onUpdate({className: className, trueFalse: this.state.seen}, this.props.patientData._id);
           (this.state.seen === true) ? this.setState({ seen : false }) : this.setState({ seen : true });
           break;
+        case 'lines':
+          this.props.onUpdate({className: className, trueFalse: this.state.lines}, this.props.patientData._id);
+          (this.state.lines === true) ? this.setState({ lines : false }) : this.setState({ lines : true });
+          break;
+        case 'foley':
+          this.props.onUpdate({className: className, trueFalse: this.state.foley}, this.props.patientData._id);
+          (this.state.foley === true) ? this.setState({ foley : false }) : this.setState({ foley : true });
+          break;
+        case 'mobility':
+          this.props.onUpdate({className: className, trueFalse: this.state.mobility}, this.props.patientData._id);
+          (this.state.mobility === true) ? this.setState({ mobility : false }) : this.setState({ mobility : true });
+          break;
       }
     }
 
     render() {
       return (
-        <PatientDailyTodoList handleChange={this.handleChange} labsback={this.state.labsback} consults={this.state.consults} andon={this.state.andon} mar={this.state.mar} amlab={this.state.amlab} dispo={this.state.dispo} learning={this.state.learning} seen={this.state.seen} />
+        <PatientDailyTodoList handleChange={this.handleChange} labsback={this.state.labsback} consults={this.state.consults} andon={this.state.andon} mar={this.state.mar} amlab={this.state.amlab} dispo={this.state.dispo} learning={this.state.learning} seen={this.state.seen} lines={this.state.lines} foley={this.state.foley} mobility={this.state.mobility} />
       );
     }
   }

@@ -9,7 +9,10 @@ const PatientDailyTodoList = ({
   amlab,
   dispo,
   learning,
-  seen
+  seen,
+  lines,
+  foley,
+  mobility
 }) => (
   <div>
     <ul id="dailyToDoUl">
@@ -53,6 +56,22 @@ const PatientDailyTodoList = ({
         <input type="checkbox" className="Seen" value="seen" onChange={handleChange} defaultChecked={seen} />Seen
         </label>
       </li>
+      <hr />
+        <li>
+          <label>
+          <input type="checkbox" className="Lines" value="lines" onChange={handleChange} defaultChecked={lines} />Lines
+          </label>
+        </li>
+        <li>
+          <label>
+          <input type="checkbox" className="Foley" value="foley" onChange={handleChange} defaultChecked={foley} />Foley
+          </label>
+        </li>
+        <li>
+          <label>
+          <input type="checkbox" className="Mobility" value="mobility" onChange={handleChange} defaultChecked={mobility} />Mobility
+          </label>
+        </li>
     </ul>
   </div>
 );
@@ -66,7 +85,10 @@ PatientDailyTodoList.propTypes = {
   amlab: PropTypes.bool.isRequired,
   dispo: PropTypes.bool.isRequired,
   learning: PropTypes.bool.isRequired,
-  seen: PropTypes.bool.isRequired
+  seen: PropTypes.bool.isRequired,
+  lines: PropTypes.bool.isRequired,
+  foley: PropTypes.bool.isRequired,
+  mobility: PropTypes.bool.isRequired
 };
 
 export default PatientDailyTodoList;
