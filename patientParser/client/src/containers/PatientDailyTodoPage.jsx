@@ -33,8 +33,6 @@ class PatientDailyTodoPage extends React.Component {
       var value = event.target.value;
       var className = event.target.className;
 
-      console.log(value, className);
-
       this.props.onUpdate({className: className, trueFalse: this.state[value]}, this.props.patientData._id); // updates on the server. Got rid of lots of code with [value]
       (this.state[value] === true) ? this.setState({ [value] : false }) : this.setState({ [value] : true }); // updates locally.
     }
