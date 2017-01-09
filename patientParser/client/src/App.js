@@ -24,8 +24,8 @@ var PatientAllList = React.createClass({
   getInitialState: function() {
       return {
         patients: [],
-        secretCode: 'frisky',//null, //Should be null when using for production
-        step: 2, //1 in productino
+        secretCode: null,//null, //Should be null when using for production
+        step: 1, //1 in productino
         pageType: 'basic',
         webSiteConnect: 'http://localhost:3000/api/runTheList/', //'http://a58d4232.ngrok.io/api/runTheList/', //Should be one when using for production
         sortBy: 'basic'

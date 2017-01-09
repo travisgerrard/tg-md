@@ -1,13 +1,13 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+import Crypto from './modules/Crypto';
 
 require('./sass/PatientFollowUps.scss');
 
 // Ender and handle follow ups
 var PatientFollowUps = React.createClass({
   decodeString: function(stringToDecode) {
-    var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);
-    return decodedString;
+      return Crypto.decodeString(stringToDecode, this.props.secretCode);
   },
 
   // Updates model that action was checked
@@ -30,18 +30,24 @@ var PatientFollowUps = React.createClass({
   },
 
   render: function() {
+    var listCss = "followUpUl";
+    var listClassName = "FollowUp";
+    var componentName = "followup";
+    var textName = "followUpText";
+    var deleteText = "deleteFollowUp";
     //console.log(this.props.patientData.followup);
     if (this.props.patientData.followup !== undefined) {
+      var followUp = this.props.patientData[componentName];
     return (
       <div>
       <label>Follow Ups</label>
       <br />
       <input type="text" className="AddFollowUp" onKeyPress={this._handleKeyPress} />
-        <ul id="followUpUl">
-          {this.props.patientData.followup.map((element, key) =>
-            <li key={element.followUpText} >
-            <input type="checkbox" className="FollowUp" name={key} value={this.decodeString(element.followUpText)} onChange={this.handleChange} defaultChecked={element.complete} />{this.decodeString(element.followUpText)}
-            <a className="deleteFollowUp" name={key} onClick={this.handelDelete}>{element.complete ? "_X_" : ""}</a>
+        <ul id={listCss}>
+          {followUp.map((element, key) =>
+            <li key={element[textName]} >
+            <input type="checkbox" className={listClassName} name={key} value={this.decodeString(element[textName])} onChange={this.handleChange} defaultChecked={element.complete} />{this.decodeString(element[textName])}
+            <a className={deleteText} name={key} onClick={this.handelDelete}>{element.complete ? "_X_" : ""}</a>
             </li>
           )}
         </ul>
