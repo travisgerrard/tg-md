@@ -5,6 +5,7 @@ const PatientDynamicList = ({
   listContents,
   listClassName,
   deleteText,
+  textName,
   handleChange,
   handleDelete,
   decodeString
@@ -21,9 +22,10 @@ const PatientDynamicList = ({
 
 PatientDynamicList.propTypes = {
   listCss: PropTypes.string.isRequired,
-  listContent: PropTypes.object.isRequired,
+  listContents: PropTypes.array.isRequired,
   listClassName: PropTypes.string.isRequired,
   deleteText: PropTypes.string.isRequired,
+  textName: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
   decodeString: PropTypes.func.isRequired

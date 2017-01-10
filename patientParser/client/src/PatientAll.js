@@ -151,14 +151,16 @@ var PatientAll = React.createClass({
           val.className === "AddLearning" ||
           val.className === "LearningList" ||
           val.className === "deleteLearning" ||
-          val.className === "DeleteButton") this.props.updateTheState();
+          val.className === "DeleteButton") {
+            this.props.updateTheState();
+            console.log("State updated...");
+          }
       }.bind(this),
     });
   },
 
   // using flexbox to layout everything
   render: function() {
-
     return (
       <div>
       <div className="flex-grid">

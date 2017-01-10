@@ -9,6 +9,7 @@ class PatientFollowUpsPage extends React.Component {
   /**
     * Class constructor
     */
+    // Sets initial state
     constructor(props) {
       super(props);
 
@@ -17,6 +18,7 @@ class PatientFollowUpsPage extends React.Component {
         listContents: this.props.patientData.followup,
         listClassName: "FollowUp",
         deleteText: "deleteFollowUp",
+        textName: "followUpText",
         inputBoxClassName: "AddFollowUp"
       }
 
@@ -25,6 +27,11 @@ class PatientFollowUpsPage extends React.Component {
       this.handleDelete = this.handleDelete.bind(this);
       this.handleKeyPress = this.handleKeyPress.bind(this);
       this.decodeString = this.decodeString.bind(this);
+    }
+
+    // updates state with props from PatientAll with they get reloaded
+    componentWillReceiveProps(nextProps) {
+      this.setState ({ listContents: nextProps.patientData.followup });
     }
 
     decodeString(stringToDecode) {
@@ -49,15 +56,13 @@ class PatientFollowUpsPage extends React.Component {
     }
 
     render() {
-      console.log(this.state.listCss);
-
       if (this.state.listContents !== undefined) {
       return (
         <div>
           <label>Follow Ups</label>
           <br />
           <PatientDynamicInputBox handleKeyPress={this.handleKeyPress} inputBoxClassName={this.state.inputBoxClassName} />
-          <PatientDynamicList listCss={this.state.listCss} listContents={this.state.listContents} listClassName={this.state.listClassName} deleteText={this.stat.deleteText} handleDelete={this.handelDelete} decodeString={this.decodeString} />
+          <PatientDynamicList listCss={this.state.listCss} listContents={this.state.listContents} listClassName={this.state.listClassName} deleteText={this.state.deleteText} textName={this.state.textName} handleDelete={this.handleDelete} decodeString={this.decodeString} handleChange={this.handleChange} />
         </div>
       )
     } else {
