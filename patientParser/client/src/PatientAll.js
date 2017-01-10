@@ -12,6 +12,7 @@ var PatientOverview = require('./PatientOverview');
 
 import PatientOverviewPage from './containers/PatientOverviewPage.jsx';
 import PatientDailyTodoPage from './containers/PatientDailyTodoPage.jsx';
+import PatientFollowUpsPage from './containers/PatientFollowUpsPage.jsx';
 
 require('./sass/PatientAll.scss');
 
@@ -178,8 +179,9 @@ var PatientAll = React.createClass({
           <PatientDailyTodoPage onUpdate={this.onUpdate} patientData={this.props.patientData}/>
         </div>
         <div className="col">
-          <PatientFollowUps onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
+          <PatientFollowUpsPage onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
         </div>
+
         <div className="col">
           <PatientConsult onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
         </div>

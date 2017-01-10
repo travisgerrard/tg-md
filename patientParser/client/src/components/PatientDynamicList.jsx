@@ -13,13 +13,13 @@ const PatientDynamicList = ({
     {listContents.map((element, key) =>
       <li key={element[textName]} >
       <input type="checkbox" className={listClassName} name={key} value={decodeString(element[textName])} onChange={handleChange} defaultChecked={element.complete} />{decodeString(element[textName])}
-      <a className={deleteText} name={key} onClick={}>{element.complete ? "_X_" : ""}</a>
+      <a className={deleteText} name={key} onClick={handleDelete}>{element.complete ? "_X_" : ""}</a>
       </li>
     )}
   </ul>
 );
 
-PatientDynamicLis.propTypes = {
+PatientDynamicList.propTypes = {
   listCss: PropTypes.string.isRequired,
   listContent: PropTypes.object.isRequired,
   listClassName: PropTypes.string.isRequired,

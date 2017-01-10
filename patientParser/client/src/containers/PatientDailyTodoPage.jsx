@@ -11,8 +11,6 @@ class PatientDailyTodoPage extends React.Component {
     constructor(props) {
       super(props);
 
-        console.log(this.props.patientData.mobility);
-
       this.state = {
         labsback: this.props.patientData.labsback,
         consults: this.props.patientData.consults,
