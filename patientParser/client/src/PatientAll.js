@@ -10,6 +10,8 @@ var PatientLearning = require('./PatientLearning');
 var PatientConsult = require('./PatientConsult');
 var PatientOverview = require('./PatientOverview');
 
+import Crypto from './modules/Crypto';
+
 import PatientOverviewPage from './containers/PatientOverviewPage.jsx';
 import PatientDailyTodoPage from './containers/PatientDailyTodoPage.jsx';
 import PatientFollowUpsPage from './containers/PatientFollowUpsPage.jsx';
@@ -18,7 +20,6 @@ require('./sass/PatientAll.scss');
 
 // The master model and set up for individual patients
 var PatientAll = React.createClass({
-
   // encrypts data with a key
   encodeString: function(stringToEncode) {
     var encodedString = CryptoJS.AES.encrypt(stringToEncode, this.props.secretCode).toString();
@@ -34,13 +35,14 @@ var PatientAll = React.createClass({
   // The called from children when models needs to be updated
   onUpdate: function(val, patientID){
 
+    var secretCode = this.props.secretCode;
     var patient = {}; //Serves as vessel to be delivered to the backend on update
 
     // Standard Info
-    if (val.className === "Name") patient = {name: this.encodeString(val.value)};
+    if (val.className === "Name") patient = {name: Crypto.encodeString(val.value, secretCode)};
     if (val.className === "Room") patient = {room: val.value};
-    if (val.className === "DOB") patient = {dob: this.encodeString(val.value)};
-    if (val.className === "MRN") patient = {mrn: this.encodeString(val.value)};
+    if (val.className === "DOB") patient = {dob: Crypto.encodeString(val.value, secretCode)};
+    if (val.className === "MRN") patient = {mrn: Crypto.encodeString(val.value, secretCode)};
     if (val.className === "LOS") patient = {los: val.value};
     if (val.className === "RO") patient = {ro: val.value};
 

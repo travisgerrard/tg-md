@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import PatientDailyTodoList from '../components/PatientDailyTodoList.jsx';
-import Crypto from '../modules/Crypto';
 
 require('../sass/PatientDailyTodo.scss');
 
