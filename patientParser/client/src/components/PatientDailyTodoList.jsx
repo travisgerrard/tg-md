@@ -5,6 +5,7 @@ const PatientDailyTodoList = ({
   labsback,
   consults,
   andon,
+  ivmed,
   mar,
   amlab,
   dispo,
@@ -29,6 +30,11 @@ const PatientDailyTodoList = ({
       <li>
         <label>
         <input type="checkbox" className="Andon" value="andon" onChange={handleChange} defaultChecked={andon} />Andon - VTE/Glucose
+        </label>
+      </li>
+      <li>
+        <label>
+        <input type="checkbox" className="IVMed" value="ivmed" onChange={handleChange} defaultChecked={ivmed} />Micro
         </label>
       </li>
       <li>
@@ -81,6 +87,7 @@ PatientDailyTodoList.propTypes = {
   labsback: PropTypes.bool.isRequired,
   consults: PropTypes.bool.isRequired,
   andon: PropTypes.bool.isRequired,
+  ivmed: PropTypes.bool.isRequired,
   mar: PropTypes.bool.isRequired,
   amlab: PropTypes.bool.isRequired,
   dispo: PropTypes.bool.isRequired,

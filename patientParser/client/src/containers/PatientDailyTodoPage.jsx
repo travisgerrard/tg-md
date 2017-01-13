@@ -40,7 +40,7 @@ class PatientDailyTodoPage extends React.Component {
 
     render() {
       return (
-        <PatientDailyTodoList handleChange={this.handleChange} labsback={this.state.labsback} consults={this.state.consults} andon={this.state.andon} mar={this.state.mar} amlab={this.state.amlab} dispo={this.state.dispo} learning={this.state.learning} seen={this.state.seen} lines={this.state.lines} foley={this.state.foley} mobility={this.state.mobility} />
+        <PatientDailyTodoList handleChange={this.handleChange} labsback={this.state.labsback} consults={this.state.consults} andon={this.state.andon} ivmed={this.state.ivmed} mar={this.state.mar} amlab={this.state.amlab} dispo={this.state.dispo} learning={this.state.learning} seen={this.state.seen} lines={this.state.lines} foley={this.state.foley} mobility={this.state.mobility} />
       );
     }
   }
