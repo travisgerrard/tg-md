@@ -4,17 +4,14 @@ var $ = require('jquery');
 
 var PatientGeneral = require('./PatientGeneral');
 var PatientLabs = require('./PatientLabs');
-var PatientDailyTodo = require('./PatientDailyTodo');
-var PatientFollowUps = require('./PatientFollowUps');
 var PatientLearning = require('./PatientLearning');
-var PatientConsult = require('./PatientConsult');
-var PatientOverview = require('./PatientOverview');
 
 import Crypto from './modules/Crypto';
 
 import PatientOverviewPage from './containers/PatientOverviewPage.jsx';
 import PatientDailyTodoPage from './containers/PatientDailyTodoPage.jsx';
 import PatientFollowUpsPage from './containers/PatientFollowUpsPage.jsx';
+import PatientConsultsPage from './containers/PatientConsultsPage.jsx';
 
 require('./sass/PatientAll.scss');
 
@@ -185,7 +182,7 @@ var PatientAll = React.createClass({
         </div>
 
         <div className="col">
-          <PatientConsult onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
+          <PatientConsultsPage onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
         </div>
         <div className="col">
           <PatientLearning onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
