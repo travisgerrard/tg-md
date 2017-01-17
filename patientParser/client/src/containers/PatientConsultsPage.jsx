@@ -5,7 +5,7 @@ import Crypto from '../modules/Crypto';
 
 require('../sass/PatientConsult.scss');
 
-class PatientFollowUpsPage extends React.Component {
+class PatientConsultsPage extends React.Component {
   /**
     * Class constructor
     */
@@ -31,7 +31,7 @@ class PatientFollowUpsPage extends React.Component {
 
     // updates state with props from PatientAll with they get reloaded
     componentWillReceiveProps(nextProps) {
-      this.setState ({ listContents: nextProps.patientData.followup });
+      this.setState ({ listContents: nextProps.patientData.consult });
     }
 
     decodeString(stringToDecode) {
@@ -77,4 +77,4 @@ class PatientFollowUpsPage extends React.Component {
     }
 }
 
-export default PatientFollowUpsPage;
+export default PatientConsultsPage;
