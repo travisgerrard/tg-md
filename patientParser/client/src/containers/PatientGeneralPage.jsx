@@ -16,10 +16,9 @@ class PatientGeneralPage extends React.Component {
         room: this.props.patientData.room,
         dob: Crypto.decodeString(this.props.patientData.dob, this.props.secretCode),
         mrn: Crypto.decodeString(this.props.patientData.mrn, this.props.secretCode),
-        los: this.props.patientData.los,
+        admitDate: this.props.patientData.los,
         ro: this.props.patientData.ro,
-        admitDate,
-        age
+        age:
       }
 
       this.handleChange = this.handleChange.bind(this);
