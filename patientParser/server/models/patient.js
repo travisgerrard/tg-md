@@ -10,6 +10,7 @@ const PatientSchema = new mongoose.Schema({
   dob: String,
   mrn: String,
   los: String,
+  ro: String,
   otherLabs: String,
   wbc: String,
   hg: String,

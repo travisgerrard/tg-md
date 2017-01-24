@@ -63,15 +63,15 @@ const PatientGeneralInputBoxes = ({
 );
 
 PatientGeneralInputBoxes.propTypes = {
-  handleChange: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   room: PropTypes.string.isRequired,
   dob: PropTypes.string.isRequired,
   mrn: PropTypes.string.isRequired,
   los: PropTypes.string.isRequired,
   ro: PropTypes.string.isRequired,
-  admitDate: PropTypes.string.isRequired,
-  age: PropTypes.string.isRequired
+  admitDate: PropTypes.number.isRequired,
+  age: PropTypes.number.isRequired
 };
 
 export default PatientGeneralInputBoxes;

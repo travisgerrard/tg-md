@@ -12,6 +12,7 @@ import PatientOverviewPage from './containers/PatientOverviewPage.jsx';
 import PatientDailyTodoPage from './containers/PatientDailyTodoPage.jsx';
 import PatientFollowUpsPage from './containers/PatientFollowUpsPage.jsx';
 import PatientConsultsPage from './containers/PatientConsultsPage.jsx';
+import PatientGeneralPage from './containers/PatientGeneralPage.jsx';
 
 require('./sass/PatientAll.scss');
 
@@ -162,7 +163,7 @@ var PatientAll = React.createClass({
       <div>
       <div className="flex-grid">
         <div className="col">
-          <PatientGeneral onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode}/>
+          <PatientGeneralPage onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode}/>
         </div>
       </div>
       <div className="flex-grid">

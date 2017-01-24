@@ -11,14 +11,14 @@ class PatientGeneralPage extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        handleChange,
         name: Crypto.decodeString(this.props.patientData.name, this.props.secretCode),
         room: this.props.patientData.room,
         dob: Crypto.decodeString(this.props.patientData.dob, this.props.secretCode),
         mrn: Crypto.decodeString(this.props.patientData.mrn, this.props.secretCode),
-        admitDate: this.props.patientData.los,
+        los: this.props.patientData.los, // this is the admission date
+        admitDate: this.calcDays(this.props.patientData.los), //This is actually how long they've been in hospital
         ro: this.props.patientData.ro,
-        age:
+        age: this.calcAge(Crypto.decodeString(this.props.patientData.dob, this.props.secretCode))
       }
 
       this.handleChange = this.handleChange.bind(this);
@@ -29,9 +29,15 @@ class PatientGeneralPage extends React.Component {
     handleChange(event) {
       this.props.onUpdate(event.target, this.props.patientData._id);
 
-      if (event.target.className === "DOB") this.setState({ dob: event.target.value});
-      if (event.target.className === "LOS") this.setState({ admitDate: event.target.value});
+      if (event.target.className === "DOB") this.setState({ age: this.calcAge(event.target.value)});
+      if (event.target.className === "LOS") this.setState({ admitDate: this.calcDays(event.target.value)});
     }
+
+    // updates state with props from PatientAll with they get reloaded
+    /*componentWillReceiveProps(nextProps) {
+      console.log(nextProps);
+      //this.setState ({ listContents: nextProps.patientData.followup });
+    }*/
 
     calcAge(dob) {
       var birthdate = new Date(dob);
@@ -39,7 +45,7 @@ class PatientGeneralPage extends React.Component {
       var diff = cur-birthdate;
       var age = Math.floor(diff/31536000000);
       return age;
-    },
+    }
 
     //Number of days patient has been in the hospital
     calcDays(admitDate) {
@@ -49,7 +55,23 @@ class PatientGeneralPage extends React.Component {
       var diff = cur-startDate;
       var days = Math.floor(diff/one_day);
       return days;
-    },
+    }
+
+    render() {
+      console.log(this.state.ro);
+      return (
+        <PatientGeneralInputBoxes
+          handleChange={this.handleChange}
+          name={this.state.name}
+          room={this.state.room}
+          dob={this.state.dob}
+          mrn={this.state.mrn}
+          los={this.state.los}
+          ro={this.state.ro}
+          admitDate={this.state.admitDate}
+          age={this.state.age} />
+      );
+    }
 }
 
 export default PatientGeneralPage;
