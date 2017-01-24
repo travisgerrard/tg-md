@@ -3,9 +3,10 @@ import React, { PropTypes } from 'react';
 const PatientOverviewTextArea = ({
   handleChange,
   overview,
+  className
 }) => (
   <div id="Overview">
-    <textarea className="Overview" onChange={handleChange} defaultValue={overview}/>
+    <textarea className={className} onChange={handleChange} defaultValue={overview}/>
   </div>
 );
 

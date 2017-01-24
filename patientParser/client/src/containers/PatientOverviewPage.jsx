@@ -12,7 +12,8 @@ class PatientOverviewPage extends React.Component {
       super(props);
 
       this.state = {
-        overview: Crypto.decodeString(this.props.patientData.overview, this.props.secretCode)
+        overview: Crypto.decodeString(this.props.patientData.overview, this.props.secretCode),
+        className: "Overview"
       };
 
       this.handleChange = this.handleChange.bind(this);
@@ -27,7 +28,7 @@ class PatientOverviewPage extends React.Component {
       */
     render() {
       return (
-        <PatientOverviewTextArea handleChange={this.handleChange} overview={this.state.overview} />
+        <PatientOverviewTextArea handleChange={this.handleChange} overview={this.state.overview} className={this.state.className} />
       );
     }
 }

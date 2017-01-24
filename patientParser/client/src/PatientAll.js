@@ -2,8 +2,6 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
 
-var PatientGeneral = require('./PatientGeneral');
-var PatientLabs = require('./PatientLabs');
 var PatientLearning = require('./PatientLearning');
 
 import Crypto from './modules/Crypto';
@@ -13,6 +11,7 @@ import PatientDailyTodoPage from './containers/PatientDailyTodoPage.jsx';
 import PatientFollowUpsPage from './containers/PatientFollowUpsPage.jsx';
 import PatientConsultsPage from './containers/PatientConsultsPage.jsx';
 import PatientGeneralPage from './containers/PatientGeneralPage.jsx';
+import PatientLabsPage from './containers/PatientLabsPage.jsx';
 
 require('./sass/PatientAll.scss');
 
@@ -173,7 +172,7 @@ var PatientAll = React.createClass({
       </div>
       <div className="flex-grid">
         <div className="col">
-          <PatientLabs onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode}/>
+          <PatientLabsPage onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode}/>
         </div>
         <div className="col">
           <PatientDailyTodoPage onUpdate={this.onUpdate} patientData={this.props.patientData}/>
