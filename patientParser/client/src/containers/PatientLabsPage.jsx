@@ -59,6 +59,7 @@ class PatientLabsPage extends React.Component {
         cr={this.state.cr}
         input={this.state.input}
         output={this.state.output} />
+      <br />
       <PatientOverviewTextArea handleChange={this.handleChange} overview={this.state.overview} className={this.state.className}/>
       </div>
     )
