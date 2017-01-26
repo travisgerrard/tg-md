@@ -230,9 +230,7 @@ var PatientAll = React.createClass({
       </div>
       )
     }
-    /*
 
-  }*/
 });
 
 module.exports = PatientAll;
