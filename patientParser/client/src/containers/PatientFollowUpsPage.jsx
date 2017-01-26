@@ -15,7 +15,6 @@ class PatientFollowUpsPage extends React.Component {
       this.state = {
         data: this.props.patientData,
         followup: this.props.patientData.followup,
-        deleteText: "deleteFollowUp",
       }
 
       this.handleChange = this.handleChange.bind(this);
@@ -87,13 +86,10 @@ class PatientFollowUpsPage extends React.Component {
       this.sort(items, to);
     }
 
-
-
     render() {
       if (this.state.followup !== undefined) {
         var listItems = this.state.data.followup.map((item, i) => {
           var dragging = (i == this.state.data.dragging) ? "dragging" : "";
-          //console.log(item.isEditing);
           var isEditing = (item.isEditing) ? true : false;
           return (
             <PatientDynamicList
@@ -111,7 +107,7 @@ class PatientFollowUpsPage extends React.Component {
               listClassName={"FollowUp"}
               editClassName={"FollowUpEdit"}
               sortClassName={"FollowUpSort"}
-              deleteText={this.state.deleteText}
+              deleteText={"deleteFollowUp"}
               handleDelete={this.handleDelete}
               handleChange={this.handleChange} />
           )

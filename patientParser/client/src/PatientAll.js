@@ -104,7 +104,6 @@ var PatientAll = React.createClass({
     }
     // sorting follow up list
     if (val.className === "FollowUpSort") {
-      console.log("sort");
       var tempArray = this.props.patientData.followup.concat();
       patient = {followup: tempArray};
     }
@@ -124,7 +123,24 @@ var PatientAll = React.createClass({
       object = (object.complete === true) ? object.complete = false : object.complete = true;
       patient = {consult: tempArray};
     }
-    // deleting a followup
+    // editing a consult
+    if (val.className === "ConsultEdit") {
+      var tempArray = this.props.patientData.consult.concat();
+      var object = tempArray[val.dataset.name]; // .name is actually the index in the array...
+      if (object.isEditing === true) {
+        object.consultText = this.encodeString(val.value);
+        object.isEditing = false;
+      } else {
+        object.isEditing = true;
+      }
+      patient = {consult: tempArray};
+    }
+    // sorting fconsult list
+    if (val.className === "ConsultSort") {
+      var tempArray = this.props.patientData.consult.concat();
+      patient = {consult: tempArray};
+    }
+    // deleting a consult
     if (val.className === "deleteConsult") {
       var tempArray = this.props.patientData.consult.concat();
       tempArray.splice(val.name, 1);
@@ -165,6 +181,7 @@ var PatientAll = React.createClass({
           val.className === "deleteFollowUp" ||
           val.className === "AddConsult" ||
           val.className === "Consult" ||
+          val.className === "ConsultEdit" ||
           val.className === "deleteConsult" ||
           val.className === "AddLearning" ||
           val.className === "LearningList" ||
@@ -202,7 +219,10 @@ var PatientAll = React.createClass({
           <PatientFollowUpInputPage onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
           <PatientFollowUpsPage onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
         </div>
-
+        <div className="col">
+          <PatientConsultInputPage onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
+          <PatientConsultsPage onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
+        </div>
         <div className="col">
           <PatientLearning onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
         </div>
@@ -211,10 +231,7 @@ var PatientAll = React.createClass({
       )
     }
     /*
-    <div className="col">
-      <PatientConsultInputPage onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
-      <PatientConsultsPage onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
-    </div>
+
   }*/
 });
 
