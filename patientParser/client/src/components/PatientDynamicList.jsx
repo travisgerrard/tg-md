@@ -8,11 +8,15 @@ const PatientDynamicList = ({
   textName,
   handleChange,
   handleDelete,
-  decodeString
+  decodeString,
+  dragOver,
+  dragEnd,
+  dragStart,
+  dragging
 }) => (
-  <ul id={listCss}>
+  <ul id={listCss} onDragOver={dragOver}>
     {listContents.map((element, key) =>
-      <li key={element[textName]} >
+      <li key={key} data-id={key} draggable="true" onDragEnd={dragEnd} onDragStart={dragStart} >
       <input type="checkbox" className={listClassName} name={key} value={decodeString(element[textName])} onChange={handleChange} defaultChecked={element.complete} />{decodeString(element[textName])}
       <a className={deleteText} name={key} onClick={handleDelete}>{element.complete ? "_X_" : ""}</a>
       </li>
@@ -28,7 +32,12 @@ PatientDynamicList.propTypes = {
   textName: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired,
-  decodeString: PropTypes.func.isRequired
+  decodeString: PropTypes.func.isRequired,
+  dragOver: PropTypes.func.isRequired,
+  dragEnd: PropTypes.func.isRequired,
+  dragStart: PropTypes.func.isRequired,
+  dragging: PropTypes.bool.isRequired
+
 };
 
 export default PatientDynamicList;
