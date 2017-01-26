@@ -82,12 +82,30 @@ var PatientAll = React.createClass({
     if (val.className === "Mobility") patient = (val.trueFalse === true) ? {mobility: false} : {mobility: true};
 
     // Adding to list of followups, again using ternary operator!
-    if (val.className === "AddFollowUp") patient = (this.props.patientData.followup === undefined) ? {followup: [{complete: false, followUpText: this.encodeString(val.value), hidden: false}]} : {followup: this.props.patientData.followup.concat({complete: false, followUpText: this.encodeString(val.value), hidden: false})};
+    if (val.className === "AddFollowUp") patient = (this.props.patientData.followup === undefined) ? {followup: [{complete: false, followUpText: this.encodeString(val.value), hidden: false, isEditing: false}]} : {followup: this.props.patientData.followup.concat({complete: false, followUpText: this.encodeString(val.value), hidden: false})};
     // checking off a followup
     if (val.className === "FollowUp") {
       var tempArray = this.props.patientData.followup.concat();
-      var object = tempArray[val.name];
+      var object = tempArray[val.name]; // .name is actually the index in the array...
       object = (object.complete === true) ? object.complete = false : object.complete = true;
+      patient = {followup: tempArray};
+    }
+    // editing a followup
+    if (val.className === "FollowUpEdit") {
+      var tempArray = this.props.patientData.followup.concat();
+      var object = tempArray[val.dataset.name]; // .name is actually the index in the array...
+      if (object.isEditing === true) {
+        object.followUpText = this.encodeString(val.value);
+        object.isEditing = false;
+      } else {
+        object.isEditing = true;
+      }
+      patient = {followup: tempArray};
+    }
+    // sorting follow up list
+    if (val.className === "FollowUpSort") {
+      console.log("sort");
+      var tempArray = this.props.patientData.followup.concat();
       patient = {followup: tempArray};
     }
     // deleting a followup
@@ -143,6 +161,7 @@ var PatientAll = React.createClass({
         //Update the state if were clicking a checkbox
         if (val.className === "AddFollowUp" ||
           val.className === "FollowUp" ||
+          val.className === "FollowUpEdit" ||
           val.className === "deleteFollowUp" ||
           val.className === "AddConsult" ||
           val.className === "Consult" ||
@@ -183,10 +202,7 @@ var PatientAll = React.createClass({
           <PatientFollowUpInputPage onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
           <PatientFollowUpsPage onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
         </div>
-        <div className="col">
-          <PatientConsultInputPage onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
-          <PatientConsultsPage onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
-        </div>
+
         <div className="col">
           <PatientLearning onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
         </div>
@@ -195,10 +211,10 @@ var PatientAll = React.createClass({
       )
     }
     /*
-
-      </div>
-      </div>
-    )
+    <div className="col">
+      <PatientConsultInputPage onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
+      <PatientConsultsPage onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
+    </div>
   }*/
 });
 

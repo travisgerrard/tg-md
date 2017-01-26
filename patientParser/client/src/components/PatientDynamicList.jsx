@@ -11,11 +11,29 @@ const PatientDynamicList = ({
   handleDelete,
   dragOver,
   dragEnd,
-  dragStart
+  dragStart,
+  isEditing,
+  editElement,
+  editClassName,
+  sortClassName,
+  handleKeyPress
 }) => (
-      <li key={i} data-id={i} className={dragging} draggable="true" onDragEnd={dragEnd} onDragStart={dragStart} onDragOver={dragOver}>
-        <input type="checkbox" className={listClassName} name={i} value={text} onChange={handleChange} defaultChecked={isComplete} />{text}
-        <a className={deleteText} name={i} onClick={handleDelete}>{isComplete ? "_X_" : ""}</a>
+      <li className={sortClassName} key={i} data-id={i} data-name={i} draggable="true" onDragEnd={dragEnd} onDragStart={dragStart} onDragOver={dragOver} onDoubleClick={editElement}>
+        {isEditing ? (
+          <input type="text" className={editClassName} onKeyPress={handleKeyPress} defaultValue={text} data-name={i}/>
+        ) : (
+          <div className={editClassName} data-name={i} >
+            <input
+              type="checkbox"
+              className={listClassName}
+              name={i}
+              value={text}
+              onChange={handleChange}
+              defaultChecked={isComplete} />{text}
+            <a className={deleteText} name={i} onClick={handleDelete}>{isComplete ? "_X_" : ""}</a>
+          </div>
+        )}
+
       </li>
 );
 
@@ -30,7 +48,12 @@ PatientDynamicList.propTypes = {
   dragging: PropTypes.string.isRequired,
   i: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
-  isComplete: PropTypes.bool.isRequired
+  isComplete: PropTypes.bool.isRequired,
+  isEditing: PropTypes.bool.isRequired,
+  editElement: PropTypes.func.isRequired,
+  editClassName: PropTypes.string.isRequired,
+  sortClassName: PropTypes.string.isRequired,
+  handleKeyPress: PropTypes.func.isRequired
 };
 
 export default PatientDynamicList;

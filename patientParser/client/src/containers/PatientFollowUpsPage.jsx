@@ -15,9 +15,7 @@ class PatientFollowUpsPage extends React.Component {
       this.state = {
         data: this.props.patientData,
         followup: this.props.patientData.followup,
-        listClassName: "FollowUp",
         deleteText: "deleteFollowUp",
-        editing: false
       }
 
       this.handleChange = this.handleChange.bind(this);
@@ -26,6 +24,8 @@ class PatientFollowUpsPage extends React.Component {
       this.dragEnd = this.dragEnd.bind(this);
       this.dragOver = this.dragOver.bind(this);
       this.sort = this.sort.bind(this);
+      this.editElement = this.editElement.bind(this);
+      this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
     // updates state with props from PatientAll with they get reloaded
@@ -40,6 +40,16 @@ class PatientFollowUpsPage extends React.Component {
 
     handleDelete(event) {
       this.props.onUpdate(event.target, this.props.patientData._id);
+    }
+
+    editElement(event) {
+      this.props.onUpdate(event.target, this.props.patientData._id);
+    }
+
+    handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        this.props.onUpdate(event.target, this.props.patientData._id);
+      }
     }
 
     sort(followup, dragging) {
@@ -58,6 +68,7 @@ class PatientFollowUpsPage extends React.Component {
 
     dragEnd(e) {
       this.sort(this.state.data.followup, undefined);
+      this.props.onUpdate(e.target, this.props.patientData._id);
     }
 
     dragOver(e) {
@@ -76,13 +87,19 @@ class PatientFollowUpsPage extends React.Component {
       this.sort(items, to);
     }
 
+
+
     render() {
-      console.log(this.state.editing);
       if (this.state.followup !== undefined) {
         var listItems = this.state.data.followup.map((item, i) => {
           var dragging = (i == this.state.data.dragging) ? "dragging" : "";
+          //console.log(item.isEditing);
+          var isEditing = (item.isEditing) ? true : false;
           return (
             <PatientDynamicList
+              editElement={this.editElement}
+              isEditing={isEditing}
+              handleKeyPress={this.handleKeyPress}
               key={i}
               text={Crypto.decodeString(item.followUpText, this.props.secretCode)}
               isComplete={item.complete}
@@ -91,7 +108,9 @@ class PatientFollowUpsPage extends React.Component {
               dragStart={this.dragStart}
               dragEnd={this.dragEnd}
               dragOver={this.dragOver}
-              listClassName={this.state.listClassName}
+              listClassName={"FollowUp"}
+              editClassName={"FollowUpEdit"}
+              sortClassName={"FollowUpSort"}
               deleteText={this.state.deleteText}
               handleDelete={this.handleDelete}
               handleChange={this.handleChange} />

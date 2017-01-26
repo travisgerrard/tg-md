@@ -37,7 +37,7 @@ const PatientSchema = new mongoose.Schema({
   lines: Boolean,
   foley: Boolean,
   mobility: Boolean,
-  followup: [{ complete: Boolean, followUpText: String, hidden: Boolean }],
+  followup: [{ complete: Boolean, followUpText: String, hidden: Boolean, isEditing: Boolean }],
   learningList: [{ complete: Boolean, learningText: String, hidden: Boolean }],
   consult: [{ complete: Boolean, consultText: String, hidden: Boolean }],
   overview: String
