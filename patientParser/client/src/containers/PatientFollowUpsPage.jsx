@@ -112,7 +112,7 @@ class PatientFollowUpsPage extends React.Component {
               handleChange={this.handleChange} />
           )
         })
-        return (<ul>
+        return (<ul id="dynamicListUl">
           {listItems}
         </ul>);
       } else {
