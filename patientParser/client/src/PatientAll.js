@@ -9,7 +9,9 @@ import Crypto from './modules/Crypto';
 import PatientOverviewPage from './containers/PatientOverviewPage.jsx';
 import PatientDailyTodoPage from './containers/PatientDailyTodoPage.jsx';
 import PatientFollowUpsPage from './containers/PatientFollowUpsPage.jsx';
+import PatientFollowUpInputPage from './containers/PatientFollowUpInputPage.jsx';
 import PatientConsultsPage from './containers/PatientConsultsPage.jsx';
+import PatientConsultInputPage from './containers/PatientConsultInputPage.jsx';
 import PatientGeneralPage from './containers/PatientGeneralPage.jsx';
 import PatientLabsPage from './containers/PatientLabsPage.jsx';
 
@@ -178,10 +180,11 @@ var PatientAll = React.createClass({
           <PatientDailyTodoPage onUpdate={this.onUpdate} patientData={this.props.patientData}/>
         </div>
         <div className="col">
+          <PatientFollowUpInputPage onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
           <PatientFollowUpsPage onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
         </div>
-
         <div className="col">
+          <PatientConsultInputPage onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
           <PatientConsultsPage onUpdate={this.onUpdate} patientData={this.props.patientData} secretCode={this.props.secretCode} />
         </div>
         <div className="col">
@@ -189,8 +192,14 @@ var PatientAll = React.createClass({
         </div>
       </div>
       </div>
+      )
+    }
+    /*
+
+      </div>
+      </div>
     )
-  }
+  }*/
 });
 
 module.exports = PatientAll;
