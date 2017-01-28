@@ -30,7 +30,9 @@ const PatientDynamicList = ({
               value={text}
               onChange={handleChange}
               defaultChecked={isComplete} />{text}
-            <a className={deleteText} name={i} onClick={handleDelete}>{isComplete ? "_X_" : ""}</a>
+            <a className={deleteText}
+              name={i}
+              onClick={handleDelete}>{isComplete ? "_X_" : ""}</a>
           </div>
         )}
 
