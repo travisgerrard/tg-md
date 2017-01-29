@@ -42,7 +42,12 @@ class PatientConsultsPage extends React.Component {
     }
 
     editElement(event) {
-      this.props.onUpdate(event.target, this.props.patientData._id);
+      // event.currentTarget.dataset.id gives index of tapped item in list
+      // We can then probe if currently isEditing
+      // If already editing, will not change isEditing to false with double click
+      if (!this.state.data.consult[event.currentTarget.dataset.id].isEditing) {
+        this.props.onUpdate(event.target, this.props.patientData._id);
+      }
     }
 
     handleKeyPress(event) {

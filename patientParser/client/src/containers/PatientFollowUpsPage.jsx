@@ -48,7 +48,6 @@ class PatientFollowUpsPage extends React.Component {
       if (!this.state.data.followup[event.currentTarget.dataset.id].isEditing) {
         this.props.onUpdate(event.target, this.props.patientData._id);
       }
-
     }
 
     handleKeyPress(event) {

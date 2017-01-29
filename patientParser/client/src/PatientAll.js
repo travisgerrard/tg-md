@@ -115,7 +115,7 @@ var PatientAll = React.createClass({
     }
 
     // Adding to list of consults, again using ternary operator!
-    if (val.className === "AddConsult") patient = (this.props.patientData.consult === undefined) ? {consult: [{complete: false, consultText: this.encodeString(val.value), hidden: false}]} : {consult: this.props.patientData.consult.concat({complete: false, consultText: this.encodeString(val.value), hidden: false})};
+    if (val.className === "AddConsult") patient = (this.props.patientData.consult === undefined) ? {consult: [{complete: false, consultText: this.encodeString(val.value), hidden: false, isEditing: false}]} : {consult: this.props.patientData.consult.concat({complete: false, consultText: this.encodeString(val.value), hidden: false})};
     // checking off a followup
     if (val.className === "Consult") {
       var tempArray = this.props.patientData.consult.concat();
@@ -135,7 +135,7 @@ var PatientAll = React.createClass({
       }
       patient = {consult: tempArray};
     }
-    // sorting fconsult list
+    // sorting consult list
     if (val.className === "ConsultSort") {
       var tempArray = this.props.patientData.consult.concat();
       patient = {consult: tempArray};
