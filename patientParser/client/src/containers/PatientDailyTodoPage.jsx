@@ -30,7 +30,6 @@ class PatientDailyTodoPage extends React.Component {
 
     handleChange(event) {
       var value = event.target.value;
-      console.log(value);
       var className = event.target.className;
 
       this.props.onUpdate({className: className, trueFalse: this.state[value]}, this.props.patientData._id); // updates on the server. Got rid of lots of code with [value]

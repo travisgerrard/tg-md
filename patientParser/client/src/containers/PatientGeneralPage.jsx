@@ -58,7 +58,6 @@ class PatientGeneralPage extends React.Component {
     }
 
     render() {
-      console.log(this.state.ro);
       return (
         <PatientGeneralInputBoxes
           handleChange={this.handleChange}
