@@ -5,7 +5,9 @@ var $ = require('jquery');
 require('./sass/App.scss');
 
 // The master model and set up for individual patients
-var PatientAll = require('./PatientAll');
+//var PatientAll = require('./PatientAll');
+
+import PatientViewControllerPage from './containers/PatientViewControllerPage.jsx';
 
 // Manages all the patient data
 var PatientAllList = React.createClass({
@@ -185,7 +187,7 @@ var PatientAllList = React.createClass({
           return (
             <div>
             <ul>
-              {this.state.patients.map(element => <li key={element._id}><PatientAll patientData={element} updateTheState={this.updateTheState} secretCode={this.state.secretCode} url={this.state.webSiteConnect}/><br /><hr /></li>)}
+              {this.state.patients.map(element => <li key={element._id}><PatientViewControllerPage patientData={element} updateTheState={this.updateTheState} secretCode={this.state.secretCode} url={this.state.webSiteConnect}/><br /><hr /></li>)}
             </ul>
             <button id="addPatientButton" onClick={this.handleSubmit} className="btn btn-primary center-block">Add Patient</button>
             <button onClick={this.resetLabsAndTodos} className="btn btn-primary center-block">ResetLabsAndTodos</button>
