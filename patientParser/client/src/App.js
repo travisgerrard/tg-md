@@ -2,6 +2,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
 
+import NavBarControl from './containers/NavBarControl.jsx'
+
 require('./sass/App.scss');
 
 // The master model and set up for individual patients
@@ -212,58 +214,6 @@ var PatientAllList = React.createClass({
   }
 });
 
-// our navbar
-var NavBar = React.createClass({
-  navClick: function(e) {
-    this.props.changeSort(e.target.outerText);
-  },
-
-  render: function() {
-    return(
-      <nav role='navigation' className="main-nav" id="main-nav">
-        <ul id="main-nav-list">
-          <li>
-            <a onClick={this.navClick}>
-              <div>
-                Rounding Order
-              </div>
-            </a>
-          </li>
-          <li>
-            <a onClick={this.navClick}>
-              <div>
-                Room
-              </div>
-            </a>
-          </li>
-          <li>
-            <a onClick={this.navClick}>
-              <div>
-                Name
-              </div>
-            </a>
-          </li>
-          <li>
-            <a onClick={this.navClick}>
-              <div>
-                Seen
-              </div>
-            </a>
-          </li>
-          <li>
-            <a onClick={this.navClick}>
-              <div>
-                learning
-              </div>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    )
-  }
-});
-
-// Makes it so we have both navebar and regular
 var TopLevel = React.createClass({
   getInitialState: function() {
       return {
@@ -279,7 +229,7 @@ var TopLevel = React.createClass({
   render: function() {
     return (
       <div>
-        <NavBar changeSort={this.changeSort}/>
+        <NavBarControl changeSort={this.changeSort}/>
         <PatientAllList pageType={this.state.pageType}/>
       </div>
     )
