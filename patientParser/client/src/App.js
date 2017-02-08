@@ -28,8 +28,8 @@ var PatientAllList = React.createClass({
   getInitialState: function() {
       return {
         patients: [],
-        secretCode: null, //Should be null when using for production
-        step: 1, //1 in productino
+        secretCode: 'frisky', //Should be null when using for production
+        step: 2, //1 in productino
         pageType: 'basic',
         webSiteConnect: 'http://localhost:3000/api/runTheList/', //'http://a58d4232.ngrok.io/api/runTheList/', //Should be one when using for production
         sortBy: 'basic'
@@ -53,14 +53,22 @@ var PatientAllList = React.createClass({
 
   // Runs at initial loading of patient info. calls server for data
   componentDidMount: function () {
-    $.ajax(this.state.webSiteConnect).done(function (data) {
+    fetch(this.state.webSiteConnect).then(function(data) {
+        return data.json();
+    }).then(function(data) {
+      this.setState({ patients: data });
+    }.bind(this));
+/*    $.ajax(this.state.webSiteConnect).done(function (data) {
         this.setState({ patients: data });
     }.bind(this));
+*/
   },
 
   // When we need to reload server data this runs
   updateTheState: function() {
-    $.ajax(this.state.webSiteConnect).done(function (data) {
+    fetch(this.state.webSiteConnect).then(function(data) {
+        return data.json();
+    }).then(function(data) {
       this.setState({ patients: data });
       this.sortPatient(this.state.sortBy);
     }.bind(this));
@@ -68,6 +76,20 @@ var PatientAllList = React.createClass({
 
   // Saves new patient to the data base
   addPatient: function(patientToAdd) {
+    fetch(this.state.webSiteConnect, {
+      method: 'post',
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(patientToAdd)
+    }).then(function(data) {
+      console.log("the Data is", data);
+      var patient = data;
+      // We're advised not to modify the state, it's immutable. So, make a copy.
+      var patientsModified = this.state.patients.concat(patient);
+      this.setState({patients: patientsModified});
+    }.bind(this));
+    /*
     $.ajax({
       type: 'POST', url: this.state.webSiteConnect, contentType: 'application/json',
       data: JSON.stringify(patientToAdd),
@@ -83,6 +105,7 @@ var PatientAllList = React.createClass({
         console.log("Error adding pateint:", err);
       }
     });
+    */
   },
 
   // Does what it says...

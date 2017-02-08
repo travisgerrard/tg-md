@@ -170,6 +170,7 @@ class PatientViewControllerPage extends React.Component {
       // Deleteing a patient
       if (val.className === "DeleteButton") patient = {hidden: true};
 
+
       // AJX request
       const xhr = new XMLHttpRequest();
       xhr.open('put', this.props.url + patientID);
