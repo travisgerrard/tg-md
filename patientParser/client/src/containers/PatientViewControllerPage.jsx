@@ -171,19 +171,13 @@ class PatientViewControllerPage extends React.Component {
       if (val.className === "DeleteButton") patient = {hidden: true};
 
 
-      // AJX request
-      const xhr = new XMLHttpRequest();
-      xhr.open('put', this.props.url + patientID);
-      xhr.setRequestHeader('Content-type', 'application/json');
-      xhr.addEventListener('load', () => {
-        if (xhr.status === 200) {
-          // success
-
-          // change the component-container state
-          this.setState({
-            errors: {}
-          });
-
+        fetch(this.props.url + patientID, {
+          method: 'put',
+          headers: {
+            "Content-type": "application/json"
+          },
+          body: JSON.stringify(patient)
+        }).then(function(data) {
           if (val.className === "AddFollowUp" ||
             val.className === "FollowUp" ||
             val.className === "FollowUpEdit" ||
@@ -199,19 +193,8 @@ class PatientViewControllerPage extends React.Component {
               this.props.updateTheState();
               console.log("State updated...");
             }
+        }.bind(this));
 
-        } else {
-          // failure
-
-          const errors = xhr.response.errors ? xhr.response.errors : {};
-          errors.summary = xhr.response.message;
-
-          this.setState({
-            errors
-          });
-        }
-      });
-      xhr.send(JSON.stringify(patient));
     }
 
     render() {

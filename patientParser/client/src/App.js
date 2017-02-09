@@ -89,23 +89,7 @@ var PatientAllList = React.createClass({
       var patientsModified = this.state.patients.concat(patient);
       this.setState({patients: patientsModified});
     }.bind(this));
-    /*
-    $.ajax({
-      type: 'POST', url: this.state.webSiteConnect, contentType: 'application/json',
-      data: JSON.stringify(patientToAdd),
-      success: function(data) {
-        console.log("the Data is", data);
-        var patient = data;
-        // We're advised not to modify the state, it's immutable. So, make a copy.
-        var patientsModified = this.state.patients.concat(patient);
-        this.setState({patients: patientsModified});
-      }.bind(this),
-      error: function(xhr, status, err) {
-        // ideally, show error to user.
-        console.log("Error adding pateint:", err);
-      }
-    });
-    */
+
   },
 
   // Does what it says...
