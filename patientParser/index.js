@@ -1,7 +1,8 @@
 /*jshint esversion: 6 */
 
-var express = require('express');
-var bodyParser = require('body-parser');
+const express = require('express');
+const bodyParser = require('body-parser');
+const passport = require('passport');
 
 // adding Mongoose
 var mongoose = require('mongoose');
@@ -13,8 +14,25 @@ const Patient = require('mongoose').model('Patient');
 
 var app = express();
 
-app.use(express.static('static'));
+app.use(express.static('./server/static'));
 
+// tell the app to parse HTTP body messages
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// pass the passport middleware
+app.use(passport.initialize());
+
+// load passport strategies
+const localSignupStrategy = require('./server/passport/local-signup');
+const localLoginStrategy = require('./server/passport/local-login');
+passport.use('local-signup', localSignupStrategy);
+passport.use('local-login', localLoginStrategy);
+
+// pass the authentication checker middleware
+const authCheckMiddleware = require('./server/middleware/auth-check');
+//app.use('/api', authCheckMiddleware);
+
+// Makes server accessable from client
 app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT ,DELETE');
