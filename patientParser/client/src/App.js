@@ -1,4 +1,4 @@
-var React = require('react');
+/*var React = require('react');
 var ReactDOM = require('react-dom');
 var $ = require('jquery');
 
@@ -61,7 +61,7 @@ var PatientAllList = React.createClass({
 /*    $.ajax(this.state.webSiteConnect).done(function (data) {
         this.setState({ patients: data });
     }.bind(this));
-*/
+
   },
 
   // When we need to reload server data this runs
@@ -97,16 +97,15 @@ var PatientAllList = React.createClass({
     this.state.patients.map(element =>
       {
         var patient = {wbc: "", hg: "", hct: "", plt: "", na: "", k: "", cl: "", bicarb: "", bun: "", cr: "", gluc: "", input: "", output: "", labsback: false, consults: false, andon: false, mar: false, ivmed: false, amlab: false, dispo: false, learning: false, seen: false, lines: false, foley: false, mobility: false, ro: "" };
+        fetch(this.state.webSiteConnect + element._id, {
+          method: 'put',
+          headers: {
+            "Content-type": "application/json"
+          },
+          body: JSON.stringify(patient)
+        }).then(function(data) {
 
-        $.ajax({
-          url: this.state.webSiteConnect + element._id, type: 'PUT', contentType:'application/json',
-          data: JSON.stringify(patient),
-          dataType: 'json',
-          success: function(patient) {
-
-          }
-
-      });
+        }.bind(this));
     });
   },
 
@@ -219,29 +218,40 @@ var PatientAllList = React.createClass({
       }
     }
   }
-});
+});*/
+var ReactDOM = require('react-dom');
 
-var TopLevel = React.createClass({
-  getInitialState: function() {
-      return {
-        pageType: 'basic',
-      }
-    },
+import React, { PropTypes } from 'react';
+import AllPatientsPage from './containers/AllPatientsPage.jsx';
+import NavBarControl from './containers/NavBarControl.jsx';
 
-  changeSort: function(val) {
+require('./sass/App.scss');
+
+class TopLevel extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      pageType: 'basic'
+    }
+
+    this.changeSort = this.changeSort.bind(this);
+  }
+
+  changeSort(val) {
       console.log(val);
       this.setState({ pageType: val });
-    },
+    }
 
-  render: function() {
+  render() {
     return (
       <div>
         <NavBarControl changeSort={this.changeSort}/>
-        <PatientAllList pageType={this.state.pageType}/>
+        <AllPatientsPage pageType={this.state.pageType}/>
       </div>
     )
   }
-});
+};
 
 
 var formRendered = ReactDOM.render(

@@ -14,7 +14,7 @@ class AllPatientsPage extends React.Component {
 
 
     this.state = {
-      patientExist: false,
+      patientsExist: false,
       secretCode: 'frisky',
       step: 2,
       pageType: 'basic',
@@ -24,7 +24,15 @@ class AllPatientsPage extends React.Component {
       errors: {}
     }
 
-    this.navClick = this.navClick.bind(this);
+    this.decodeString = this.decodeString.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.updateTheState = this.updateTheState.bind(this);
+    this.addPatient = this.addPatient.bind(this);
+    this.resetLabsAndTodos = this.resetLabsAndTodos.bind(this);
+    this.sortPatient = this.sortPatient.bind(this);
+    this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+
   }
 
   // decrypts data with a key
@@ -42,16 +50,16 @@ class AllPatientsPage extends React.Component {
   // Runs at initial loading of patient info. calls server for data
   componentDidMount () {
     fetch(this.state.webSiteConnect)
-      .then(
-          function(response) {
+      .then(response => {
             if (response.status !== 200) {
               console.log('Looks like there was a problem. Status Code: ' + response.status);
               return;
             }
             // Examine the text in the response
-            response.json().then(function(data) {
-              console.log(data);
+            response.json().then(data => {
+              console.log(data.length);
               this.setState({ patients: data });
+              if (data.length > 0) this.setState({ patientsExist: true })
             });
       }
     )
@@ -63,14 +71,13 @@ class AllPatientsPage extends React.Component {
   // When we need to reload server data this runs
   updateTheState() {
     fetch(this.state.webSiteConnect)
-      .then(
-          function(response) {
+      .then(response => {
             if (response.status !== 200) {
               console.log('Looks like there was a problem. Status Code: ' + response.status);
               return;
             }
             // Examine the text in the response
-            response.json().then(function(data) {
+            response.json().then(data => {
               this.setState({ patients: data });
               this.sortPatient(this.state.sortBy);
             });
@@ -81,22 +88,31 @@ class AllPatientsPage extends React.Component {
     });
   }
 
+  componentWillUpdate(nextProps, nextState) {
+    console.log("next props ", nextProps);
+    console.log("next state ", nextState);
+    //this.setState ({ data: nextProps.patientData });
+  }
+
   // Saves new patient to the data base
   addPatient(patientToAdd) {
-    $.ajax({
-      type: 'POST', url: this.state.webSiteConnect, contentType: 'application/json',
-      data: JSON.stringify(patientToAdd),
-      success: function(data) {
-        console.log("the Data is", data);
-        var patient = data;
-        // We're advised not to modify the state, it's immutable. So, make a copy.
-        var patientsModified = this.state.patients.concat(patient);
-        this.setState({patients: patientsModified});
-      }.bind(this),
-      error: function(xhr, status, err) {
-        // ideally, show error to user.
-        console.log("Error adding pateint:", err);
-      }
+    fetch(this.state.webSiteConnect, {
+      method: 'post',
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(patientToAdd)
+    }).then(response => {
+      return response.json();
+    }).then(data => {
+      console.log("the Data is", data);
+      console.log("patient to add", patientToAdd);
+      var patient = data;
+      // We're advised not to modify the state, it's immutable. So, make a copy.
+      var patientsModified = this.state.patients.concat(patient);
+      console.log("patientsModified", patientsModified);
+
+      this.setState({patients: patientsModified});
     });
   }
 
@@ -105,16 +121,15 @@ class AllPatientsPage extends React.Component {
     this.state.patients.map(element =>
       {
         var patient = {wbc: "", hg: "", hct: "", plt: "", na: "", k: "", cl: "", bicarb: "", bun: "", cr: "", gluc: "", input: "", output: "", labsback: false, consults: false, andon: false, mar: false, ivmed: false, amlab: false, dispo: false, learning: false, seen: false, lines: false, foley: false, mobility: false, ro: "" };
+        fetch(this.state.webSiteConnect + element._id, {
+          method: 'put',
+          headers: {
+            "Content-type": "application/json"
+          },
+          body: JSON.stringify(patient)
+        }).then(function(data) {
 
-        $.ajax({
-          url: this.state.webSiteConnect + element._id, type: 'PUT', contentType:'application/json',
-          data: JSON.stringify(patient),
-          dataType: 'json',
-          success: function(patient) {
-
-          }
-
-      });
+        }.bind(this));
     });
   }
 
@@ -190,7 +205,7 @@ class AllPatientsPage extends React.Component {
     return (
       <div>
         <AllPatients
-          patientExist={this.state.patientExist}
+          patientsExist={this.state.patientsExist}
           updateTheState={this.updateTheState}
           secretCode={this.state.secretCode}
           webSiteConnect={this.state.webSiteConnect}
