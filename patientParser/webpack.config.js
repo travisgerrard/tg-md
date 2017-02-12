@@ -15,6 +15,7 @@ var config = {
   },
   output: {
       publicPath: 'http://localhost:8080/',
+      //publicPath: './',
       filename: 'public/[name].js'
   },
 
