@@ -32,6 +32,12 @@ passport.use('local-login', localLoginStrategy);
 const authCheckMiddleware = require('./server/middleware/auth-check');
 //app.use('/api', authCheckMiddleware);
 
+// routes
+const authRoutes = require('./server/routes/auth');
+const apiRoutes = require('./server/routes/api');
+app.use('/auth', authRoutes);
+app.use('/api', apiRoutes);
+
 // Makes server accessable from client
 app.use(function(req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
