@@ -14,6 +14,14 @@ const Patient = require('mongoose').model('Patient');
 
 var app = express();
 
+// Makes server accessable from client
+app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT ,DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+    next();
+});
+
 app.use(express.static('./server/static'));
 
 // tell the app to parse HTTP body messages
@@ -38,15 +46,8 @@ const apiRoutes = require('./server/routes/api');
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 
-// Makes server accessable from client
-app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT ,DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
-    next();
-});
 
-app.get('/api/runTheList', function(req, res) {
+app.get('/api/runTheList', (req, res) => {
   console.log("A request");
   const filter = { hidden: false };
   Patient.find(filter).sort({ro: 1}).exec((err, docs) => {
@@ -56,6 +57,7 @@ app.get('/api/runTheList', function(req, res) {
     return res.json(docs);
   });
 });
+
 
 app.get('/api/runTheListLearning', function(req, res) {
   console.log("A request");

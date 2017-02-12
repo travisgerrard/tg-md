@@ -1,4 +1,5 @@
 /*jshint esversion: 6 */
+/* logingtest */
 
 const express = require('express');
 
