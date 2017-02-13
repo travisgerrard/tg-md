@@ -19,7 +19,7 @@ class AllPatientsPage extends React.Component {
       step: 2,
       pageType: 'basic',
       patients: [],
-      webSiteConnect: 'http://localhost:3000/api/runTheList/',//*/'http://c465b43b.ngrok.io/api/runTheList/', //Should be one when using for production
+      webSiteConnect: /*'http://localhost:3000/api/runTheList/',//*/'http://c465b43b.ngrok.io/api/runTheList/', //Should be one when using for production
       sortBy: 'basic',
       errors: {}
     }
