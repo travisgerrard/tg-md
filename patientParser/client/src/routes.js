@@ -12,7 +12,7 @@ const routes = {
   component: Base,
   childRoutes: [
     {
-      path: '/',
+      path: '/Users/travisgerrard/travisgerrard.github.io/patientParser/index.html',
       getComponent: (location, callback) => {
         if (Auth.isUserAuthenticated()) {
           callback(null, DashboardPage);
@@ -23,7 +23,7 @@ const routes = {
     },
 
     {
-      path: '/login',
+      path: '/Users/travisgerrard/travisgerrard.github.io/patientParser/login',
       component: LoginPage
     },
 
