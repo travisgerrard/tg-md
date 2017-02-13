@@ -38,12 +38,12 @@ const path = require('path');
 
 module.exports = {
   // the entry file for the bundle
-  entry: path.join(__dirname, '/client/src/app.js'),
+  entry: path.join(__dirname, '/client/src/app.jsx'),
 
   // the bundle file we will get in the result
   output: {
     path: path.join(__dirname, '/public'),
-    filename: 'app.js',
+    filename: 'App.js',
   },
 
   module: {
