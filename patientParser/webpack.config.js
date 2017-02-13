@@ -1,3 +1,4 @@
+/*
 function getEntrySources(sources) {
     if (process.env.NODE_ENV !== 'production') {
         sources.push('webpack-dev-server/client?http://localhost:8080');
@@ -6,6 +7,8 @@ function getEntrySources(sources) {
 
     return sources;
 }
+const path = require('path');
+
 
 var config = {
   entry: {
@@ -14,9 +17,9 @@ var config = {
     ])
   },
   output: {
-      publicPath: 'http://localhost:8080/',
-      //publicPath: './',
-      filename: 'public/[name].js'
+      //publicPath: 'http://localhost:8080/',
+      path: path.join(__dirname, '/public'),
+      filename: '[name].js'
   },
 
   module : {
@@ -29,3 +32,35 @@ var config = {
 };
 
 module.exports = config;
+*/
+
+const path = require('path');
+
+module.exports = {
+  // the entry file for the bundle
+  entry: path.join(__dirname, '/client/src/app.js'),
+
+  // the bundle file we will get in the result
+  output: {
+    path: path.join(__dirname, '/public'),
+    filename: 'app.js',
+  },
+
+  module: {
+
+     // apply loaders to files that meet given conditions
+     loaders: [{
+       test: /\.jsx?$/,
+       include: path.join(__dirname, '/client/src'),
+       loader: 'babel',
+       query: {
+         presets: ["react", "es2015"]
+       },
+     },
+     { test: /\.scss$/, loaders: ['style', 'css', 'sass'] }
+     ],
+   },
+
+   // start Webpack in a watch mode, so Webpack will rebuild the bundle on changes
+   watch: true
+};
