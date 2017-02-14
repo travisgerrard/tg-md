@@ -11,6 +11,7 @@ class DashboardPage extends React.Component {
       super(props);
 
       this.state = {
+        baseWebpage: 'http://localhost:3000',
         secretData: ''
       };
     }
@@ -21,7 +22,7 @@ class DashboardPage extends React.Component {
 
     componentDidMount() {
       const xhr = new XMLHttpRequest();
-      xhr.open('get', '/api/dashboard');
+      xhr.open('get', `${this.state.baseWebpage}/api/dashboard`);
       xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
       // set the authorization HTTP header
       xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);

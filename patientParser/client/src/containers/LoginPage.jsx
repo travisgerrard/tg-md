@@ -22,6 +22,7 @@ class LoginPage extends React.Component {
     this.state = {
       errors: {},
       successMessage,
+      baseWebpage: 'http://localhost:3000',
       user: {
         email: '',
         password: ''
@@ -63,7 +64,7 @@ class LoginPage extends React.Component {
 
     // create and AJX require
     const xhr = new XMLHttpRequest();
-    xhr.open('post', '/auth/login');
+    xhr.open('post', `${this.state.baseWebpage}/auth/login`);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {

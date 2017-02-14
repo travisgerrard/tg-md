@@ -12,6 +12,7 @@ class SignUpPage extends React.Component {
     // set initial component state
     this.state = {
       errors: {},
+      baseWebpage: 'http://localhost:3000',
       user: {
         email: '',
         name: '',
@@ -55,7 +56,7 @@ class SignUpPage extends React.Component {
 
     // create and AJX require
     const xhr = new XMLHttpRequest();
-    xhr.open('post', '/auth/signup');
+    xhr.open('post', `${this.state.baseWebpage}/auth/signup`);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.responseType = 'json';
     xhr.addEventListener('load', () => {

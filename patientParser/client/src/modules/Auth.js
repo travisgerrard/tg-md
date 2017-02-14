@@ -8,7 +8,9 @@ class Auth {
  * @param {string} token
  */
   static authenticateUser(token) {
+    console.log("Set token " + token);
     localStorage.setItem('token', token);
+    console.log("Retreving token ", + localStorage.getItem('token'));
   }
 
    /**
@@ -35,6 +37,7 @@ class Auth {
      * @returns {string}
      */
   static getToken() {
+    console.log("Retreving token ", + localStorage.getItem('token'));
     return localStorage.getItem('token');
   }
 

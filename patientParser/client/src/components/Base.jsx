@@ -15,7 +15,7 @@ const Base = ({ children }) => (
         </div>
       ) : (
         <div className="top-bar-right">
-          <Link to="/Users/travisgerrard/travisgerrard.github.io/patientParser/login">Log in</Link>
+          <Link to="/login">Log in</Link>
           <Link to="/signup">Sign up</Link>
         </div>
       )}
