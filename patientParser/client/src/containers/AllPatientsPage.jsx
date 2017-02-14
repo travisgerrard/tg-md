@@ -3,6 +3,8 @@ import AllPatients from '../components/AllPatients.jsx';
 
 import Crypto from '../modules/Crypto';
 
+import 'whatwg-fetch'
+
 class AllPatientsPage extends React.Component {
 
 /**

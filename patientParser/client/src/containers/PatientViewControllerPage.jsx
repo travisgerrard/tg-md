@@ -3,6 +3,8 @@ import React, { PropTypes } from 'react';
 import Crypto from '../modules/Crypto';
 import PatientViewController from '../components/PatientViewController.jsx';
 
+import 'whatwg-fetch'
+
 require('../sass/PatientAll.scss');
 
 class PatientViewControllerPage extends React.Component {
