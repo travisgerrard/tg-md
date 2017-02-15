@@ -14,9 +14,11 @@ const app = express();
 
 // Makes server accessable from client
 app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    console.log(JSON.stringify(req.headers));
+    res.setHeader('Access-Control-Allow-Origin', "http://localhost:8080");
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT ,DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, Accept, X-Requested-With, Content-Type, Authorization');
+    //res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, Accept, X-Requested-With, Content-type, Authorization');
     next();
 });
 

@@ -27,6 +27,7 @@ class DashboardPage extends React.Component {
       // set the authorization HTTP header
       xhr.setRequestHeader('Authorization', `bearer ${Auth.getToken()}`);
       xhr.responseType = 'json';
+      //xhr.withCredentials = true; 
       xhr.addEventListener('load', () => {
         if (xhr.status === 200) {
           this.setState({
