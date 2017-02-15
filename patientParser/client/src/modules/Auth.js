@@ -37,8 +37,7 @@ class Auth {
      * @returns {string}
      */
   static getToken() {
-    console.log("Retreving token ", + localStorage.getItem('token'));
-    return localStorage.getItem('token');
+    return localStorage.getItem( 'token' );
   }
 
 }

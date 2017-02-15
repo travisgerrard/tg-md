@@ -10,14 +10,14 @@ const config = require('./config');
 // connect to the database and load models
 require('./server/models').connect(config.dbUri);
 
-var app = express();
+const app = express();
 
 // Makes server accessable from client
-app.use(function(req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT ,DELETE');
-    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
-    next();
+app.use(function (req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader('Access-Control-Allow-Methods', '*');
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  next();
 });
 
 app.use(express.static('./server/static'));

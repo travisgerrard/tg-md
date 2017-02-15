@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
 const Patient = require('mongoose').model('Patient');
 
 router.get('/dashboard', (req, res) => {
+  console.log(res);
   res.status(200).json({
     message: "You're authorized to see this secret message."
   });
