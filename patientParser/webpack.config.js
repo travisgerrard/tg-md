@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 /*
 function getEntrySources(sources) {
     if (process.env.NODE_ENV !== 'production') {
@@ -42,8 +44,8 @@ module.exports = {
 
   // the bundle file we will get in the result
   output: {
-    path: path.join(__dirname, '/public'),
-    filename: 'App.js',
+    path: path.join(__dirname, '/client/dist/js'),
+    filename: 'app.js',
   },
 
   module: {

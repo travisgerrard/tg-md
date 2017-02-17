@@ -15,7 +15,7 @@ const app = express();
 // Makes server accessable from client
 app.use(function(req, res, next) {
     console.log(JSON.stringify(req.headers));
-    res.setHeader('Access-Control-Allow-Origin', "http://localhost:8080");
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT ,DELETE');
     //res.setHeader('Access-Control-Allow-Credentials', true);
     res.setHeader('Access-Control-Allow-Headers', 'Origin, Accept, X-Requested-With, Content-type, Authorization');
@@ -23,6 +23,7 @@ app.use(function(req, res, next) {
 });
 
 app.use(express.static('./server/static'));
+app.use(express.static('./client/dist/'));
 
 // tell the app to parse HTTP body messages
 app.use(bodyParser.urlencoded({ extended: false }));
