@@ -1,11 +1,14 @@
 import React, { PropTypes } from 'react';
 import AllPatients from '../components/AllPatients.jsx';
+import Auth from '../modules/Auth';
 
 import Crypto from '../modules/Crypto';
 
 import 'whatwg-fetch'
 
 class AllPatientsPage extends React.Component {
+
+// Bitnami origin password bp9kERz59guN
 
 /**
   * Class constructor
@@ -21,7 +24,7 @@ class AllPatientsPage extends React.Component {
       step: 2,
       pageType: 'basic',
       patients: [],
-      webSiteConnect: /*'http://localhost:3000/api/runTheList/',//*/'http://c465b43b.ngrok.io/api/runTheList/', //Should be one when using for production
+      webSiteConnect: /*'http://localhost:3000/api/runTheList/',//*/'/api/runTheList/', //Should be one when using for production
       sortBy: 'basic',
       errors: {}
     }
@@ -51,8 +54,34 @@ class AllPatientsPage extends React.Component {
 
   // Runs at initial loading of patient info. calls server for data
   componentDidMount () {
-    fetch(this.state.webSiteConnect)
-      .then(response => {
+    /*
+    fetch(this.state.webSiteConnect, {
+      method: 'get',
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(patientToAdd)
+    }).then(response => {
+      return response.json();
+    }).then(data => {
+      console.log("the Data is", data);
+      console.log("patient to add", patientToAdd);
+      var patient = data;
+      // We're advised not to modify the state, it's immutable. So, make a copy.
+      var patientsModified = this.state.patients.concat(patient);
+      console.log("patientsModified", patientsModified);
+
+      this.setState({patients: patientsModified});
+    });
+    */
+
+    fetch(this.state.webSiteConnect, {
+      method: 'get',
+      headers: {
+        "Content-type": "application/json",
+        'Authorization': `bearer ${Auth.getToken()}`
+      },
+    }).then(response => {
             if (response.status !== 200) {
               console.log('Looks like there was a problem. Status Code: ' + response.status);
               return;
@@ -72,8 +101,13 @@ class AllPatientsPage extends React.Component {
 
   // When we need to reload server data this runs
   updateTheState() {
-    fetch(this.state.webSiteConnect)
-      .then(response => {
+    fetch(this.state.webSiteConnect, {
+      method: 'get',
+      headers: {
+        "Content-type": "application/json",
+        'Authorization': `bearer ${Auth.getToken()}`
+      },
+    }).then(response => {
             if (response.status !== 200) {
               console.log('Looks like there was a problem. Status Code: ' + response.status);
               return;
@@ -91,8 +125,8 @@ class AllPatientsPage extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    console.log("next props ", nextProps);
-    console.log("next state ", nextState);
+    //console.log("next props ", nextProps);
+    //console.log("next state ", nextState);
     //this.setState ({ data: nextProps.patientData });
   }
 
@@ -101,7 +135,8 @@ class AllPatientsPage extends React.Component {
     fetch(this.state.webSiteConnect, {
       method: 'post',
       headers: {
-        "Content-type": "application/json"
+        "Content-type": "application/json",
+        'Authorization': `bearer ${Auth.getToken()}`
       },
       body: JSON.stringify(patientToAdd)
     }).then(response => {
