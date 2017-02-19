@@ -34815,6 +34815,14 @@
 
 	var _Auth2 = _interopRequireDefault(_Auth);
 
+	var _AllPatientsPage = __webpack_require__(481);
+
+	var _AllPatientsPage2 = _interopRequireDefault(_AllPatientsPage);
+
+	var _NavBarControl = __webpack_require__(520);
+
+	var _NavBarControl2 = _interopRequireDefault(_NavBarControl);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	/*jshint esversion: 6 */
@@ -34827,7 +34835,7 @@
 	    getComponent: function getComponent(location, callback) {
 	      if (_Auth2.default.isUserAuthenticated()) {
 	        console.log("User is authenticated");
-	        callback(null, _DashboardPage2.default);
+	        callback(null, _AllPatientsPage2.default);
 	      } else {
 	        callback(null, _HomePage2.default);
 	      }
@@ -44315,6 +44323,3705 @@
 	};
 
 	exports.default = SignUpForm;
+
+/***/ },
+/* 481 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _AllPatients = __webpack_require__(482);
+
+	var _AllPatients2 = _interopRequireDefault(_AllPatients);
+
+	var _Auth = __webpack_require__(396);
+
+	var _Auth2 = _interopRequireDefault(_Auth);
+
+	var _Crypto = __webpack_require__(484);
+
+	var _Crypto2 = _interopRequireDefault(_Crypto);
+
+	__webpack_require__(517);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var AllPatientsPage = function (_React$Component) {
+	  _inherits(AllPatientsPage, _React$Component);
+
+	  // Bitnami origin password bp9kERz59guN
+
+	  /**
+	    * Class constructor
+	    */
+	  // Sets initial state
+	  function AllPatientsPage(props) {
+	    _classCallCheck(this, AllPatientsPage);
+
+	    var _this = _possibleConstructorReturn(this, (AllPatientsPage.__proto__ || Object.getPrototypeOf(AllPatientsPage)).call(this, props));
+
+	    _this.state = {
+	      patientsExist: false,
+	      secretCode: 'frisky',
+	      step: 2,
+	      pageType: 'basic',
+	      patients: [],
+	      webSiteConnect: /*'http://localhost:3000/api/runTheList/',//*/'/api/runTheList/', //Should be one when using for production
+	      sortBy: 'basic',
+	      errors: {}
+	    };
+
+	    _this.decodeString = _this.decodeString.bind(_this);
+	    _this.handleSubmit = _this.handleSubmit.bind(_this);
+	    _this.componentDidMount = _this.componentDidMount.bind(_this);
+	    _this.updateTheState = _this.updateTheState.bind(_this);
+	    _this.addPatient = _this.addPatient.bind(_this);
+	    _this.resetLabsAndTodos = _this.resetLabsAndTodos.bind(_this);
+	    _this.sortPatient = _this.sortPatient.bind(_this);
+	    _this.componentWillReceiveProps = _this.componentWillReceiveProps.bind(_this);
+
+	    return _this;
+	  }
+
+	  // decrypts data with a key
+
+
+	  _createClass(AllPatientsPage, [{
+	    key: 'decodeString',
+	    value: function decodeString(stringToDecode) {
+	      var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.state.secretCode).toString(CryptoJS.enc.Utf8);
+	      return decodedString;
+	    }
+
+	    // Handles add patient button click, calls add patient function
+
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit(e) {
+	      e.preventDefault();
+	      this.addPatient({ hidden: false });
+	    }
+
+	    // Runs at initial loading of patient info. calls server for data
+
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+
+	      /*
+	      fetch(this.state.webSiteConnect, {
+	        method: 'get',
+	        headers: {
+	          "Content-type": "application/json"
+	        },
+	        body: JSON.stringify(patientToAdd)
+	      }).then(response => {
+	        return response.json();
+	      }).then(data => {
+	        console.log("the Data is", data);
+	        console.log("patient to add", patientToAdd);
+	        var patient = data;
+	        // We're advised not to modify the state, it's immutable. So, make a copy.
+	        var patientsModified = this.state.patients.concat(patient);
+	        console.log("patientsModified", patientsModified);
+	         this.setState({patients: patientsModified});
+	      });
+	      */
+
+	      fetch(this.state.webSiteConnect, {
+	        method: 'get',
+	        headers: {
+	          "Content-type": "application/json",
+	          'Authorization': 'bearer ' + _Auth2.default.getToken()
+	        }
+	      }).then(function (response) {
+	        if (response.status !== 200) {
+	          console.log('Looks like there was a problem. Status Code: ' + response.status);
+	          return;
+	        }
+	        // Examine the text in the response
+	        response.json().then(function (data) {
+	          console.log(data.length);
+	          _this2.setState({ patients: data });
+	          if (data.length > 0) _this2.setState({ patientsExist: true });
+	        });
+	      }).catch(function (err) {
+	        console.log('Fetch Error :' + err);
+	      });
+	    }
+
+	    // When we need to reload server data this runs
+
+	  }, {
+	    key: 'updateTheState',
+	    value: function updateTheState() {
+	      var _this3 = this;
+
+	      fetch(this.state.webSiteConnect, {
+	        method: 'get',
+	        headers: {
+	          "Content-type": "application/json",
+	          'Authorization': 'bearer ' + _Auth2.default.getToken()
+	        }
+	      }).then(function (response) {
+	        if (response.status !== 200) {
+	          console.log('Looks like there was a problem. Status Code: ' + response.status);
+	          return;
+	        }
+	        // Examine the text in the response
+	        response.json().then(function (data) {
+	          _this3.setState({ patients: data });
+	          _this3.sortPatient(_this3.state.sortBy);
+	        });
+	      }).catch(function (err) {
+	        console.log('Fetch Error :' + err);
+	      });
+	    }
+	  }, {
+	    key: 'componentWillUpdate',
+	    value: function componentWillUpdate(nextProps, nextState) {}
+	    //console.log("next props ", nextProps);
+	    //console.log("next state ", nextState);
+	    //this.setState ({ data: nextProps.patientData });
+
+
+	    // Saves new patient to the data base
+
+	  }, {
+	    key: 'addPatient',
+	    value: function addPatient(patientToAdd) {
+	      var _this4 = this;
+
+	      fetch(this.state.webSiteConnect, {
+	        method: 'post',
+	        headers: {
+	          "Content-type": "application/json",
+	          'Authorization': 'bearer ' + _Auth2.default.getToken()
+	        },
+	        body: JSON.stringify(patientToAdd)
+	      }).then(function (response) {
+	        return response.json();
+	      }).then(function (data) {
+	        console.log("the Data is", data);
+	        console.log("patient to add", patientToAdd);
+	        var patient = data;
+	        // We're advised not to modify the state, it's immutable. So, make a copy.
+	        var patientsModified = _this4.state.patients.concat(patient);
+	        console.log("patientsModified", patientsModified);
+
+	        _this4.setState({ patients: patientsModified });
+	      });
+	    }
+
+	    // Does what it says...
+
+	  }, {
+	    key: 'resetLabsAndTodos',
+	    value: function resetLabsAndTodos() {
+	      var _this5 = this;
+
+	      this.state.patients.map(function (element) {
+	        var patient = { wbc: "", hg: "", hct: "", plt: "", na: "", k: "", cl: "", bicarb: "", bun: "", cr: "", gluc: "", input: "", output: "", labsback: false, consults: false, andon: false, mar: false, ivmed: false, amlab: false, dispo: false, learning: false, seen: false, lines: false, foley: false, mobility: false, ro: "" };
+	        fetch(_this5.state.webSiteConnect + element._id, {
+	          method: 'put',
+	          headers: {
+	            "Content-type": "application/json"
+	          },
+	          body: JSON.stringify(patient)
+	        }).then(function (data) {}.bind(_this5));
+	      });
+	    }
+	  }, {
+	    key: 'sortPatient',
+	    value: function sortPatient(sortBy) {
+
+	      if (sortBy === 'Room') {
+	        var tempData = this.state.patients.slice();
+	        tempData.sort(function (a, b) {
+	          if (a.room > b.room) {
+	            return 1;
+	          }
+	          if (a.room < b.room) {
+	            return -1;
+	          }
+	          return 0;
+	        });
+	        this.setState({ patients: tempData });
+	        this.setState({ step: 2 });
+	        this.setState({ sortBy: sortBy });
+	      }
+	      if (sortBy === 'Rounding Order') {
+	        var tempData = this.state.patients.slice();
+	        tempData.sort(function (a, b) {
+	          if (a.ro > b.ro) {
+	            return 1;
+	          }
+	          if (a.ro < b.ro) {
+	            return -1;
+	          }
+	          return 0;
+	        });
+	        this.setState({ patients: tempData });
+	        this.setState({ step: 2 });
+	        this.setState({ sortBy: sortBy });
+	      }
+	      if (sortBy === 'Name') {
+	        var tempData = this.state.patients.slice();
+	        tempData.sort(function (a, b) {
+	          if (this.decodeString(a.name) > this.decodeString(b.name)) {
+	            return 1;
+	          }
+	          if (this.decodeString(a.name) < this.decodeString(b.name)) {
+	            return -1;
+	          }
+
+	          return 0;
+	        }.bind(this));
+	        this.setState({ patients: tempData });
+	        this.setState({ step: 2 });
+	        this.setState({ sortBy: sortBy });
+	      }
+	      if (sortBy === 'Seen') {
+	        var tempData = this.state.patients.slice();
+	        tempData.sort(function (a, b) {
+	          return a.seen === b.seen ? 0 : a.seen ? 1 : -1;
+	        });
+	        this.setState({ patients: tempData });
+	        this.setState({ step: 2 });
+	        this.setState({ sortBy: sortBy });
+	      }
+	    }
+
+	    // lets us sort our patient data before we deisplay it
+
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      //console.log(nextProps);
+	      this.sortPatient(nextProps.pageType);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_AllPatients2.default, {
+	          patientsExist: this.state.patientsExist,
+	          updateTheState: this.updateTheState,
+	          secretCode: this.state.secretCode,
+	          webSiteConnect: this.state.webSiteConnect,
+	          patients: this.state.patients,
+	          handleSubmit: this.handleSubmit,
+	          resetLabsAndTodos: this.resetLabsAndTodos })
+	      );
+	    }
+	  }]);
+
+	  return AllPatientsPage;
+	}(_react2.default.Component);
+
+	exports.default = AllPatientsPage;
+
+/***/ },
+/* 482 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _PatientViewControllerPage = __webpack_require__(483);
+
+	var _PatientViewControllerPage2 = _interopRequireDefault(_PatientViewControllerPage);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var AllPatients = function AllPatients(_ref) {
+	  var patientsExist = _ref.patientsExist,
+	      updateTheState = _ref.updateTheState,
+	      secretCode = _ref.secretCode,
+	      webSiteConnect = _ref.webSiteConnect,
+	      patients = _ref.patients,
+	      handleSubmit = _ref.handleSubmit,
+	      resetLabsAndTodos = _ref.resetLabsAndTodos;
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    patientsExist ? _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'ul',
+	        null,
+	        patients.map(function (element) {
+	          return _react2.default.createElement(
+	            'li',
+	            { key: element._id },
+	            _react2.default.createElement(_PatientViewControllerPage2.default, { patientData: element, updateTheState: updateTheState, secretCode: secretCode, url: webSiteConnect }),
+	            _react2.default.createElement('br', null),
+	            _react2.default.createElement('hr', null)
+	          );
+	        })
+	      ),
+	      _react2.default.createElement(
+	        'button',
+	        { id: 'addPatientButton', onClick: handleSubmit, className: 'btn btn-primary center-block' },
+	        'Add Patient'
+	      ),
+	      _react2.default.createElement(
+	        'button',
+	        { onClick: resetLabsAndTodos, className: 'btn btn-primary center-block' },
+	        'ResetLabsAndTodos'
+	      )
+	    ) : _react2.default.createElement(
+	      'button',
+	      { id: 'addPatientButton', onClick: handleSubmit, className: 'btn btn-primary center-block' },
+	      'Add Patient'
+	    )
+	  );
+	};
+
+	AllPatients.propTypes = {
+	  patientsExist: _react.PropTypes.bool.isRequired,
+	  updateTheState: _react.PropTypes.func.isRequired,
+	  secretCode: _react.PropTypes.string.isRequired,
+	  webSiteConnect: _react.PropTypes.string.isRequired,
+	  patients: _react.PropTypes.array.isRequired,
+	  handleSubmit: _react.PropTypes.func.isRequired,
+	  resetLabsAndTodos: _react.PropTypes.func.isRequired
+	};
+
+	exports.default = AllPatients;
+
+/***/ },
+/* 483 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Crypto = __webpack_require__(484);
+
+	var _Crypto2 = _interopRequireDefault(_Crypto);
+
+	var _PatientViewController = __webpack_require__(485);
+
+	var _PatientViewController2 = _interopRequireDefault(_PatientViewController);
+
+	var _Auth = __webpack_require__(396);
+
+	var _Auth2 = _interopRequireDefault(_Auth);
+
+	__webpack_require__(517);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	__webpack_require__(518);
+
+	var PatientViewControllerPage = function (_React$Component) {
+	  _inherits(PatientViewControllerPage, _React$Component);
+
+	  /**
+	    * Class constructor
+	    */
+	  // Sets initial state
+	  function PatientViewControllerPage(props) {
+	    _classCallCheck(this, PatientViewControllerPage);
+
+	    var _this = _possibleConstructorReturn(this, (PatientViewControllerPage.__proto__ || Object.getPrototypeOf(PatientViewControllerPage)).call(this, props));
+
+	    _this.state = {
+	      secreteCode: _this.props.secreteCode,
+	      errors: {}
+	    };
+
+	    _this.onUpdate = _this.onUpdate.bind(_this);
+	    _this.encodeString = _this.encodeString.bind(_this);
+	    _this.decodeString = _this.decodeString.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(PatientViewControllerPage, [{
+	    key: 'encodeString',
+	    value: function encodeString(stringToEncode) {
+	      return _Crypto2.default.encodeString(stringToEncode, this.props.secretCode);
+	    }
+
+	    // decrypts data with a key
+
+	  }, {
+	    key: 'decodeString',
+	    value: function decodeString(stringToDecode) {
+	      return _Crypto2.default.decodeString(stringToDecode, this.props.secretCode);
+	    }
+
+	    // The called from children when models needs to be updated
+
+	  }, {
+	    key: 'onUpdate',
+	    value: function onUpdate(val, patientID) {
+
+	      var patient = {}; //Serves as vessel to be delivered to the backend on update
+
+	      // Standard Info
+	      if (val.className === "Name") patient = { name: this.encodeString(val.value) };
+	      if (val.className === "Room") patient = { room: val.value };
+	      if (val.className === "DOB") patient = { dob: this.encodeString(val.value) };
+	      if (val.className === "MRN") patient = { mrn: this.encodeString(val.value) };
+	      if (val.className === "LOS") patient = { los: val.value };
+	      if (val.className === "RO") patient = { ro: val.value };
+
+	      // CBC
+	      if (val.className === "WBC") patient = { wbc: this.encodeString(val.value) };
+	      if (val.className === "Hg") patient = { hg: this.encodeString(val.value) };
+	      if (val.className === "Hct") patient = { hct: this.encodeString(val.value) };
+	      if (val.className === "plt") patient = { plt: this.encodeString(val.value) };
+
+	      // BMR
+	      if (val.className === "Na") patient = { na: this.encodeString(val.value) };
+	      if (val.className === "K") patient = { k: this.encodeString(val.value) };
+	      if (val.className === "Cl") patient = { cl: this.encodeString(val.value) };
+	      if (val.className === "Bicarb") patient = { bicarb: this.encodeString(val.value) };
+	      if (val.className === "BUN") patient = { bun: this.encodeString(val.value) };
+	      if (val.className === "Cr") patient = { cr: this.encodeString(val.value) };
+	      if (val.className === "Gluc") patient = { gluc: this.encodeString(val.value) };
+
+	      // I/O
+	      if (val.className === "Input") patient = { input: val.value };
+	      if (val.className === "Output") patient = { output: val.value };
+	      if (val.className === "OtherLabs") patient = { otherLabs: this.encodeString(val.value) };
+
+	      // Overview
+	      if (val.className === "Overview") patient = { overview: this.encodeString(val.value) };
+
+	      // DailyTodos, using a ternary operator
+	      if (val.className === "LabsBack") patient = val.trueFalse === true ? { labsback: false } : { labsback: true };
+	      if (val.className === "Consults") patient = val.trueFalse === true ? { consults: false } : { consults: true };
+	      if (val.className === "Andon") patient = val.trueFalse === true ? { andon: false } : { andon: true };
+	      if (val.className === "Mar") patient = val.trueFalse === true ? { mar: false } : { mar: true };
+	      if (val.className === "IVMed") patient = val.trueFalse === true ? { ivmed: false } : { ivmed: true };
+	      if (val.className === "AMLab") patient = val.trueFalse === true ? { amlab: false } : { amlab: true };
+	      if (val.className === "Dispo") patient = val.trueFalse === true ? { dispo: false } : { dispo: true };
+	      if (val.className === "Learning") patient = val.trueFalse === true ? { learning: false } : { learning: true };
+	      if (val.className === "Seen") patient = val.trueFalse === true ? { seen: false } : { seen: true };
+	      if (val.className === "Lines") patient = val.trueFalse === true ? { lines: false } : { lines: true };
+	      if (val.className === "Foley") patient = val.trueFalse === true ? { foley: false } : { foley: true };
+	      if (val.className === "Mobility") patient = val.trueFalse === true ? { mobility: false } : { mobility: true };
+
+	      // Adding to list of followups, again using ternary operator!
+	      if (val.className === "AddFollowUp") patient = this.props.patientData.followup === undefined ? { followup: [{ complete: false, followUpText: this.encodeString(val.value), hidden: false, isEditing: false }] } : { followup: this.props.patientData.followup.concat({ complete: false, followUpText: this.encodeString(val.value), hidden: false }) };
+	      // checking off a followup
+	      if (val.className === "FollowUp") {
+	        var tempArray = this.props.patientData.followup.concat();
+	        var object = tempArray[val.name]; // .name is actually the index in the array...
+	        object = object.complete === true ? object.complete = false : object.complete = true;
+	        patient = { followup: tempArray };
+	      }
+	      // editing a followup
+	      if (val.className === "FollowUpEdit") {
+	        var tempArray = this.props.patientData.followup.concat();
+	        var object = tempArray[val.dataset.name]; // .name is actually the index in the array...
+	        if (object.isEditing === true) {
+	          object.followUpText = this.encodeString(val.value);
+	          object.isEditing = false;
+	        } else {
+	          object.isEditing = true;
+	        }
+	        patient = { followup: tempArray };
+	      }
+	      // sorting follow up list
+	      if (val.className === "FollowUpSort") {
+	        var tempArray = this.props.patientData.followup.concat();
+	        patient = { followup: tempArray };
+	      }
+	      // deleting a followup
+	      if (val.className === "deleteFollowUp") {
+	        var tempArray = this.props.patientData.followup.concat();
+	        tempArray.splice(val.name, 1);
+	        patient = { followup: tempArray };
+	      }
+
+	      // Adding to list of consults, again using ternary operator!
+	      if (val.className === "AddConsult") patient = this.props.patientData.consult === undefined ? { consult: [{ complete: false, consultText: this.encodeString(val.value), hidden: false, isEditing: false }] } : { consult: this.props.patientData.consult.concat({ complete: false, consultText: this.encodeString(val.value), hidden: false }) };
+	      // checking off a followup
+	      if (val.className === "Consult") {
+	        var tempArray = this.props.patientData.consult.concat();
+	        var object = tempArray[val.name];
+	        object = object.complete === true ? object.complete = false : object.complete = true;
+	        patient = { consult: tempArray };
+	      }
+	      // editing a consult
+	      if (val.className === "ConsultEdit") {
+	        var tempArray = this.props.patientData.consult.concat();
+	        var object = tempArray[val.dataset.name]; // .name is actually the index in the array...
+	        if (object.isEditing === true) {
+	          object.consultText = this.encodeString(val.value);
+	          object.isEditing = false;
+	        } else {
+	          object.isEditing = true;
+	        }
+	        patient = { consult: tempArray };
+	      }
+	      // sorting consult list
+	      if (val.className === "ConsultSort") {
+	        var tempArray = this.props.patientData.consult.concat();
+	        patient = { consult: tempArray };
+	      }
+	      // deleting a consult
+	      if (val.className === "deleteConsult") {
+	        var tempArray = this.props.patientData.consult.concat();
+	        tempArray.splice(val.name, 1);
+	        patient = { consult: tempArray };
+	      }
+
+	      // Adding to list of learning, again using ternary operator!
+	      if (val.className === "AddLearning") patient = this.props.patientData.learningList === undefined ? { learningList: [{ complete: false, learningText: this.encodeString(val.value), hidden: false }] } : { learningList: this.props.patientData.learningList.concat({ complete: false, learningText: this.encodeString(val.value), hidden: false }) };
+
+	      // checking off a learning
+	      if (val.className === "LearningList") {
+	        var tempArray = this.props.patientData.learningList.concat();
+	        var object = tempArray[val.name];
+	        object = object.complete === true ? object.complete = false : object.complete = true;
+	        patient = { learningList: tempArray };
+	      }
+
+	      // deleting a learning
+	      if (val.className === "deleteLearning") {
+	        var tempArray = this.props.patientData.learningList.concat();
+	        tempArray.splice(val.name, 1);
+	        patient = { learningList: tempArray };
+	      }
+
+	      // Deleteing a patient
+	      if (val.className === "DeleteButton") patient = { hidden: true };
+
+	      fetch(this.props.url + patientID, {
+	        method: 'put',
+	        headers: {
+	          "Content-type": "application/json",
+	          'Authorization': 'bearer ' + _Auth2.default.getToken()
+	        },
+	        body: JSON.stringify(patient)
+	      }).then(function (data) {
+	        if (val.className === "AddFollowUp" || val.className === "FollowUp" || val.className === "FollowUpEdit" || val.className === "deleteFollowUp" || val.className === "AddConsult" || val.className === "Consult" || val.className === "ConsultEdit" || val.className === "deleteConsult" || val.className === "AddLearning" || val.className === "LearningList" || val.className === "deleteLearning" || val.className === "DeleteButton") {
+	          this.props.updateTheState();
+	          console.log("State updated...");
+	        }
+	      }.bind(this));
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_PatientViewController2.default, {
+	        onUpdate: this.onUpdate,
+	        patientData: this.props.patientData,
+	        secretCode: this.props.secretCode });
+	    }
+	  }]);
+
+	  return PatientViewControllerPage;
+	}(_react2.default.Component);
+
+	exports.default = PatientViewControllerPage;
+
+/***/ },
+/* 484 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	/*jshint esversion: 6 */
+
+	// Our decoder!
+
+	var Crypto = function () {
+	  function Crypto() {
+	    _classCallCheck(this, Crypto);
+	  }
+
+	  _createClass(Crypto, null, [{
+	    key: "decodeString",
+	    value: function decodeString(stringToDecode, secretCode) {
+	      // Next line in english
+	      // If stringToDecode is undefined return "" else decode the string. Return the result
+	      return stringToDecode === undefined ? "" : CryptoJS.AES.decrypt(stringToDecode, secretCode).toString(CryptoJS.enc.Utf8);
+	    }
+	  }, {
+	    key: "encodeString",
+	    value: function encodeString(stringToEncode, secretCode) {
+	      return CryptoJS.AES.encrypt(stringToEncode, secretCode).toString();
+	    }
+	  }]);
+
+	  return Crypto;
+	}();
+
+	exports.default = Crypto;
+
+/***/ },
+/* 485 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _PatientOverviewPage = __webpack_require__(486);
+
+	var _PatientOverviewPage2 = _interopRequireDefault(_PatientOverviewPage);
+
+	var _PatientDailyTodoPage = __webpack_require__(492);
+
+	var _PatientDailyTodoPage2 = _interopRequireDefault(_PatientDailyTodoPage);
+
+	var _PatientFollowUpsPage = __webpack_require__(496);
+
+	var _PatientFollowUpsPage2 = _interopRequireDefault(_PatientFollowUpsPage);
+
+	var _PatientFollowUpInputPage = __webpack_require__(500);
+
+	var _PatientFollowUpInputPage2 = _interopRequireDefault(_PatientFollowUpInputPage);
+
+	var _PatientConsultsPage = __webpack_require__(502);
+
+	var _PatientConsultsPage2 = _interopRequireDefault(_PatientConsultsPage);
+
+	var _PatientConsultInputPage = __webpack_require__(505);
+
+	var _PatientConsultInputPage2 = _interopRequireDefault(_PatientConsultInputPage);
+
+	var _PatientGeneralPage = __webpack_require__(506);
+
+	var _PatientGeneralPage2 = _interopRequireDefault(_PatientGeneralPage);
+
+	var _PatientLabsPage = __webpack_require__(510);
+
+	var _PatientLabsPage2 = _interopRequireDefault(_PatientLabsPage);
+
+	var _PatientLearning = __webpack_require__(514);
+
+	var _PatientLearning2 = _interopRequireDefault(_PatientLearning);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var PatientViewController = function PatientViewController(_ref) {
+	  var onUpdate = _ref.onUpdate,
+	      patientData = _ref.patientData,
+	      secretCode = _ref.secretCode;
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'flex-grid' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_PatientGeneralPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode })
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'flex-grid' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_PatientOverviewPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode })
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'flex-grid' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_PatientLabsPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_PatientDailyTodoPage2.default, { onUpdate: onUpdate, patientData: patientData })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_PatientFollowUpInputPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode }),
+	        _react2.default.createElement(_PatientFollowUpsPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_PatientConsultInputPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode }),
+	        _react2.default.createElement(_PatientConsultsPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_PatientLearning2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode })
+	      )
+	    )
+	  );
+	};
+
+	PatientViewController.propTypes = {
+	  onUpdate: _react.PropTypes.func.isRequired,
+	  patientData: _react.PropTypes.object.isRequired,
+	  secretCode: _react.PropTypes.string.isRequired
+	};
+
+	exports.default = PatientViewController;
+
+/***/ },
+/* 486 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _PatientOverviewTextArea = __webpack_require__(487);
+
+	var _PatientOverviewTextArea2 = _interopRequireDefault(_PatientOverviewTextArea);
+
+	var _Crypto = __webpack_require__(484);
+
+	var _Crypto2 = _interopRequireDefault(_Crypto);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	__webpack_require__(488);
+
+	var PatientOverviewPage = function (_React$Component) {
+	  _inherits(PatientOverviewPage, _React$Component);
+
+	  /**
+	    * Class constructor
+	    */
+	  function PatientOverviewPage(props) {
+	    _classCallCheck(this, PatientOverviewPage);
+
+	    var _this = _possibleConstructorReturn(this, (PatientOverviewPage.__proto__ || Object.getPrototypeOf(PatientOverviewPage)).call(this, props));
+
+	    _this.state = {
+	      overview: _Crypto2.default.decodeString(_this.props.patientData.overview, _this.props.secretCode),
+	      className: "Overview"
+	    };
+
+	    _this.handleChange = _this.handleChange.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(PatientOverviewPage, [{
+	    key: 'handleChange',
+	    value: function handleChange(event) {
+	      this.props.onUpdate(event.target, this.props.patientData._id);
+	    }
+
+	    /**
+	      * Render the component.
+	      */
+
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_PatientOverviewTextArea2.default, { handleChange: this.handleChange, overview: this.state.overview, className: this.state.className });
+	    }
+	  }]);
+
+	  return PatientOverviewPage;
+	}(_react2.default.Component);
+
+	exports.default = PatientOverviewPage;
+
+/***/ },
+/* 487 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var PatientOverviewTextArea = function PatientOverviewTextArea(_ref) {
+	  var handleChange = _ref.handleChange,
+	      overview = _ref.overview,
+	      className = _ref.className;
+	  return _react2.default.createElement(
+	    "div",
+	    { id: "Overview" },
+	    _react2.default.createElement("textarea", { className: className, onChange: handleChange, defaultValue: overview })
+	  );
+	};
+
+	PatientOverviewTextArea.propTypes = {
+	  handleChange: _react.PropTypes.func.isRequired,
+	  overview: _react.PropTypes.string.isRequired
+	};
+
+	exports.default = PatientOverviewTextArea;
+
+/***/ },
+/* 488 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(489);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(491)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./PatientOverview.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./PatientOverview.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 489 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(490)();
+	// imports
+
+
+	// module
+	exports.push([module.id, ".Overview {\n  width: 97%;\n  height: 50px; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 490 */
+/***/ function(module, exports) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function() {
+		var list = [];
+
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
+
+/***/ },
+/* 491 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	var stylesInDom = {},
+		memoize = function(fn) {
+			var memo;
+			return function () {
+				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+				return memo;
+			};
+		},
+		isOldIE = memoize(function() {
+			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+		}),
+		getHeadElement = memoize(function () {
+			return document.head || document.getElementsByTagName("head")[0];
+		}),
+		singletonElement = null,
+		singletonCounter = 0,
+		styleElementsInsertedAtTop = [];
+
+	module.exports = function(list, options) {
+		if(false) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+
+		options = options || {};
+		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+		// tags it will allow on a page
+		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+
+		// By default, add <style> tags to the bottom of <head>.
+		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+
+		var styles = listToStyles(list);
+		addStylesToDom(styles, options);
+
+		return function update(newList) {
+			var mayRemove = [];
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				domStyle.refs--;
+				mayRemove.push(domStyle);
+			}
+			if(newList) {
+				var newStyles = listToStyles(newList);
+				addStylesToDom(newStyles, options);
+			}
+			for(var i = 0; i < mayRemove.length; i++) {
+				var domStyle = mayRemove[i];
+				if(domStyle.refs === 0) {
+					for(var j = 0; j < domStyle.parts.length; j++)
+						domStyle.parts[j]();
+					delete stylesInDom[domStyle.id];
+				}
+			}
+		};
+	}
+
+	function addStylesToDom(styles, options) {
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			if(domStyle) {
+				domStyle.refs++;
+				for(var j = 0; j < domStyle.parts.length; j++) {
+					domStyle.parts[j](item.parts[j]);
+				}
+				for(; j < item.parts.length; j++) {
+					domStyle.parts.push(addStyle(item.parts[j], options));
+				}
+			} else {
+				var parts = [];
+				for(var j = 0; j < item.parts.length; j++) {
+					parts.push(addStyle(item.parts[j], options));
+				}
+				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+			}
+		}
+	}
+
+	function listToStyles(list) {
+		var styles = [];
+		var newStyles = {};
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			var id = item[0];
+			var css = item[1];
+			var media = item[2];
+			var sourceMap = item[3];
+			var part = {css: css, media: media, sourceMap: sourceMap};
+			if(!newStyles[id])
+				styles.push(newStyles[id] = {id: id, parts: [part]});
+			else
+				newStyles[id].parts.push(part);
+		}
+		return styles;
+	}
+
+	function insertStyleElement(options, styleElement) {
+		var head = getHeadElement();
+		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+		if (options.insertAt === "top") {
+			if(!lastStyleElementInsertedAtTop) {
+				head.insertBefore(styleElement, head.firstChild);
+			} else if(lastStyleElementInsertedAtTop.nextSibling) {
+				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+			} else {
+				head.appendChild(styleElement);
+			}
+			styleElementsInsertedAtTop.push(styleElement);
+		} else if (options.insertAt === "bottom") {
+			head.appendChild(styleElement);
+		} else {
+			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+		}
+	}
+
+	function removeStyleElement(styleElement) {
+		styleElement.parentNode.removeChild(styleElement);
+		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+		if(idx >= 0) {
+			styleElementsInsertedAtTop.splice(idx, 1);
+		}
+	}
+
+	function createStyleElement(options) {
+		var styleElement = document.createElement("style");
+		styleElement.type = "text/css";
+		insertStyleElement(options, styleElement);
+		return styleElement;
+	}
+
+	function createLinkElement(options) {
+		var linkElement = document.createElement("link");
+		linkElement.rel = "stylesheet";
+		insertStyleElement(options, linkElement);
+		return linkElement;
+	}
+
+	function addStyle(obj, options) {
+		var styleElement, update, remove;
+
+		if (options.singleton) {
+			var styleIndex = singletonCounter++;
+			styleElement = singletonElement || (singletonElement = createStyleElement(options));
+			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else if(obj.sourceMap &&
+			typeof URL === "function" &&
+			typeof URL.createObjectURL === "function" &&
+			typeof URL.revokeObjectURL === "function" &&
+			typeof Blob === "function" &&
+			typeof btoa === "function") {
+			styleElement = createLinkElement(options);
+			update = updateLink.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+				if(styleElement.href)
+					URL.revokeObjectURL(styleElement.href);
+			};
+		} else {
+			styleElement = createStyleElement(options);
+			update = applyToTag.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+			};
+		}
+
+		update(obj);
+
+		return function updateStyle(newObj) {
+			if(newObj) {
+				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+					return;
+				update(obj = newObj);
+			} else {
+				remove();
+			}
+		};
+	}
+
+	var replaceText = (function () {
+		var textStore = [];
+
+		return function (index, replacement) {
+			textStore[index] = replacement;
+			return textStore.filter(Boolean).join('\n');
+		};
+	})();
+
+	function applyToSingletonTag(styleElement, index, remove, obj) {
+		var css = remove ? "" : obj.css;
+
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(index, css);
+		} else {
+			var cssNode = document.createTextNode(css);
+			var childNodes = styleElement.childNodes;
+			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+			if (childNodes.length) {
+				styleElement.insertBefore(cssNode, childNodes[index]);
+			} else {
+				styleElement.appendChild(cssNode);
+			}
+		}
+	}
+
+	function applyToTag(styleElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+
+		if(media) {
+			styleElement.setAttribute("media", media)
+		}
+
+		if(styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = css;
+		} else {
+			while(styleElement.firstChild) {
+				styleElement.removeChild(styleElement.firstChild);
+			}
+			styleElement.appendChild(document.createTextNode(css));
+		}
+	}
+
+	function updateLink(linkElement, obj) {
+		var css = obj.css;
+		var sourceMap = obj.sourceMap;
+
+		if(sourceMap) {
+			// http://stackoverflow.com/a/26603875
+			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+		}
+
+		var blob = new Blob([css], { type: "text/css" });
+
+		var oldSrc = linkElement.href;
+
+		linkElement.href = URL.createObjectURL(blob);
+
+		if(oldSrc)
+			URL.revokeObjectURL(oldSrc);
+	}
+
+
+/***/ },
+/* 492 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _PatientDailyTodoList = __webpack_require__(493);
+
+	var _PatientDailyTodoList2 = _interopRequireDefault(_PatientDailyTodoList);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	__webpack_require__(494);
+
+	var PatientDailyTodoPage = function (_React$Component) {
+	  _inherits(PatientDailyTodoPage, _React$Component);
+
+	  /**
+	    * Class constructor
+	    */
+	  function PatientDailyTodoPage(props) {
+	    _classCallCheck(this, PatientDailyTodoPage);
+
+	    var _this = _possibleConstructorReturn(this, (PatientDailyTodoPage.__proto__ || Object.getPrototypeOf(PatientDailyTodoPage)).call(this, props));
+
+	    _this.state = {
+	      labsback: _this.props.patientData.labsback,
+	      consults: _this.props.patientData.consults,
+	      andon: _this.props.patientData.andon,
+	      mar: _this.props.patientData.mar,
+	      ivmed: _this.props.patientData.ivmed,
+	      amlab: _this.props.patientData.amlab,
+	      dispo: _this.props.patientData.dispo,
+	      learning: _this.props.patientData.learning,
+	      seen: _this.props.patientData.seen,
+	      lines: _this.props.patientData.lines,
+	      foley: _this.props.patientData.foley,
+	      mobility: _this.props.patientData.mobility
+	    };
+
+	    _this.handleChange = _this.handleChange.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(PatientDailyTodoPage, [{
+	    key: 'handleChange',
+	    value: function handleChange(event) {
+	      var value = event.target.value;
+	      var className = event.target.className;
+
+	      this.props.onUpdate({ className: className, trueFalse: this.state[value] }, this.props.patientData._id); // updates on the server. Got rid of lots of code with [value]
+	      this.state[value] === true ? this.setState(_defineProperty({}, value, false)) : this.setState(_defineProperty({}, value, true)); // updates locally.
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_PatientDailyTodoList2.default, { handleChange: this.handleChange, labsback: this.state.labsback, consults: this.state.consults, andon: this.state.andon, ivmed: this.state.ivmed, mar: this.state.mar, amlab: this.state.amlab, dispo: this.state.dispo, learning: this.state.learning, seen: this.state.seen, lines: this.state.lines, foley: this.state.foley, mobility: this.state.mobility });
+	    }
+	  }]);
+
+	  return PatientDailyTodoPage;
+	}(_react2.default.Component);
+
+	exports.default = PatientDailyTodoPage;
+
+/***/ },
+/* 493 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var PatientDailyTodoList = function PatientDailyTodoList(_ref) {
+	  var handleChange = _ref.handleChange,
+	      labsback = _ref.labsback,
+	      consults = _ref.consults,
+	      andon = _ref.andon,
+	      ivmed = _ref.ivmed,
+	      mar = _ref.mar,
+	      amlab = _ref.amlab,
+	      dispo = _ref.dispo,
+	      learning = _ref.learning,
+	      seen = _ref.seen,
+	      lines = _ref.lines,
+	      foley = _ref.foley,
+	      mobility = _ref.mobility;
+	  return _react2.default.createElement(
+	    "div",
+	    null,
+	    _react2.default.createElement(
+	      "ul",
+	      { id: "dailyToDoUl" },
+	      _react2.default.createElement(
+	        "li",
+	        null,
+	        _react2.default.createElement(
+	          "label",
+	          null,
+	          _react2.default.createElement("input", { type: "checkbox", className: "LabsBack", value: "labsback", onChange: handleChange, defaultChecked: labsback }),
+	          "Labs Back"
+	        )
+	      ),
+	      _react2.default.createElement(
+	        "li",
+	        null,
+	        _react2.default.createElement(
+	          "label",
+	          null,
+	          _react2.default.createElement("input", { type: "checkbox", className: "Consults", value: "consults", onChange: handleChange, defaultChecked: consults }),
+	          "Consults"
+	        )
+	      ),
+	      _react2.default.createElement(
+	        "li",
+	        null,
+	        _react2.default.createElement(
+	          "label",
+	          null,
+	          _react2.default.createElement("input", { type: "checkbox", className: "Andon", value: "andon", onChange: handleChange, defaultChecked: andon }),
+	          "Andon - VTE/Glucose"
+	        )
+	      ),
+	      _react2.default.createElement(
+	        "li",
+	        null,
+	        _react2.default.createElement(
+	          "label",
+	          null,
+	          _react2.default.createElement("input", { type: "checkbox", className: "IVMed", value: "ivmed", onChange: handleChange, defaultChecked: ivmed }),
+	          "Micro"
+	        )
+	      ),
+	      _react2.default.createElement(
+	        "li",
+	        null,
+	        _react2.default.createElement(
+	          "label",
+	          null,
+	          _react2.default.createElement("input", { type: "checkbox", className: "Mar", value: "mar", onChange: handleChange, defaultChecked: mar }),
+	          "MAR 48"
+	        )
+	      ),
+	      _react2.default.createElement(
+	        "li",
+	        null,
+	        _react2.default.createElement(
+	          "label",
+	          null,
+	          _react2.default.createElement("input", { type: "checkbox", className: "AMLab", value: "amlab", onChange: handleChange, defaultChecked: amlab }),
+	          "AM Labs"
+	        )
+	      ),
+	      _react2.default.createElement(
+	        "li",
+	        null,
+	        _react2.default.createElement(
+	          "label",
+	          null,
+	          _react2.default.createElement("input", { type: "checkbox", className: "Dispo", value: "dispo", onChange: handleChange, defaultChecked: dispo }),
+	          "Discharge/Dispo"
+	        )
+	      ),
+	      _react2.default.createElement(
+	        "li",
+	        null,
+	        _react2.default.createElement(
+	          "label",
+	          null,
+	          _react2.default.createElement("input", { type: "checkbox", className: "Learning", value: "learning", onChange: handleChange, defaultChecked: learning }),
+	          "Learning"
+	        )
+	      ),
+	      _react2.default.createElement(
+	        "li",
+	        null,
+	        _react2.default.createElement(
+	          "label",
+	          null,
+	          _react2.default.createElement("input", { type: "checkbox", className: "Seen", value: "seen", onChange: handleChange, defaultChecked: seen }),
+	          "Seen"
+	        )
+	      ),
+	      _react2.default.createElement("hr", null),
+	      _react2.default.createElement(
+	        "li",
+	        null,
+	        _react2.default.createElement(
+	          "label",
+	          null,
+	          _react2.default.createElement("input", { type: "checkbox", className: "Lines", value: "lines", onChange: handleChange, defaultChecked: lines }),
+	          "Lines"
+	        )
+	      ),
+	      _react2.default.createElement(
+	        "li",
+	        null,
+	        _react2.default.createElement(
+	          "label",
+	          null,
+	          _react2.default.createElement("input", { type: "checkbox", className: "Foley", value: "foley", onChange: handleChange, defaultChecked: foley }),
+	          "Foley"
+	        )
+	      ),
+	      _react2.default.createElement(
+	        "li",
+	        null,
+	        _react2.default.createElement(
+	          "label",
+	          null,
+	          _react2.default.createElement("input", { type: "checkbox", className: "Mobility", value: "mobility", onChange: handleChange, defaultChecked: mobility }),
+	          "Mobility"
+	        )
+	      )
+	    )
+	  );
+	};
+
+	PatientDailyTodoList.propTypes = {
+	  handleChange: _react.PropTypes.func.isRequired,
+	  labsback: _react.PropTypes.bool.isRequired,
+	  consults: _react.PropTypes.bool.isRequired,
+	  andon: _react.PropTypes.bool.isRequired,
+	  ivmed: _react.PropTypes.bool.isRequired,
+	  mar: _react.PropTypes.bool.isRequired,
+	  amlab: _react.PropTypes.bool.isRequired,
+	  dispo: _react.PropTypes.bool.isRequired,
+	  learning: _react.PropTypes.bool.isRequired,
+	  seen: _react.PropTypes.bool.isRequired,
+	  lines: _react.PropTypes.bool.isRequired,
+	  foley: _react.PropTypes.bool.isRequired,
+	  mobility: _react.PropTypes.bool.isRequired
+	};
+
+	exports.default = PatientDailyTodoList;
+
+/***/ },
+/* 494 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(495);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(491)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./PatientDailyTodo.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./PatientDailyTodo.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 495 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(490)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "#dailyToDoUl {\n  display: table;\n  margin-left: 0;\n  padding-left: 0;\n  list-style: none; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 496 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _PatientDynamicList = __webpack_require__(497);
+
+	var _PatientDynamicList2 = _interopRequireDefault(_PatientDynamicList);
+
+	var _Crypto = __webpack_require__(484);
+
+	var _Crypto2 = _interopRequireDefault(_Crypto);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	__webpack_require__(498);
+
+	var PatientFollowUpsPage = function (_React$Component) {
+	  _inherits(PatientFollowUpsPage, _React$Component);
+
+	  /**
+	    * Class constructor
+	    */
+	  // Sets initial state
+	  function PatientFollowUpsPage(props) {
+	    _classCallCheck(this, PatientFollowUpsPage);
+
+	    var _this = _possibleConstructorReturn(this, (PatientFollowUpsPage.__proto__ || Object.getPrototypeOf(PatientFollowUpsPage)).call(this, props));
+
+	    _this.state = {
+	      data: _this.props.patientData,
+	      followup: _this.props.patientData.followup
+	    };
+
+	    _this.handleChange = _this.handleChange.bind(_this);
+	    _this.handleDelete = _this.handleDelete.bind(_this);
+	    _this.dragStart = _this.dragStart.bind(_this);
+	    _this.dragEnd = _this.dragEnd.bind(_this);
+	    _this.dragOver = _this.dragOver.bind(_this);
+	    _this.sort = _this.sort.bind(_this);
+	    _this.editElement = _this.editElement.bind(_this);
+	    _this.handleKeyPress = _this.handleKeyPress.bind(_this);
+	    return _this;
+	  }
+
+	  // updates state with props from PatientAll with they get reloaded
+
+
+	  _createClass(PatientFollowUpsPage, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this.setState({ data: nextProps.patientData });
+	    }
+
+	    // Updates model that action was checked
+
+	  }, {
+	    key: 'handleChange',
+	    value: function handleChange(event) {
+	      this.props.onUpdate(event.target, this.props.patientData._id);
+	    }
+	  }, {
+	    key: 'handleDelete',
+	    value: function handleDelete(event) {
+	      this.props.onUpdate(event.target, this.props.patientData._id);
+	    }
+	  }, {
+	    key: 'editElement',
+	    value: function editElement(event) {
+	      // event.currentTarget.dataset.id gives index of tapped item in list
+	      // We can then probe if currently isEditing
+	      // If already editing, will not change isEditing to false with double click
+	      if (!this.state.data.followup[event.currentTarget.dataset.id].isEditing) {
+	        this.props.onUpdate(event.target, this.props.patientData._id);
+	      }
+	    }
+	  }, {
+	    key: 'handleKeyPress',
+	    value: function handleKeyPress(event) {
+	      if (event.key === 'Enter') {
+	        this.props.onUpdate(event.target, this.props.patientData._id);
+	      }
+	    }
+	  }, {
+	    key: 'sort',
+	    value: function sort(followup, dragging) {
+	      var data = this.state.data;
+	      data.followup = followup;
+	      data.dragging = dragging;
+	      this.setState({ data: data });
+	    }
+	  }, {
+	    key: 'dragStart',
+	    value: function dragStart(e) {
+	      this.dragged = Number(e.currentTarget.dataset.id);
+	      e.dataTransfer.effectAllowed = 'move';
+	      // for the drag to properly work
+	      e.dataTransfer.setData("text/html", null);
+	    }
+	  }, {
+	    key: 'dragEnd',
+	    value: function dragEnd(e) {
+	      this.sort(this.state.data.followup, undefined);
+	      this.props.onUpdate(e.target, this.props.patientData._id);
+	    }
+	  }, {
+	    key: 'dragOver',
+	    value: function dragOver(e) {
+	      e.preventDefault();
+
+	      var over = e.currentTarget;
+	      var dragging = this.state.data.dragging;
+	      var from = isFinite(dragging) ? dragging : this.dragged;
+	      var to = Number(over.dataset.id);
+	      if (e.clientY - over.offsetTop > over.offsetHeight / 2) to++;
+	      if (from < to) to--;
+
+	      // move from 'a' to 'b'
+	      var items = this.state.data.followup;
+	      items.splice(to, 0, items.splice(from, 1)[0]);
+	      this.sort(items, to);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      if (this.state.followup !== undefined) {
+	        var listItems = this.state.data.followup.map(function (item, i) {
+	          var dragging = i == _this2.state.data.dragging ? "dragging" : "";
+	          var isEditing = item.isEditing ? true : false;
+	          return _react2.default.createElement(_PatientDynamicList2.default, {
+	            editElement: _this2.editElement,
+	            isEditing: isEditing,
+	            handleKeyPress: _this2.handleKeyPress,
+	            key: i,
+	            text: _Crypto2.default.decodeString(item.followUpText, _this2.props.secretCode),
+	            isComplete: item.complete,
+	            dragging: dragging,
+	            i: i,
+	            dragStart: _this2.dragStart,
+	            dragEnd: _this2.dragEnd,
+	            dragOver: _this2.dragOver,
+	            listClassName: "FollowUp",
+	            editClassName: "FollowUpEdit",
+	            sortClassName: "FollowUpSort",
+	            deleteText: "deleteFollowUp",
+	            handleDelete: _this2.handleDelete,
+	            handleChange: _this2.handleChange });
+	        });
+	        return _react2.default.createElement(
+	          'ul',
+	          { id: 'dynamicListUl' },
+	          listItems
+	        );
+	      } else {
+	        return null;
+	      }
+	    }
+	  }]);
+
+	  return PatientFollowUpsPage;
+	}(_react2.default.Component);
+
+	exports.default = PatientFollowUpsPage;
+
+/***/ },
+/* 497 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var PatientDynamicList = function PatientDynamicList(_ref) {
+	  var i = _ref.i,
+	      dragging = _ref.dragging,
+	      text = _ref.text,
+	      isComplete = _ref.isComplete,
+	      listClassName = _ref.listClassName,
+	      deleteText = _ref.deleteText,
+	      handleChange = _ref.handleChange,
+	      handleDelete = _ref.handleDelete,
+	      dragOver = _ref.dragOver,
+	      dragEnd = _ref.dragEnd,
+	      dragStart = _ref.dragStart,
+	      isEditing = _ref.isEditing,
+	      editElement = _ref.editElement,
+	      editClassName = _ref.editClassName,
+	      sortClassName = _ref.sortClassName,
+	      handleKeyPress = _ref.handleKeyPress;
+	  return _react2.default.createElement(
+	    "li",
+	    { className: sortClassName, key: i, "data-id": i, "data-name": i, draggable: "true", onDragEnd: dragEnd, onDragStart: dragStart, onDragOver: dragOver, onDoubleClick: editElement },
+	    isEditing ? _react2.default.createElement("input", { type: "text", className: editClassName, onKeyPress: handleKeyPress, defaultValue: text, "data-name": i }) : _react2.default.createElement(
+	      "div",
+	      { className: editClassName, "data-name": i },
+	      _react2.default.createElement("input", {
+	        type: "checkbox",
+	        className: listClassName,
+	        name: i,
+	        value: text,
+	        onChange: handleChange,
+	        checked: isComplete }),
+	      text,
+	      _react2.default.createElement(
+	        "a",
+	        { className: deleteText,
+	          name: i,
+	          onClick: handleDelete },
+	        isComplete ? "_X_" : ""
+	      )
+	    )
+	  );
+	};
+
+	PatientDynamicList.propTypes = {
+	  listClassName: _react.PropTypes.string.isRequired,
+	  deleteText: _react.PropTypes.string.isRequired,
+	  handleChange: _react.PropTypes.func.isRequired,
+	  handleDelete: _react.PropTypes.func.isRequired,
+	  dragOver: _react.PropTypes.func.isRequired,
+	  dragEnd: _react.PropTypes.func.isRequired,
+	  dragStart: _react.PropTypes.func.isRequired,
+	  dragging: _react.PropTypes.string.isRequired,
+	  i: _react.PropTypes.number.isRequired,
+	  text: _react.PropTypes.string.isRequired,
+	  isComplete: _react.PropTypes.bool.isRequired,
+	  isEditing: _react.PropTypes.bool.isRequired,
+	  editElement: _react.PropTypes.func.isRequired,
+	  editClassName: _react.PropTypes.string.isRequired,
+	  sortClassName: _react.PropTypes.string.isRequired,
+	  handleKeyPress: _react.PropTypes.func.isRequired
+	};
+
+	exports.default = PatientDynamicList;
+
+/***/ },
+/* 498 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(499);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(491)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./PatientFollowUps.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./PatientFollowUps.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 499 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(490)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "#dynamicListUl {\n  display: table;\n  margin-left: 0;\n  padding-left: 0;\n  list-style: none; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 500 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _PatientDynamicInputBox = __webpack_require__(501);
+
+	var _PatientDynamicInputBox2 = _interopRequireDefault(_PatientDynamicInputBox);
+
+	var _Crypto = __webpack_require__(484);
+
+	var _Crypto2 = _interopRequireDefault(_Crypto);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	__webpack_require__(498);
+
+	var PatientFollowUpInputPage = function (_React$Component) {
+	  _inherits(PatientFollowUpInputPage, _React$Component);
+
+	  /**
+	    * Class constructor
+	    */
+	  // Sets initial state
+	  function PatientFollowUpInputPage(props) {
+	    _classCallCheck(this, PatientFollowUpInputPage);
+
+	    var _this = _possibleConstructorReturn(this, (PatientFollowUpInputPage.__proto__ || Object.getPrototypeOf(PatientFollowUpInputPage)).call(this, props));
+
+	    _this.state = {
+	      inputBoxClassName: "AddFollowUp"
+	    };
+
+	    _this.handleKeyPress = _this.handleKeyPress.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(PatientFollowUpInputPage, [{
+	    key: 'handleKeyPress',
+	    value: function handleKeyPress(e) {
+	      if (e.key === 'Enter') {
+	        this.props.onUpdate(e.target, this.props.patientData._id);
+	        e.currentTarget.value = "";
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Follow Ups'
+	        ),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(_PatientDynamicInputBox2.default, { handleKeyPress: this.handleKeyPress, inputBoxClassName: this.state.inputBoxClassName })
+	      );
+	    }
+	  }]);
+
+	  return PatientFollowUpInputPage;
+	}(_react2.default.Component);
+
+	exports.default = PatientFollowUpInputPage;
+
+/***/ },
+/* 501 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var PatientDynamicInputBox = function PatientDynamicInputBox(_ref) {
+	  var handleKeyPress = _ref.handleKeyPress,
+	      inputBoxClassName = _ref.inputBoxClassName;
+	  return _react2.default.createElement("input", { type: "text", className: inputBoxClassName, onKeyPress: handleKeyPress });
+	};
+
+	PatientDynamicInputBox.PropTypes = {
+	  handleKeyPress: _react.PropTypes.func.isRequired,
+	  inputBoxClassName: _react.PropTypes.string.isRequired
+	};
+
+	exports.default = PatientDynamicInputBox;
+
+/***/ },
+/* 502 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _PatientDynamicList = __webpack_require__(497);
+
+	var _PatientDynamicList2 = _interopRequireDefault(_PatientDynamicList);
+
+	var _Crypto = __webpack_require__(484);
+
+	var _Crypto2 = _interopRequireDefault(_Crypto);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	__webpack_require__(503);
+
+	var PatientConsultsPage = function (_React$Component) {
+	  _inherits(PatientConsultsPage, _React$Component);
+
+	  /**
+	    * Class constructor
+	    */
+	  // Sets initial state
+	  function PatientConsultsPage(props) {
+	    _classCallCheck(this, PatientConsultsPage);
+
+	    var _this = _possibleConstructorReturn(this, (PatientConsultsPage.__proto__ || Object.getPrototypeOf(PatientConsultsPage)).call(this, props));
+
+	    _this.state = {
+	      data: _this.props.patientData,
+	      consult: _this.props.patientData.consult
+	    };
+
+	    _this.handleChange = _this.handleChange.bind(_this);
+	    _this.handleDelete = _this.handleDelete.bind(_this);
+	    _this.dragStart = _this.dragStart.bind(_this);
+	    _this.dragEnd = _this.dragEnd.bind(_this);
+	    _this.dragOver = _this.dragOver.bind(_this);
+	    _this.sort = _this.sort.bind(_this);
+	    _this.editElement = _this.editElement.bind(_this);
+	    _this.handleKeyPress = _this.handleKeyPress.bind(_this);
+	    return _this;
+	  }
+
+	  // updates state with props from PatientAll with they get reloaded
+
+
+	  _createClass(PatientConsultsPage, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this.setState({ data: nextProps.patientData });
+	    }
+
+	    // Updates model that action was checked
+
+	  }, {
+	    key: 'handleChange',
+	    value: function handleChange(event) {
+	      this.props.onUpdate(event.target, this.props.patientData._id);
+	    }
+	  }, {
+	    key: 'handleDelete',
+	    value: function handleDelete(event) {
+	      this.props.onUpdate(event.target, this.props.patientData._id);
+	    }
+	  }, {
+	    key: 'editElement',
+	    value: function editElement(event) {
+	      // event.currentTarget.dataset.id gives index of tapped item in list
+	      // We can then probe if currently isEditing
+	      // If already editing, will not change isEditing to false with double click
+	      if (!this.state.data.consult[event.currentTarget.dataset.id].isEditing) {
+	        this.props.onUpdate(event.target, this.props.patientData._id);
+	      }
+	    }
+	  }, {
+	    key: 'handleKeyPress',
+	    value: function handleKeyPress(event) {
+	      if (event.key === 'Enter') {
+	        this.props.onUpdate(event.target, this.props.patientData._id);
+	      }
+	    }
+	  }, {
+	    key: 'sort',
+	    value: function sort(consult, dragging) {
+	      var data = this.state.data;
+	      data.consult = consult;
+	      data.dragging = dragging;
+	      this.setState({ data: data });
+	    }
+	  }, {
+	    key: 'dragStart',
+	    value: function dragStart(e) {
+	      this.dragged = Number(e.currentTarget.dataset.id);
+	      e.dataTransfer.effectAllowed = 'move';
+	      // for the drag to properly work
+	      e.dataTransfer.setData("text/html", null);
+	    }
+	  }, {
+	    key: 'dragEnd',
+	    value: function dragEnd(e) {
+	      this.sort(this.state.data.consult, undefined);
+	      this.props.onUpdate(e.target, this.props.patientData._id);
+	    }
+	  }, {
+	    key: 'dragOver',
+	    value: function dragOver(e) {
+	      e.preventDefault();
+
+	      var over = e.currentTarget;
+	      var dragging = this.state.data.dragging;
+	      var from = isFinite(dragging) ? dragging : this.dragged;
+	      var to = Number(over.dataset.id);
+	      if (e.clientY - over.offsetTop > over.offsetHeight / 2) to++;
+	      if (from < to) to--;
+
+	      // move from 'a' to 'b'
+	      var items = this.state.data.consult;
+	      items.splice(to, 0, items.splice(from, 1)[0]);
+	      this.sort(items, to);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      if (this.state.consult !== undefined) {
+	        var listItems = this.state.data.consult.map(function (item, i) {
+	          var dragging = i == _this2.state.data.dragging ? "dragging" : "";
+	          var isEditing = item.isEditing ? true : false;
+	          return _react2.default.createElement(_PatientDynamicList2.default, {
+	            editElement: _this2.editElement,
+	            isEditing: isEditing,
+	            handleKeyPress: _this2.handleKeyPress,
+	            key: i,
+	            text: _Crypto2.default.decodeString(item.consultText, _this2.props.secretCode),
+	            isComplete: item.complete,
+	            dragging: dragging,
+	            i: i,
+	            dragStart: _this2.dragStart,
+	            dragEnd: _this2.dragEnd,
+	            dragOver: _this2.dragOver,
+	            listClassName: "Consult",
+	            editClassName: "ConsultEdit",
+	            sortClassName: "ConsultSort",
+	            deleteText: "deleteConsult",
+	            handleDelete: _this2.handleDelete,
+	            handleChange: _this2.handleChange });
+	        });
+	        return _react2.default.createElement(
+	          'ul',
+	          { id: 'dynamicListUl' },
+	          listItems
+	        );
+	      } else {
+	        return null;
+	      }
+	    }
+	  }]);
+
+	  return PatientConsultsPage;
+	}(_react2.default.Component);
+
+	exports.default = PatientConsultsPage;
+
+/***/ },
+/* 503 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(504);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(491)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./PatientConsult.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./PatientConsult.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 504 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(490)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "#dynamicListUl {\n  display: table;\n  margin-left: 0;\n  padding-left: 0;\n  list-style: none; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 505 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _PatientDynamicInputBox = __webpack_require__(501);
+
+	var _PatientDynamicInputBox2 = _interopRequireDefault(_PatientDynamicInputBox);
+
+	var _Crypto = __webpack_require__(484);
+
+	var _Crypto2 = _interopRequireDefault(_Crypto);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	__webpack_require__(503);
+
+	var PatientConsultInputPage = function (_React$Component) {
+	  _inherits(PatientConsultInputPage, _React$Component);
+
+	  /**
+	    * Class constructor
+	    */
+	  // Sets initial state
+	  function PatientConsultInputPage(props) {
+	    _classCallCheck(this, PatientConsultInputPage);
+
+	    var _this = _possibleConstructorReturn(this, (PatientConsultInputPage.__proto__ || Object.getPrototypeOf(PatientConsultInputPage)).call(this, props));
+
+	    _this.state = {
+	      inputBoxClassName: "AddConsult"
+	    };
+
+	    _this.handleKeyPress = _this.handleKeyPress.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(PatientConsultInputPage, [{
+	    key: 'handleKeyPress',
+	    value: function handleKeyPress(e) {
+	      if (e.key === 'Enter') {
+	        this.props.onUpdate(e.target, this.props.patientData._id);
+	        e.currentTarget.value = "";
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'label',
+	          null,
+	          'Consults'
+	        ),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(_PatientDynamicInputBox2.default, { handleKeyPress: this.handleKeyPress, inputBoxClassName: this.state.inputBoxClassName })
+	      );
+	    }
+	  }]);
+
+	  return PatientConsultInputPage;
+	}(_react2.default.Component);
+
+	exports.default = PatientConsultInputPage;
+
+/***/ },
+/* 506 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _PatientGeneralInputBoxes = __webpack_require__(507);
+
+	var _PatientGeneralInputBoxes2 = _interopRequireDefault(_PatientGeneralInputBoxes);
+
+	var _Crypto = __webpack_require__(484);
+
+	var _Crypto2 = _interopRequireDefault(_Crypto);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	__webpack_require__(508);
+
+	var PatientGeneralPage = function (_React$Component) {
+	  _inherits(PatientGeneralPage, _React$Component);
+
+	  /**
+	    * Class constructor
+	    */
+	  function PatientGeneralPage(props) {
+	    _classCallCheck(this, PatientGeneralPage);
+
+	    var _this = _possibleConstructorReturn(this, (PatientGeneralPage.__proto__ || Object.getPrototypeOf(PatientGeneralPage)).call(this, props));
+
+	    _this.state = {
+	      name: _Crypto2.default.decodeString(_this.props.patientData.name, _this.props.secretCode),
+	      room: _this.props.patientData.room,
+	      dob: _Crypto2.default.decodeString(_this.props.patientData.dob, _this.props.secretCode),
+	      mrn: _Crypto2.default.decodeString(_this.props.patientData.mrn, _this.props.secretCode),
+	      los: _this.props.patientData.los, // this is the admission date
+	      admitDate: _this.calcDays(_this.props.patientData.los), //This is actually how long they've been in hospital
+	      ro: _this.props.patientData.ro,
+	      age: _this.calcAge(_Crypto2.default.decodeString(_this.props.patientData.dob, _this.props.secretCode))
+	    };
+
+	    _this.handleChange = _this.handleChange.bind(_this);
+	    _this.calcAge = _this.calcAge.bind(_this);
+	    _this.calcDays = _this.calcDays.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(PatientGeneralPage, [{
+	    key: 'handleChange',
+	    value: function handleChange(event) {
+	      this.props.onUpdate(event.target, this.props.patientData._id);
+
+	      if (event.target.className === "DOB") this.setState({ age: this.calcAge(event.target.value) });
+	      if (event.target.className === "LOS") this.setState({ admitDate: this.calcDays(event.target.value) });
+	    }
+
+	    // updates state with props from PatientAll with they get reloaded
+	    /*componentWillReceiveProps(nextProps) {
+	      console.log(nextProps);
+	      //this.setState ({ listContents: nextProps.patientData.followup });
+	    }*/
+
+	  }, {
+	    key: 'calcAge',
+	    value: function calcAge(dob) {
+	      var birthdate = new Date(dob);
+	      var cur = new Date();
+	      var diff = cur - birthdate;
+	      var age = Math.floor(diff / 31536000000);
+	      return age;
+	    }
+
+	    //Number of days patient has been in the hospital
+
+	  }, {
+	    key: 'calcDays',
+	    value: function calcDays(admitDate) {
+	      var one_day = 1000 * 60 * 60 * 24;
+	      var startDate = new Date(admitDate);
+	      var cur = new Date();
+	      var diff = cur - startDate;
+	      var days = Math.floor(diff / one_day);
+	      return days;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_PatientGeneralInputBoxes2.default, {
+	        handleChange: this.handleChange,
+	        name: this.state.name,
+	        room: this.state.room,
+	        dob: this.state.dob,
+	        mrn: this.state.mrn,
+	        los: this.state.los,
+	        ro: this.state.ro,
+	        admitDate: this.state.admitDate,
+	        age: this.state.age });
+	    }
+	  }]);
+
+	  return PatientGeneralPage;
+	}(_react2.default.Component);
+
+	exports.default = PatientGeneralPage;
+
+/***/ },
+/* 507 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var PatientGeneralInputBoxes = function PatientGeneralInputBoxes(_ref) {
+	  var handleChange = _ref.handleChange,
+	      name = _ref.name,
+	      room = _ref.room,
+	      dob = _ref.dob,
+	      mrn = _ref.mrn,
+	      los = _ref.los,
+	      ro = _ref.ro,
+	      admitDate = _ref.admitDate,
+	      age = _ref.age;
+	  return _react2.default.createElement(
+	    "div",
+	    null,
+	    _react2.default.createElement(
+	      "div",
+	      { className: "flex-grid" },
+	      _react2.default.createElement(
+	        "div",
+	        { className: "col" },
+	        _react2.default.createElement("input", { id: "PatientInput", type: "text", className: "Name", placeholder: "Name", onChange: handleChange, defaultValue: name })
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        { className: "col" },
+	        _react2.default.createElement(
+	          "label",
+	          { id: "PatientGen" },
+	          "Room:"
+	        ),
+	        _react2.default.createElement("input", { id: "PatientInput", type: "text", className: "Room", onChange: handleChange, defaultValue: room })
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        { className: "col" },
+	        _react2.default.createElement(
+	          "label",
+	          { id: "PatientGen" },
+	          "DOB:"
+	        ),
+	        _react2.default.createElement("input", { id: "PatientInput", type: "text", className: "DOB", onChange: handleChange, defaultValue: dob })
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        { className: "col" },
+	        _react2.default.createElement(
+	          "label",
+	          null,
+	          "Age: ",
+	          age
+	        )
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        { className: "col" },
+	        _react2.default.createElement(
+	          "label",
+	          { id: "PatientGen" },
+	          "MRN:"
+	        ),
+	        _react2.default.createElement("input", { id: "PatientInput", type: "text", className: "MRN", onChange: handleChange, defaultValue: mrn })
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        { className: "col" },
+	        _react2.default.createElement(
+	          "label",
+	          { id: "PatientGen" },
+	          "Admit:"
+	        ),
+	        _react2.default.createElement("input", { id: "PatientInput", type: "text", className: "LOS", onChange: handleChange, defaultValue: los })
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        { className: "col" },
+	        _react2.default.createElement(
+	          "label",
+	          null,
+	          "Day: ",
+	          admitDate
+	        )
+	      ),
+	      _react2.default.createElement(
+	        "div",
+	        { className: "col" },
+	        _react2.default.createElement(
+	          "label",
+	          { id: "PatientGen" },
+	          "RO:"
+	        ),
+	        _react2.default.createElement("input", { id: "PatientInput", type: "text", className: "RO", onChange: handleChange, defaultValue: ro })
+	      )
+	    ),
+	    _react2.default.createElement("br", null)
+	  );
+	};
+
+	PatientGeneralInputBoxes.propTypes = {
+	  handleChange: _react.PropTypes.func.isRequired,
+	  name: _react.PropTypes.string.isRequired,
+	  room: _react.PropTypes.string.isRequired,
+	  dob: _react.PropTypes.string.isRequired,
+	  mrn: _react.PropTypes.string.isRequired,
+	  los: _react.PropTypes.string.isRequired,
+	  ro: _react.PropTypes.string.isRequired,
+	  admitDate: _react.PropTypes.number.isRequired,
+	  age: _react.PropTypes.number.isRequired
+	};
+
+	exports.default = PatientGeneralInputBoxes;
+
+/***/ },
+/* 508 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(509);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(491)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./PatientGeneral.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./PatientGeneral.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 509 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(490)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "ul {\n  list-style: none; }\n\n.Name {\n  font-weight: bold;\n  font-size: 18px; }\n\n#PatientInput {\n  border: 1px solid #FFFFFF; }\n\n#PatientInput:hover {\n  border: 1px solid #d0d0d0; }\n\n#PatientGen {\n  display: inline-block;\n  width: 50px; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 510 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _PatientLabsInputs = __webpack_require__(511);
+
+	var _PatientLabsInputs2 = _interopRequireDefault(_PatientLabsInputs);
+
+	var _PatientOverviewTextArea = __webpack_require__(487);
+
+	var _PatientOverviewTextArea2 = _interopRequireDefault(_PatientOverviewTextArea);
+
+	var _Crypto = __webpack_require__(484);
+
+	var _Crypto2 = _interopRequireDefault(_Crypto);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	__webpack_require__(512);
+
+	var PatientLabsPage = function (_React$Component) {
+	  _inherits(PatientLabsPage, _React$Component);
+
+	  /**
+	    * Class constructor
+	    */
+	  function PatientLabsPage(props) {
+	    _classCallCheck(this, PatientLabsPage);
+
+	    var _this = _possibleConstructorReturn(this, (PatientLabsPage.__proto__ || Object.getPrototypeOf(PatientLabsPage)).call(this, props));
+
+	    _this.state = {
+	      wbc: _Crypto2.default.decodeString(_this.props.patientData.wbc, _this.props.secretCode),
+	      hg: _Crypto2.default.decodeString(_this.props.patientData.hg, _this.props.secretCode),
+	      hct: _Crypto2.default.decodeString(_this.props.patientData.hct, _this.props.secretCode),
+	      plt: _Crypto2.default.decodeString(_this.props.patientData.plt, _this.props.secretCode),
+	      na: _Crypto2.default.decodeString(_this.props.patientData.na, _this.props.secretCode),
+	      cl: _Crypto2.default.decodeString(_this.props.patientData.cl, _this.props.secretCode),
+	      bun: _Crypto2.default.decodeString(_this.props.patientData.bun, _this.props.secretCode),
+	      gluc: _Crypto2.default.decodeString(_this.props.patientData.gluc, _this.props.secretCode),
+	      k: _Crypto2.default.decodeString(_this.props.patientData.k, _this.props.secretCode),
+	      bicarb: _Crypto2.default.decodeString(_this.props.patientData.bicarb, _this.props.secretCode),
+	      cr: _Crypto2.default.decodeString(_this.props.patientData.cr, _this.props.secretCode),
+	      input: _this.props.patientData.input,
+	      output: _this.props.patientData.output,
+	      overview: _Crypto2.default.decodeString(_this.props.patientData.otherLabs, _this.props.secretCode),
+	      className: "OtherLabs"
+	    };
+
+	    _this.handleChange = _this.handleChange.bind(_this);
+	    return _this;
+	  }
+
+	  // Caclulates from input and output
+
+
+	  _createClass(PatientLabsPage, [{
+	    key: 'handleChange',
+	    value: function handleChange(event) {
+	      this.props.onUpdate(event.target, this.props.patientData._id);
+
+	      if (event.target.className === "Input") this.setState({ input: event.target.value });
+	      if (event.target.className === "Output") this.setState({ output: event.target.value });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_PatientLabsInputs2.default, {
+	          handleChange: this.handleChange,
+	          wbc: this.state.wbc,
+	          hg: this.state.hg,
+	          hct: this.state.hct,
+	          plt: this.state.plt,
+	          na: this.state.na,
+	          cl: this.state.cl,
+	          bun: this.state.bun,
+	          gluc: this.state.gluc,
+	          k: this.state.k,
+	          bicarb: this.state.bicarb,
+	          cr: this.state.cr,
+	          input: this.state.input,
+	          output: this.state.output }),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(_PatientOverviewTextArea2.default, { handleChange: this.handleChange, overview: this.state.overview, className: this.state.className })
+	      );
+	    }
+	  }]);
+
+	  return PatientLabsPage;
+	}(_react2.default.Component);
+
+	exports.default = PatientLabsPage;
+
+/***/ },
+/* 511 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var PatientLabsInputs = function PatientLabsInputs(_ref) {
+	  var handleChange = _ref.handleChange,
+	      wbc = _ref.wbc,
+	      hg = _ref.hg,
+	      hct = _ref.hct,
+	      plt = _ref.plt,
+	      na = _ref.na,
+	      cl = _ref.cl,
+	      bun = _ref.bun,
+	      gluc = _ref.gluc,
+	      k = _ref.k,
+	      bicarb = _ref.bicarb,
+	      cr = _ref.cr,
+	      input = _ref.input,
+	      output = _ref.output;
+	  return _react2.default.createElement(
+	    "div",
+	    { id: "cbcAndBmr" },
+	    _react2.default.createElement(
+	      "div",
+	      { id: "parentTop" },
+	      _react2.default.createElement("input", { type: "text", id: "textInputLower", className: "WBC", onChange: handleChange, defaultValue: wbc }),
+	      _react2.default.createElement(
+	        "label",
+	        null,
+	        "\\"
+	      ),
+	      _react2.default.createElement("input", { type: "text", id: "underlineInput", className: "Hg", onChange: handleChange, defaultValue: hg }),
+	      _react2.default.createElement(
+	        "label",
+	        null,
+	        "/"
+	      )
+	    ),
+	    _react2.default.createElement(
+	      "div",
+	      { id: "parentBottom" },
+	      _react2.default.createElement(
+	        "label",
+	        null,
+	        "/"
+	      ),
+	      _react2.default.createElement("input", { type: "text", className: "Hct", onChange: handleChange, defaultValue: hct }),
+	      _react2.default.createElement(
+	        "label",
+	        null,
+	        "\\"
+	      ),
+	      _react2.default.createElement("input", { type: "text", id: "edgeBoxBottom", className: "plt", onChange: handleChange, defaultValue: plt })
+	    ),
+	    _react2.default.createElement("br", null),
+	    _react2.default.createElement(
+	      "div",
+	      { id: "BMRTop" },
+	      _react2.default.createElement("input", { type: "text", id: "underlineInput", className: "Na", onChange: handleChange, defaultValue: na }),
+	      _react2.default.createElement(
+	        "label",
+	        null,
+	        "|"
+	      ),
+	      _react2.default.createElement("input", { type: "text", id: "underlineInput", className: "Cl", onChange: handleChange, defaultValue: cl }),
+	      _react2.default.createElement(
+	        "label",
+	        null,
+	        "|"
+	      ),
+	      _react2.default.createElement("input", { type: "text", id: "underlineInput", className: "BUN", onChange: handleChange, defaultValue: bun }),
+	      _react2.default.createElement(
+	        "label",
+	        null,
+	        "/"
+	      ),
+	      _react2.default.createElement("input", { type: "text", id: "textInputLower", className: "Gluc", onChange: handleChange, defaultValue: gluc })
+	    ),
+	    _react2.default.createElement(
+	      "div",
+	      { id: "BMRBottom" },
+	      _react2.default.createElement("input", { type: "text", className: "K", onChange: handleChange, defaultValue: k }),
+	      _react2.default.createElement(
+	        "label",
+	        null,
+	        "|"
+	      ),
+	      _react2.default.createElement("input", { type: "text", className: "Bicarb", onChange: handleChange, defaultValue: bicarb }),
+	      _react2.default.createElement(
+	        "label",
+	        null,
+	        "|"
+	      ),
+	      _react2.default.createElement("input", { type: "text", className: "Cr", onChange: handleChange, defaultValue: cr }),
+	      _react2.default.createElement(
+	        "label",
+	        null,
+	        "\\"
+	      )
+	    ),
+	    _react2.default.createElement("br", null),
+	    _react2.default.createElement(
+	      "div",
+	      { id: "InAndOut" },
+	      _react2.default.createElement(
+	        "label",
+	        null,
+	        "I/O"
+	      ),
+	      _react2.default.createElement("input", { type: "text", id: "underlineInput", className: "Input", onChange: handleChange, defaultValue: input }),
+	      _react2.default.createElement(
+	        "label",
+	        null,
+	        "/"
+	      ),
+	      _react2.default.createElement("input", { type: "text", id: "underlineInput", className: "Output", onChange: handleChange, defaultValue: output }),
+	      _react2.default.createElement(
+	        "label",
+	        null,
+	        ": ",
+	        input - output
+	      )
+	    )
+	  );
+	};
+
+	PatientLabsInputs.propTypes = {
+	  handleChange: _react.PropTypes.func.isRequired,
+	  wbc: _react.PropTypes.string.isRequired,
+	  hg: _react.PropTypes.string.isRequired,
+	  hct: _react.PropTypes.string.isRequired,
+	  plt: _react.PropTypes.string.isRequired,
+	  na: _react.PropTypes.string.isRequired,
+	  cl: _react.PropTypes.string.isRequired,
+	  bun: _react.PropTypes.string.isRequired,
+	  gluc: _react.PropTypes.string.isRequired,
+	  k: _react.PropTypes.string.isRequired,
+	  bicarb: _react.PropTypes.string.isRequired,
+	  cr: _react.PropTypes.string.isRequired,
+	  input: _react.PropTypes.string.isRequired,
+	  output: _react.PropTypes.string.isRequired
+	};
+
+	exports.default = PatientLabsInputs;
+
+/***/ },
+/* 512 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(513);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(491)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./PatientLabs.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./PatientLabs.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 513 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(490)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "#cbcAndBmr input {\n  width: 32px;\n  outline: none;\n  border-width: 0 0 0 0;\n  text-align: center; }\n\n#cbcAndBmr input:hover {\n  border: 1px solid #d0d0d0; }\n\n/* the top values that need underlines to makes output look good */\n#cbcAndBmr #underlineInput {\n  border-width: 0 0 2px 0;\n  border-style: solid; }\n\n#parentBottom {\n  margin: 0 0 0 32px; }\n\n/* lowers WBC and Gluc so that they are inline */\n#textInputLower {\n  position: relative;\n  bottom: -9px; }\n\n#InAndOut #underlineInput {\n  width: 35px; }\n\n/* elevates plt */\n#edgeBoxBottom {\n  position: relative;\n  bottom: 10px; }\n\n.OtherLabs {\n  width: 90%;\n  height: 80px; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 514 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(32);
+
+	__webpack_require__(515);
+
+	// Patient learning
+	var PatientLearning = React.createClass({
+	  displayName: 'PatientLearning',
+
+	  decodeString: function decodeString(stringToDecode) {
+	    var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);
+	    return decodedString;
+	  },
+
+	  // Updates model that action was checked
+	  handleChange: function handleChange(event) {
+	    this.props.onUpdate(event.target, this.props.patientData._id);
+	  },
+
+	  // Adds new learning when enter pressed
+	  _handleKeyPress: function _handleKeyPress(e) {
+	    if (e.key === 'Enter') {
+	      this.props.onUpdate(e.target, this.props.patientData._id);
+	      e.currentTarget.value = "";
+	    }
+	  },
+
+	  handelDelete: function handelDelete(event) {
+	    //console.log(event.target.name);
+	    this.props.onUpdate(event.target, this.props.patientData._id);
+	  },
+
+	  // Added a buddton to delete patient to this section... This handels that button
+	  handleDeletePatient: function handleDeletePatient(event) {
+	    if (confirm("Are you sure?")) this.props.onUpdate(event.target, this.props.patientData._id);
+	  },
+
+	  render: function render() {
+	    var _this = this;
+
+	    if (this.props.patientData.learningList !== undefined) {
+	      return React.createElement(
+	        'div',
+	        { id: 'LearningDiv' },
+	        React.createElement(
+	          'label',
+	          null,
+	          'Learning'
+	        ),
+	        React.createElement(
+	          'button',
+	          { id: 'DeleteButton', className: 'DeleteButton', onClick: this.handleDeletePatient },
+	          'X'
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'textyh', className: 'AddLearning', onKeyPress: this._handleKeyPress }),
+	        React.createElement(
+	          'ul',
+	          { id: 'learningUl' },
+	          this.props.patientData.learningList.map(function (element, key) {
+	            return React.createElement(
+	              'li',
+	              { key: element.learningText },
+	              React.createElement('input', { type: 'checkbox', className: 'LearningList', name: key, value: _this.decodeString(element.learningText), onChange: _this.handleChange, defaultChecked: element.complete }),
+	              _this.decodeString(element.learningText),
+	              React.createElement(
+	                'a',
+	                { className: 'deleteLearning', name: key, onClick: _this.handelDelete },
+	                element.complete ? "_X_" : ""
+	              )
+	            );
+	          })
+	        )
+	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'div',
+	          { id: 'LearningDiv' },
+	          React.createElement(
+	            'label',
+	            null,
+	            'Learning'
+	          ),
+	          React.createElement(
+	            'button',
+	            { id: 'DeleteButton', className: 'DeleteButton', onClick: this.handleDeletePatient },
+	            'X'
+	          ),
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text', className: 'AddLearning', onKeyPress: this._handleKeyPress })
+	        )
+	      );
+	    }
+	  }
+	});
+
+	module.exports = PatientLearning;
+
+/***/ },
+/* 515 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(516);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(491)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./PatientLearning.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./PatientLearning.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 516 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(490)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "#LearningDiv #DeleteButton {\n  display: none; }\n\n#LearningDiv:hover #DeleteButton {\n  display: inline; }\n\n#DeleteButton {\n  font-size: 8px; }\n\n#learningUl {\n  display: table;\n  margin-left: 0;\n  padding-left: 0;\n  list-style: none; }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 517 */
+/***/ function(module, exports) {
+
+	(function(self) {
+	  'use strict';
+
+	  if (self.fetch) {
+	    return
+	  }
+
+	  var support = {
+	    searchParams: 'URLSearchParams' in self,
+	    iterable: 'Symbol' in self && 'iterator' in Symbol,
+	    blob: 'FileReader' in self && 'Blob' in self && (function() {
+	      try {
+	        new Blob()
+	        return true
+	      } catch(e) {
+	        return false
+	      }
+	    })(),
+	    formData: 'FormData' in self,
+	    arrayBuffer: 'ArrayBuffer' in self
+	  }
+
+	  if (support.arrayBuffer) {
+	    var viewClasses = [
+	      '[object Int8Array]',
+	      '[object Uint8Array]',
+	      '[object Uint8ClampedArray]',
+	      '[object Int16Array]',
+	      '[object Uint16Array]',
+	      '[object Int32Array]',
+	      '[object Uint32Array]',
+	      '[object Float32Array]',
+	      '[object Float64Array]'
+	    ]
+
+	    var isDataView = function(obj) {
+	      return obj && DataView.prototype.isPrototypeOf(obj)
+	    }
+
+	    var isArrayBufferView = ArrayBuffer.isView || function(obj) {
+	      return obj && viewClasses.indexOf(Object.prototype.toString.call(obj)) > -1
+	    }
+	  }
+
+	  function normalizeName(name) {
+	    if (typeof name !== 'string') {
+	      name = String(name)
+	    }
+	    if (/[^a-z0-9\-#$%&'*+.\^_`|~]/i.test(name)) {
+	      throw new TypeError('Invalid character in header field name')
+	    }
+	    return name.toLowerCase()
+	  }
+
+	  function normalizeValue(value) {
+	    if (typeof value !== 'string') {
+	      value = String(value)
+	    }
+	    return value
+	  }
+
+	  // Build a destructive iterator for the value list
+	  function iteratorFor(items) {
+	    var iterator = {
+	      next: function() {
+	        var value = items.shift()
+	        return {done: value === undefined, value: value}
+	      }
+	    }
+
+	    if (support.iterable) {
+	      iterator[Symbol.iterator] = function() {
+	        return iterator
+	      }
+	    }
+
+	    return iterator
+	  }
+
+	  function Headers(headers) {
+	    this.map = {}
+
+	    if (headers instanceof Headers) {
+	      headers.forEach(function(value, name) {
+	        this.append(name, value)
+	      }, this)
+
+	    } else if (headers) {
+	      Object.getOwnPropertyNames(headers).forEach(function(name) {
+	        this.append(name, headers[name])
+	      }, this)
+	    }
+	  }
+
+	  Headers.prototype.append = function(name, value) {
+	    name = normalizeName(name)
+	    value = normalizeValue(value)
+	    var oldValue = this.map[name]
+	    this.map[name] = oldValue ? oldValue+','+value : value
+	  }
+
+	  Headers.prototype['delete'] = function(name) {
+	    delete this.map[normalizeName(name)]
+	  }
+
+	  Headers.prototype.get = function(name) {
+	    name = normalizeName(name)
+	    return this.has(name) ? this.map[name] : null
+	  }
+
+	  Headers.prototype.has = function(name) {
+	    return this.map.hasOwnProperty(normalizeName(name))
+	  }
+
+	  Headers.prototype.set = function(name, value) {
+	    this.map[normalizeName(name)] = normalizeValue(value)
+	  }
+
+	  Headers.prototype.forEach = function(callback, thisArg) {
+	    for (var name in this.map) {
+	      if (this.map.hasOwnProperty(name)) {
+	        callback.call(thisArg, this.map[name], name, this)
+	      }
+	    }
+	  }
+
+	  Headers.prototype.keys = function() {
+	    var items = []
+	    this.forEach(function(value, name) { items.push(name) })
+	    return iteratorFor(items)
+	  }
+
+	  Headers.prototype.values = function() {
+	    var items = []
+	    this.forEach(function(value) { items.push(value) })
+	    return iteratorFor(items)
+	  }
+
+	  Headers.prototype.entries = function() {
+	    var items = []
+	    this.forEach(function(value, name) { items.push([name, value]) })
+	    return iteratorFor(items)
+	  }
+
+	  if (support.iterable) {
+	    Headers.prototype[Symbol.iterator] = Headers.prototype.entries
+	  }
+
+	  function consumed(body) {
+	    if (body.bodyUsed) {
+	      return Promise.reject(new TypeError('Already read'))
+	    }
+	    body.bodyUsed = true
+	  }
+
+	  function fileReaderReady(reader) {
+	    return new Promise(function(resolve, reject) {
+	      reader.onload = function() {
+	        resolve(reader.result)
+	      }
+	      reader.onerror = function() {
+	        reject(reader.error)
+	      }
+	    })
+	  }
+
+	  function readBlobAsArrayBuffer(blob) {
+	    var reader = new FileReader()
+	    var promise = fileReaderReady(reader)
+	    reader.readAsArrayBuffer(blob)
+	    return promise
+	  }
+
+	  function readBlobAsText(blob) {
+	    var reader = new FileReader()
+	    var promise = fileReaderReady(reader)
+	    reader.readAsText(blob)
+	    return promise
+	  }
+
+	  function readArrayBufferAsText(buf) {
+	    var view = new Uint8Array(buf)
+	    var chars = new Array(view.length)
+
+	    for (var i = 0; i < view.length; i++) {
+	      chars[i] = String.fromCharCode(view[i])
+	    }
+	    return chars.join('')
+	  }
+
+	  function bufferClone(buf) {
+	    if (buf.slice) {
+	      return buf.slice(0)
+	    } else {
+	      var view = new Uint8Array(buf.byteLength)
+	      view.set(new Uint8Array(buf))
+	      return view.buffer
+	    }
+	  }
+
+	  function Body() {
+	    this.bodyUsed = false
+
+	    this._initBody = function(body) {
+	      this._bodyInit = body
+	      if (!body) {
+	        this._bodyText = ''
+	      } else if (typeof body === 'string') {
+	        this._bodyText = body
+	      } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
+	        this._bodyBlob = body
+	      } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
+	        this._bodyFormData = body
+	      } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+	        this._bodyText = body.toString()
+	      } else if (support.arrayBuffer && support.blob && isDataView(body)) {
+	        this._bodyArrayBuffer = bufferClone(body.buffer)
+	        // IE 10-11 can't handle a DataView body.
+	        this._bodyInit = new Blob([this._bodyArrayBuffer])
+	      } else if (support.arrayBuffer && (ArrayBuffer.prototype.isPrototypeOf(body) || isArrayBufferView(body))) {
+	        this._bodyArrayBuffer = bufferClone(body)
+	      } else {
+	        throw new Error('unsupported BodyInit type')
+	      }
+
+	      if (!this.headers.get('content-type')) {
+	        if (typeof body === 'string') {
+	          this.headers.set('content-type', 'text/plain;charset=UTF-8')
+	        } else if (this._bodyBlob && this._bodyBlob.type) {
+	          this.headers.set('content-type', this._bodyBlob.type)
+	        } else if (support.searchParams && URLSearchParams.prototype.isPrototypeOf(body)) {
+	          this.headers.set('content-type', 'application/x-www-form-urlencoded;charset=UTF-8')
+	        }
+	      }
+	    }
+
+	    if (support.blob) {
+	      this.blob = function() {
+	        var rejected = consumed(this)
+	        if (rejected) {
+	          return rejected
+	        }
+
+	        if (this._bodyBlob) {
+	          return Promise.resolve(this._bodyBlob)
+	        } else if (this._bodyArrayBuffer) {
+	          return Promise.resolve(new Blob([this._bodyArrayBuffer]))
+	        } else if (this._bodyFormData) {
+	          throw new Error('could not read FormData body as blob')
+	        } else {
+	          return Promise.resolve(new Blob([this._bodyText]))
+	        }
+	      }
+
+	      this.arrayBuffer = function() {
+	        if (this._bodyArrayBuffer) {
+	          return consumed(this) || Promise.resolve(this._bodyArrayBuffer)
+	        } else {
+	          return this.blob().then(readBlobAsArrayBuffer)
+	        }
+	      }
+	    }
+
+	    this.text = function() {
+	      var rejected = consumed(this)
+	      if (rejected) {
+	        return rejected
+	      }
+
+	      if (this._bodyBlob) {
+	        return readBlobAsText(this._bodyBlob)
+	      } else if (this._bodyArrayBuffer) {
+	        return Promise.resolve(readArrayBufferAsText(this._bodyArrayBuffer))
+	      } else if (this._bodyFormData) {
+	        throw new Error('could not read FormData body as text')
+	      } else {
+	        return Promise.resolve(this._bodyText)
+	      }
+	    }
+
+	    if (support.formData) {
+	      this.formData = function() {
+	        return this.text().then(decode)
+	      }
+	    }
+
+	    this.json = function() {
+	      return this.text().then(JSON.parse)
+	    }
+
+	    return this
+	  }
+
+	  // HTTP methods whose capitalization should be normalized
+	  var methods = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT']
+
+	  function normalizeMethod(method) {
+	    var upcased = method.toUpperCase()
+	    return (methods.indexOf(upcased) > -1) ? upcased : method
+	  }
+
+	  function Request(input, options) {
+	    options = options || {}
+	    var body = options.body
+
+	    if (input instanceof Request) {
+	      if (input.bodyUsed) {
+	        throw new TypeError('Already read')
+	      }
+	      this.url = input.url
+	      this.credentials = input.credentials
+	      if (!options.headers) {
+	        this.headers = new Headers(input.headers)
+	      }
+	      this.method = input.method
+	      this.mode = input.mode
+	      if (!body && input._bodyInit != null) {
+	        body = input._bodyInit
+	        input.bodyUsed = true
+	      }
+	    } else {
+	      this.url = String(input)
+	    }
+
+	    this.credentials = options.credentials || this.credentials || 'omit'
+	    if (options.headers || !this.headers) {
+	      this.headers = new Headers(options.headers)
+	    }
+	    this.method = normalizeMethod(options.method || this.method || 'GET')
+	    this.mode = options.mode || this.mode || null
+	    this.referrer = null
+
+	    if ((this.method === 'GET' || this.method === 'HEAD') && body) {
+	      throw new TypeError('Body not allowed for GET or HEAD requests')
+	    }
+	    this._initBody(body)
+	  }
+
+	  Request.prototype.clone = function() {
+	    return new Request(this, { body: this._bodyInit })
+	  }
+
+	  function decode(body) {
+	    var form = new FormData()
+	    body.trim().split('&').forEach(function(bytes) {
+	      if (bytes) {
+	        var split = bytes.split('=')
+	        var name = split.shift().replace(/\+/g, ' ')
+	        var value = split.join('=').replace(/\+/g, ' ')
+	        form.append(decodeURIComponent(name), decodeURIComponent(value))
+	      }
+	    })
+	    return form
+	  }
+
+	  function parseHeaders(rawHeaders) {
+	    var headers = new Headers()
+	    rawHeaders.split(/\r?\n/).forEach(function(line) {
+	      var parts = line.split(':')
+	      var key = parts.shift().trim()
+	      if (key) {
+	        var value = parts.join(':').trim()
+	        headers.append(key, value)
+	      }
+	    })
+	    return headers
+	  }
+
+	  Body.call(Request.prototype)
+
+	  function Response(bodyInit, options) {
+	    if (!options) {
+	      options = {}
+	    }
+
+	    this.type = 'default'
+	    this.status = 'status' in options ? options.status : 200
+	    this.ok = this.status >= 200 && this.status < 300
+	    this.statusText = 'statusText' in options ? options.statusText : 'OK'
+	    this.headers = new Headers(options.headers)
+	    this.url = options.url || ''
+	    this._initBody(bodyInit)
+	  }
+
+	  Body.call(Response.prototype)
+
+	  Response.prototype.clone = function() {
+	    return new Response(this._bodyInit, {
+	      status: this.status,
+	      statusText: this.statusText,
+	      headers: new Headers(this.headers),
+	      url: this.url
+	    })
+	  }
+
+	  Response.error = function() {
+	    var response = new Response(null, {status: 0, statusText: ''})
+	    response.type = 'error'
+	    return response
+	  }
+
+	  var redirectStatuses = [301, 302, 303, 307, 308]
+
+	  Response.redirect = function(url, status) {
+	    if (redirectStatuses.indexOf(status) === -1) {
+	      throw new RangeError('Invalid status code')
+	    }
+
+	    return new Response(null, {status: status, headers: {location: url}})
+	  }
+
+	  self.Headers = Headers
+	  self.Request = Request
+	  self.Response = Response
+
+	  self.fetch = function(input, init) {
+	    return new Promise(function(resolve, reject) {
+	      var request = new Request(input, init)
+	      var xhr = new XMLHttpRequest()
+
+	      xhr.onload = function() {
+	        var options = {
+	          status: xhr.status,
+	          statusText: xhr.statusText,
+	          headers: parseHeaders(xhr.getAllResponseHeaders() || '')
+	        }
+	        options.url = 'responseURL' in xhr ? xhr.responseURL : options.headers.get('X-Request-URL')
+	        var body = 'response' in xhr ? xhr.response : xhr.responseText
+	        resolve(new Response(body, options))
+	      }
+
+	      xhr.onerror = function() {
+	        reject(new TypeError('Network request failed'))
+	      }
+
+	      xhr.ontimeout = function() {
+	        reject(new TypeError('Network request failed'))
+	      }
+
+	      xhr.open(request.method, request.url, true)
+
+	      if (request.credentials === 'include') {
+	        xhr.withCredentials = true
+	      }
+
+	      if ('responseType' in xhr && support.blob) {
+	        xhr.responseType = 'blob'
+	      }
+
+	      request.headers.forEach(function(value, name) {
+	        xhr.setRequestHeader(name, value)
+	      })
+
+	      xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
+	    })
+	  }
+	  self.fetch.polyfill = true
+	})(typeof self !== 'undefined' ? self : this);
+
+
+/***/ },
+/* 518 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(519);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(491)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./PatientAll.scss", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/sass-loader/index.js!./PatientAll.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 519 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(490)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/* Flexbot grid stuff */\n.flex-grid {\n  display: flex; }\n\n/* makes small spaces / equality between rows */\n.col {\n  flex-direction: row;\n  flex: 1; }\n\n/* stacks content under certain pixel limit */\n@media (max-width: 400px) {\n  .flex-grid {\n    display: block; } }\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 520 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _NavBar = __webpack_require__(521);
+
+	var _NavBar2 = _interopRequireDefault(_NavBar);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var NavBarControl = function (_React$Component) {
+	  _inherits(NavBarControl, _React$Component);
+
+	  /**
+	    * Class constructor
+	    */
+	  // Sets initial state
+	  function NavBarControl(props) {
+	    _classCallCheck(this, NavBarControl);
+
+	    /*
+	        this.state = {
+	          inputBoxClassName: "AddConsult"
+	        }
+	    */
+	    var _this = _possibleConstructorReturn(this, (NavBarControl.__proto__ || Object.getPrototypeOf(NavBarControl)).call(this, props));
+
+	    _this.navClick = _this.navClick.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(NavBarControl, [{
+	    key: 'navClick',
+	    value: function navClick(e) {
+	      this.props.changeSort(e.target.outerText);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_NavBar2.default, { navClick: this.navClick })
+	      );
+	    }
+	  }]);
+
+	  return NavBarControl;
+	}(_react2.default.Component);
+
+	exports.default = NavBarControl;
+
+/***/ },
+/* 521 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var NavBar = function NavBar(_ref) {
+	  var navClick = _ref.navClick;
+	  return _react2.default.createElement(
+	    'nav',
+	    { role: 'navigation', className: 'main-nav', id: 'main-nav' },
+	    _react2.default.createElement(
+	      'ul',
+	      { id: 'main-nav-list' },
+	      _react2.default.createElement(
+	        'li',
+	        null,
+	        _react2.default.createElement(
+	          'a',
+	          { onClick: navClick },
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            'Rounding Order'
+	          )
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'li',
+	        null,
+	        _react2.default.createElement(
+	          'a',
+	          { onClick: navClick },
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            'Room'
+	          )
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'li',
+	        null,
+	        _react2.default.createElement(
+	          'a',
+	          { onClick: navClick },
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            'Name'
+	          )
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'li',
+	        null,
+	        _react2.default.createElement(
+	          'a',
+	          { onClick: navClick },
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            'Seen'
+	          )
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'li',
+	        null,
+	        _react2.default.createElement(
+	          'a',
+	          { onClick: navClick },
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            'learning'
+	          )
+	        )
+	      )
+	    )
+	  );
+	};
+
+	NavBar.propTypes = {
+	  navClick: _react.PropTypes.func.isRequired
+	};
+
+	exports.default = NavBar;
 
 /***/ }
 /******/ ]);

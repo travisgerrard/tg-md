@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 
 import Crypto from '../modules/Crypto';
 import PatientViewController from '../components/PatientViewController.jsx';
+import Auth from '../modules/Auth';
 
 import 'whatwg-fetch'
 
@@ -176,7 +177,8 @@ class PatientViewControllerPage extends React.Component {
         fetch(this.props.url + patientID, {
           method: 'put',
           headers: {
-            "Content-type": "application/json"
+            "Content-type": "application/json",
+            'Authorization': `bearer ${Auth.getToken()}`
           },
           body: JSON.stringify(patient)
         }).then(function(data) {

@@ -14,7 +14,7 @@ const app = express();
 
 // Makes server accessable from client
 app.use(function(req, res, next) {
-    console.log(JSON.stringify(req.headers));
+    //console.log(JSON.stringify(req.headers));
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT ,DELETE');
     //res.setHeader('Access-Control-Allow-Credentials', true);

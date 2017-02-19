@@ -6,6 +6,8 @@ import DashboardPage from './containers/DashboardPage.jsx';
 import LoginPage from './containers/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
 import Auth from './modules/Auth';
+import AllPatientsPage from './containers/AllPatientsPage.jsx';
+import NavBarControl from './containers/NavBarControl.jsx';
 
 const routes = {
   // base component (wrapper for the whole application).
@@ -16,7 +18,7 @@ const routes = {
       getComponent: (location, callback) => {
         if (Auth.isUserAuthenticated()) {
           console.log("User is authenticated");
-          callback(null, DashboardPage);
+          callback(null, AllPatientsPage);
         } else {
           callback(null, HomePage);
         }
