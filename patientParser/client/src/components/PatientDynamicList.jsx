@@ -1,4 +1,7 @@
 import React, { PropTypes } from 'react';
+import {List, ListItem} from 'material-ui/List';
+import Checkbox from 'material-ui/Checkbox';
+import Toggle from 'material-ui/Toggle';
 
 const PatientDynamicList = ({
   i,

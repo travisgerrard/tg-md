@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import PatientViewControllerPage from '../containers/PatientViewControllerPage.jsx';
 
@@ -17,11 +18,18 @@ const AllPatients = ({
         <ul>
           {patients.map(element => <li key={element._id}><PatientViewControllerPage patientData={element} updateTheState={updateTheState} secretCode={secretCode} url={webSiteConnect}/><br /><hr /></li>)}
         </ul>
-        <button id="addPatientButton" onClick={handleSubmit} className="btn btn-primary center-block">Add Patient</button>
-        <button onClick={resetLabsAndTodos} className="btn btn-primary center-block">ResetLabsAndTodos</button>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+          <RaisedButton id="addPatientButton" label="Add Patient" onClick={handleSubmit} primary={true}/>
+        </div>
+        <br/>
+        <div style={{display: 'flex', justifyContent: 'center'}}>
+          <RaisedButton label="ResetLabsAndTodos" onClick={resetLabsAndTodos} primary={true}  />
+        </div>
       </div>
     ) : (
-      <button id="addPatientButton" onClick={handleSubmit} className="btn btn-primary center-block">Add Patient</button>
+      <div style={{display: 'flex', justifyContent: 'center'}}>
+        <RaisedButton id="addPatientButton" label="Add Patient" onClick={handleSubmit} primary={true} />
+      </div>
     )}
   </div>
 );

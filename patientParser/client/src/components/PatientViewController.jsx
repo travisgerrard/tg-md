@@ -9,6 +9,8 @@ import PatientConsultInputPage from '../containers/PatientConsultInputPage.jsx';
 import PatientGeneralPage from '../containers/PatientGeneralPage.jsx';
 import PatientLabsPage from '../containers/PatientLabsPage.jsx';
 import PatientLearning from '../PatientLearning';
+import PatientLearningInputPage from '../containers/PatientLearningInputPage.jsx';
+import PatientLearningPage from '../containers/PatientLearningPage.jsx';
 
 const PatientViewController = ({
   onUpdate,
@@ -42,7 +44,8 @@ const PatientViewController = ({
         <PatientConsultsPage onUpdate={onUpdate} patientData={patientData} secretCode={secretCode} />
       </div>
       <div className="col">
-        <PatientLearning onUpdate={onUpdate} patientData={patientData} secretCode={secretCode} />
+        <PatientLearningInputPage onUpdate={onUpdate} patientData={patientData} secretCode={secretCode} />
+        <PatientLearningPage onUpdate={onUpdate} patientData={patientData} secretCode={secretCode} />
       </div>
     </div>
   </div>

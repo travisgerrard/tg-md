@@ -1,8 +1,56 @@
 import React, { PropTypes } from 'react';
 import PatientDynamicList from '../components/PatientDynamicList.jsx';
+import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
 import Crypto from '../modules/Crypto';
 
+import {List, ListItem} from 'material-ui/List';
+import Checkbox from 'material-ui/Checkbox';
+import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import Toggle from 'material-ui/Toggle';
+
 require('../sass/PatientConsult.scss');
+
+const SortableItem = SortableElement(({
+  value,
+  editElement,
+  handleChange,
+  isComplete,
+  index,
+  anIndex,
+  handleDelete,
+  handleClick,
+  key}) => {
+  // Pass a div with ID as the primary text to access the index on click!
+  return(
+      <ListItem
+        onDoubleClick={editElement}
+        onClick={handleClick}
+        onChange={handleChange}
+        primaryText={<div id={anIndex} className="Consult">{value}</div>}
+        style={isComplete ? {color: "#d32f2f"} : {color: "#212121"}}
+        />
+    )
+
+});
+
+const SortableList = SortableContainer(({items, secretCode, editElement, handleChange, handleDelete, handleClick}) => {
+  return (
+    <List>
+      {items.map((value, index) => (
+        <SortableItem
+          key={`item-${index}`}
+          editElement={editElement}
+          handleChange={handleChange}
+          handleDelete={handleDelete}
+          handleClick={handleChange}
+          index={index}
+          anIndex={index}
+          isComplete={value.complete}
+          value={Crypto.decodeString(value.consultText, secretCode)} />
+      ))}
+    </List>
+  );
+});
 
 class PatientConsultsPage extends React.Component {
   /**
@@ -15,6 +63,7 @@ class PatientConsultsPage extends React.Component {
       this.state = {
         data: this.props.patientData,
         consult: this.props.patientData.consult,
+        sortClassName: "ConsultSort"
       }
 
       this.handleChange = this.handleChange.bind(this);
@@ -25,6 +74,7 @@ class PatientConsultsPage extends React.Component {
       this.sort = this.sort.bind(this);
       this.editElement = this.editElement.bind(this);
       this.handleKeyPress = this.handleKeyPress.bind(this);
+      this.onSortEnd = this.onSortEnd.bind(this);
     }
 
     // updates state with props from PatientAll with they get reloaded
@@ -48,7 +98,7 @@ class PatientConsultsPage extends React.Component {
       if (!this.state.data.consult[event.currentTarget.dataset.id].isEditing) {
         this.props.onUpdate(event.target, this.props.patientData._id);
       }
-    }
+   }
 
     handleKeyPress(event) {
       if (event.key === 'Enter') {
@@ -90,6 +140,27 @@ class PatientConsultsPage extends React.Component {
       items.splice(to, 0, items.splice(from,1)[0]);
       this.sort(items, to);
     }
+
+    elementClicked(e) {
+      e.preventDefault();
+
+      console.log("Clicked once");
+    }
+
+    onSortEnd (oldIndex, newIndex) {
+      //console.log(oldIndex.oldIndex);
+      //console.log(oldIndex.newIndex);
+
+      var data = this.state.data;
+      data.consult = arrayMove(this.state.data.consult, oldIndex.oldIndex, oldIndex.newIndex);
+      this.setState({data: data});
+
+      //console.log(this.state.data);
+      this.props.onUpdate({className: "ConsultSort"}, this.props.patientData._id);
+
+    }
+
+
 
     render() {
       if (this.state.consult !== undefined) {

@@ -13,6 +13,6 @@ module.exports.connect = (uri) => {
   });
 
   // load models
-  require('./patient');
   require('./user');
-}
+  require('./patient');
+};

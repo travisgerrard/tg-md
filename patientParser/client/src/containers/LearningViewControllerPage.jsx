@@ -1,14 +1,14 @@
 import React, { PropTypes } from 'react';
 
 import Crypto from '../modules/Crypto';
-import PatientViewController from '../components/PatientViewController.jsx';
+import LearningViewController from '../components/LearningViewController.jsx';
 import Auth from '../modules/Auth';
 
 import 'whatwg-fetch'
 
 require('../sass/PatientAll.scss');
 
-class PatientViewControllerPage extends React.Component {
+class LearningViewControllerPage extends React.Component {
   /**
     * Class constructor
     */
@@ -46,7 +46,6 @@ class PatientViewControllerPage extends React.Component {
       if (val.id === "DOB") patient = {dob: this.encodeString(val.value)};
       if (val.id === "MRN") patient = {mrn: this.encodeString(val.value)};
       if (val.id === "LOS") patient = {los: val.value};
-      if (val.id === "Intern") patient = {intern: val.value};
       if (val.id === "RO") patient = {ro: val.value};
 
 
@@ -123,9 +122,9 @@ class PatientViewControllerPage extends React.Component {
       // Adding to list of consults, again using ternary operator!
       if (val.id === "AddConsult") patient = (this.props.patientData.consult === undefined) ? {consult: [{complete: false, consultText: this.encodeString(val.value), hidden: false, isEditing: false}]} : {consult: this.props.patientData.consult.concat({complete: false, consultText: this.encodeString(val.value), hidden: false})};
       // checking off a followup
-      if (val.className === "Consult") {
+      if (val.name === "Consult") {
         var tempArray = this.props.patientData.consult.concat();
-        var object = tempArray[val.name];
+        var object = tempArray[val.id];
         object = (object.complete === true) ? object.complete = false : object.complete = true;
         patient = {consult: tempArray};
       }
@@ -154,7 +153,7 @@ class PatientViewControllerPage extends React.Component {
       }
 
       // Adding to list of learning, again using ternary operator!
-      if (val.id === "AddLearning") patient = (this.props.patientData.learningList === undefined) ? {learningList: [{complete: false, learningText: this.encodeString(val.value), hidden: false}]} : {learningList: this.props.patientData.learningList.concat({complete: false, learningText: this.encodeString(val.value), hidden: false})};
+      if (val.className === "AddLearning") patient = (this.props.patientData.learningList === undefined) ? {learningList: [{complete: false, learningText: this.encodeString(val.value), hidden: false}]} : {learningList: this.props.patientData.learningList.concat({complete: false, learningText: this.encodeString(val.value), hidden: false})};
 
       // checking off a learning
       if (val.className === "LearningList") {
@@ -163,23 +162,7 @@ class PatientViewControllerPage extends React.Component {
         object = (object.complete === true) ? object.complete = false : object.complete = true;
         patient = {learningList: tempArray};
       }
-      // editing a consult
-      if (val.className === "LearningEdit") {
-        var tempArray = this.props.patientData.learningList.concat();
-        var object = tempArray[val.dataset.name]; // .name is actually the index in the array...
-        if (object.isEditing === true) {
-          object.learningText = this.encodeString(val.value);
-          object.isEditing = false;
-        } else {
-          object.isEditing = true;
-        }
-        patient = {learningList: tempArray};
-      }
-      // sorting consult list
-      if (val.className === "LearningSort") {
-        var tempArray = this.props.patientData.learningList.concat();
-        patient = {learningList: tempArray};
-      }
+
       // deleting a learning
       if (val.className === "deleteLearning") {
         var tempArray = this.props.patientData.learningList.concat();
@@ -189,6 +172,8 @@ class PatientViewControllerPage extends React.Component {
 
       // Deleteing a patient
       if (val.className === "DeleteButton") patient = {hidden: true};
+
+
         fetch(this.props.url + patientID, {
           method: 'put',
           headers: {
@@ -205,9 +190,8 @@ class PatientViewControllerPage extends React.Component {
             val.className === "Consult" ||
             val.className === "ConsultEdit" ||
             val.className === "deleteConsult" ||
-            val.id === "AddLearning" ||
+            val.className === "AddLearning" ||
             val.className === "LearningList" ||
-            val.className === "LearningEdit" ||
             val.className === "deleteLearning" ||
             val.className === "DeleteButton") {
               this.props.updateTheState();
@@ -219,7 +203,7 @@ class PatientViewControllerPage extends React.Component {
 
     render() {
       return (
-        <PatientViewController
+        <LearningViewController
           onUpdate={this.onUpdate}
           patientData={this.props.patientData}
           secretCode={this.props.secretCode} />
@@ -227,4 +211,4 @@ class PatientViewControllerPage extends React.Component {
     }
 }
 
-export default PatientViewControllerPage;
+export default LearningViewControllerPage;

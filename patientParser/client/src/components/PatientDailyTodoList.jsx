@@ -1,4 +1,9 @@
 import React, { PropTypes } from 'react';
+import {List, ListItem} from 'material-ui/List';
+import Checkbox from 'material-ui/Checkbox';
+import Toggle from 'material-ui/Toggle';
+
+var listHeight = '10px';
 
 const PatientDailyTodoList = ({
   handleChange,
@@ -16,69 +21,54 @@ const PatientDailyTodoList = ({
   mobility
 }) => (
   <div>
-    <ul id="dailyToDoUl">
-    <li>
-        <label>
-          <input type="checkbox" className="LabsBack" value="labsback" onChange={handleChange} defaultChecked={labsback} />Labs Back
-        </label>
-      </li>
-      <li>
-        <label>
-          <input type="checkbox" className="Consults" value="consults" onChange={handleChange} defaultChecked={consults} />Consults
-        </label>
-      </li>
-      <li>
-        <label>
-        <input type="checkbox" className="Andon" value="andon" onChange={handleChange} defaultChecked={andon} />Andon - VTE/Glucose
-        </label>
-      </li>
-      <li>
-        <label>
-        <input type="checkbox" className="IVMed" value="ivmed" onChange={handleChange} defaultChecked={ivmed} />Micro
-        </label>
-      </li>
-      <li>
-        <label>
-        <input type="checkbox" className="Mar" value="mar" onChange={handleChange} defaultChecked={mar} />MAR 48
-        </label>
-      </li>
-      <li>
-        <label>
-        <input type="checkbox" className="AMLab" value="amlab" onChange={handleChange} defaultChecked={amlab} />AM Labs
-        </label>
-      </li>
-      <li>
-        <label>
-        <input type="checkbox" className="Dispo" value="dispo" onChange={handleChange} defaultChecked={dispo} />Discharge/Dispo
-        </label>
-      </li>
-      <li>
-        <label>
-        <input type="checkbox" className="Learning" value="learning" onChange={handleChange} defaultChecked={learning} />Learning
-        </label>
-      </li>
-      <li>
-        <label>
-        <input type="checkbox" className="Seen" value="seen" onChange={handleChange} defaultChecked={seen} />Seen
-        </label>
-      </li>
-      <hr />
-        <li>
-          <label>
-          <input type="checkbox" className="Lines" value="lines" onChange={handleChange} defaultChecked={lines} />Lines
-          </label>
-        </li>
-        <li>
-          <label>
-          <input type="checkbox" className="Foley" value="foley" onChange={handleChange} defaultChecked={foley} />Foley
-          </label>
-        </li>
-        <li>
-          <label>
-          <input type="checkbox" className="Mobility" value="mobility" onChange={handleChange} defaultChecked={mobility} />Mobility
-          </label>
-        </li>
-    </ul>
+    <List>
+        <ListItem leftCheckbox={<Checkbox id="LabsBack" defaultChecked={labsback} />}
+          primaryText="Labs Back"
+          onChange={handleChange}
+          style={{height: listHeight}}
+          />
+        <ListItem leftCheckbox={<Checkbox id="Consults" defaultChecked={consults} />}
+          primaryText="Consults"
+          onChange={handleChange}
+          style={{height: listHeight}}
+          />
+        <ListItem leftCheckbox={<Checkbox id="Andon" defaultChecked={andon} />}
+          primaryText="Andon"
+          onChange={handleChange}
+          style={{height: listHeight}}
+          />
+        <ListItem leftCheckbox={<Checkbox id="IVMed" defaultChecked={ivmed} />}
+          primaryText="Micro"
+          onChange={handleChange}
+          style={{height: listHeight}}
+          />
+        <ListItem leftCheckbox={<Checkbox id="Mar" defaultChecked={mar} />}
+          primaryText="MAR 48"
+          onChange={handleChange}
+          style={{height: listHeight}}
+          />
+        <ListItem leftCheckbox={<Checkbox id="AMLab" defaultChecked={amlab} />}
+          primaryText="AM Labs"
+          onChange={handleChange}
+          style={{height: listHeight}}
+          />
+        <ListItem leftCheckbox={<Checkbox id="Dispo" defaultChecked={dispo} />}
+          primaryText="Discharge/Dispo"
+          onChange={handleChange}
+          style={{height: listHeight}}
+          />
+        <ListItem leftCheckbox={<Checkbox id="Learning" defaultChecked={learning} />}
+          primaryText="Learning"
+          onChange={handleChange}
+          style={{height: listHeight}}
+          />
+        <ListItem leftCheckbox={<Checkbox id="Seen" defaultChecked={seen} />}
+          primaryText="Seen"
+          onChange={handleChange}
+          style={{height: listHeight}}
+          />
+    </List>
+
   </div>
 );
 

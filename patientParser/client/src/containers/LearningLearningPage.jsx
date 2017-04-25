@@ -1,9 +1,9 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 
-import Crypto from './modules/Crypto';
+import Crypto from '../modules/Crypto';
 
-require('./sass/PatientLearning.scss');
+require('../sass/PatientLearning.scss');
 
 // Patient learning
 var PatientLearning = React.createClass({
@@ -25,29 +25,16 @@ var PatientLearning = React.createClass({
     }
   },
 
-  handelDelete: function(event) {
-    //console.log(event.target.name);
-    this.props.onUpdate(event.target, this.props.patientData._id);
-  },
-
-  // Added a buddton to delete patient to this section... This handels that button
-  handleDeletePatient: function(event) {
-    if(confirm("Are you sure?")) this.props.onUpdate(event.target, this.props.patientData._id);
-  },
-
   render: function() {
     if (this.props.patientData.learningList !== undefined) {
     return (
       <div id="LearningDiv">
       <label>Learning</label>
-      <button id="DeleteButton" className="DeleteButton" onClick={this.handleDeletePatient}>X</button>
       <br />
-      <input type="textyh" className="AddLearning" onKeyPress={this._handleKeyPress} />
         <ul id="learningUl">
           {this.props.patientData.learningList.map((element, key) =>
             <li key={element.learningText} >
             <input type="checkbox" className="LearningList" name={key} value={this.decodeString(element.learningText)} onChange={this.handleChange} defaultChecked={element.complete} />{this.decodeString(element.learningText)}
-            <a className="deleteLearning" name={key} onClick={this.handelDelete}>{element.complete ? "_X_" : ""}</a>
             </li>
           )}
         </ul>
@@ -58,9 +45,6 @@ var PatientLearning = React.createClass({
       <div>
         <div id="LearningDiv">
           <label>Learning</label>
-          <button id="DeleteButton" className="DeleteButton" onClick={this.handleDeletePatient }>X</button>
-          <br />
-          <input type="text" className="AddLearning" onKeyPress={this._handleKeyPress} />
         </div>
       </div>
 

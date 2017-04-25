@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import AllPatients from '../components/AllPatients.jsx';
+import Learning from '../components/Learning.jsx';
 import Auth from '../modules/Auth';
 
 import Crypto from '../modules/Crypto';
@@ -7,7 +7,7 @@ import Crypto from '../modules/Crypto';
 import 'whatwg-fetch'
 
 
-class AllPatientsPage extends React.Component {
+class LearningPage extends React.Component {
 
 // Bitnami origin password bp9kERz59guN
 
@@ -25,8 +25,10 @@ class AllPatientsPage extends React.Component {
       step: 2,
       pageType: 'basic',
       patients: [],
-      webSiteConnect: /*'http://localhost:3000/api/runTheList/',//*/'/api/runTheList/', //Should be one when using for production
+      webSiteConnect: /*'http://localhost:3000/api/runTheList/',//*/'/api/runTheListLearning/', //Should be one when using for production
       sortBy: 'basic',
+      internOne: '',
+      internTwo: '',
       userID: '',
       errors: {}
     }
@@ -37,7 +39,7 @@ class AllPatientsPage extends React.Component {
     this.updateTheState = this.updateTheState.bind(this);
     this.addPatient = this.addPatient.bind(this);
     this.resetLabsAndTodos = this.resetLabsAndTodos.bind(this);
-    this.sortPatient = this.sortPatient.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
 
   }
@@ -48,14 +50,81 @@ class AllPatientsPage extends React.Component {
     return decodedString;
   }
 
-    // Handles add patient button click, calls add patient function
+    // Handles sort intern button. Will eventually reload request with only desired interns.
   handleSubmit(e) {
       e.preventDefault();
-      this.addPatient({_creator: this.state.userID})
+      console.log(`This was pressed. InterOne is ${this.state.internOne} and InternTwo is ${this.state.internTwo}`);
+      fetch("/api/userID/", {
+        method: 'get',
+        headers: {
+          "Content-type": "application/json",
+          'Authorization': `bearer ${Auth.getToken()}`
+        },
+      }).then(response => {
+              if (response.status !== 200) {
+                console.log('Looks like there was a problem. Status Code: ' + response.status);
+                return;
+              }
+              // Examine the text in the response
+              response.json().then(userID => {
+                //console.log(userID);
+                this.setState({ userID: userID });
+                // Second fetch gets the patients who are associated with the logged in user
+                var addressToFetch;
+                if (this.state.internOne != '' && this.state.internTwo != '') {
+                  addressToFetch = `${this.state.webSiteConnect}?userID=${this.state.userID}&intern1=${this.state.internOne}&intern2=${this.state.internTwo}`
+                } else if (this.state.internOne != '' && this.state.internTwo == '') {
+                  addressToFetch = `${this.state.webSiteConnect}?userID=${this.state.userID}&intern1=${this.state.internOne}`
+                } else if (this.state.internOne == '' && this.state.internTwo != '') {
+                  addressToFetch = `${this.state.webSiteConnect}?userID=${this.state.userID}&intern2=${this.state.internTwo}`
+                } else if (this.state.internOne == '' && this.state.internTwo == '') {
+                  addressToFetch = `${this.state.webSiteConnect}?userID=${this.state.userID}`
+                }
+                console.log(addressToFetch);
+                fetch(addressToFetch, {
+                  method: 'get',
+                  headers: {
+                    "Content-type": "application/json",
+                    'Authorization': `bearer ${Auth.getToken()}`
+                  },
+                }).then(response => {
+                        if (response.status !== 200) {
+                          console.log('Looks like there was a problem. Status Code: ' + response.status);
+                          return;
+                        }
+                        // Examine the text in the response
+                        response.json().then(data => {
+                          // The data that was returned
+                          this.setState({ patients: data });
+                          if (data.length > 0) this.setState({ patientsExist: true })
+                        });
+                  }
+                )
+                .catch(function(err) {
+                  console.log('Fetch Error :' + err);
+                });            });
+        }
+      )
+      .catch(function(err) {
+        console.log('Fetch Error :' + err);
+      });
+  }
+
+  // When intern textField is updated this runs. Will eventually updated intern State
+  handleChange(e) {
+    var inputID = e.target.id;
+    var inputValue = e.target.value;
+    
+    if (inputID == "Intern1") {
+      this.setState({ internOne: inputValue });
+    } else if (inputID == "Intern2") {
+      this.setState({ internTwo: inputValue });
+    }
   }
 
   // Runs at initial loading of patient info. calls server for data
   componentDidMount () {
+    // First fetch insures that valid user is accessing site
     fetch("/api/userID/", {
       method: 'get',
       headers: {
@@ -71,7 +140,8 @@ class AllPatientsPage extends React.Component {
             response.json().then(userID => {
               //console.log(userID);
               this.setState({ userID: userID });
-              fetch(this.state.webSiteConnect + "?userID=" + this.state.userID, {
+              // Second fetch gets the patients who are associated with the logged in user
+              fetch(`${this.state.webSiteConnect}?userID=${this.state.userID}`, {
                 method: 'get',
                 headers: {
                   "Content-type": "application/json",
@@ -84,7 +154,7 @@ class AllPatientsPage extends React.Component {
                       }
                       // Examine the text in the response
                       response.json().then(data => {
-                        //console.log(data);
+                        // The data that was returned
                         this.setState({ patients: data });
                         if (data.length > 0) this.setState({ patientsExist: true })
                       });
@@ -180,67 +250,6 @@ class AllPatientsPage extends React.Component {
     });
   }
 
-  sortPatient(sortBy) {
-
-    if (sortBy === 'Room') {
-      var tempData = this.state.patients.slice();
-      tempData.sort(function (a, b) {
-        if (a.room > b.room) {
-          return 1;
-        }
-        if (a.room < b.room) {
-          return -1;
-        }
-        return 0;
-      });
-      this.setState({ patients: tempData });
-      this.setState({ step: 2 });
-      this.setState({ sortBy: sortBy })
-
-    }
-    if (sortBy === 'Rounding Order') {
-      var tempData = this.state.patients.slice();
-      tempData.sort(function (a, b) {
-        if (a.ro > b.ro) {
-          return 1;
-        }
-        if (a.ro < b.ro) {
-          return -1;
-        }
-        return 0;
-      });
-      this.setState({ patients: tempData });
-      this.setState({ step: 2 });
-      this.setState({ sortBy: sortBy })
-
-    }
-    if (sortBy === 'Name') {
-      var tempData = this.state.patients.slice();
-      tempData.sort(function (a, b) {
-        if (this.decodeString(a.name) > this.decodeString(b.name)) {
-          return 1;
-        }
-        if (this.decodeString(a.name) < this.decodeString(b.name)) {
-          return -1;
-        }
-
-        return 0;
-      }.bind(this));
-      this.setState({ patients: tempData });
-      this.setState({ step: 2 });
-      this.setState({ sortBy: sortBy })
-
-    }
-    if (sortBy === 'Seen') {
-      var tempData = this.state.patients.slice();
-      tempData.sort(function (a, b) {
-        return (a.seen === b.seen)? 0 : a.seen? 1 : -1;
-      });
-      this.setState({ patients: tempData });
-      this.setState({ step: 2 });
-      this.setState({ sortBy: sortBy })
-    }
-  }
 
   // lets us sort our patient data before we deisplay it
   componentWillReceiveProps(nextProps) {
@@ -251,17 +260,20 @@ class AllPatientsPage extends React.Component {
   render() {
     return (
       <div>
-        <AllPatients
+        <Learning
           patientsExist={this.state.patientsExist}
           updateTheState={this.updateTheState}
           secretCode={this.state.secretCode}
           webSiteConnect={this.state.webSiteConnect}
           patients={this.state.patients}
           handleSubmit={this.handleSubmit}
+          internOne={this.state.internOne}
+          internTwo={this.state.internTwo}
+          handleChange={this.handleChange}
           resetLabsAndTodos={this.resetLabsAndTodos} />
       </div>
     )
   }
 }
 
-export default AllPatientsPage;
+export default LearningPage;

@@ -34811,21 +34811,23 @@
 
 	var _SignUpPage2 = _interopRequireDefault(_SignUpPage);
 
+	var _LearningPage = __webpack_require__(481);
+
+	var _LearningPage2 = _interopRequireDefault(_LearningPage);
+
 	var _Auth = __webpack_require__(396);
 
 	var _Auth2 = _interopRequireDefault(_Auth);
 
-	var _AllPatientsPage = __webpack_require__(481);
+	var _AllPatientsPage = __webpack_require__(720);
 
 	var _AllPatientsPage2 = _interopRequireDefault(_AllPatientsPage);
 
-	var _NavBarControl = __webpack_require__(520);
+	var _NavBarControl = __webpack_require__(729);
 
 	var _NavBarControl2 = _interopRequireDefault(_NavBarControl);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	/*jshint esversion: 6 */
 
 	var routes = {
 	  // base component (wrapper for the whole application).
@@ -34834,12 +34836,14 @@
 	    path: '/',
 	    getComponent: function getComponent(location, callback) {
 	      if (_Auth2.default.isUserAuthenticated()) {
-	        console.log("User is authenticated");
 	        callback(null, _AllPatientsPage2.default);
 	      } else {
 	        callback(null, _HomePage2.default);
 	      }
 	    }
+	  }, {
+	    path: 'learning',
+	    component: _LearningPage2.default
 	  }, {
 	    path: '/login',
 	    component: _LoginPage2.default
@@ -34855,7 +34859,7 @@
 	      replace('/');
 	    }
 	  }]
-	};
+	}; /*jshint esversion: 6 */
 
 	exports.default = routes;
 
@@ -34895,12 +34899,18 @@
 	        _react2.default.createElement(
 	          _reactRouter.IndexLink,
 	          { to: '/' },
-	          'React App'
+	          'RunTheList'
 	        )
 	      ),
 	      _Auth2.default.isUserAuthenticated() ? _react2.default.createElement(
 	        'div',
 	        { className: 'top-bar-right' },
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: '/learning' },
+	          'Learning'
+	        ),
+	        '|',
 	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/logout' },
@@ -34935,7 +34945,7 @@
 /* 396 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -34953,7 +34963,7 @@
 	  }
 
 	  _createClass(Auth, null, [{
-	    key: "authenticateUser",
+	    key: 'authenticateUser',
 
 
 	    /**
@@ -34962,9 +34972,9 @@
 	    * @param {string} token
 	    */
 	    value: function authenticateUser(token) {
-	      console.log("Set token " + token);
+	      //console.log("Set token " + token);
 	      localStorage.setItem('token', token);
-	      console.log("Retreving token ", +localStorage.getItem('token'));
+	      //console.log("Retreving token ", + localStorage.getItem('token'));
 	    }
 
 	    /**
@@ -34974,7 +34984,7 @@
 	      */
 
 	  }, {
-	    key: "isUserAuthenticated",
+	    key: 'isUserAuthenticated',
 	    value: function isUserAuthenticated() {
 	      return localStorage.getItem('token') !== null;
 	    }
@@ -34985,7 +34995,7 @@
 	      */
 
 	  }, {
-	    key: "deauthenticateUser",
+	    key: 'deauthenticateUser',
 	    value: function deauthenticateUser() {
 	      localStorage.removeItem('token');
 	    }
@@ -34997,7 +35007,7 @@
 	       */
 
 	  }, {
-	    key: "getToken",
+	    key: 'getToken',
 	    value: function getToken() {
 	      return localStorage.getItem('token');
 	    }
@@ -41795,7 +41805,7 @@
 	    _this.state = {
 	      errors: {},
 	      successMessage: successMessage,
-	      baseWebpage: 'http://localhost:3000',
+	      baseWebpage: '',
 	      user: {
 	        email: '',
 	        password: ''
@@ -44126,7 +44136,7 @@
 
 	    _this.state = {
 	      errors: {},
-	      baseWebpage: 'http://localhost:3000',
+	      baseWebpage: '',
 	      user: {
 	        email: '',
 	        name: '',
@@ -44340,9 +44350,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _AllPatients = __webpack_require__(482);
+	var _Learning = __webpack_require__(482);
 
-	var _AllPatients2 = _interopRequireDefault(_AllPatients);
+	var _Learning2 = _interopRequireDefault(_Learning);
 
 	var _Auth = __webpack_require__(396);
 
@@ -44352,7 +44362,7 @@
 
 	var _Crypto2 = _interopRequireDefault(_Crypto);
 
-	__webpack_require__(517);
+	__webpack_require__(717);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -44362,8 +44372,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var AllPatientsPage = function (_React$Component) {
-	  _inherits(AllPatientsPage, _React$Component);
+	var LearningPage = function (_React$Component) {
+	  _inherits(LearningPage, _React$Component);
 
 	  // Bitnami origin password bp9kERz59guN
 
@@ -44371,10 +44381,10 @@
 	    * Class constructor
 	    */
 	  // Sets initial state
-	  function AllPatientsPage(props) {
-	    _classCallCheck(this, AllPatientsPage);
+	  function LearningPage(props) {
+	    _classCallCheck(this, LearningPage);
 
-	    var _this = _possibleConstructorReturn(this, (AllPatientsPage.__proto__ || Object.getPrototypeOf(AllPatientsPage)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (LearningPage.__proto__ || Object.getPrototypeOf(LearningPage)).call(this, props));
 
 	    _this.state = {
 	      patientsExist: false,
@@ -44382,8 +44392,11 @@
 	      step: 2,
 	      pageType: 'basic',
 	      patients: [],
-	      webSiteConnect: /*'http://localhost:3000/api/runTheList/',//*/'/api/runTheList/', //Should be one when using for production
+	      webSiteConnect: /*'http://localhost:3000/api/runTheList/',//*/'/api/runTheListLearning/', //Should be one when using for production
 	      sortBy: 'basic',
+	      internOne: '',
+	      internTwo: '',
+	      userID: '',
 	      errors: {}
 	    };
 
@@ -44393,7 +44406,7 @@
 	    _this.updateTheState = _this.updateTheState.bind(_this);
 	    _this.addPatient = _this.addPatient.bind(_this);
 	    _this.resetLabsAndTodos = _this.resetLabsAndTodos.bind(_this);
-	    _this.sortPatient = _this.sortPatient.bind(_this);
+	    _this.handleChange = _this.handleChange.bind(_this);
 	    _this.componentWillReceiveProps = _this.componentWillReceiveProps.bind(_this);
 
 	    return _this;
@@ -44402,50 +44415,23 @@
 	  // decrypts data with a key
 
 
-	  _createClass(AllPatientsPage, [{
+	  _createClass(LearningPage, [{
 	    key: 'decodeString',
 	    value: function decodeString(stringToDecode) {
-	      var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.state.secretCode).toString(CryptoJS.enc.Utf8);
+	      var decodedString = _Crypto2.default.decodeString(stringToDecode, this.state.secretCode);
 	      return decodedString;
 	    }
 
-	    // Handles add patient button click, calls add patient function
+	    // Handles sort intern button. Will eventually reload request with only desired interns.
 
 	  }, {
 	    key: 'handleSubmit',
 	    value: function handleSubmit(e) {
-	      e.preventDefault();
-	      this.addPatient({ hidden: false });
-	    }
-
-	    // Runs at initial loading of patient info. calls server for data
-
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
 	      var _this2 = this;
 
-	      /*
-	      fetch(this.state.webSiteConnect, {
-	        method: 'get',
-	        headers: {
-	          "Content-type": "application/json"
-	        },
-	        body: JSON.stringify(patientToAdd)
-	      }).then(response => {
-	        return response.json();
-	      }).then(data => {
-	        console.log("the Data is", data);
-	        console.log("patient to add", patientToAdd);
-	        var patient = data;
-	        // We're advised not to modify the state, it's immutable. So, make a copy.
-	        var patientsModified = this.state.patients.concat(patient);
-	        console.log("patientsModified", patientsModified);
-	         this.setState({patients: patientsModified});
-	      });
-	      */
-
-	      fetch(this.state.webSiteConnect, {
+	      e.preventDefault();
+	      console.log('This was pressed. InterOne is ' + this.state.internOne + ' and InternTwo is ' + this.state.internTwo);
+	      fetch("/api/userID/", {
 	        method: 'get',
 	        headers: {
 	          "Content-type": "application/json",
@@ -44457,10 +44443,106 @@
 	          return;
 	        }
 	        // Examine the text in the response
-	        response.json().then(function (data) {
-	          console.log(data.length);
-	          _this2.setState({ patients: data });
-	          if (data.length > 0) _this2.setState({ patientsExist: true });
+	        response.json().then(function (userID) {
+	          //console.log(userID);
+	          _this2.setState({ userID: userID });
+	          // Second fetch gets the patients who are associated with the logged in user
+	          var addressToFetch;
+	          if (_this2.state.internOne != '' && _this2.state.internTwo != '') {
+	            addressToFetch = _this2.state.webSiteConnect + '?userID=' + _this2.state.userID + '&intern1=' + _this2.state.internOne + '&intern2=' + _this2.state.internTwo;
+	          } else if (_this2.state.internOne != '' && _this2.state.internTwo == '') {
+	            addressToFetch = _this2.state.webSiteConnect + '?userID=' + _this2.state.userID + '&intern1=' + _this2.state.internOne;
+	          } else if (_this2.state.internOne == '' && _this2.state.internTwo != '') {
+	            addressToFetch = _this2.state.webSiteConnect + '?userID=' + _this2.state.userID + '&intern2=' + _this2.state.internTwo;
+	          } else if (_this2.state.internOne == '' && _this2.state.internTwo == '') {
+	            addressToFetch = _this2.state.webSiteConnect + '?userID=' + _this2.state.userID;
+	          }
+	          console.log(addressToFetch);
+	          fetch(addressToFetch, {
+	            method: 'get',
+	            headers: {
+	              "Content-type": "application/json",
+	              'Authorization': 'bearer ' + _Auth2.default.getToken()
+	            }
+	          }).then(function (response) {
+	            if (response.status !== 200) {
+	              console.log('Looks like there was a problem. Status Code: ' + response.status);
+	              return;
+	            }
+	            // Examine the text in the response
+	            response.json().then(function (data) {
+	              // The data that was returned
+	              _this2.setState({ patients: data });
+	              if (data.length > 0) _this2.setState({ patientsExist: true });
+	            });
+	          }).catch(function (err) {
+	            console.log('Fetch Error :' + err);
+	          });
+	        });
+	      }).catch(function (err) {
+	        console.log('Fetch Error :' + err);
+	      });
+	    }
+
+	    // When intern textField is updated this runs. Will eventually updated intern State
+
+	  }, {
+	    key: 'handleChange',
+	    value: function handleChange(e) {
+	      var inputID = e.target.id;
+	      var inputValue = e.target.value;
+
+	      if (inputID == "Intern1") {
+	        this.setState({ internOne: inputValue });
+	      } else if (inputID == "Intern2") {
+	        this.setState({ internTwo: inputValue });
+	      }
+	    }
+
+	    // Runs at initial loading of patient info. calls server for data
+
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this3 = this;
+
+	      // First fetch insures that valid user is accessing site
+	      fetch("/api/userID/", {
+	        method: 'get',
+	        headers: {
+	          "Content-type": "application/json",
+	          'Authorization': 'bearer ' + _Auth2.default.getToken()
+	        }
+	      }).then(function (response) {
+	        if (response.status !== 200) {
+	          console.log('Looks like there was a problem. Status Code: ' + response.status);
+	          return;
+	        }
+	        // Examine the text in the response
+	        response.json().then(function (userID) {
+	          //console.log(userID);
+	          _this3.setState({ userID: userID });
+	          // Second fetch gets the patients who are associated with the logged in user
+	          fetch(_this3.state.webSiteConnect + '?userID=' + _this3.state.userID, {
+	            method: 'get',
+	            headers: {
+	              "Content-type": "application/json",
+	              'Authorization': 'bearer ' + _Auth2.default.getToken()
+	            }
+	          }).then(function (response) {
+	            if (response.status !== 200) {
+	              console.log('Looks like there was a problem. Status Code: ' + response.status);
+	              return;
+	            }
+	            // Examine the text in the response
+	            response.json().then(function (data) {
+	              // The data that was returned
+	              _this3.setState({ patients: data });
+	              if (data.length > 0) _this3.setState({ patientsExist: true });
+	            });
+	          }).catch(function (err) {
+	            console.log('Fetch Error :' + err);
+	          });
 	        });
 	      }).catch(function (err) {
 	        console.log('Fetch Error :' + err);
@@ -44472,9 +44554,9 @@
 	  }, {
 	    key: 'updateTheState',
 	    value: function updateTheState() {
-	      var _this3 = this;
+	      var _this4 = this;
 
-	      fetch(this.state.webSiteConnect, {
+	      fetch(this.state.webSiteConnect + "?userID=" + this.state.userID, {
 	        method: 'get',
 	        headers: {
 	          "Content-type": "application/json",
@@ -44487,8 +44569,9 @@
 	        }
 	        // Examine the text in the response
 	        response.json().then(function (data) {
-	          _this3.setState({ patients: data });
-	          _this3.sortPatient(_this3.state.sortBy);
+	          _this4.setState({ patients: data });
+	          if (data.length > 0) _this4.setState({ patientsExist: true });
+	          _this4.sortPatient(_this4.state.sortBy);
 	        });
 	      }).catch(function (err) {
 	        console.log('Fetch Error :' + err);
@@ -44507,7 +44590,9 @@
 	  }, {
 	    key: 'addPatient',
 	    value: function addPatient(patientToAdd) {
-	      var _this4 = this;
+	      var _this5 = this;
+
+	      console.log("Add patient with ID ", this.state.userID);
 
 	      fetch(this.state.webSiteConnect, {
 	        method: 'post',
@@ -44523,10 +44608,11 @@
 	        console.log("patient to add", patientToAdd);
 	        var patient = data;
 	        // We're advised not to modify the state, it's immutable. So, make a copy.
-	        var patientsModified = _this4.state.patients.concat(patient);
+	        var patientsModified = _this5.state.patients.concat(patient);
 	        console.log("patientsModified", patientsModified);
 
-	        _this4.setState({ patients: patientsModified });
+	        _this5.setState({ patients: patientsModified });
+	        _this5.updateTheState();
 	      });
 	    }
 
@@ -44535,78 +44621,19 @@
 	  }, {
 	    key: 'resetLabsAndTodos',
 	    value: function resetLabsAndTodos() {
-	      var _this5 = this;
+	      var _this6 = this;
 
 	      this.state.patients.map(function (element) {
 	        var patient = { wbc: "", hg: "", hct: "", plt: "", na: "", k: "", cl: "", bicarb: "", bun: "", cr: "", gluc: "", input: "", output: "", labsback: false, consults: false, andon: false, mar: false, ivmed: false, amlab: false, dispo: false, learning: false, seen: false, lines: false, foley: false, mobility: false, ro: "" };
-	        fetch(_this5.state.webSiteConnect + element._id, {
+	        fetch(_this6.state.webSiteConnect + element._id, {
 	          method: 'put',
 	          headers: {
-	            "Content-type": "application/json"
+	            "Content-type": "application/json",
+	            'Authorization': 'bearer ' + _Auth2.default.getToken()
 	          },
 	          body: JSON.stringify(patient)
-	        }).then(function (data) {}.bind(_this5));
+	        }).then(function (data) {}.bind(_this6));
 	      });
-	    }
-	  }, {
-	    key: 'sortPatient',
-	    value: function sortPatient(sortBy) {
-
-	      if (sortBy === 'Room') {
-	        var tempData = this.state.patients.slice();
-	        tempData.sort(function (a, b) {
-	          if (a.room > b.room) {
-	            return 1;
-	          }
-	          if (a.room < b.room) {
-	            return -1;
-	          }
-	          return 0;
-	        });
-	        this.setState({ patients: tempData });
-	        this.setState({ step: 2 });
-	        this.setState({ sortBy: sortBy });
-	      }
-	      if (sortBy === 'Rounding Order') {
-	        var tempData = this.state.patients.slice();
-	        tempData.sort(function (a, b) {
-	          if (a.ro > b.ro) {
-	            return 1;
-	          }
-	          if (a.ro < b.ro) {
-	            return -1;
-	          }
-	          return 0;
-	        });
-	        this.setState({ patients: tempData });
-	        this.setState({ step: 2 });
-	        this.setState({ sortBy: sortBy });
-	      }
-	      if (sortBy === 'Name') {
-	        var tempData = this.state.patients.slice();
-	        tempData.sort(function (a, b) {
-	          if (this.decodeString(a.name) > this.decodeString(b.name)) {
-	            return 1;
-	          }
-	          if (this.decodeString(a.name) < this.decodeString(b.name)) {
-	            return -1;
-	          }
-
-	          return 0;
-	        }.bind(this));
-	        this.setState({ patients: tempData });
-	        this.setState({ step: 2 });
-	        this.setState({ sortBy: sortBy });
-	      }
-	      if (sortBy === 'Seen') {
-	        var tempData = this.state.patients.slice();
-	        tempData.sort(function (a, b) {
-	          return a.seen === b.seen ? 0 : a.seen ? 1 : -1;
-	        });
-	        this.setState({ patients: tempData });
-	        this.setState({ step: 2 });
-	        this.setState({ sortBy: sortBy });
-	      }
 	    }
 
 	    // lets us sort our patient data before we deisplay it
@@ -44623,22 +44650,25 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_AllPatients2.default, {
+	        _react2.default.createElement(_Learning2.default, {
 	          patientsExist: this.state.patientsExist,
 	          updateTheState: this.updateTheState,
 	          secretCode: this.state.secretCode,
 	          webSiteConnect: this.state.webSiteConnect,
 	          patients: this.state.patients,
 	          handleSubmit: this.handleSubmit,
+	          internOne: this.state.internOne,
+	          internTwo: this.state.internTwo,
+	          handleChange: this.handleChange,
 	          resetLabsAndTodos: this.resetLabsAndTodos })
 	      );
 	    }
 	  }]);
 
-	  return AllPatientsPage;
+	  return LearningPage;
 	}(_react2.default.Component);
 
-	exports.default = AllPatientsPage;
+	exports.default = LearningPage;
 
 /***/ },
 /* 482 */
@@ -44654,68 +44684,81 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _PatientViewControllerPage = __webpack_require__(483);
+	var _RaisedButton = __webpack_require__(465);
 
-	var _PatientViewControllerPage2 = _interopRequireDefault(_PatientViewControllerPage);
+	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+	var _TextField = __webpack_require__(467);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	var _LearningViewControllerPage = __webpack_require__(483);
+
+	var _LearningViewControllerPage2 = _interopRequireDefault(_LearningViewControllerPage);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var AllPatients = function AllPatients(_ref) {
+	var Learning = function Learning(_ref) {
 	  var patientsExist = _ref.patientsExist,
 	      updateTheState = _ref.updateTheState,
 	      secretCode = _ref.secretCode,
 	      webSiteConnect = _ref.webSiteConnect,
 	      patients = _ref.patients,
 	      handleSubmit = _ref.handleSubmit,
-	      resetLabsAndTodos = _ref.resetLabsAndTodos;
+	      internOne = _ref.internOne,
+	      internTwo = _ref.internTwo,
+	      resetLabsAndTodos = _ref.resetLabsAndTodos,
+	      handleChange = _ref.handleChange;
 	  return _react2.default.createElement(
 	    'div',
 	    null,
-	    patientsExist ? _react2.default.createElement(
-	      'div',
+	    _react2.default.createElement(
+	      'ul',
 	      null,
-	      _react2.default.createElement(
-	        'ul',
-	        null,
-	        patients.map(function (element) {
+	      patients.map(function (element) {
+	        if (element.learningList.length != 0) {
 	          return _react2.default.createElement(
 	            'li',
 	            { key: element._id },
-	            _react2.default.createElement(_PatientViewControllerPage2.default, { patientData: element, updateTheState: updateTheState, secretCode: secretCode, url: webSiteConnect }),
+	            _react2.default.createElement(_LearningViewControllerPage2.default, { patientData: element, updateTheState: updateTheState, secretCode: secretCode, url: webSiteConnect }),
 	            _react2.default.createElement('br', null),
 	            _react2.default.createElement('hr', null)
 	          );
-	        })
-	      ),
-	      _react2.default.createElement(
-	        'button',
-	        { id: 'addPatientButton', onClick: handleSubmit, className: 'btn btn-primary center-block' },
-	        'Add Patient'
-	      ),
-	      _react2.default.createElement(
-	        'button',
-	        { onClick: resetLabsAndTodos, className: 'btn btn-primary center-block' },
-	        'ResetLabsAndTodos'
-	      )
-	    ) : _react2.default.createElement(
-	      'button',
-	      { id: 'addPatientButton', onClick: handleSubmit, className: 'btn btn-primary center-block' },
-	      'Add Patient'
+	        }
+	      })
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { style: { display: 'flex', justifyContent: 'center' } },
+	      _react2.default.createElement(_TextField2.default, { id: 'Intern1', defaultValue: internOne, onChange: handleChange, hintText: 'Intern 1', floatingLabelText: 'Intern 1', style: { width: 150 } })
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { style: { display: 'flex', justifyContent: 'center' } },
+	      _react2.default.createElement(_TextField2.default, { id: 'Intern2', defaultValue: internTwo, onChange: handleChange, hintText: 'Intern 2', floatingLabelText: 'Intern 2 ', style: { width: 150 } })
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { style: { display: 'flex', justifyContent: 'center' } },
+	      _react2.default.createElement(_RaisedButton2.default, { id: 'learningButton', label: 'Learning for Interns', onClick: handleSubmit, primary: true })
 	    )
 	  );
 	};
 
-	AllPatients.propTypes = {
+	Learning.propTypes = {
 	  patientsExist: _react.PropTypes.bool.isRequired,
 	  updateTheState: _react.PropTypes.func.isRequired,
 	  secretCode: _react.PropTypes.string.isRequired,
 	  webSiteConnect: _react.PropTypes.string.isRequired,
+	  internOne: _react.PropTypes.string.isRequired,
+	  internTwo: _react.PropTypes.string.isRequired,
 	  patients: _react.PropTypes.array.isRequired,
 	  handleSubmit: _react.PropTypes.func.isRequired,
-	  resetLabsAndTodos: _react.PropTypes.func.isRequired
+	  resetLabsAndTodos: _react.PropTypes.func.isRequired,
+	  handleChange: _react.PropTypes.func.isRequired
 	};
 
-	exports.default = AllPatients;
+	exports.default = Learning;
 
 /***/ },
 /* 483 */
@@ -44737,15 +44780,15 @@
 
 	var _Crypto2 = _interopRequireDefault(_Crypto);
 
-	var _PatientViewController = __webpack_require__(485);
+	var _LearningViewController = __webpack_require__(519);
 
-	var _PatientViewController2 = _interopRequireDefault(_PatientViewController);
+	var _LearningViewController2 = _interopRequireDefault(_LearningViewController);
 
 	var _Auth = __webpack_require__(396);
 
 	var _Auth2 = _interopRequireDefault(_Auth);
 
-	__webpack_require__(517);
+	__webpack_require__(717);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -44755,19 +44798,19 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	__webpack_require__(518);
+	__webpack_require__(718);
 
-	var PatientViewControllerPage = function (_React$Component) {
-	  _inherits(PatientViewControllerPage, _React$Component);
+	var LearningViewControllerPage = function (_React$Component) {
+	  _inherits(LearningViewControllerPage, _React$Component);
 
 	  /**
 	    * Class constructor
 	    */
 	  // Sets initial state
-	  function PatientViewControllerPage(props) {
-	    _classCallCheck(this, PatientViewControllerPage);
+	  function LearningViewControllerPage(props) {
+	    _classCallCheck(this, LearningViewControllerPage);
 
-	    var _this = _possibleConstructorReturn(this, (PatientViewControllerPage.__proto__ || Object.getPrototypeOf(PatientViewControllerPage)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (LearningViewControllerPage.__proto__ || Object.getPrototypeOf(LearningViewControllerPage)).call(this, props));
 
 	    _this.state = {
 	      secreteCode: _this.props.secreteCode,
@@ -44780,7 +44823,7 @@
 	    return _this;
 	  }
 
-	  _createClass(PatientViewControllerPage, [{
+	  _createClass(LearningViewControllerPage, [{
 	    key: 'encodeString',
 	    value: function encodeString(stringToEncode) {
 	      return _Crypto2.default.encodeString(stringToEncode, this.props.secretCode);
@@ -44803,12 +44846,12 @@
 	      var patient = {}; //Serves as vessel to be delivered to the backend on update
 
 	      // Standard Info
-	      if (val.className === "Name") patient = { name: this.encodeString(val.value) };
-	      if (val.className === "Room") patient = { room: val.value };
-	      if (val.className === "DOB") patient = { dob: this.encodeString(val.value) };
-	      if (val.className === "MRN") patient = { mrn: this.encodeString(val.value) };
-	      if (val.className === "LOS") patient = { los: val.value };
-	      if (val.className === "RO") patient = { ro: val.value };
+	      if (val.id === "Name") patient = { name: this.encodeString(val.value) };
+	      if (val.id === "Room") patient = { room: val.value };
+	      if (val.id === "DOB") patient = { dob: this.encodeString(val.value) };
+	      if (val.id === "MRN") patient = { mrn: this.encodeString(val.value) };
+	      if (val.id === "LOS") patient = { los: val.value };
+	      if (val.id === "RO") patient = { ro: val.value };
 
 	      // CBC
 	      if (val.className === "WBC") patient = { wbc: this.encodeString(val.value) };
@@ -44834,21 +44877,21 @@
 	      if (val.className === "Overview") patient = { overview: this.encodeString(val.value) };
 
 	      // DailyTodos, using a ternary operator
-	      if (val.className === "LabsBack") patient = val.trueFalse === true ? { labsback: false } : { labsback: true };
-	      if (val.className === "Consults") patient = val.trueFalse === true ? { consults: false } : { consults: true };
-	      if (val.className === "Andon") patient = val.trueFalse === true ? { andon: false } : { andon: true };
-	      if (val.className === "Mar") patient = val.trueFalse === true ? { mar: false } : { mar: true };
-	      if (val.className === "IVMed") patient = val.trueFalse === true ? { ivmed: false } : { ivmed: true };
-	      if (val.className === "AMLab") patient = val.trueFalse === true ? { amlab: false } : { amlab: true };
-	      if (val.className === "Dispo") patient = val.trueFalse === true ? { dispo: false } : { dispo: true };
-	      if (val.className === "Learning") patient = val.trueFalse === true ? { learning: false } : { learning: true };
-	      if (val.className === "Seen") patient = val.trueFalse === true ? { seen: false } : { seen: true };
+	      if (val.className === "LabsBack") patient = val.trueFalse === false ? { labsback: false } : { labsback: true };
+	      if (val.className === "Consults") patient = val.trueFalse === false ? { consults: false } : { consults: true };
+	      if (val.className === "Andon") patient = val.trueFalse === false ? { andon: false } : { andon: true };
+	      if (val.className === "Mar") patient = val.trueFalse === false ? { mar: false } : { mar: true };
+	      if (val.className === "IVMed") patient = val.trueFalse === false ? { ivmed: false } : { ivmed: true };
+	      if (val.className === "AMLab") patient = val.trueFalse === false ? { amlab: false } : { amlab: true };
+	      if (val.className === "Dispo") patient = val.trueFalse === false ? { dispo: false } : { dispo: true };
+	      if (val.className === "Learning") patient = val.trueFalse === false ? { learning: false } : { learning: true };
+	      if (val.className === "Seen") patient = val.trueFalse === false ? { seen: false } : { seen: true };
 	      if (val.className === "Lines") patient = val.trueFalse === true ? { lines: false } : { lines: true };
 	      if (val.className === "Foley") patient = val.trueFalse === true ? { foley: false } : { foley: true };
 	      if (val.className === "Mobility") patient = val.trueFalse === true ? { mobility: false } : { mobility: true };
 
 	      // Adding to list of followups, again using ternary operator!
-	      if (val.className === "AddFollowUp") patient = this.props.patientData.followup === undefined ? { followup: [{ complete: false, followUpText: this.encodeString(val.value), hidden: false, isEditing: false }] } : { followup: this.props.patientData.followup.concat({ complete: false, followUpText: this.encodeString(val.value), hidden: false }) };
+	      if (val.id === "AddFollowUp") patient = this.props.patientData.followup === undefined ? { followup: [{ complete: false, followUpText: this.encodeString(val.value), hidden: false, isEditing: false }] } : { followup: this.props.patientData.followup.concat({ complete: false, followUpText: this.encodeString(val.value), hidden: false }) };
 	      // checking off a followup
 	      if (val.className === "FollowUp") {
 	        var tempArray = this.props.patientData.followup.concat();
@@ -44881,11 +44924,11 @@
 	      }
 
 	      // Adding to list of consults, again using ternary operator!
-	      if (val.className === "AddConsult") patient = this.props.patientData.consult === undefined ? { consult: [{ complete: false, consultText: this.encodeString(val.value), hidden: false, isEditing: false }] } : { consult: this.props.patientData.consult.concat({ complete: false, consultText: this.encodeString(val.value), hidden: false }) };
+	      if (val.id === "AddConsult") patient = this.props.patientData.consult === undefined ? { consult: [{ complete: false, consultText: this.encodeString(val.value), hidden: false, isEditing: false }] } : { consult: this.props.patientData.consult.concat({ complete: false, consultText: this.encodeString(val.value), hidden: false }) };
 	      // checking off a followup
-	      if (val.className === "Consult") {
+	      if (val.name === "Consult") {
 	        var tempArray = this.props.patientData.consult.concat();
-	        var object = tempArray[val.name];
+	        var object = tempArray[val.id];
 	        object = object.complete === true ? object.complete = false : object.complete = true;
 	        patient = { consult: tempArray };
 	      }
@@ -44942,7 +44985,7 @@
 	        },
 	        body: JSON.stringify(patient)
 	      }).then(function (data) {
-	        if (val.className === "AddFollowUp" || val.className === "FollowUp" || val.className === "FollowUpEdit" || val.className === "deleteFollowUp" || val.className === "AddConsult" || val.className === "Consult" || val.className === "ConsultEdit" || val.className === "deleteConsult" || val.className === "AddLearning" || val.className === "LearningList" || val.className === "deleteLearning" || val.className === "DeleteButton") {
+	        if (val.id === "AddFollowUp" || val.className === "FollowUp" || val.className === "FollowUpEdit" || val.className === "deleteFollowUp" || val.id === "AddConsult" || val.className === "Consult" || val.className === "ConsultEdit" || val.className === "deleteConsult" || val.className === "AddLearning" || val.className === "LearningList" || val.className === "deleteLearning" || val.className === "DeleteButton") {
 	          this.props.updateTheState();
 	          console.log("State updated...");
 	        }
@@ -44951,21 +44994,21 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_PatientViewController2.default, {
+	      return _react2.default.createElement(_LearningViewController2.default, {
 	        onUpdate: this.onUpdate,
 	        patientData: this.props.patientData,
 	        secretCode: this.props.secretCode });
 	    }
 	  }]);
 
-	  return PatientViewControllerPage;
+	  return LearningViewControllerPage;
 	}(_react2.default.Component);
 
-	exports.default = PatientViewControllerPage;
+	exports.default = LearningViewControllerPage;
 
 /***/ },
 /* 484 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
@@ -44980,6 +45023,7 @@
 	/*jshint esversion: 6 */
 
 	// Our decoder!
+	var CryptoJS = __webpack_require__(485);
 
 	var Crypto = function () {
 	  function Crypto() {
@@ -45009,6 +45053,6754 @@
 /* 485 */
 /***/ function(module, exports, __webpack_require__) {
 
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(487), __webpack_require__(488), __webpack_require__(489), __webpack_require__(490), __webpack_require__(491), __webpack_require__(492), __webpack_require__(493), __webpack_require__(494), __webpack_require__(495), __webpack_require__(496), __webpack_require__(497), __webpack_require__(498), __webpack_require__(499), __webpack_require__(500), __webpack_require__(501), __webpack_require__(502), __webpack_require__(503), __webpack_require__(504), __webpack_require__(505), __webpack_require__(506), __webpack_require__(507), __webpack_require__(508), __webpack_require__(509), __webpack_require__(510), __webpack_require__(511), __webpack_require__(512), __webpack_require__(513), __webpack_require__(514), __webpack_require__(515), __webpack_require__(516), __webpack_require__(517), __webpack_require__(518));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./x64-core", "./lib-typedarrays", "./enc-utf16", "./enc-base64", "./md5", "./sha1", "./sha256", "./sha224", "./sha512", "./sha384", "./sha3", "./ripemd160", "./hmac", "./pbkdf2", "./evpkdf", "./cipher-core", "./mode-cfb", "./mode-ctr", "./mode-ctr-gladman", "./mode-ofb", "./mode-ecb", "./pad-ansix923", "./pad-iso10126", "./pad-iso97971", "./pad-zeropadding", "./pad-nopadding", "./format-hex", "./aes", "./tripledes", "./rc4", "./rabbit", "./rabbit-legacy"], factory);
+		}
+		else {
+			// Global (browser)
+			root.CryptoJS = factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		return CryptoJS;
+
+	}));
+
+/***/ },
+/* 486 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory();
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define([], factory);
+		}
+		else {
+			// Global (browser)
+			root.CryptoJS = factory();
+		}
+	}(this, function () {
+
+		/**
+		 * CryptoJS core components.
+		 */
+		var CryptoJS = CryptoJS || (function (Math, undefined) {
+		    /*
+		     * Local polyfil of Object.create
+		     */
+		    var create = Object.create || (function () {
+		        function F() {};
+
+		        return function (obj) {
+		            var subtype;
+
+		            F.prototype = obj;
+
+		            subtype = new F();
+
+		            F.prototype = null;
+
+		            return subtype;
+		        };
+		    }())
+
+		    /**
+		     * CryptoJS namespace.
+		     */
+		    var C = {};
+
+		    /**
+		     * Library namespace.
+		     */
+		    var C_lib = C.lib = {};
+
+		    /**
+		     * Base object for prototypal inheritance.
+		     */
+		    var Base = C_lib.Base = (function () {
+
+
+		        return {
+		            /**
+		             * Creates a new object that inherits from this object.
+		             *
+		             * @param {Object} overrides Properties to copy into the new object.
+		             *
+		             * @return {Object} The new object.
+		             *
+		             * @static
+		             *
+		             * @example
+		             *
+		             *     var MyType = CryptoJS.lib.Base.extend({
+		             *         field: 'value',
+		             *
+		             *         method: function () {
+		             *         }
+		             *     });
+		             */
+		            extend: function (overrides) {
+		                // Spawn
+		                var subtype = create(this);
+
+		                // Augment
+		                if (overrides) {
+		                    subtype.mixIn(overrides);
+		                }
+
+		                // Create default initializer
+		                if (!subtype.hasOwnProperty('init') || this.init === subtype.init) {
+		                    subtype.init = function () {
+		                        subtype.$super.init.apply(this, arguments);
+		                    };
+		                }
+
+		                // Initializer's prototype is the subtype object
+		                subtype.init.prototype = subtype;
+
+		                // Reference supertype
+		                subtype.$super = this;
+
+		                return subtype;
+		            },
+
+		            /**
+		             * Extends this object and runs the init method.
+		             * Arguments to create() will be passed to init().
+		             *
+		             * @return {Object} The new object.
+		             *
+		             * @static
+		             *
+		             * @example
+		             *
+		             *     var instance = MyType.create();
+		             */
+		            create: function () {
+		                var instance = this.extend();
+		                instance.init.apply(instance, arguments);
+
+		                return instance;
+		            },
+
+		            /**
+		             * Initializes a newly created object.
+		             * Override this method to add some logic when your objects are created.
+		             *
+		             * @example
+		             *
+		             *     var MyType = CryptoJS.lib.Base.extend({
+		             *         init: function () {
+		             *             // ...
+		             *         }
+		             *     });
+		             */
+		            init: function () {
+		            },
+
+		            /**
+		             * Copies properties into this object.
+		             *
+		             * @param {Object} properties The properties to mix in.
+		             *
+		             * @example
+		             *
+		             *     MyType.mixIn({
+		             *         field: 'value'
+		             *     });
+		             */
+		            mixIn: function (properties) {
+		                for (var propertyName in properties) {
+		                    if (properties.hasOwnProperty(propertyName)) {
+		                        this[propertyName] = properties[propertyName];
+		                    }
+		                }
+
+		                // IE won't copy toString using the loop above
+		                if (properties.hasOwnProperty('toString')) {
+		                    this.toString = properties.toString;
+		                }
+		            },
+
+		            /**
+		             * Creates a copy of this object.
+		             *
+		             * @return {Object} The clone.
+		             *
+		             * @example
+		             *
+		             *     var clone = instance.clone();
+		             */
+		            clone: function () {
+		                return this.init.prototype.extend(this);
+		            }
+		        };
+		    }());
+
+		    /**
+		     * An array of 32-bit words.
+		     *
+		     * @property {Array} words The array of 32-bit words.
+		     * @property {number} sigBytes The number of significant bytes in this word array.
+		     */
+		    var WordArray = C_lib.WordArray = Base.extend({
+		        /**
+		         * Initializes a newly created word array.
+		         *
+		         * @param {Array} words (Optional) An array of 32-bit words.
+		         * @param {number} sigBytes (Optional) The number of significant bytes in the words.
+		         *
+		         * @example
+		         *
+		         *     var wordArray = CryptoJS.lib.WordArray.create();
+		         *     var wordArray = CryptoJS.lib.WordArray.create([0x00010203, 0x04050607]);
+		         *     var wordArray = CryptoJS.lib.WordArray.create([0x00010203, 0x04050607], 6);
+		         */
+		        init: function (words, sigBytes) {
+		            words = this.words = words || [];
+
+		            if (sigBytes != undefined) {
+		                this.sigBytes = sigBytes;
+		            } else {
+		                this.sigBytes = words.length * 4;
+		            }
+		        },
+
+		        /**
+		         * Converts this word array to a string.
+		         *
+		         * @param {Encoder} encoder (Optional) The encoding strategy to use. Default: CryptoJS.enc.Hex
+		         *
+		         * @return {string} The stringified word array.
+		         *
+		         * @example
+		         *
+		         *     var string = wordArray + '';
+		         *     var string = wordArray.toString();
+		         *     var string = wordArray.toString(CryptoJS.enc.Utf8);
+		         */
+		        toString: function (encoder) {
+		            return (encoder || Hex).stringify(this);
+		        },
+
+		        /**
+		         * Concatenates a word array to this word array.
+		         *
+		         * @param {WordArray} wordArray The word array to append.
+		         *
+		         * @return {WordArray} This word array.
+		         *
+		         * @example
+		         *
+		         *     wordArray1.concat(wordArray2);
+		         */
+		        concat: function (wordArray) {
+		            // Shortcuts
+		            var thisWords = this.words;
+		            var thatWords = wordArray.words;
+		            var thisSigBytes = this.sigBytes;
+		            var thatSigBytes = wordArray.sigBytes;
+
+		            // Clamp excess bits
+		            this.clamp();
+
+		            // Concat
+		            if (thisSigBytes % 4) {
+		                // Copy one byte at a time
+		                for (var i = 0; i < thatSigBytes; i++) {
+		                    var thatByte = (thatWords[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff;
+		                    thisWords[(thisSigBytes + i) >>> 2] |= thatByte << (24 - ((thisSigBytes + i) % 4) * 8);
+		                }
+		            } else {
+		                // Copy one word at a time
+		                for (var i = 0; i < thatSigBytes; i += 4) {
+		                    thisWords[(thisSigBytes + i) >>> 2] = thatWords[i >>> 2];
+		                }
+		            }
+		            this.sigBytes += thatSigBytes;
+
+		            // Chainable
+		            return this;
+		        },
+
+		        /**
+		         * Removes insignificant bits.
+		         *
+		         * @example
+		         *
+		         *     wordArray.clamp();
+		         */
+		        clamp: function () {
+		            // Shortcuts
+		            var words = this.words;
+		            var sigBytes = this.sigBytes;
+
+		            // Clamp
+		            words[sigBytes >>> 2] &= 0xffffffff << (32 - (sigBytes % 4) * 8);
+		            words.length = Math.ceil(sigBytes / 4);
+		        },
+
+		        /**
+		         * Creates a copy of this word array.
+		         *
+		         * @return {WordArray} The clone.
+		         *
+		         * @example
+		         *
+		         *     var clone = wordArray.clone();
+		         */
+		        clone: function () {
+		            var clone = Base.clone.call(this);
+		            clone.words = this.words.slice(0);
+
+		            return clone;
+		        },
+
+		        /**
+		         * Creates a word array filled with random bytes.
+		         *
+		         * @param {number} nBytes The number of random bytes to generate.
+		         *
+		         * @return {WordArray} The random word array.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var wordArray = CryptoJS.lib.WordArray.random(16);
+		         */
+		        random: function (nBytes) {
+		            var words = [];
+
+		            var r = (function (m_w) {
+		                var m_w = m_w;
+		                var m_z = 0x3ade68b1;
+		                var mask = 0xffffffff;
+
+		                return function () {
+		                    m_z = (0x9069 * (m_z & 0xFFFF) + (m_z >> 0x10)) & mask;
+		                    m_w = (0x4650 * (m_w & 0xFFFF) + (m_w >> 0x10)) & mask;
+		                    var result = ((m_z << 0x10) + m_w) & mask;
+		                    result /= 0x100000000;
+		                    result += 0.5;
+		                    return result * (Math.random() > .5 ? 1 : -1);
+		                }
+		            });
+
+		            for (var i = 0, rcache; i < nBytes; i += 4) {
+		                var _r = r((rcache || Math.random()) * 0x100000000);
+
+		                rcache = _r() * 0x3ade67b7;
+		                words.push((_r() * 0x100000000) | 0);
+		            }
+
+		            return new WordArray.init(words, nBytes);
+		        }
+		    });
+
+		    /**
+		     * Encoder namespace.
+		     */
+		    var C_enc = C.enc = {};
+
+		    /**
+		     * Hex encoding strategy.
+		     */
+		    var Hex = C_enc.Hex = {
+		        /**
+		         * Converts a word array to a hex string.
+		         *
+		         * @param {WordArray} wordArray The word array.
+		         *
+		         * @return {string} The hex string.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var hexString = CryptoJS.enc.Hex.stringify(wordArray);
+		         */
+		        stringify: function (wordArray) {
+		            // Shortcuts
+		            var words = wordArray.words;
+		            var sigBytes = wordArray.sigBytes;
+
+		            // Convert
+		            var hexChars = [];
+		            for (var i = 0; i < sigBytes; i++) {
+		                var bite = (words[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff;
+		                hexChars.push((bite >>> 4).toString(16));
+		                hexChars.push((bite & 0x0f).toString(16));
+		            }
+
+		            return hexChars.join('');
+		        },
+
+		        /**
+		         * Converts a hex string to a word array.
+		         *
+		         * @param {string} hexStr The hex string.
+		         *
+		         * @return {WordArray} The word array.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var wordArray = CryptoJS.enc.Hex.parse(hexString);
+		         */
+		        parse: function (hexStr) {
+		            // Shortcut
+		            var hexStrLength = hexStr.length;
+
+		            // Convert
+		            var words = [];
+		            for (var i = 0; i < hexStrLength; i += 2) {
+		                words[i >>> 3] |= parseInt(hexStr.substr(i, 2), 16) << (24 - (i % 8) * 4);
+		            }
+
+		            return new WordArray.init(words, hexStrLength / 2);
+		        }
+		    };
+
+		    /**
+		     * Latin1 encoding strategy.
+		     */
+		    var Latin1 = C_enc.Latin1 = {
+		        /**
+		         * Converts a word array to a Latin1 string.
+		         *
+		         * @param {WordArray} wordArray The word array.
+		         *
+		         * @return {string} The Latin1 string.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var latin1String = CryptoJS.enc.Latin1.stringify(wordArray);
+		         */
+		        stringify: function (wordArray) {
+		            // Shortcuts
+		            var words = wordArray.words;
+		            var sigBytes = wordArray.sigBytes;
+
+		            // Convert
+		            var latin1Chars = [];
+		            for (var i = 0; i < sigBytes; i++) {
+		                var bite = (words[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff;
+		                latin1Chars.push(String.fromCharCode(bite));
+		            }
+
+		            return latin1Chars.join('');
+		        },
+
+		        /**
+		         * Converts a Latin1 string to a word array.
+		         *
+		         * @param {string} latin1Str The Latin1 string.
+		         *
+		         * @return {WordArray} The word array.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var wordArray = CryptoJS.enc.Latin1.parse(latin1String);
+		         */
+		        parse: function (latin1Str) {
+		            // Shortcut
+		            var latin1StrLength = latin1Str.length;
+
+		            // Convert
+		            var words = [];
+		            for (var i = 0; i < latin1StrLength; i++) {
+		                words[i >>> 2] |= (latin1Str.charCodeAt(i) & 0xff) << (24 - (i % 4) * 8);
+		            }
+
+		            return new WordArray.init(words, latin1StrLength);
+		        }
+		    };
+
+		    /**
+		     * UTF-8 encoding strategy.
+		     */
+		    var Utf8 = C_enc.Utf8 = {
+		        /**
+		         * Converts a word array to a UTF-8 string.
+		         *
+		         * @param {WordArray} wordArray The word array.
+		         *
+		         * @return {string} The UTF-8 string.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var utf8String = CryptoJS.enc.Utf8.stringify(wordArray);
+		         */
+		        stringify: function (wordArray) {
+		            try {
+		                return decodeURIComponent(escape(Latin1.stringify(wordArray)));
+		            } catch (e) {
+		                throw new Error('Malformed UTF-8 data');
+		            }
+		        },
+
+		        /**
+		         * Converts a UTF-8 string to a word array.
+		         *
+		         * @param {string} utf8Str The UTF-8 string.
+		         *
+		         * @return {WordArray} The word array.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var wordArray = CryptoJS.enc.Utf8.parse(utf8String);
+		         */
+		        parse: function (utf8Str) {
+		            return Latin1.parse(unescape(encodeURIComponent(utf8Str)));
+		        }
+		    };
+
+		    /**
+		     * Abstract buffered block algorithm template.
+		     *
+		     * The property blockSize must be implemented in a concrete subtype.
+		     *
+		     * @property {number} _minBufferSize The number of blocks that should be kept unprocessed in the buffer. Default: 0
+		     */
+		    var BufferedBlockAlgorithm = C_lib.BufferedBlockAlgorithm = Base.extend({
+		        /**
+		         * Resets this block algorithm's data buffer to its initial state.
+		         *
+		         * @example
+		         *
+		         *     bufferedBlockAlgorithm.reset();
+		         */
+		        reset: function () {
+		            // Initial values
+		            this._data = new WordArray.init();
+		            this._nDataBytes = 0;
+		        },
+
+		        /**
+		         * Adds new data to this block algorithm's buffer.
+		         *
+		         * @param {WordArray|string} data The data to append. Strings are converted to a WordArray using UTF-8.
+		         *
+		         * @example
+		         *
+		         *     bufferedBlockAlgorithm._append('data');
+		         *     bufferedBlockAlgorithm._append(wordArray);
+		         */
+		        _append: function (data) {
+		            // Convert string to WordArray, else assume WordArray already
+		            if (typeof data == 'string') {
+		                data = Utf8.parse(data);
+		            }
+
+		            // Append
+		            this._data.concat(data);
+		            this._nDataBytes += data.sigBytes;
+		        },
+
+		        /**
+		         * Processes available data blocks.
+		         *
+		         * This method invokes _doProcessBlock(offset), which must be implemented by a concrete subtype.
+		         *
+		         * @param {boolean} doFlush Whether all blocks and partial blocks should be processed.
+		         *
+		         * @return {WordArray} The processed data.
+		         *
+		         * @example
+		         *
+		         *     var processedData = bufferedBlockAlgorithm._process();
+		         *     var processedData = bufferedBlockAlgorithm._process(!!'flush');
+		         */
+		        _process: function (doFlush) {
+		            // Shortcuts
+		            var data = this._data;
+		            var dataWords = data.words;
+		            var dataSigBytes = data.sigBytes;
+		            var blockSize = this.blockSize;
+		            var blockSizeBytes = blockSize * 4;
+
+		            // Count blocks ready
+		            var nBlocksReady = dataSigBytes / blockSizeBytes;
+		            if (doFlush) {
+		                // Round up to include partial blocks
+		                nBlocksReady = Math.ceil(nBlocksReady);
+		            } else {
+		                // Round down to include only full blocks,
+		                // less the number of blocks that must remain in the buffer
+		                nBlocksReady = Math.max((nBlocksReady | 0) - this._minBufferSize, 0);
+		            }
+
+		            // Count words ready
+		            var nWordsReady = nBlocksReady * blockSize;
+
+		            // Count bytes ready
+		            var nBytesReady = Math.min(nWordsReady * 4, dataSigBytes);
+
+		            // Process blocks
+		            if (nWordsReady) {
+		                for (var offset = 0; offset < nWordsReady; offset += blockSize) {
+		                    // Perform concrete-algorithm logic
+		                    this._doProcessBlock(dataWords, offset);
+		                }
+
+		                // Remove processed words
+		                var processedWords = dataWords.splice(0, nWordsReady);
+		                data.sigBytes -= nBytesReady;
+		            }
+
+		            // Return processed words
+		            return new WordArray.init(processedWords, nBytesReady);
+		        },
+
+		        /**
+		         * Creates a copy of this object.
+		         *
+		         * @return {Object} The clone.
+		         *
+		         * @example
+		         *
+		         *     var clone = bufferedBlockAlgorithm.clone();
+		         */
+		        clone: function () {
+		            var clone = Base.clone.call(this);
+		            clone._data = this._data.clone();
+
+		            return clone;
+		        },
+
+		        _minBufferSize: 0
+		    });
+
+		    /**
+		     * Abstract hasher template.
+		     *
+		     * @property {number} blockSize The number of 32-bit words this hasher operates on. Default: 16 (512 bits)
+		     */
+		    var Hasher = C_lib.Hasher = BufferedBlockAlgorithm.extend({
+		        /**
+		         * Configuration options.
+		         */
+		        cfg: Base.extend(),
+
+		        /**
+		         * Initializes a newly created hasher.
+		         *
+		         * @param {Object} cfg (Optional) The configuration options to use for this hash computation.
+		         *
+		         * @example
+		         *
+		         *     var hasher = CryptoJS.algo.SHA256.create();
+		         */
+		        init: function (cfg) {
+		            // Apply config defaults
+		            this.cfg = this.cfg.extend(cfg);
+
+		            // Set initial values
+		            this.reset();
+		        },
+
+		        /**
+		         * Resets this hasher to its initial state.
+		         *
+		         * @example
+		         *
+		         *     hasher.reset();
+		         */
+		        reset: function () {
+		            // Reset data buffer
+		            BufferedBlockAlgorithm.reset.call(this);
+
+		            // Perform concrete-hasher logic
+		            this._doReset();
+		        },
+
+		        /**
+		         * Updates this hasher with a message.
+		         *
+		         * @param {WordArray|string} messageUpdate The message to append.
+		         *
+		         * @return {Hasher} This hasher.
+		         *
+		         * @example
+		         *
+		         *     hasher.update('message');
+		         *     hasher.update(wordArray);
+		         */
+		        update: function (messageUpdate) {
+		            // Append
+		            this._append(messageUpdate);
+
+		            // Update the hash
+		            this._process();
+
+		            // Chainable
+		            return this;
+		        },
+
+		        /**
+		         * Finalizes the hash computation.
+		         * Note that the finalize operation is effectively a destructive, read-once operation.
+		         *
+		         * @param {WordArray|string} messageUpdate (Optional) A final message update.
+		         *
+		         * @return {WordArray} The hash.
+		         *
+		         * @example
+		         *
+		         *     var hash = hasher.finalize();
+		         *     var hash = hasher.finalize('message');
+		         *     var hash = hasher.finalize(wordArray);
+		         */
+		        finalize: function (messageUpdate) {
+		            // Final message update
+		            if (messageUpdate) {
+		                this._append(messageUpdate);
+		            }
+
+		            // Perform concrete-hasher logic
+		            var hash = this._doFinalize();
+
+		            return hash;
+		        },
+
+		        blockSize: 512/32,
+
+		        /**
+		         * Creates a shortcut function to a hasher's object interface.
+		         *
+		         * @param {Hasher} hasher The hasher to create a helper for.
+		         *
+		         * @return {Function} The shortcut function.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var SHA256 = CryptoJS.lib.Hasher._createHelper(CryptoJS.algo.SHA256);
+		         */
+		        _createHelper: function (hasher) {
+		            return function (message, cfg) {
+		                return new hasher.init(cfg).finalize(message);
+		            };
+		        },
+
+		        /**
+		         * Creates a shortcut function to the HMAC's object interface.
+		         *
+		         * @param {Hasher} hasher The hasher to use in this HMAC helper.
+		         *
+		         * @return {Function} The shortcut function.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var HmacSHA256 = CryptoJS.lib.Hasher._createHmacHelper(CryptoJS.algo.SHA256);
+		         */
+		        _createHmacHelper: function (hasher) {
+		            return function (message, key) {
+		                return new C_algo.HMAC.init(hasher, key).finalize(message);
+		            };
+		        }
+		    });
+
+		    /**
+		     * Algorithm namespace.
+		     */
+		    var C_algo = C.algo = {};
+
+		    return C;
+		}(Math));
+
+
+		return CryptoJS;
+
+	}));
+
+/***/ },
+/* 487 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		(function (undefined) {
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_lib = C.lib;
+		    var Base = C_lib.Base;
+		    var X32WordArray = C_lib.WordArray;
+
+		    /**
+		     * x64 namespace.
+		     */
+		    var C_x64 = C.x64 = {};
+
+		    /**
+		     * A 64-bit word.
+		     */
+		    var X64Word = C_x64.Word = Base.extend({
+		        /**
+		         * Initializes a newly created 64-bit word.
+		         *
+		         * @param {number} high The high 32 bits.
+		         * @param {number} low The low 32 bits.
+		         *
+		         * @example
+		         *
+		         *     var x64Word = CryptoJS.x64.Word.create(0x00010203, 0x04050607);
+		         */
+		        init: function (high, low) {
+		            this.high = high;
+		            this.low = low;
+		        }
+
+		        /**
+		         * Bitwise NOTs this word.
+		         *
+		         * @return {X64Word} A new x64-Word object after negating.
+		         *
+		         * @example
+		         *
+		         *     var negated = x64Word.not();
+		         */
+		        // not: function () {
+		            // var high = ~this.high;
+		            // var low = ~this.low;
+
+		            // return X64Word.create(high, low);
+		        // },
+
+		        /**
+		         * Bitwise ANDs this word with the passed word.
+		         *
+		         * @param {X64Word} word The x64-Word to AND with this word.
+		         *
+		         * @return {X64Word} A new x64-Word object after ANDing.
+		         *
+		         * @example
+		         *
+		         *     var anded = x64Word.and(anotherX64Word);
+		         */
+		        // and: function (word) {
+		            // var high = this.high & word.high;
+		            // var low = this.low & word.low;
+
+		            // return X64Word.create(high, low);
+		        // },
+
+		        /**
+		         * Bitwise ORs this word with the passed word.
+		         *
+		         * @param {X64Word} word The x64-Word to OR with this word.
+		         *
+		         * @return {X64Word} A new x64-Word object after ORing.
+		         *
+		         * @example
+		         *
+		         *     var ored = x64Word.or(anotherX64Word);
+		         */
+		        // or: function (word) {
+		            // var high = this.high | word.high;
+		            // var low = this.low | word.low;
+
+		            // return X64Word.create(high, low);
+		        // },
+
+		        /**
+		         * Bitwise XORs this word with the passed word.
+		         *
+		         * @param {X64Word} word The x64-Word to XOR with this word.
+		         *
+		         * @return {X64Word} A new x64-Word object after XORing.
+		         *
+		         * @example
+		         *
+		         *     var xored = x64Word.xor(anotherX64Word);
+		         */
+		        // xor: function (word) {
+		            // var high = this.high ^ word.high;
+		            // var low = this.low ^ word.low;
+
+		            // return X64Word.create(high, low);
+		        // },
+
+		        /**
+		         * Shifts this word n bits to the left.
+		         *
+		         * @param {number} n The number of bits to shift.
+		         *
+		         * @return {X64Word} A new x64-Word object after shifting.
+		         *
+		         * @example
+		         *
+		         *     var shifted = x64Word.shiftL(25);
+		         */
+		        // shiftL: function (n) {
+		            // if (n < 32) {
+		                // var high = (this.high << n) | (this.low >>> (32 - n));
+		                // var low = this.low << n;
+		            // } else {
+		                // var high = this.low << (n - 32);
+		                // var low = 0;
+		            // }
+
+		            // return X64Word.create(high, low);
+		        // },
+
+		        /**
+		         * Shifts this word n bits to the right.
+		         *
+		         * @param {number} n The number of bits to shift.
+		         *
+		         * @return {X64Word} A new x64-Word object after shifting.
+		         *
+		         * @example
+		         *
+		         *     var shifted = x64Word.shiftR(7);
+		         */
+		        // shiftR: function (n) {
+		            // if (n < 32) {
+		                // var low = (this.low >>> n) | (this.high << (32 - n));
+		                // var high = this.high >>> n;
+		            // } else {
+		                // var low = this.high >>> (n - 32);
+		                // var high = 0;
+		            // }
+
+		            // return X64Word.create(high, low);
+		        // },
+
+		        /**
+		         * Rotates this word n bits to the left.
+		         *
+		         * @param {number} n The number of bits to rotate.
+		         *
+		         * @return {X64Word} A new x64-Word object after rotating.
+		         *
+		         * @example
+		         *
+		         *     var rotated = x64Word.rotL(25);
+		         */
+		        // rotL: function (n) {
+		            // return this.shiftL(n).or(this.shiftR(64 - n));
+		        // },
+
+		        /**
+		         * Rotates this word n bits to the right.
+		         *
+		         * @param {number} n The number of bits to rotate.
+		         *
+		         * @return {X64Word} A new x64-Word object after rotating.
+		         *
+		         * @example
+		         *
+		         *     var rotated = x64Word.rotR(7);
+		         */
+		        // rotR: function (n) {
+		            // return this.shiftR(n).or(this.shiftL(64 - n));
+		        // },
+
+		        /**
+		         * Adds this word with the passed word.
+		         *
+		         * @param {X64Word} word The x64-Word to add with this word.
+		         *
+		         * @return {X64Word} A new x64-Word object after adding.
+		         *
+		         * @example
+		         *
+		         *     var added = x64Word.add(anotherX64Word);
+		         */
+		        // add: function (word) {
+		            // var low = (this.low + word.low) | 0;
+		            // var carry = (low >>> 0) < (this.low >>> 0) ? 1 : 0;
+		            // var high = (this.high + word.high + carry) | 0;
+
+		            // return X64Word.create(high, low);
+		        // }
+		    });
+
+		    /**
+		     * An array of 64-bit words.
+		     *
+		     * @property {Array} words The array of CryptoJS.x64.Word objects.
+		     * @property {number} sigBytes The number of significant bytes in this word array.
+		     */
+		    var X64WordArray = C_x64.WordArray = Base.extend({
+		        /**
+		         * Initializes a newly created word array.
+		         *
+		         * @param {Array} words (Optional) An array of CryptoJS.x64.Word objects.
+		         * @param {number} sigBytes (Optional) The number of significant bytes in the words.
+		         *
+		         * @example
+		         *
+		         *     var wordArray = CryptoJS.x64.WordArray.create();
+		         *
+		         *     var wordArray = CryptoJS.x64.WordArray.create([
+		         *         CryptoJS.x64.Word.create(0x00010203, 0x04050607),
+		         *         CryptoJS.x64.Word.create(0x18191a1b, 0x1c1d1e1f)
+		         *     ]);
+		         *
+		         *     var wordArray = CryptoJS.x64.WordArray.create([
+		         *         CryptoJS.x64.Word.create(0x00010203, 0x04050607),
+		         *         CryptoJS.x64.Word.create(0x18191a1b, 0x1c1d1e1f)
+		         *     ], 10);
+		         */
+		        init: function (words, sigBytes) {
+		            words = this.words = words || [];
+
+		            if (sigBytes != undefined) {
+		                this.sigBytes = sigBytes;
+		            } else {
+		                this.sigBytes = words.length * 8;
+		            }
+		        },
+
+		        /**
+		         * Converts this 64-bit word array to a 32-bit word array.
+		         *
+		         * @return {CryptoJS.lib.WordArray} This word array's data as a 32-bit word array.
+		         *
+		         * @example
+		         *
+		         *     var x32WordArray = x64WordArray.toX32();
+		         */
+		        toX32: function () {
+		            // Shortcuts
+		            var x64Words = this.words;
+		            var x64WordsLength = x64Words.length;
+
+		            // Convert
+		            var x32Words = [];
+		            for (var i = 0; i < x64WordsLength; i++) {
+		                var x64Word = x64Words[i];
+		                x32Words.push(x64Word.high);
+		                x32Words.push(x64Word.low);
+		            }
+
+		            return X32WordArray.create(x32Words, this.sigBytes);
+		        },
+
+		        /**
+		         * Creates a copy of this word array.
+		         *
+		         * @return {X64WordArray} The clone.
+		         *
+		         * @example
+		         *
+		         *     var clone = x64WordArray.clone();
+		         */
+		        clone: function () {
+		            var clone = Base.clone.call(this);
+
+		            // Clone "words" array
+		            var words = clone.words = this.words.slice(0);
+
+		            // Clone each X64Word object
+		            var wordsLength = words.length;
+		            for (var i = 0; i < wordsLength; i++) {
+		                words[i] = words[i].clone();
+		            }
+
+		            return clone;
+		        }
+		    });
+		}());
+
+
+		return CryptoJS;
+
+	}));
+
+/***/ },
+/* 488 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		(function () {
+		    // Check if typed arrays are supported
+		    if (typeof ArrayBuffer != 'function') {
+		        return;
+		    }
+
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_lib = C.lib;
+		    var WordArray = C_lib.WordArray;
+
+		    // Reference original init
+		    var superInit = WordArray.init;
+
+		    // Augment WordArray.init to handle typed arrays
+		    var subInit = WordArray.init = function (typedArray) {
+		        // Convert buffers to uint8
+		        if (typedArray instanceof ArrayBuffer) {
+		            typedArray = new Uint8Array(typedArray);
+		        }
+
+		        // Convert other array views to uint8
+		        if (
+		            typedArray instanceof Int8Array ||
+		            (typeof Uint8ClampedArray !== "undefined" && typedArray instanceof Uint8ClampedArray) ||
+		            typedArray instanceof Int16Array ||
+		            typedArray instanceof Uint16Array ||
+		            typedArray instanceof Int32Array ||
+		            typedArray instanceof Uint32Array ||
+		            typedArray instanceof Float32Array ||
+		            typedArray instanceof Float64Array
+		        ) {
+		            typedArray = new Uint8Array(typedArray.buffer, typedArray.byteOffset, typedArray.byteLength);
+		        }
+
+		        // Handle Uint8Array
+		        if (typedArray instanceof Uint8Array) {
+		            // Shortcut
+		            var typedArrayByteLength = typedArray.byteLength;
+
+		            // Extract bytes
+		            var words = [];
+		            for (var i = 0; i < typedArrayByteLength; i++) {
+		                words[i >>> 2] |= typedArray[i] << (24 - (i % 4) * 8);
+		            }
+
+		            // Initialize this word array
+		            superInit.call(this, words, typedArrayByteLength);
+		        } else {
+		            // Else call normal init
+		            superInit.apply(this, arguments);
+		        }
+		    };
+
+		    subInit.prototype = WordArray;
+		}());
+
+
+		return CryptoJS.lib.WordArray;
+
+	}));
+
+/***/ },
+/* 489 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		(function () {
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_lib = C.lib;
+		    var WordArray = C_lib.WordArray;
+		    var C_enc = C.enc;
+
+		    /**
+		     * UTF-16 BE encoding strategy.
+		     */
+		    var Utf16BE = C_enc.Utf16 = C_enc.Utf16BE = {
+		        /**
+		         * Converts a word array to a UTF-16 BE string.
+		         *
+		         * @param {WordArray} wordArray The word array.
+		         *
+		         * @return {string} The UTF-16 BE string.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var utf16String = CryptoJS.enc.Utf16.stringify(wordArray);
+		         */
+		        stringify: function (wordArray) {
+		            // Shortcuts
+		            var words = wordArray.words;
+		            var sigBytes = wordArray.sigBytes;
+
+		            // Convert
+		            var utf16Chars = [];
+		            for (var i = 0; i < sigBytes; i += 2) {
+		                var codePoint = (words[i >>> 2] >>> (16 - (i % 4) * 8)) & 0xffff;
+		                utf16Chars.push(String.fromCharCode(codePoint));
+		            }
+
+		            return utf16Chars.join('');
+		        },
+
+		        /**
+		         * Converts a UTF-16 BE string to a word array.
+		         *
+		         * @param {string} utf16Str The UTF-16 BE string.
+		         *
+		         * @return {WordArray} The word array.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var wordArray = CryptoJS.enc.Utf16.parse(utf16String);
+		         */
+		        parse: function (utf16Str) {
+		            // Shortcut
+		            var utf16StrLength = utf16Str.length;
+
+		            // Convert
+		            var words = [];
+		            for (var i = 0; i < utf16StrLength; i++) {
+		                words[i >>> 1] |= utf16Str.charCodeAt(i) << (16 - (i % 2) * 16);
+		            }
+
+		            return WordArray.create(words, utf16StrLength * 2);
+		        }
+		    };
+
+		    /**
+		     * UTF-16 LE encoding strategy.
+		     */
+		    C_enc.Utf16LE = {
+		        /**
+		         * Converts a word array to a UTF-16 LE string.
+		         *
+		         * @param {WordArray} wordArray The word array.
+		         *
+		         * @return {string} The UTF-16 LE string.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var utf16Str = CryptoJS.enc.Utf16LE.stringify(wordArray);
+		         */
+		        stringify: function (wordArray) {
+		            // Shortcuts
+		            var words = wordArray.words;
+		            var sigBytes = wordArray.sigBytes;
+
+		            // Convert
+		            var utf16Chars = [];
+		            for (var i = 0; i < sigBytes; i += 2) {
+		                var codePoint = swapEndian((words[i >>> 2] >>> (16 - (i % 4) * 8)) & 0xffff);
+		                utf16Chars.push(String.fromCharCode(codePoint));
+		            }
+
+		            return utf16Chars.join('');
+		        },
+
+		        /**
+		         * Converts a UTF-16 LE string to a word array.
+		         *
+		         * @param {string} utf16Str The UTF-16 LE string.
+		         *
+		         * @return {WordArray} The word array.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var wordArray = CryptoJS.enc.Utf16LE.parse(utf16Str);
+		         */
+		        parse: function (utf16Str) {
+		            // Shortcut
+		            var utf16StrLength = utf16Str.length;
+
+		            // Convert
+		            var words = [];
+		            for (var i = 0; i < utf16StrLength; i++) {
+		                words[i >>> 1] |= swapEndian(utf16Str.charCodeAt(i) << (16 - (i % 2) * 16));
+		            }
+
+		            return WordArray.create(words, utf16StrLength * 2);
+		        }
+		    };
+
+		    function swapEndian(word) {
+		        return ((word << 8) & 0xff00ff00) | ((word >>> 8) & 0x00ff00ff);
+		    }
+		}());
+
+
+		return CryptoJS.enc.Utf16;
+
+	}));
+
+/***/ },
+/* 490 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		(function () {
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_lib = C.lib;
+		    var WordArray = C_lib.WordArray;
+		    var C_enc = C.enc;
+
+		    /**
+		     * Base64 encoding strategy.
+		     */
+		    var Base64 = C_enc.Base64 = {
+		        /**
+		         * Converts a word array to a Base64 string.
+		         *
+		         * @param {WordArray} wordArray The word array.
+		         *
+		         * @return {string} The Base64 string.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var base64String = CryptoJS.enc.Base64.stringify(wordArray);
+		         */
+		        stringify: function (wordArray) {
+		            // Shortcuts
+		            var words = wordArray.words;
+		            var sigBytes = wordArray.sigBytes;
+		            var map = this._map;
+
+		            // Clamp excess bits
+		            wordArray.clamp();
+
+		            // Convert
+		            var base64Chars = [];
+		            for (var i = 0; i < sigBytes; i += 3) {
+		                var byte1 = (words[i >>> 2]       >>> (24 - (i % 4) * 8))       & 0xff;
+		                var byte2 = (words[(i + 1) >>> 2] >>> (24 - ((i + 1) % 4) * 8)) & 0xff;
+		                var byte3 = (words[(i + 2) >>> 2] >>> (24 - ((i + 2) % 4) * 8)) & 0xff;
+
+		                var triplet = (byte1 << 16) | (byte2 << 8) | byte3;
+
+		                for (var j = 0; (j < 4) && (i + j * 0.75 < sigBytes); j++) {
+		                    base64Chars.push(map.charAt((triplet >>> (6 * (3 - j))) & 0x3f));
+		                }
+		            }
+
+		            // Add padding
+		            var paddingChar = map.charAt(64);
+		            if (paddingChar) {
+		                while (base64Chars.length % 4) {
+		                    base64Chars.push(paddingChar);
+		                }
+		            }
+
+		            return base64Chars.join('');
+		        },
+
+		        /**
+		         * Converts a Base64 string to a word array.
+		         *
+		         * @param {string} base64Str The Base64 string.
+		         *
+		         * @return {WordArray} The word array.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var wordArray = CryptoJS.enc.Base64.parse(base64String);
+		         */
+		        parse: function (base64Str) {
+		            // Shortcuts
+		            var base64StrLength = base64Str.length;
+		            var map = this._map;
+		            var reverseMap = this._reverseMap;
+
+		            if (!reverseMap) {
+		                    reverseMap = this._reverseMap = [];
+		                    for (var j = 0; j < map.length; j++) {
+		                        reverseMap[map.charCodeAt(j)] = j;
+		                    }
+		            }
+
+		            // Ignore padding
+		            var paddingChar = map.charAt(64);
+		            if (paddingChar) {
+		                var paddingIndex = base64Str.indexOf(paddingChar);
+		                if (paddingIndex !== -1) {
+		                    base64StrLength = paddingIndex;
+		                }
+		            }
+
+		            // Convert
+		            return parseLoop(base64Str, base64StrLength, reverseMap);
+
+		        },
+
+		        _map: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='
+		    };
+
+		    function parseLoop(base64Str, base64StrLength, reverseMap) {
+		      var words = [];
+		      var nBytes = 0;
+		      for (var i = 0; i < base64StrLength; i++) {
+		          if (i % 4) {
+		              var bits1 = reverseMap[base64Str.charCodeAt(i - 1)] << ((i % 4) * 2);
+		              var bits2 = reverseMap[base64Str.charCodeAt(i)] >>> (6 - (i % 4) * 2);
+		              words[nBytes >>> 2] |= (bits1 | bits2) << (24 - (nBytes % 4) * 8);
+		              nBytes++;
+		          }
+		      }
+		      return WordArray.create(words, nBytes);
+		    }
+		}());
+
+
+		return CryptoJS.enc.Base64;
+
+	}));
+
+/***/ },
+/* 491 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		(function (Math) {
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_lib = C.lib;
+		    var WordArray = C_lib.WordArray;
+		    var Hasher = C_lib.Hasher;
+		    var C_algo = C.algo;
+
+		    // Constants table
+		    var T = [];
+
+		    // Compute constants
+		    (function () {
+		        for (var i = 0; i < 64; i++) {
+		            T[i] = (Math.abs(Math.sin(i + 1)) * 0x100000000) | 0;
+		        }
+		    }());
+
+		    /**
+		     * MD5 hash algorithm.
+		     */
+		    var MD5 = C_algo.MD5 = Hasher.extend({
+		        _doReset: function () {
+		            this._hash = new WordArray.init([
+		                0x67452301, 0xefcdab89,
+		                0x98badcfe, 0x10325476
+		            ]);
+		        },
+
+		        _doProcessBlock: function (M, offset) {
+		            // Swap endian
+		            for (var i = 0; i < 16; i++) {
+		                // Shortcuts
+		                var offset_i = offset + i;
+		                var M_offset_i = M[offset_i];
+
+		                M[offset_i] = (
+		                    (((M_offset_i << 8)  | (M_offset_i >>> 24)) & 0x00ff00ff) |
+		                    (((M_offset_i << 24) | (M_offset_i >>> 8))  & 0xff00ff00)
+		                );
+		            }
+
+		            // Shortcuts
+		            var H = this._hash.words;
+
+		            var M_offset_0  = M[offset + 0];
+		            var M_offset_1  = M[offset + 1];
+		            var M_offset_2  = M[offset + 2];
+		            var M_offset_3  = M[offset + 3];
+		            var M_offset_4  = M[offset + 4];
+		            var M_offset_5  = M[offset + 5];
+		            var M_offset_6  = M[offset + 6];
+		            var M_offset_7  = M[offset + 7];
+		            var M_offset_8  = M[offset + 8];
+		            var M_offset_9  = M[offset + 9];
+		            var M_offset_10 = M[offset + 10];
+		            var M_offset_11 = M[offset + 11];
+		            var M_offset_12 = M[offset + 12];
+		            var M_offset_13 = M[offset + 13];
+		            var M_offset_14 = M[offset + 14];
+		            var M_offset_15 = M[offset + 15];
+
+		            // Working varialbes
+		            var a = H[0];
+		            var b = H[1];
+		            var c = H[2];
+		            var d = H[3];
+
+		            // Computation
+		            a = FF(a, b, c, d, M_offset_0,  7,  T[0]);
+		            d = FF(d, a, b, c, M_offset_1,  12, T[1]);
+		            c = FF(c, d, a, b, M_offset_2,  17, T[2]);
+		            b = FF(b, c, d, a, M_offset_3,  22, T[3]);
+		            a = FF(a, b, c, d, M_offset_4,  7,  T[4]);
+		            d = FF(d, a, b, c, M_offset_5,  12, T[5]);
+		            c = FF(c, d, a, b, M_offset_6,  17, T[6]);
+		            b = FF(b, c, d, a, M_offset_7,  22, T[7]);
+		            a = FF(a, b, c, d, M_offset_8,  7,  T[8]);
+		            d = FF(d, a, b, c, M_offset_9,  12, T[9]);
+		            c = FF(c, d, a, b, M_offset_10, 17, T[10]);
+		            b = FF(b, c, d, a, M_offset_11, 22, T[11]);
+		            a = FF(a, b, c, d, M_offset_12, 7,  T[12]);
+		            d = FF(d, a, b, c, M_offset_13, 12, T[13]);
+		            c = FF(c, d, a, b, M_offset_14, 17, T[14]);
+		            b = FF(b, c, d, a, M_offset_15, 22, T[15]);
+
+		            a = GG(a, b, c, d, M_offset_1,  5,  T[16]);
+		            d = GG(d, a, b, c, M_offset_6,  9,  T[17]);
+		            c = GG(c, d, a, b, M_offset_11, 14, T[18]);
+		            b = GG(b, c, d, a, M_offset_0,  20, T[19]);
+		            a = GG(a, b, c, d, M_offset_5,  5,  T[20]);
+		            d = GG(d, a, b, c, M_offset_10, 9,  T[21]);
+		            c = GG(c, d, a, b, M_offset_15, 14, T[22]);
+		            b = GG(b, c, d, a, M_offset_4,  20, T[23]);
+		            a = GG(a, b, c, d, M_offset_9,  5,  T[24]);
+		            d = GG(d, a, b, c, M_offset_14, 9,  T[25]);
+		            c = GG(c, d, a, b, M_offset_3,  14, T[26]);
+		            b = GG(b, c, d, a, M_offset_8,  20, T[27]);
+		            a = GG(a, b, c, d, M_offset_13, 5,  T[28]);
+		            d = GG(d, a, b, c, M_offset_2,  9,  T[29]);
+		            c = GG(c, d, a, b, M_offset_7,  14, T[30]);
+		            b = GG(b, c, d, a, M_offset_12, 20, T[31]);
+
+		            a = HH(a, b, c, d, M_offset_5,  4,  T[32]);
+		            d = HH(d, a, b, c, M_offset_8,  11, T[33]);
+		            c = HH(c, d, a, b, M_offset_11, 16, T[34]);
+		            b = HH(b, c, d, a, M_offset_14, 23, T[35]);
+		            a = HH(a, b, c, d, M_offset_1,  4,  T[36]);
+		            d = HH(d, a, b, c, M_offset_4,  11, T[37]);
+		            c = HH(c, d, a, b, M_offset_7,  16, T[38]);
+		            b = HH(b, c, d, a, M_offset_10, 23, T[39]);
+		            a = HH(a, b, c, d, M_offset_13, 4,  T[40]);
+		            d = HH(d, a, b, c, M_offset_0,  11, T[41]);
+		            c = HH(c, d, a, b, M_offset_3,  16, T[42]);
+		            b = HH(b, c, d, a, M_offset_6,  23, T[43]);
+		            a = HH(a, b, c, d, M_offset_9,  4,  T[44]);
+		            d = HH(d, a, b, c, M_offset_12, 11, T[45]);
+		            c = HH(c, d, a, b, M_offset_15, 16, T[46]);
+		            b = HH(b, c, d, a, M_offset_2,  23, T[47]);
+
+		            a = II(a, b, c, d, M_offset_0,  6,  T[48]);
+		            d = II(d, a, b, c, M_offset_7,  10, T[49]);
+		            c = II(c, d, a, b, M_offset_14, 15, T[50]);
+		            b = II(b, c, d, a, M_offset_5,  21, T[51]);
+		            a = II(a, b, c, d, M_offset_12, 6,  T[52]);
+		            d = II(d, a, b, c, M_offset_3,  10, T[53]);
+		            c = II(c, d, a, b, M_offset_10, 15, T[54]);
+		            b = II(b, c, d, a, M_offset_1,  21, T[55]);
+		            a = II(a, b, c, d, M_offset_8,  6,  T[56]);
+		            d = II(d, a, b, c, M_offset_15, 10, T[57]);
+		            c = II(c, d, a, b, M_offset_6,  15, T[58]);
+		            b = II(b, c, d, a, M_offset_13, 21, T[59]);
+		            a = II(a, b, c, d, M_offset_4,  6,  T[60]);
+		            d = II(d, a, b, c, M_offset_11, 10, T[61]);
+		            c = II(c, d, a, b, M_offset_2,  15, T[62]);
+		            b = II(b, c, d, a, M_offset_9,  21, T[63]);
+
+		            // Intermediate hash value
+		            H[0] = (H[0] + a) | 0;
+		            H[1] = (H[1] + b) | 0;
+		            H[2] = (H[2] + c) | 0;
+		            H[3] = (H[3] + d) | 0;
+		        },
+
+		        _doFinalize: function () {
+		            // Shortcuts
+		            var data = this._data;
+		            var dataWords = data.words;
+
+		            var nBitsTotal = this._nDataBytes * 8;
+		            var nBitsLeft = data.sigBytes * 8;
+
+		            // Add padding
+		            dataWords[nBitsLeft >>> 5] |= 0x80 << (24 - nBitsLeft % 32);
+
+		            var nBitsTotalH = Math.floor(nBitsTotal / 0x100000000);
+		            var nBitsTotalL = nBitsTotal;
+		            dataWords[(((nBitsLeft + 64) >>> 9) << 4) + 15] = (
+		                (((nBitsTotalH << 8)  | (nBitsTotalH >>> 24)) & 0x00ff00ff) |
+		                (((nBitsTotalH << 24) | (nBitsTotalH >>> 8))  & 0xff00ff00)
+		            );
+		            dataWords[(((nBitsLeft + 64) >>> 9) << 4) + 14] = (
+		                (((nBitsTotalL << 8)  | (nBitsTotalL >>> 24)) & 0x00ff00ff) |
+		                (((nBitsTotalL << 24) | (nBitsTotalL >>> 8))  & 0xff00ff00)
+		            );
+
+		            data.sigBytes = (dataWords.length + 1) * 4;
+
+		            // Hash final blocks
+		            this._process();
+
+		            // Shortcuts
+		            var hash = this._hash;
+		            var H = hash.words;
+
+		            // Swap endian
+		            for (var i = 0; i < 4; i++) {
+		                // Shortcut
+		                var H_i = H[i];
+
+		                H[i] = (((H_i << 8)  | (H_i >>> 24)) & 0x00ff00ff) |
+		                       (((H_i << 24) | (H_i >>> 8))  & 0xff00ff00);
+		            }
+
+		            // Return final computed hash
+		            return hash;
+		        },
+
+		        clone: function () {
+		            var clone = Hasher.clone.call(this);
+		            clone._hash = this._hash.clone();
+
+		            return clone;
+		        }
+		    });
+
+		    function FF(a, b, c, d, x, s, t) {
+		        var n = a + ((b & c) | (~b & d)) + x + t;
+		        return ((n << s) | (n >>> (32 - s))) + b;
+		    }
+
+		    function GG(a, b, c, d, x, s, t) {
+		        var n = a + ((b & d) | (c & ~d)) + x + t;
+		        return ((n << s) | (n >>> (32 - s))) + b;
+		    }
+
+		    function HH(a, b, c, d, x, s, t) {
+		        var n = a + (b ^ c ^ d) + x + t;
+		        return ((n << s) | (n >>> (32 - s))) + b;
+		    }
+
+		    function II(a, b, c, d, x, s, t) {
+		        var n = a + (c ^ (b | ~d)) + x + t;
+		        return ((n << s) | (n >>> (32 - s))) + b;
+		    }
+
+		    /**
+		     * Shortcut function to the hasher's object interface.
+		     *
+		     * @param {WordArray|string} message The message to hash.
+		     *
+		     * @return {WordArray} The hash.
+		     *
+		     * @static
+		     *
+		     * @example
+		     *
+		     *     var hash = CryptoJS.MD5('message');
+		     *     var hash = CryptoJS.MD5(wordArray);
+		     */
+		    C.MD5 = Hasher._createHelper(MD5);
+
+		    /**
+		     * Shortcut function to the HMAC's object interface.
+		     *
+		     * @param {WordArray|string} message The message to hash.
+		     * @param {WordArray|string} key The secret key.
+		     *
+		     * @return {WordArray} The HMAC.
+		     *
+		     * @static
+		     *
+		     * @example
+		     *
+		     *     var hmac = CryptoJS.HmacMD5(message, key);
+		     */
+		    C.HmacMD5 = Hasher._createHmacHelper(MD5);
+		}(Math));
+
+
+		return CryptoJS.MD5;
+
+	}));
+
+/***/ },
+/* 492 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		(function () {
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_lib = C.lib;
+		    var WordArray = C_lib.WordArray;
+		    var Hasher = C_lib.Hasher;
+		    var C_algo = C.algo;
+
+		    // Reusable object
+		    var W = [];
+
+		    /**
+		     * SHA-1 hash algorithm.
+		     */
+		    var SHA1 = C_algo.SHA1 = Hasher.extend({
+		        _doReset: function () {
+		            this._hash = new WordArray.init([
+		                0x67452301, 0xefcdab89,
+		                0x98badcfe, 0x10325476,
+		                0xc3d2e1f0
+		            ]);
+		        },
+
+		        _doProcessBlock: function (M, offset) {
+		            // Shortcut
+		            var H = this._hash.words;
+
+		            // Working variables
+		            var a = H[0];
+		            var b = H[1];
+		            var c = H[2];
+		            var d = H[3];
+		            var e = H[4];
+
+		            // Computation
+		            for (var i = 0; i < 80; i++) {
+		                if (i < 16) {
+		                    W[i] = M[offset + i] | 0;
+		                } else {
+		                    var n = W[i - 3] ^ W[i - 8] ^ W[i - 14] ^ W[i - 16];
+		                    W[i] = (n << 1) | (n >>> 31);
+		                }
+
+		                var t = ((a << 5) | (a >>> 27)) + e + W[i];
+		                if (i < 20) {
+		                    t += ((b & c) | (~b & d)) + 0x5a827999;
+		                } else if (i < 40) {
+		                    t += (b ^ c ^ d) + 0x6ed9eba1;
+		                } else if (i < 60) {
+		                    t += ((b & c) | (b & d) | (c & d)) - 0x70e44324;
+		                } else /* if (i < 80) */ {
+		                    t += (b ^ c ^ d) - 0x359d3e2a;
+		                }
+
+		                e = d;
+		                d = c;
+		                c = (b << 30) | (b >>> 2);
+		                b = a;
+		                a = t;
+		            }
+
+		            // Intermediate hash value
+		            H[0] = (H[0] + a) | 0;
+		            H[1] = (H[1] + b) | 0;
+		            H[2] = (H[2] + c) | 0;
+		            H[3] = (H[3] + d) | 0;
+		            H[4] = (H[4] + e) | 0;
+		        },
+
+		        _doFinalize: function () {
+		            // Shortcuts
+		            var data = this._data;
+		            var dataWords = data.words;
+
+		            var nBitsTotal = this._nDataBytes * 8;
+		            var nBitsLeft = data.sigBytes * 8;
+
+		            // Add padding
+		            dataWords[nBitsLeft >>> 5] |= 0x80 << (24 - nBitsLeft % 32);
+		            dataWords[(((nBitsLeft + 64) >>> 9) << 4) + 14] = Math.floor(nBitsTotal / 0x100000000);
+		            dataWords[(((nBitsLeft + 64) >>> 9) << 4) + 15] = nBitsTotal;
+		            data.sigBytes = dataWords.length * 4;
+
+		            // Hash final blocks
+		            this._process();
+
+		            // Return final computed hash
+		            return this._hash;
+		        },
+
+		        clone: function () {
+		            var clone = Hasher.clone.call(this);
+		            clone._hash = this._hash.clone();
+
+		            return clone;
+		        }
+		    });
+
+		    /**
+		     * Shortcut function to the hasher's object interface.
+		     *
+		     * @param {WordArray|string} message The message to hash.
+		     *
+		     * @return {WordArray} The hash.
+		     *
+		     * @static
+		     *
+		     * @example
+		     *
+		     *     var hash = CryptoJS.SHA1('message');
+		     *     var hash = CryptoJS.SHA1(wordArray);
+		     */
+		    C.SHA1 = Hasher._createHelper(SHA1);
+
+		    /**
+		     * Shortcut function to the HMAC's object interface.
+		     *
+		     * @param {WordArray|string} message The message to hash.
+		     * @param {WordArray|string} key The secret key.
+		     *
+		     * @return {WordArray} The HMAC.
+		     *
+		     * @static
+		     *
+		     * @example
+		     *
+		     *     var hmac = CryptoJS.HmacSHA1(message, key);
+		     */
+		    C.HmacSHA1 = Hasher._createHmacHelper(SHA1);
+		}());
+
+
+		return CryptoJS.SHA1;
+
+	}));
+
+/***/ },
+/* 493 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		(function (Math) {
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_lib = C.lib;
+		    var WordArray = C_lib.WordArray;
+		    var Hasher = C_lib.Hasher;
+		    var C_algo = C.algo;
+
+		    // Initialization and round constants tables
+		    var H = [];
+		    var K = [];
+
+		    // Compute constants
+		    (function () {
+		        function isPrime(n) {
+		            var sqrtN = Math.sqrt(n);
+		            for (var factor = 2; factor <= sqrtN; factor++) {
+		                if (!(n % factor)) {
+		                    return false;
+		                }
+		            }
+
+		            return true;
+		        }
+
+		        function getFractionalBits(n) {
+		            return ((n - (n | 0)) * 0x100000000) | 0;
+		        }
+
+		        var n = 2;
+		        var nPrime = 0;
+		        while (nPrime < 64) {
+		            if (isPrime(n)) {
+		                if (nPrime < 8) {
+		                    H[nPrime] = getFractionalBits(Math.pow(n, 1 / 2));
+		                }
+		                K[nPrime] = getFractionalBits(Math.pow(n, 1 / 3));
+
+		                nPrime++;
+		            }
+
+		            n++;
+		        }
+		    }());
+
+		    // Reusable object
+		    var W = [];
+
+		    /**
+		     * SHA-256 hash algorithm.
+		     */
+		    var SHA256 = C_algo.SHA256 = Hasher.extend({
+		        _doReset: function () {
+		            this._hash = new WordArray.init(H.slice(0));
+		        },
+
+		        _doProcessBlock: function (M, offset) {
+		            // Shortcut
+		            var H = this._hash.words;
+
+		            // Working variables
+		            var a = H[0];
+		            var b = H[1];
+		            var c = H[2];
+		            var d = H[3];
+		            var e = H[4];
+		            var f = H[5];
+		            var g = H[6];
+		            var h = H[7];
+
+		            // Computation
+		            for (var i = 0; i < 64; i++) {
+		                if (i < 16) {
+		                    W[i] = M[offset + i] | 0;
+		                } else {
+		                    var gamma0x = W[i - 15];
+		                    var gamma0  = ((gamma0x << 25) | (gamma0x >>> 7))  ^
+		                                  ((gamma0x << 14) | (gamma0x >>> 18)) ^
+		                                   (gamma0x >>> 3);
+
+		                    var gamma1x = W[i - 2];
+		                    var gamma1  = ((gamma1x << 15) | (gamma1x >>> 17)) ^
+		                                  ((gamma1x << 13) | (gamma1x >>> 19)) ^
+		                                   (gamma1x >>> 10);
+
+		                    W[i] = gamma0 + W[i - 7] + gamma1 + W[i - 16];
+		                }
+
+		                var ch  = (e & f) ^ (~e & g);
+		                var maj = (a & b) ^ (a & c) ^ (b & c);
+
+		                var sigma0 = ((a << 30) | (a >>> 2)) ^ ((a << 19) | (a >>> 13)) ^ ((a << 10) | (a >>> 22));
+		                var sigma1 = ((e << 26) | (e >>> 6)) ^ ((e << 21) | (e >>> 11)) ^ ((e << 7)  | (e >>> 25));
+
+		                var t1 = h + sigma1 + ch + K[i] + W[i];
+		                var t2 = sigma0 + maj;
+
+		                h = g;
+		                g = f;
+		                f = e;
+		                e = (d + t1) | 0;
+		                d = c;
+		                c = b;
+		                b = a;
+		                a = (t1 + t2) | 0;
+		            }
+
+		            // Intermediate hash value
+		            H[0] = (H[0] + a) | 0;
+		            H[1] = (H[1] + b) | 0;
+		            H[2] = (H[2] + c) | 0;
+		            H[3] = (H[3] + d) | 0;
+		            H[4] = (H[4] + e) | 0;
+		            H[5] = (H[5] + f) | 0;
+		            H[6] = (H[6] + g) | 0;
+		            H[7] = (H[7] + h) | 0;
+		        },
+
+		        _doFinalize: function () {
+		            // Shortcuts
+		            var data = this._data;
+		            var dataWords = data.words;
+
+		            var nBitsTotal = this._nDataBytes * 8;
+		            var nBitsLeft = data.sigBytes * 8;
+
+		            // Add padding
+		            dataWords[nBitsLeft >>> 5] |= 0x80 << (24 - nBitsLeft % 32);
+		            dataWords[(((nBitsLeft + 64) >>> 9) << 4) + 14] = Math.floor(nBitsTotal / 0x100000000);
+		            dataWords[(((nBitsLeft + 64) >>> 9) << 4) + 15] = nBitsTotal;
+		            data.sigBytes = dataWords.length * 4;
+
+		            // Hash final blocks
+		            this._process();
+
+		            // Return final computed hash
+		            return this._hash;
+		        },
+
+		        clone: function () {
+		            var clone = Hasher.clone.call(this);
+		            clone._hash = this._hash.clone();
+
+		            return clone;
+		        }
+		    });
+
+		    /**
+		     * Shortcut function to the hasher's object interface.
+		     *
+		     * @param {WordArray|string} message The message to hash.
+		     *
+		     * @return {WordArray} The hash.
+		     *
+		     * @static
+		     *
+		     * @example
+		     *
+		     *     var hash = CryptoJS.SHA256('message');
+		     *     var hash = CryptoJS.SHA256(wordArray);
+		     */
+		    C.SHA256 = Hasher._createHelper(SHA256);
+
+		    /**
+		     * Shortcut function to the HMAC's object interface.
+		     *
+		     * @param {WordArray|string} message The message to hash.
+		     * @param {WordArray|string} key The secret key.
+		     *
+		     * @return {WordArray} The HMAC.
+		     *
+		     * @static
+		     *
+		     * @example
+		     *
+		     *     var hmac = CryptoJS.HmacSHA256(message, key);
+		     */
+		    C.HmacSHA256 = Hasher._createHmacHelper(SHA256);
+		}(Math));
+
+
+		return CryptoJS.SHA256;
+
+	}));
+
+/***/ },
+/* 494 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(493));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./sha256"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		(function () {
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_lib = C.lib;
+		    var WordArray = C_lib.WordArray;
+		    var C_algo = C.algo;
+		    var SHA256 = C_algo.SHA256;
+
+		    /**
+		     * SHA-224 hash algorithm.
+		     */
+		    var SHA224 = C_algo.SHA224 = SHA256.extend({
+		        _doReset: function () {
+		            this._hash = new WordArray.init([
+		                0xc1059ed8, 0x367cd507, 0x3070dd17, 0xf70e5939,
+		                0xffc00b31, 0x68581511, 0x64f98fa7, 0xbefa4fa4
+		            ]);
+		        },
+
+		        _doFinalize: function () {
+		            var hash = SHA256._doFinalize.call(this);
+
+		            hash.sigBytes -= 4;
+
+		            return hash;
+		        }
+		    });
+
+		    /**
+		     * Shortcut function to the hasher's object interface.
+		     *
+		     * @param {WordArray|string} message The message to hash.
+		     *
+		     * @return {WordArray} The hash.
+		     *
+		     * @static
+		     *
+		     * @example
+		     *
+		     *     var hash = CryptoJS.SHA224('message');
+		     *     var hash = CryptoJS.SHA224(wordArray);
+		     */
+		    C.SHA224 = SHA256._createHelper(SHA224);
+
+		    /**
+		     * Shortcut function to the HMAC's object interface.
+		     *
+		     * @param {WordArray|string} message The message to hash.
+		     * @param {WordArray|string} key The secret key.
+		     *
+		     * @return {WordArray} The HMAC.
+		     *
+		     * @static
+		     *
+		     * @example
+		     *
+		     *     var hmac = CryptoJS.HmacSHA224(message, key);
+		     */
+		    C.HmacSHA224 = SHA256._createHmacHelper(SHA224);
+		}());
+
+
+		return CryptoJS.SHA224;
+
+	}));
+
+/***/ },
+/* 495 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(487));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./x64-core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		(function () {
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_lib = C.lib;
+		    var Hasher = C_lib.Hasher;
+		    var C_x64 = C.x64;
+		    var X64Word = C_x64.Word;
+		    var X64WordArray = C_x64.WordArray;
+		    var C_algo = C.algo;
+
+		    function X64Word_create() {
+		        return X64Word.create.apply(X64Word, arguments);
+		    }
+
+		    // Constants
+		    var K = [
+		        X64Word_create(0x428a2f98, 0xd728ae22), X64Word_create(0x71374491, 0x23ef65cd),
+		        X64Word_create(0xb5c0fbcf, 0xec4d3b2f), X64Word_create(0xe9b5dba5, 0x8189dbbc),
+		        X64Word_create(0x3956c25b, 0xf348b538), X64Word_create(0x59f111f1, 0xb605d019),
+		        X64Word_create(0x923f82a4, 0xaf194f9b), X64Word_create(0xab1c5ed5, 0xda6d8118),
+		        X64Word_create(0xd807aa98, 0xa3030242), X64Word_create(0x12835b01, 0x45706fbe),
+		        X64Word_create(0x243185be, 0x4ee4b28c), X64Word_create(0x550c7dc3, 0xd5ffb4e2),
+		        X64Word_create(0x72be5d74, 0xf27b896f), X64Word_create(0x80deb1fe, 0x3b1696b1),
+		        X64Word_create(0x9bdc06a7, 0x25c71235), X64Word_create(0xc19bf174, 0xcf692694),
+		        X64Word_create(0xe49b69c1, 0x9ef14ad2), X64Word_create(0xefbe4786, 0x384f25e3),
+		        X64Word_create(0x0fc19dc6, 0x8b8cd5b5), X64Word_create(0x240ca1cc, 0x77ac9c65),
+		        X64Word_create(0x2de92c6f, 0x592b0275), X64Word_create(0x4a7484aa, 0x6ea6e483),
+		        X64Word_create(0x5cb0a9dc, 0xbd41fbd4), X64Word_create(0x76f988da, 0x831153b5),
+		        X64Word_create(0x983e5152, 0xee66dfab), X64Word_create(0xa831c66d, 0x2db43210),
+		        X64Word_create(0xb00327c8, 0x98fb213f), X64Word_create(0xbf597fc7, 0xbeef0ee4),
+		        X64Word_create(0xc6e00bf3, 0x3da88fc2), X64Word_create(0xd5a79147, 0x930aa725),
+		        X64Word_create(0x06ca6351, 0xe003826f), X64Word_create(0x14292967, 0x0a0e6e70),
+		        X64Word_create(0x27b70a85, 0x46d22ffc), X64Word_create(0x2e1b2138, 0x5c26c926),
+		        X64Word_create(0x4d2c6dfc, 0x5ac42aed), X64Word_create(0x53380d13, 0x9d95b3df),
+		        X64Word_create(0x650a7354, 0x8baf63de), X64Word_create(0x766a0abb, 0x3c77b2a8),
+		        X64Word_create(0x81c2c92e, 0x47edaee6), X64Word_create(0x92722c85, 0x1482353b),
+		        X64Word_create(0xa2bfe8a1, 0x4cf10364), X64Word_create(0xa81a664b, 0xbc423001),
+		        X64Word_create(0xc24b8b70, 0xd0f89791), X64Word_create(0xc76c51a3, 0x0654be30),
+		        X64Word_create(0xd192e819, 0xd6ef5218), X64Word_create(0xd6990624, 0x5565a910),
+		        X64Word_create(0xf40e3585, 0x5771202a), X64Word_create(0x106aa070, 0x32bbd1b8),
+		        X64Word_create(0x19a4c116, 0xb8d2d0c8), X64Word_create(0x1e376c08, 0x5141ab53),
+		        X64Word_create(0x2748774c, 0xdf8eeb99), X64Word_create(0x34b0bcb5, 0xe19b48a8),
+		        X64Word_create(0x391c0cb3, 0xc5c95a63), X64Word_create(0x4ed8aa4a, 0xe3418acb),
+		        X64Word_create(0x5b9cca4f, 0x7763e373), X64Word_create(0x682e6ff3, 0xd6b2b8a3),
+		        X64Word_create(0x748f82ee, 0x5defb2fc), X64Word_create(0x78a5636f, 0x43172f60),
+		        X64Word_create(0x84c87814, 0xa1f0ab72), X64Word_create(0x8cc70208, 0x1a6439ec),
+		        X64Word_create(0x90befffa, 0x23631e28), X64Word_create(0xa4506ceb, 0xde82bde9),
+		        X64Word_create(0xbef9a3f7, 0xb2c67915), X64Word_create(0xc67178f2, 0xe372532b),
+		        X64Word_create(0xca273ece, 0xea26619c), X64Word_create(0xd186b8c7, 0x21c0c207),
+		        X64Word_create(0xeada7dd6, 0xcde0eb1e), X64Word_create(0xf57d4f7f, 0xee6ed178),
+		        X64Word_create(0x06f067aa, 0x72176fba), X64Word_create(0x0a637dc5, 0xa2c898a6),
+		        X64Word_create(0x113f9804, 0xbef90dae), X64Word_create(0x1b710b35, 0x131c471b),
+		        X64Word_create(0x28db77f5, 0x23047d84), X64Word_create(0x32caab7b, 0x40c72493),
+		        X64Word_create(0x3c9ebe0a, 0x15c9bebc), X64Word_create(0x431d67c4, 0x9c100d4c),
+		        X64Word_create(0x4cc5d4be, 0xcb3e42b6), X64Word_create(0x597f299c, 0xfc657e2a),
+		        X64Word_create(0x5fcb6fab, 0x3ad6faec), X64Word_create(0x6c44198c, 0x4a475817)
+		    ];
+
+		    // Reusable objects
+		    var W = [];
+		    (function () {
+		        for (var i = 0; i < 80; i++) {
+		            W[i] = X64Word_create();
+		        }
+		    }());
+
+		    /**
+		     * SHA-512 hash algorithm.
+		     */
+		    var SHA512 = C_algo.SHA512 = Hasher.extend({
+		        _doReset: function () {
+		            this._hash = new X64WordArray.init([
+		                new X64Word.init(0x6a09e667, 0xf3bcc908), new X64Word.init(0xbb67ae85, 0x84caa73b),
+		                new X64Word.init(0x3c6ef372, 0xfe94f82b), new X64Word.init(0xa54ff53a, 0x5f1d36f1),
+		                new X64Word.init(0x510e527f, 0xade682d1), new X64Word.init(0x9b05688c, 0x2b3e6c1f),
+		                new X64Word.init(0x1f83d9ab, 0xfb41bd6b), new X64Word.init(0x5be0cd19, 0x137e2179)
+		            ]);
+		        },
+
+		        _doProcessBlock: function (M, offset) {
+		            // Shortcuts
+		            var H = this._hash.words;
+
+		            var H0 = H[0];
+		            var H1 = H[1];
+		            var H2 = H[2];
+		            var H3 = H[3];
+		            var H4 = H[4];
+		            var H5 = H[5];
+		            var H6 = H[6];
+		            var H7 = H[7];
+
+		            var H0h = H0.high;
+		            var H0l = H0.low;
+		            var H1h = H1.high;
+		            var H1l = H1.low;
+		            var H2h = H2.high;
+		            var H2l = H2.low;
+		            var H3h = H3.high;
+		            var H3l = H3.low;
+		            var H4h = H4.high;
+		            var H4l = H4.low;
+		            var H5h = H5.high;
+		            var H5l = H5.low;
+		            var H6h = H6.high;
+		            var H6l = H6.low;
+		            var H7h = H7.high;
+		            var H7l = H7.low;
+
+		            // Working variables
+		            var ah = H0h;
+		            var al = H0l;
+		            var bh = H1h;
+		            var bl = H1l;
+		            var ch = H2h;
+		            var cl = H2l;
+		            var dh = H3h;
+		            var dl = H3l;
+		            var eh = H4h;
+		            var el = H4l;
+		            var fh = H5h;
+		            var fl = H5l;
+		            var gh = H6h;
+		            var gl = H6l;
+		            var hh = H7h;
+		            var hl = H7l;
+
+		            // Rounds
+		            for (var i = 0; i < 80; i++) {
+		                // Shortcut
+		                var Wi = W[i];
+
+		                // Extend message
+		                if (i < 16) {
+		                    var Wih = Wi.high = M[offset + i * 2]     | 0;
+		                    var Wil = Wi.low  = M[offset + i * 2 + 1] | 0;
+		                } else {
+		                    // Gamma0
+		                    var gamma0x  = W[i - 15];
+		                    var gamma0xh = gamma0x.high;
+		                    var gamma0xl = gamma0x.low;
+		                    var gamma0h  = ((gamma0xh >>> 1) | (gamma0xl << 31)) ^ ((gamma0xh >>> 8) | (gamma0xl << 24)) ^ (gamma0xh >>> 7);
+		                    var gamma0l  = ((gamma0xl >>> 1) | (gamma0xh << 31)) ^ ((gamma0xl >>> 8) | (gamma0xh << 24)) ^ ((gamma0xl >>> 7) | (gamma0xh << 25));
+
+		                    // Gamma1
+		                    var gamma1x  = W[i - 2];
+		                    var gamma1xh = gamma1x.high;
+		                    var gamma1xl = gamma1x.low;
+		                    var gamma1h  = ((gamma1xh >>> 19) | (gamma1xl << 13)) ^ ((gamma1xh << 3) | (gamma1xl >>> 29)) ^ (gamma1xh >>> 6);
+		                    var gamma1l  = ((gamma1xl >>> 19) | (gamma1xh << 13)) ^ ((gamma1xl << 3) | (gamma1xh >>> 29)) ^ ((gamma1xl >>> 6) | (gamma1xh << 26));
+
+		                    // W[i] = gamma0 + W[i - 7] + gamma1 + W[i - 16]
+		                    var Wi7  = W[i - 7];
+		                    var Wi7h = Wi7.high;
+		                    var Wi7l = Wi7.low;
+
+		                    var Wi16  = W[i - 16];
+		                    var Wi16h = Wi16.high;
+		                    var Wi16l = Wi16.low;
+
+		                    var Wil = gamma0l + Wi7l;
+		                    var Wih = gamma0h + Wi7h + ((Wil >>> 0) < (gamma0l >>> 0) ? 1 : 0);
+		                    var Wil = Wil + gamma1l;
+		                    var Wih = Wih + gamma1h + ((Wil >>> 0) < (gamma1l >>> 0) ? 1 : 0);
+		                    var Wil = Wil + Wi16l;
+		                    var Wih = Wih + Wi16h + ((Wil >>> 0) < (Wi16l >>> 0) ? 1 : 0);
+
+		                    Wi.high = Wih;
+		                    Wi.low  = Wil;
+		                }
+
+		                var chh  = (eh & fh) ^ (~eh & gh);
+		                var chl  = (el & fl) ^ (~el & gl);
+		                var majh = (ah & bh) ^ (ah & ch) ^ (bh & ch);
+		                var majl = (al & bl) ^ (al & cl) ^ (bl & cl);
+
+		                var sigma0h = ((ah >>> 28) | (al << 4))  ^ ((ah << 30)  | (al >>> 2)) ^ ((ah << 25) | (al >>> 7));
+		                var sigma0l = ((al >>> 28) | (ah << 4))  ^ ((al << 30)  | (ah >>> 2)) ^ ((al << 25) | (ah >>> 7));
+		                var sigma1h = ((eh >>> 14) | (el << 18)) ^ ((eh >>> 18) | (el << 14)) ^ ((eh << 23) | (el >>> 9));
+		                var sigma1l = ((el >>> 14) | (eh << 18)) ^ ((el >>> 18) | (eh << 14)) ^ ((el << 23) | (eh >>> 9));
+
+		                // t1 = h + sigma1 + ch + K[i] + W[i]
+		                var Ki  = K[i];
+		                var Kih = Ki.high;
+		                var Kil = Ki.low;
+
+		                var t1l = hl + sigma1l;
+		                var t1h = hh + sigma1h + ((t1l >>> 0) < (hl >>> 0) ? 1 : 0);
+		                var t1l = t1l + chl;
+		                var t1h = t1h + chh + ((t1l >>> 0) < (chl >>> 0) ? 1 : 0);
+		                var t1l = t1l + Kil;
+		                var t1h = t1h + Kih + ((t1l >>> 0) < (Kil >>> 0) ? 1 : 0);
+		                var t1l = t1l + Wil;
+		                var t1h = t1h + Wih + ((t1l >>> 0) < (Wil >>> 0) ? 1 : 0);
+
+		                // t2 = sigma0 + maj
+		                var t2l = sigma0l + majl;
+		                var t2h = sigma0h + majh + ((t2l >>> 0) < (sigma0l >>> 0) ? 1 : 0);
+
+		                // Update working variables
+		                hh = gh;
+		                hl = gl;
+		                gh = fh;
+		                gl = fl;
+		                fh = eh;
+		                fl = el;
+		                el = (dl + t1l) | 0;
+		                eh = (dh + t1h + ((el >>> 0) < (dl >>> 0) ? 1 : 0)) | 0;
+		                dh = ch;
+		                dl = cl;
+		                ch = bh;
+		                cl = bl;
+		                bh = ah;
+		                bl = al;
+		                al = (t1l + t2l) | 0;
+		                ah = (t1h + t2h + ((al >>> 0) < (t1l >>> 0) ? 1 : 0)) | 0;
+		            }
+
+		            // Intermediate hash value
+		            H0l = H0.low  = (H0l + al);
+		            H0.high = (H0h + ah + ((H0l >>> 0) < (al >>> 0) ? 1 : 0));
+		            H1l = H1.low  = (H1l + bl);
+		            H1.high = (H1h + bh + ((H1l >>> 0) < (bl >>> 0) ? 1 : 0));
+		            H2l = H2.low  = (H2l + cl);
+		            H2.high = (H2h + ch + ((H2l >>> 0) < (cl >>> 0) ? 1 : 0));
+		            H3l = H3.low  = (H3l + dl);
+		            H3.high = (H3h + dh + ((H3l >>> 0) < (dl >>> 0) ? 1 : 0));
+		            H4l = H4.low  = (H4l + el);
+		            H4.high = (H4h + eh + ((H4l >>> 0) < (el >>> 0) ? 1 : 0));
+		            H5l = H5.low  = (H5l + fl);
+		            H5.high = (H5h + fh + ((H5l >>> 0) < (fl >>> 0) ? 1 : 0));
+		            H6l = H6.low  = (H6l + gl);
+		            H6.high = (H6h + gh + ((H6l >>> 0) < (gl >>> 0) ? 1 : 0));
+		            H7l = H7.low  = (H7l + hl);
+		            H7.high = (H7h + hh + ((H7l >>> 0) < (hl >>> 0) ? 1 : 0));
+		        },
+
+		        _doFinalize: function () {
+		            // Shortcuts
+		            var data = this._data;
+		            var dataWords = data.words;
+
+		            var nBitsTotal = this._nDataBytes * 8;
+		            var nBitsLeft = data.sigBytes * 8;
+
+		            // Add padding
+		            dataWords[nBitsLeft >>> 5] |= 0x80 << (24 - nBitsLeft % 32);
+		            dataWords[(((nBitsLeft + 128) >>> 10) << 5) + 30] = Math.floor(nBitsTotal / 0x100000000);
+		            dataWords[(((nBitsLeft + 128) >>> 10) << 5) + 31] = nBitsTotal;
+		            data.sigBytes = dataWords.length * 4;
+
+		            // Hash final blocks
+		            this._process();
+
+		            // Convert hash to 32-bit word array before returning
+		            var hash = this._hash.toX32();
+
+		            // Return final computed hash
+		            return hash;
+		        },
+
+		        clone: function () {
+		            var clone = Hasher.clone.call(this);
+		            clone._hash = this._hash.clone();
+
+		            return clone;
+		        },
+
+		        blockSize: 1024/32
+		    });
+
+		    /**
+		     * Shortcut function to the hasher's object interface.
+		     *
+		     * @param {WordArray|string} message The message to hash.
+		     *
+		     * @return {WordArray} The hash.
+		     *
+		     * @static
+		     *
+		     * @example
+		     *
+		     *     var hash = CryptoJS.SHA512('message');
+		     *     var hash = CryptoJS.SHA512(wordArray);
+		     */
+		    C.SHA512 = Hasher._createHelper(SHA512);
+
+		    /**
+		     * Shortcut function to the HMAC's object interface.
+		     *
+		     * @param {WordArray|string} message The message to hash.
+		     * @param {WordArray|string} key The secret key.
+		     *
+		     * @return {WordArray} The HMAC.
+		     *
+		     * @static
+		     *
+		     * @example
+		     *
+		     *     var hmac = CryptoJS.HmacSHA512(message, key);
+		     */
+		    C.HmacSHA512 = Hasher._createHmacHelper(SHA512);
+		}());
+
+
+		return CryptoJS.SHA512;
+
+	}));
+
+/***/ },
+/* 496 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(487), __webpack_require__(495));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./x64-core", "./sha512"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		(function () {
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_x64 = C.x64;
+		    var X64Word = C_x64.Word;
+		    var X64WordArray = C_x64.WordArray;
+		    var C_algo = C.algo;
+		    var SHA512 = C_algo.SHA512;
+
+		    /**
+		     * SHA-384 hash algorithm.
+		     */
+		    var SHA384 = C_algo.SHA384 = SHA512.extend({
+		        _doReset: function () {
+		            this._hash = new X64WordArray.init([
+		                new X64Word.init(0xcbbb9d5d, 0xc1059ed8), new X64Word.init(0x629a292a, 0x367cd507),
+		                new X64Word.init(0x9159015a, 0x3070dd17), new X64Word.init(0x152fecd8, 0xf70e5939),
+		                new X64Word.init(0x67332667, 0xffc00b31), new X64Word.init(0x8eb44a87, 0x68581511),
+		                new X64Word.init(0xdb0c2e0d, 0x64f98fa7), new X64Word.init(0x47b5481d, 0xbefa4fa4)
+		            ]);
+		        },
+
+		        _doFinalize: function () {
+		            var hash = SHA512._doFinalize.call(this);
+
+		            hash.sigBytes -= 16;
+
+		            return hash;
+		        }
+		    });
+
+		    /**
+		     * Shortcut function to the hasher's object interface.
+		     *
+		     * @param {WordArray|string} message The message to hash.
+		     *
+		     * @return {WordArray} The hash.
+		     *
+		     * @static
+		     *
+		     * @example
+		     *
+		     *     var hash = CryptoJS.SHA384('message');
+		     *     var hash = CryptoJS.SHA384(wordArray);
+		     */
+		    C.SHA384 = SHA512._createHelper(SHA384);
+
+		    /**
+		     * Shortcut function to the HMAC's object interface.
+		     *
+		     * @param {WordArray|string} message The message to hash.
+		     * @param {WordArray|string} key The secret key.
+		     *
+		     * @return {WordArray} The HMAC.
+		     *
+		     * @static
+		     *
+		     * @example
+		     *
+		     *     var hmac = CryptoJS.HmacSHA384(message, key);
+		     */
+		    C.HmacSHA384 = SHA512._createHmacHelper(SHA384);
+		}());
+
+
+		return CryptoJS.SHA384;
+
+	}));
+
+/***/ },
+/* 497 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(487));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./x64-core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		(function (Math) {
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_lib = C.lib;
+		    var WordArray = C_lib.WordArray;
+		    var Hasher = C_lib.Hasher;
+		    var C_x64 = C.x64;
+		    var X64Word = C_x64.Word;
+		    var C_algo = C.algo;
+
+		    // Constants tables
+		    var RHO_OFFSETS = [];
+		    var PI_INDEXES  = [];
+		    var ROUND_CONSTANTS = [];
+
+		    // Compute Constants
+		    (function () {
+		        // Compute rho offset constants
+		        var x = 1, y = 0;
+		        for (var t = 0; t < 24; t++) {
+		            RHO_OFFSETS[x + 5 * y] = ((t + 1) * (t + 2) / 2) % 64;
+
+		            var newX = y % 5;
+		            var newY = (2 * x + 3 * y) % 5;
+		            x = newX;
+		            y = newY;
+		        }
+
+		        // Compute pi index constants
+		        for (var x = 0; x < 5; x++) {
+		            for (var y = 0; y < 5; y++) {
+		                PI_INDEXES[x + 5 * y] = y + ((2 * x + 3 * y) % 5) * 5;
+		            }
+		        }
+
+		        // Compute round constants
+		        var LFSR = 0x01;
+		        for (var i = 0; i < 24; i++) {
+		            var roundConstantMsw = 0;
+		            var roundConstantLsw = 0;
+
+		            for (var j = 0; j < 7; j++) {
+		                if (LFSR & 0x01) {
+		                    var bitPosition = (1 << j) - 1;
+		                    if (bitPosition < 32) {
+		                        roundConstantLsw ^= 1 << bitPosition;
+		                    } else /* if (bitPosition >= 32) */ {
+		                        roundConstantMsw ^= 1 << (bitPosition - 32);
+		                    }
+		                }
+
+		                // Compute next LFSR
+		                if (LFSR & 0x80) {
+		                    // Primitive polynomial over GF(2): x^8 + x^6 + x^5 + x^4 + 1
+		                    LFSR = (LFSR << 1) ^ 0x71;
+		                } else {
+		                    LFSR <<= 1;
+		                }
+		            }
+
+		            ROUND_CONSTANTS[i] = X64Word.create(roundConstantMsw, roundConstantLsw);
+		        }
+		    }());
+
+		    // Reusable objects for temporary values
+		    var T = [];
+		    (function () {
+		        for (var i = 0; i < 25; i++) {
+		            T[i] = X64Word.create();
+		        }
+		    }());
+
+		    /**
+		     * SHA-3 hash algorithm.
+		     */
+		    var SHA3 = C_algo.SHA3 = Hasher.extend({
+		        /**
+		         * Configuration options.
+		         *
+		         * @property {number} outputLength
+		         *   The desired number of bits in the output hash.
+		         *   Only values permitted are: 224, 256, 384, 512.
+		         *   Default: 512
+		         */
+		        cfg: Hasher.cfg.extend({
+		            outputLength: 512
+		        }),
+
+		        _doReset: function () {
+		            var state = this._state = []
+		            for (var i = 0; i < 25; i++) {
+		                state[i] = new X64Word.init();
+		            }
+
+		            this.blockSize = (1600 - 2 * this.cfg.outputLength) / 32;
+		        },
+
+		        _doProcessBlock: function (M, offset) {
+		            // Shortcuts
+		            var state = this._state;
+		            var nBlockSizeLanes = this.blockSize / 2;
+
+		            // Absorb
+		            for (var i = 0; i < nBlockSizeLanes; i++) {
+		                // Shortcuts
+		                var M2i  = M[offset + 2 * i];
+		                var M2i1 = M[offset + 2 * i + 1];
+
+		                // Swap endian
+		                M2i = (
+		                    (((M2i << 8)  | (M2i >>> 24)) & 0x00ff00ff) |
+		                    (((M2i << 24) | (M2i >>> 8))  & 0xff00ff00)
+		                );
+		                M2i1 = (
+		                    (((M2i1 << 8)  | (M2i1 >>> 24)) & 0x00ff00ff) |
+		                    (((M2i1 << 24) | (M2i1 >>> 8))  & 0xff00ff00)
+		                );
+
+		                // Absorb message into state
+		                var lane = state[i];
+		                lane.high ^= M2i1;
+		                lane.low  ^= M2i;
+		            }
+
+		            // Rounds
+		            for (var round = 0; round < 24; round++) {
+		                // Theta
+		                for (var x = 0; x < 5; x++) {
+		                    // Mix column lanes
+		                    var tMsw = 0, tLsw = 0;
+		                    for (var y = 0; y < 5; y++) {
+		                        var lane = state[x + 5 * y];
+		                        tMsw ^= lane.high;
+		                        tLsw ^= lane.low;
+		                    }
+
+		                    // Temporary values
+		                    var Tx = T[x];
+		                    Tx.high = tMsw;
+		                    Tx.low  = tLsw;
+		                }
+		                for (var x = 0; x < 5; x++) {
+		                    // Shortcuts
+		                    var Tx4 = T[(x + 4) % 5];
+		                    var Tx1 = T[(x + 1) % 5];
+		                    var Tx1Msw = Tx1.high;
+		                    var Tx1Lsw = Tx1.low;
+
+		                    // Mix surrounding columns
+		                    var tMsw = Tx4.high ^ ((Tx1Msw << 1) | (Tx1Lsw >>> 31));
+		                    var tLsw = Tx4.low  ^ ((Tx1Lsw << 1) | (Tx1Msw >>> 31));
+		                    for (var y = 0; y < 5; y++) {
+		                        var lane = state[x + 5 * y];
+		                        lane.high ^= tMsw;
+		                        lane.low  ^= tLsw;
+		                    }
+		                }
+
+		                // Rho Pi
+		                for (var laneIndex = 1; laneIndex < 25; laneIndex++) {
+		                    // Shortcuts
+		                    var lane = state[laneIndex];
+		                    var laneMsw = lane.high;
+		                    var laneLsw = lane.low;
+		                    var rhoOffset = RHO_OFFSETS[laneIndex];
+
+		                    // Rotate lanes
+		                    if (rhoOffset < 32) {
+		                        var tMsw = (laneMsw << rhoOffset) | (laneLsw >>> (32 - rhoOffset));
+		                        var tLsw = (laneLsw << rhoOffset) | (laneMsw >>> (32 - rhoOffset));
+		                    } else /* if (rhoOffset >= 32) */ {
+		                        var tMsw = (laneLsw << (rhoOffset - 32)) | (laneMsw >>> (64 - rhoOffset));
+		                        var tLsw = (laneMsw << (rhoOffset - 32)) | (laneLsw >>> (64 - rhoOffset));
+		                    }
+
+		                    // Transpose lanes
+		                    var TPiLane = T[PI_INDEXES[laneIndex]];
+		                    TPiLane.high = tMsw;
+		                    TPiLane.low  = tLsw;
+		                }
+
+		                // Rho pi at x = y = 0
+		                var T0 = T[0];
+		                var state0 = state[0];
+		                T0.high = state0.high;
+		                T0.low  = state0.low;
+
+		                // Chi
+		                for (var x = 0; x < 5; x++) {
+		                    for (var y = 0; y < 5; y++) {
+		                        // Shortcuts
+		                        var laneIndex = x + 5 * y;
+		                        var lane = state[laneIndex];
+		                        var TLane = T[laneIndex];
+		                        var Tx1Lane = T[((x + 1) % 5) + 5 * y];
+		                        var Tx2Lane = T[((x + 2) % 5) + 5 * y];
+
+		                        // Mix rows
+		                        lane.high = TLane.high ^ (~Tx1Lane.high & Tx2Lane.high);
+		                        lane.low  = TLane.low  ^ (~Tx1Lane.low  & Tx2Lane.low);
+		                    }
+		                }
+
+		                // Iota
+		                var lane = state[0];
+		                var roundConstant = ROUND_CONSTANTS[round];
+		                lane.high ^= roundConstant.high;
+		                lane.low  ^= roundConstant.low;;
+		            }
+		        },
+
+		        _doFinalize: function () {
+		            // Shortcuts
+		            var data = this._data;
+		            var dataWords = data.words;
+		            var nBitsTotal = this._nDataBytes * 8;
+		            var nBitsLeft = data.sigBytes * 8;
+		            var blockSizeBits = this.blockSize * 32;
+
+		            // Add padding
+		            dataWords[nBitsLeft >>> 5] |= 0x1 << (24 - nBitsLeft % 32);
+		            dataWords[((Math.ceil((nBitsLeft + 1) / blockSizeBits) * blockSizeBits) >>> 5) - 1] |= 0x80;
+		            data.sigBytes = dataWords.length * 4;
+
+		            // Hash final blocks
+		            this._process();
+
+		            // Shortcuts
+		            var state = this._state;
+		            var outputLengthBytes = this.cfg.outputLength / 8;
+		            var outputLengthLanes = outputLengthBytes / 8;
+
+		            // Squeeze
+		            var hashWords = [];
+		            for (var i = 0; i < outputLengthLanes; i++) {
+		                // Shortcuts
+		                var lane = state[i];
+		                var laneMsw = lane.high;
+		                var laneLsw = lane.low;
+
+		                // Swap endian
+		                laneMsw = (
+		                    (((laneMsw << 8)  | (laneMsw >>> 24)) & 0x00ff00ff) |
+		                    (((laneMsw << 24) | (laneMsw >>> 8))  & 0xff00ff00)
+		                );
+		                laneLsw = (
+		                    (((laneLsw << 8)  | (laneLsw >>> 24)) & 0x00ff00ff) |
+		                    (((laneLsw << 24) | (laneLsw >>> 8))  & 0xff00ff00)
+		                );
+
+		                // Squeeze state to retrieve hash
+		                hashWords.push(laneLsw);
+		                hashWords.push(laneMsw);
+		            }
+
+		            // Return final computed hash
+		            return new WordArray.init(hashWords, outputLengthBytes);
+		        },
+
+		        clone: function () {
+		            var clone = Hasher.clone.call(this);
+
+		            var state = clone._state = this._state.slice(0);
+		            for (var i = 0; i < 25; i++) {
+		                state[i] = state[i].clone();
+		            }
+
+		            return clone;
+		        }
+		    });
+
+		    /**
+		     * Shortcut function to the hasher's object interface.
+		     *
+		     * @param {WordArray|string} message The message to hash.
+		     *
+		     * @return {WordArray} The hash.
+		     *
+		     * @static
+		     *
+		     * @example
+		     *
+		     *     var hash = CryptoJS.SHA3('message');
+		     *     var hash = CryptoJS.SHA3(wordArray);
+		     */
+		    C.SHA3 = Hasher._createHelper(SHA3);
+
+		    /**
+		     * Shortcut function to the HMAC's object interface.
+		     *
+		     * @param {WordArray|string} message The message to hash.
+		     * @param {WordArray|string} key The secret key.
+		     *
+		     * @return {WordArray} The HMAC.
+		     *
+		     * @static
+		     *
+		     * @example
+		     *
+		     *     var hmac = CryptoJS.HmacSHA3(message, key);
+		     */
+		    C.HmacSHA3 = Hasher._createHmacHelper(SHA3);
+		}(Math));
+
+
+		return CryptoJS.SHA3;
+
+	}));
+
+/***/ },
+/* 498 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		/** @preserve
+		(c) 2012 by Cédric Mesnil. All rights reserved.
+
+		Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+		    - Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+		    - Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+		THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+		*/
+
+		(function (Math) {
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_lib = C.lib;
+		    var WordArray = C_lib.WordArray;
+		    var Hasher = C_lib.Hasher;
+		    var C_algo = C.algo;
+
+		    // Constants table
+		    var _zl = WordArray.create([
+		        0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15,
+		        7,  4, 13,  1, 10,  6, 15,  3, 12,  0,  9,  5,  2, 14, 11,  8,
+		        3, 10, 14,  4,  9, 15,  8,  1,  2,  7,  0,  6, 13, 11,  5, 12,
+		        1,  9, 11, 10,  0,  8, 12,  4, 13,  3,  7, 15, 14,  5,  6,  2,
+		        4,  0,  5,  9,  7, 12,  2, 10, 14,  1,  3,  8, 11,  6, 15, 13]);
+		    var _zr = WordArray.create([
+		        5, 14,  7,  0,  9,  2, 11,  4, 13,  6, 15,  8,  1, 10,  3, 12,
+		        6, 11,  3,  7,  0, 13,  5, 10, 14, 15,  8, 12,  4,  9,  1,  2,
+		        15,  5,  1,  3,  7, 14,  6,  9, 11,  8, 12,  2, 10,  0,  4, 13,
+		        8,  6,  4,  1,  3, 11, 15,  0,  5, 12,  2, 13,  9,  7, 10, 14,
+		        12, 15, 10,  4,  1,  5,  8,  7,  6,  2, 13, 14,  0,  3,  9, 11]);
+		    var _sl = WordArray.create([
+		         11, 14, 15, 12,  5,  8,  7,  9, 11, 13, 14, 15,  6,  7,  9,  8,
+		        7, 6,   8, 13, 11,  9,  7, 15,  7, 12, 15,  9, 11,  7, 13, 12,
+		        11, 13,  6,  7, 14,  9, 13, 15, 14,  8, 13,  6,  5, 12,  7,  5,
+		          11, 12, 14, 15, 14, 15,  9,  8,  9, 14,  5,  6,  8,  6,  5, 12,
+		        9, 15,  5, 11,  6,  8, 13, 12,  5, 12, 13, 14, 11,  8,  5,  6 ]);
+		    var _sr = WordArray.create([
+		        8,  9,  9, 11, 13, 15, 15,  5,  7,  7,  8, 11, 14, 14, 12,  6,
+		        9, 13, 15,  7, 12,  8,  9, 11,  7,  7, 12,  7,  6, 15, 13, 11,
+		        9,  7, 15, 11,  8,  6,  6, 14, 12, 13,  5, 14, 13, 13,  7,  5,
+		        15,  5,  8, 11, 14, 14,  6, 14,  6,  9, 12,  9, 12,  5, 15,  8,
+		        8,  5, 12,  9, 12,  5, 14,  6,  8, 13,  6,  5, 15, 13, 11, 11 ]);
+
+		    var _hl =  WordArray.create([ 0x00000000, 0x5A827999, 0x6ED9EBA1, 0x8F1BBCDC, 0xA953FD4E]);
+		    var _hr =  WordArray.create([ 0x50A28BE6, 0x5C4DD124, 0x6D703EF3, 0x7A6D76E9, 0x00000000]);
+
+		    /**
+		     * RIPEMD160 hash algorithm.
+		     */
+		    var RIPEMD160 = C_algo.RIPEMD160 = Hasher.extend({
+		        _doReset: function () {
+		            this._hash  = WordArray.create([0x67452301, 0xEFCDAB89, 0x98BADCFE, 0x10325476, 0xC3D2E1F0]);
+		        },
+
+		        _doProcessBlock: function (M, offset) {
+
+		            // Swap endian
+		            for (var i = 0; i < 16; i++) {
+		                // Shortcuts
+		                var offset_i = offset + i;
+		                var M_offset_i = M[offset_i];
+
+		                // Swap
+		                M[offset_i] = (
+		                    (((M_offset_i << 8)  | (M_offset_i >>> 24)) & 0x00ff00ff) |
+		                    (((M_offset_i << 24) | (M_offset_i >>> 8))  & 0xff00ff00)
+		                );
+		            }
+		            // Shortcut
+		            var H  = this._hash.words;
+		            var hl = _hl.words;
+		            var hr = _hr.words;
+		            var zl = _zl.words;
+		            var zr = _zr.words;
+		            var sl = _sl.words;
+		            var sr = _sr.words;
+
+		            // Working variables
+		            var al, bl, cl, dl, el;
+		            var ar, br, cr, dr, er;
+
+		            ar = al = H[0];
+		            br = bl = H[1];
+		            cr = cl = H[2];
+		            dr = dl = H[3];
+		            er = el = H[4];
+		            // Computation
+		            var t;
+		            for (var i = 0; i < 80; i += 1) {
+		                t = (al +  M[offset+zl[i]])|0;
+		                if (i<16){
+			            t +=  f1(bl,cl,dl) + hl[0];
+		                } else if (i<32) {
+			            t +=  f2(bl,cl,dl) + hl[1];
+		                } else if (i<48) {
+			            t +=  f3(bl,cl,dl) + hl[2];
+		                } else if (i<64) {
+			            t +=  f4(bl,cl,dl) + hl[3];
+		                } else {// if (i<80) {
+			            t +=  f5(bl,cl,dl) + hl[4];
+		                }
+		                t = t|0;
+		                t =  rotl(t,sl[i]);
+		                t = (t+el)|0;
+		                al = el;
+		                el = dl;
+		                dl = rotl(cl, 10);
+		                cl = bl;
+		                bl = t;
+
+		                t = (ar + M[offset+zr[i]])|0;
+		                if (i<16){
+			            t +=  f5(br,cr,dr) + hr[0];
+		                } else if (i<32) {
+			            t +=  f4(br,cr,dr) + hr[1];
+		                } else if (i<48) {
+			            t +=  f3(br,cr,dr) + hr[2];
+		                } else if (i<64) {
+			            t +=  f2(br,cr,dr) + hr[3];
+		                } else {// if (i<80) {
+			            t +=  f1(br,cr,dr) + hr[4];
+		                }
+		                t = t|0;
+		                t =  rotl(t,sr[i]) ;
+		                t = (t+er)|0;
+		                ar = er;
+		                er = dr;
+		                dr = rotl(cr, 10);
+		                cr = br;
+		                br = t;
+		            }
+		            // Intermediate hash value
+		            t    = (H[1] + cl + dr)|0;
+		            H[1] = (H[2] + dl + er)|0;
+		            H[2] = (H[3] + el + ar)|0;
+		            H[3] = (H[4] + al + br)|0;
+		            H[4] = (H[0] + bl + cr)|0;
+		            H[0] =  t;
+		        },
+
+		        _doFinalize: function () {
+		            // Shortcuts
+		            var data = this._data;
+		            var dataWords = data.words;
+
+		            var nBitsTotal = this._nDataBytes * 8;
+		            var nBitsLeft = data.sigBytes * 8;
+
+		            // Add padding
+		            dataWords[nBitsLeft >>> 5] |= 0x80 << (24 - nBitsLeft % 32);
+		            dataWords[(((nBitsLeft + 64) >>> 9) << 4) + 14] = (
+		                (((nBitsTotal << 8)  | (nBitsTotal >>> 24)) & 0x00ff00ff) |
+		                (((nBitsTotal << 24) | (nBitsTotal >>> 8))  & 0xff00ff00)
+		            );
+		            data.sigBytes = (dataWords.length + 1) * 4;
+
+		            // Hash final blocks
+		            this._process();
+
+		            // Shortcuts
+		            var hash = this._hash;
+		            var H = hash.words;
+
+		            // Swap endian
+		            for (var i = 0; i < 5; i++) {
+		                // Shortcut
+		                var H_i = H[i];
+
+		                // Swap
+		                H[i] = (((H_i << 8)  | (H_i >>> 24)) & 0x00ff00ff) |
+		                       (((H_i << 24) | (H_i >>> 8))  & 0xff00ff00);
+		            }
+
+		            // Return final computed hash
+		            return hash;
+		        },
+
+		        clone: function () {
+		            var clone = Hasher.clone.call(this);
+		            clone._hash = this._hash.clone();
+
+		            return clone;
+		        }
+		    });
+
+
+		    function f1(x, y, z) {
+		        return ((x) ^ (y) ^ (z));
+
+		    }
+
+		    function f2(x, y, z) {
+		        return (((x)&(y)) | ((~x)&(z)));
+		    }
+
+		    function f3(x, y, z) {
+		        return (((x) | (~(y))) ^ (z));
+		    }
+
+		    function f4(x, y, z) {
+		        return (((x) & (z)) | ((y)&(~(z))));
+		    }
+
+		    function f5(x, y, z) {
+		        return ((x) ^ ((y) |(~(z))));
+
+		    }
+
+		    function rotl(x,n) {
+		        return (x<<n) | (x>>>(32-n));
+		    }
+
+
+		    /**
+		     * Shortcut function to the hasher's object interface.
+		     *
+		     * @param {WordArray|string} message The message to hash.
+		     *
+		     * @return {WordArray} The hash.
+		     *
+		     * @static
+		     *
+		     * @example
+		     *
+		     *     var hash = CryptoJS.RIPEMD160('message');
+		     *     var hash = CryptoJS.RIPEMD160(wordArray);
+		     */
+		    C.RIPEMD160 = Hasher._createHelper(RIPEMD160);
+
+		    /**
+		     * Shortcut function to the HMAC's object interface.
+		     *
+		     * @param {WordArray|string} message The message to hash.
+		     * @param {WordArray|string} key The secret key.
+		     *
+		     * @return {WordArray} The HMAC.
+		     *
+		     * @static
+		     *
+		     * @example
+		     *
+		     *     var hmac = CryptoJS.HmacRIPEMD160(message, key);
+		     */
+		    C.HmacRIPEMD160 = Hasher._createHmacHelper(RIPEMD160);
+		}(Math));
+
+
+		return CryptoJS.RIPEMD160;
+
+	}));
+
+/***/ },
+/* 499 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		(function () {
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_lib = C.lib;
+		    var Base = C_lib.Base;
+		    var C_enc = C.enc;
+		    var Utf8 = C_enc.Utf8;
+		    var C_algo = C.algo;
+
+		    /**
+		     * HMAC algorithm.
+		     */
+		    var HMAC = C_algo.HMAC = Base.extend({
+		        /**
+		         * Initializes a newly created HMAC.
+		         *
+		         * @param {Hasher} hasher The hash algorithm to use.
+		         * @param {WordArray|string} key The secret key.
+		         *
+		         * @example
+		         *
+		         *     var hmacHasher = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, key);
+		         */
+		        init: function (hasher, key) {
+		            // Init hasher
+		            hasher = this._hasher = new hasher.init();
+
+		            // Convert string to WordArray, else assume WordArray already
+		            if (typeof key == 'string') {
+		                key = Utf8.parse(key);
+		            }
+
+		            // Shortcuts
+		            var hasherBlockSize = hasher.blockSize;
+		            var hasherBlockSizeBytes = hasherBlockSize * 4;
+
+		            // Allow arbitrary length keys
+		            if (key.sigBytes > hasherBlockSizeBytes) {
+		                key = hasher.finalize(key);
+		            }
+
+		            // Clamp excess bits
+		            key.clamp();
+
+		            // Clone key for inner and outer pads
+		            var oKey = this._oKey = key.clone();
+		            var iKey = this._iKey = key.clone();
+
+		            // Shortcuts
+		            var oKeyWords = oKey.words;
+		            var iKeyWords = iKey.words;
+
+		            // XOR keys with pad constants
+		            for (var i = 0; i < hasherBlockSize; i++) {
+		                oKeyWords[i] ^= 0x5c5c5c5c;
+		                iKeyWords[i] ^= 0x36363636;
+		            }
+		            oKey.sigBytes = iKey.sigBytes = hasherBlockSizeBytes;
+
+		            // Set initial values
+		            this.reset();
+		        },
+
+		        /**
+		         * Resets this HMAC to its initial state.
+		         *
+		         * @example
+		         *
+		         *     hmacHasher.reset();
+		         */
+		        reset: function () {
+		            // Shortcut
+		            var hasher = this._hasher;
+
+		            // Reset
+		            hasher.reset();
+		            hasher.update(this._iKey);
+		        },
+
+		        /**
+		         * Updates this HMAC with a message.
+		         *
+		         * @param {WordArray|string} messageUpdate The message to append.
+		         *
+		         * @return {HMAC} This HMAC instance.
+		         *
+		         * @example
+		         *
+		         *     hmacHasher.update('message');
+		         *     hmacHasher.update(wordArray);
+		         */
+		        update: function (messageUpdate) {
+		            this._hasher.update(messageUpdate);
+
+		            // Chainable
+		            return this;
+		        },
+
+		        /**
+		         * Finalizes the HMAC computation.
+		         * Note that the finalize operation is effectively a destructive, read-once operation.
+		         *
+		         * @param {WordArray|string} messageUpdate (Optional) A final message update.
+		         *
+		         * @return {WordArray} The HMAC.
+		         *
+		         * @example
+		         *
+		         *     var hmac = hmacHasher.finalize();
+		         *     var hmac = hmacHasher.finalize('message');
+		         *     var hmac = hmacHasher.finalize(wordArray);
+		         */
+		        finalize: function (messageUpdate) {
+		            // Shortcut
+		            var hasher = this._hasher;
+
+		            // Compute HMAC
+		            var innerHash = hasher.finalize(messageUpdate);
+		            hasher.reset();
+		            var hmac = hasher.finalize(this._oKey.clone().concat(innerHash));
+
+		            return hmac;
+		        }
+		    });
+		}());
+
+
+	}));
+
+/***/ },
+/* 500 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(492), __webpack_require__(499));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./sha1", "./hmac"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		(function () {
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_lib = C.lib;
+		    var Base = C_lib.Base;
+		    var WordArray = C_lib.WordArray;
+		    var C_algo = C.algo;
+		    var SHA1 = C_algo.SHA1;
+		    var HMAC = C_algo.HMAC;
+
+		    /**
+		     * Password-Based Key Derivation Function 2 algorithm.
+		     */
+		    var PBKDF2 = C_algo.PBKDF2 = Base.extend({
+		        /**
+		         * Configuration options.
+		         *
+		         * @property {number} keySize The key size in words to generate. Default: 4 (128 bits)
+		         * @property {Hasher} hasher The hasher to use. Default: SHA1
+		         * @property {number} iterations The number of iterations to perform. Default: 1
+		         */
+		        cfg: Base.extend({
+		            keySize: 128/32,
+		            hasher: SHA1,
+		            iterations: 1
+		        }),
+
+		        /**
+		         * Initializes a newly created key derivation function.
+		         *
+		         * @param {Object} cfg (Optional) The configuration options to use for the derivation.
+		         *
+		         * @example
+		         *
+		         *     var kdf = CryptoJS.algo.PBKDF2.create();
+		         *     var kdf = CryptoJS.algo.PBKDF2.create({ keySize: 8 });
+		         *     var kdf = CryptoJS.algo.PBKDF2.create({ keySize: 8, iterations: 1000 });
+		         */
+		        init: function (cfg) {
+		            this.cfg = this.cfg.extend(cfg);
+		        },
+
+		        /**
+		         * Computes the Password-Based Key Derivation Function 2.
+		         *
+		         * @param {WordArray|string} password The password.
+		         * @param {WordArray|string} salt A salt.
+		         *
+		         * @return {WordArray} The derived key.
+		         *
+		         * @example
+		         *
+		         *     var key = kdf.compute(password, salt);
+		         */
+		        compute: function (password, salt) {
+		            // Shortcut
+		            var cfg = this.cfg;
+
+		            // Init HMAC
+		            var hmac = HMAC.create(cfg.hasher, password);
+
+		            // Initial values
+		            var derivedKey = WordArray.create();
+		            var blockIndex = WordArray.create([0x00000001]);
+
+		            // Shortcuts
+		            var derivedKeyWords = derivedKey.words;
+		            var blockIndexWords = blockIndex.words;
+		            var keySize = cfg.keySize;
+		            var iterations = cfg.iterations;
+
+		            // Generate key
+		            while (derivedKeyWords.length < keySize) {
+		                var block = hmac.update(salt).finalize(blockIndex);
+		                hmac.reset();
+
+		                // Shortcuts
+		                var blockWords = block.words;
+		                var blockWordsLength = blockWords.length;
+
+		                // Iterations
+		                var intermediate = block;
+		                for (var i = 1; i < iterations; i++) {
+		                    intermediate = hmac.finalize(intermediate);
+		                    hmac.reset();
+
+		                    // Shortcut
+		                    var intermediateWords = intermediate.words;
+
+		                    // XOR intermediate with block
+		                    for (var j = 0; j < blockWordsLength; j++) {
+		                        blockWords[j] ^= intermediateWords[j];
+		                    }
+		                }
+
+		                derivedKey.concat(block);
+		                blockIndexWords[0]++;
+		            }
+		            derivedKey.sigBytes = keySize * 4;
+
+		            return derivedKey;
+		        }
+		    });
+
+		    /**
+		     * Computes the Password-Based Key Derivation Function 2.
+		     *
+		     * @param {WordArray|string} password The password.
+		     * @param {WordArray|string} salt A salt.
+		     * @param {Object} cfg (Optional) The configuration options to use for this computation.
+		     *
+		     * @return {WordArray} The derived key.
+		     *
+		     * @static
+		     *
+		     * @example
+		     *
+		     *     var key = CryptoJS.PBKDF2(password, salt);
+		     *     var key = CryptoJS.PBKDF2(password, salt, { keySize: 8 });
+		     *     var key = CryptoJS.PBKDF2(password, salt, { keySize: 8, iterations: 1000 });
+		     */
+		    C.PBKDF2 = function (password, salt, cfg) {
+		        return PBKDF2.create(cfg).compute(password, salt);
+		    };
+		}());
+
+
+		return CryptoJS.PBKDF2;
+
+	}));
+
+/***/ },
+/* 501 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(492), __webpack_require__(499));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./sha1", "./hmac"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		(function () {
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_lib = C.lib;
+		    var Base = C_lib.Base;
+		    var WordArray = C_lib.WordArray;
+		    var C_algo = C.algo;
+		    var MD5 = C_algo.MD5;
+
+		    /**
+		     * This key derivation function is meant to conform with EVP_BytesToKey.
+		     * www.openssl.org/docs/crypto/EVP_BytesToKey.html
+		     */
+		    var EvpKDF = C_algo.EvpKDF = Base.extend({
+		        /**
+		         * Configuration options.
+		         *
+		         * @property {number} keySize The key size in words to generate. Default: 4 (128 bits)
+		         * @property {Hasher} hasher The hash algorithm to use. Default: MD5
+		         * @property {number} iterations The number of iterations to perform. Default: 1
+		         */
+		        cfg: Base.extend({
+		            keySize: 128/32,
+		            hasher: MD5,
+		            iterations: 1
+		        }),
+
+		        /**
+		         * Initializes a newly created key derivation function.
+		         *
+		         * @param {Object} cfg (Optional) The configuration options to use for the derivation.
+		         *
+		         * @example
+		         *
+		         *     var kdf = CryptoJS.algo.EvpKDF.create();
+		         *     var kdf = CryptoJS.algo.EvpKDF.create({ keySize: 8 });
+		         *     var kdf = CryptoJS.algo.EvpKDF.create({ keySize: 8, iterations: 1000 });
+		         */
+		        init: function (cfg) {
+		            this.cfg = this.cfg.extend(cfg);
+		        },
+
+		        /**
+		         * Derives a key from a password.
+		         *
+		         * @param {WordArray|string} password The password.
+		         * @param {WordArray|string} salt A salt.
+		         *
+		         * @return {WordArray} The derived key.
+		         *
+		         * @example
+		         *
+		         *     var key = kdf.compute(password, salt);
+		         */
+		        compute: function (password, salt) {
+		            // Shortcut
+		            var cfg = this.cfg;
+
+		            // Init hasher
+		            var hasher = cfg.hasher.create();
+
+		            // Initial values
+		            var derivedKey = WordArray.create();
+
+		            // Shortcuts
+		            var derivedKeyWords = derivedKey.words;
+		            var keySize = cfg.keySize;
+		            var iterations = cfg.iterations;
+
+		            // Generate key
+		            while (derivedKeyWords.length < keySize) {
+		                if (block) {
+		                    hasher.update(block);
+		                }
+		                var block = hasher.update(password).finalize(salt);
+		                hasher.reset();
+
+		                // Iterations
+		                for (var i = 1; i < iterations; i++) {
+		                    block = hasher.finalize(block);
+		                    hasher.reset();
+		                }
+
+		                derivedKey.concat(block);
+		            }
+		            derivedKey.sigBytes = keySize * 4;
+
+		            return derivedKey;
+		        }
+		    });
+
+		    /**
+		     * Derives a key from a password.
+		     *
+		     * @param {WordArray|string} password The password.
+		     * @param {WordArray|string} salt A salt.
+		     * @param {Object} cfg (Optional) The configuration options to use for this computation.
+		     *
+		     * @return {WordArray} The derived key.
+		     *
+		     * @static
+		     *
+		     * @example
+		     *
+		     *     var key = CryptoJS.EvpKDF(password, salt);
+		     *     var key = CryptoJS.EvpKDF(password, salt, { keySize: 8 });
+		     *     var key = CryptoJS.EvpKDF(password, salt, { keySize: 8, iterations: 1000 });
+		     */
+		    C.EvpKDF = function (password, salt, cfg) {
+		        return EvpKDF.create(cfg).compute(password, salt);
+		    };
+		}());
+
+
+		return CryptoJS.EvpKDF;
+
+	}));
+
+/***/ },
+/* 502 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(501));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./evpkdf"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		/**
+		 * Cipher core components.
+		 */
+		CryptoJS.lib.Cipher || (function (undefined) {
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_lib = C.lib;
+		    var Base = C_lib.Base;
+		    var WordArray = C_lib.WordArray;
+		    var BufferedBlockAlgorithm = C_lib.BufferedBlockAlgorithm;
+		    var C_enc = C.enc;
+		    var Utf8 = C_enc.Utf8;
+		    var Base64 = C_enc.Base64;
+		    var C_algo = C.algo;
+		    var EvpKDF = C_algo.EvpKDF;
+
+		    /**
+		     * Abstract base cipher template.
+		     *
+		     * @property {number} keySize This cipher's key size. Default: 4 (128 bits)
+		     * @property {number} ivSize This cipher's IV size. Default: 4 (128 bits)
+		     * @property {number} _ENC_XFORM_MODE A constant representing encryption mode.
+		     * @property {number} _DEC_XFORM_MODE A constant representing decryption mode.
+		     */
+		    var Cipher = C_lib.Cipher = BufferedBlockAlgorithm.extend({
+		        /**
+		         * Configuration options.
+		         *
+		         * @property {WordArray} iv The IV to use for this operation.
+		         */
+		        cfg: Base.extend(),
+
+		        /**
+		         * Creates this cipher in encryption mode.
+		         *
+		         * @param {WordArray} key The key.
+		         * @param {Object} cfg (Optional) The configuration options to use for this operation.
+		         *
+		         * @return {Cipher} A cipher instance.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var cipher = CryptoJS.algo.AES.createEncryptor(keyWordArray, { iv: ivWordArray });
+		         */
+		        createEncryptor: function (key, cfg) {
+		            return this.create(this._ENC_XFORM_MODE, key, cfg);
+		        },
+
+		        /**
+		         * Creates this cipher in decryption mode.
+		         *
+		         * @param {WordArray} key The key.
+		         * @param {Object} cfg (Optional) The configuration options to use for this operation.
+		         *
+		         * @return {Cipher} A cipher instance.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var cipher = CryptoJS.algo.AES.createDecryptor(keyWordArray, { iv: ivWordArray });
+		         */
+		        createDecryptor: function (key, cfg) {
+		            return this.create(this._DEC_XFORM_MODE, key, cfg);
+		        },
+
+		        /**
+		         * Initializes a newly created cipher.
+		         *
+		         * @param {number} xformMode Either the encryption or decryption transormation mode constant.
+		         * @param {WordArray} key The key.
+		         * @param {Object} cfg (Optional) The configuration options to use for this operation.
+		         *
+		         * @example
+		         *
+		         *     var cipher = CryptoJS.algo.AES.create(CryptoJS.algo.AES._ENC_XFORM_MODE, keyWordArray, { iv: ivWordArray });
+		         */
+		        init: function (xformMode, key, cfg) {
+		            // Apply config defaults
+		            this.cfg = this.cfg.extend(cfg);
+
+		            // Store transform mode and key
+		            this._xformMode = xformMode;
+		            this._key = key;
+
+		            // Set initial values
+		            this.reset();
+		        },
+
+		        /**
+		         * Resets this cipher to its initial state.
+		         *
+		         * @example
+		         *
+		         *     cipher.reset();
+		         */
+		        reset: function () {
+		            // Reset data buffer
+		            BufferedBlockAlgorithm.reset.call(this);
+
+		            // Perform concrete-cipher logic
+		            this._doReset();
+		        },
+
+		        /**
+		         * Adds data to be encrypted or decrypted.
+		         *
+		         * @param {WordArray|string} dataUpdate The data to encrypt or decrypt.
+		         *
+		         * @return {WordArray} The data after processing.
+		         *
+		         * @example
+		         *
+		         *     var encrypted = cipher.process('data');
+		         *     var encrypted = cipher.process(wordArray);
+		         */
+		        process: function (dataUpdate) {
+		            // Append
+		            this._append(dataUpdate);
+
+		            // Process available blocks
+		            return this._process();
+		        },
+
+		        /**
+		         * Finalizes the encryption or decryption process.
+		         * Note that the finalize operation is effectively a destructive, read-once operation.
+		         *
+		         * @param {WordArray|string} dataUpdate The final data to encrypt or decrypt.
+		         *
+		         * @return {WordArray} The data after final processing.
+		         *
+		         * @example
+		         *
+		         *     var encrypted = cipher.finalize();
+		         *     var encrypted = cipher.finalize('data');
+		         *     var encrypted = cipher.finalize(wordArray);
+		         */
+		        finalize: function (dataUpdate) {
+		            // Final data update
+		            if (dataUpdate) {
+		                this._append(dataUpdate);
+		            }
+
+		            // Perform concrete-cipher logic
+		            var finalProcessedData = this._doFinalize();
+
+		            return finalProcessedData;
+		        },
+
+		        keySize: 128/32,
+
+		        ivSize: 128/32,
+
+		        _ENC_XFORM_MODE: 1,
+
+		        _DEC_XFORM_MODE: 2,
+
+		        /**
+		         * Creates shortcut functions to a cipher's object interface.
+		         *
+		         * @param {Cipher} cipher The cipher to create a helper for.
+		         *
+		         * @return {Object} An object with encrypt and decrypt shortcut functions.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var AES = CryptoJS.lib.Cipher._createHelper(CryptoJS.algo.AES);
+		         */
+		        _createHelper: (function () {
+		            function selectCipherStrategy(key) {
+		                if (typeof key == 'string') {
+		                    return PasswordBasedCipher;
+		                } else {
+		                    return SerializableCipher;
+		                }
+		            }
+
+		            return function (cipher) {
+		                return {
+		                    encrypt: function (message, key, cfg) {
+		                        return selectCipherStrategy(key).encrypt(cipher, message, key, cfg);
+		                    },
+
+		                    decrypt: function (ciphertext, key, cfg) {
+		                        return selectCipherStrategy(key).decrypt(cipher, ciphertext, key, cfg);
+		                    }
+		                };
+		            };
+		        }())
+		    });
+
+		    /**
+		     * Abstract base stream cipher template.
+		     *
+		     * @property {number} blockSize The number of 32-bit words this cipher operates on. Default: 1 (32 bits)
+		     */
+		    var StreamCipher = C_lib.StreamCipher = Cipher.extend({
+		        _doFinalize: function () {
+		            // Process partial blocks
+		            var finalProcessedBlocks = this._process(!!'flush');
+
+		            return finalProcessedBlocks;
+		        },
+
+		        blockSize: 1
+		    });
+
+		    /**
+		     * Mode namespace.
+		     */
+		    var C_mode = C.mode = {};
+
+		    /**
+		     * Abstract base block cipher mode template.
+		     */
+		    var BlockCipherMode = C_lib.BlockCipherMode = Base.extend({
+		        /**
+		         * Creates this mode for encryption.
+		         *
+		         * @param {Cipher} cipher A block cipher instance.
+		         * @param {Array} iv The IV words.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var mode = CryptoJS.mode.CBC.createEncryptor(cipher, iv.words);
+		         */
+		        createEncryptor: function (cipher, iv) {
+		            return this.Encryptor.create(cipher, iv);
+		        },
+
+		        /**
+		         * Creates this mode for decryption.
+		         *
+		         * @param {Cipher} cipher A block cipher instance.
+		         * @param {Array} iv The IV words.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var mode = CryptoJS.mode.CBC.createDecryptor(cipher, iv.words);
+		         */
+		        createDecryptor: function (cipher, iv) {
+		            return this.Decryptor.create(cipher, iv);
+		        },
+
+		        /**
+		         * Initializes a newly created mode.
+		         *
+		         * @param {Cipher} cipher A block cipher instance.
+		         * @param {Array} iv The IV words.
+		         *
+		         * @example
+		         *
+		         *     var mode = CryptoJS.mode.CBC.Encryptor.create(cipher, iv.words);
+		         */
+		        init: function (cipher, iv) {
+		            this._cipher = cipher;
+		            this._iv = iv;
+		        }
+		    });
+
+		    /**
+		     * Cipher Block Chaining mode.
+		     */
+		    var CBC = C_mode.CBC = (function () {
+		        /**
+		         * Abstract base CBC mode.
+		         */
+		        var CBC = BlockCipherMode.extend();
+
+		        /**
+		         * CBC encryptor.
+		         */
+		        CBC.Encryptor = CBC.extend({
+		            /**
+		             * Processes the data block at offset.
+		             *
+		             * @param {Array} words The data words to operate on.
+		             * @param {number} offset The offset where the block starts.
+		             *
+		             * @example
+		             *
+		             *     mode.processBlock(data.words, offset);
+		             */
+		            processBlock: function (words, offset) {
+		                // Shortcuts
+		                var cipher = this._cipher;
+		                var blockSize = cipher.blockSize;
+
+		                // XOR and encrypt
+		                xorBlock.call(this, words, offset, blockSize);
+		                cipher.encryptBlock(words, offset);
+
+		                // Remember this block to use with next block
+		                this._prevBlock = words.slice(offset, offset + blockSize);
+		            }
+		        });
+
+		        /**
+		         * CBC decryptor.
+		         */
+		        CBC.Decryptor = CBC.extend({
+		            /**
+		             * Processes the data block at offset.
+		             *
+		             * @param {Array} words The data words to operate on.
+		             * @param {number} offset The offset where the block starts.
+		             *
+		             * @example
+		             *
+		             *     mode.processBlock(data.words, offset);
+		             */
+		            processBlock: function (words, offset) {
+		                // Shortcuts
+		                var cipher = this._cipher;
+		                var blockSize = cipher.blockSize;
+
+		                // Remember this block to use with next block
+		                var thisBlock = words.slice(offset, offset + blockSize);
+
+		                // Decrypt and XOR
+		                cipher.decryptBlock(words, offset);
+		                xorBlock.call(this, words, offset, blockSize);
+
+		                // This block becomes the previous block
+		                this._prevBlock = thisBlock;
+		            }
+		        });
+
+		        function xorBlock(words, offset, blockSize) {
+		            // Shortcut
+		            var iv = this._iv;
+
+		            // Choose mixing block
+		            if (iv) {
+		                var block = iv;
+
+		                // Remove IV for subsequent blocks
+		                this._iv = undefined;
+		            } else {
+		                var block = this._prevBlock;
+		            }
+
+		            // XOR blocks
+		            for (var i = 0; i < blockSize; i++) {
+		                words[offset + i] ^= block[i];
+		            }
+		        }
+
+		        return CBC;
+		    }());
+
+		    /**
+		     * Padding namespace.
+		     */
+		    var C_pad = C.pad = {};
+
+		    /**
+		     * PKCS #5/7 padding strategy.
+		     */
+		    var Pkcs7 = C_pad.Pkcs7 = {
+		        /**
+		         * Pads data using the algorithm defined in PKCS #5/7.
+		         *
+		         * @param {WordArray} data The data to pad.
+		         * @param {number} blockSize The multiple that the data should be padded to.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     CryptoJS.pad.Pkcs7.pad(wordArray, 4);
+		         */
+		        pad: function (data, blockSize) {
+		            // Shortcut
+		            var blockSizeBytes = blockSize * 4;
+
+		            // Count padding bytes
+		            var nPaddingBytes = blockSizeBytes - data.sigBytes % blockSizeBytes;
+
+		            // Create padding word
+		            var paddingWord = (nPaddingBytes << 24) | (nPaddingBytes << 16) | (nPaddingBytes << 8) | nPaddingBytes;
+
+		            // Create padding
+		            var paddingWords = [];
+		            for (var i = 0; i < nPaddingBytes; i += 4) {
+		                paddingWords.push(paddingWord);
+		            }
+		            var padding = WordArray.create(paddingWords, nPaddingBytes);
+
+		            // Add padding
+		            data.concat(padding);
+		        },
+
+		        /**
+		         * Unpads data that had been padded using the algorithm defined in PKCS #5/7.
+		         *
+		         * @param {WordArray} data The data to unpad.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     CryptoJS.pad.Pkcs7.unpad(wordArray);
+		         */
+		        unpad: function (data) {
+		            // Get number of padding bytes from last byte
+		            var nPaddingBytes = data.words[(data.sigBytes - 1) >>> 2] & 0xff;
+
+		            // Remove padding
+		            data.sigBytes -= nPaddingBytes;
+		        }
+		    };
+
+		    /**
+		     * Abstract base block cipher template.
+		     *
+		     * @property {number} blockSize The number of 32-bit words this cipher operates on. Default: 4 (128 bits)
+		     */
+		    var BlockCipher = C_lib.BlockCipher = Cipher.extend({
+		        /**
+		         * Configuration options.
+		         *
+		         * @property {Mode} mode The block mode to use. Default: CBC
+		         * @property {Padding} padding The padding strategy to use. Default: Pkcs7
+		         */
+		        cfg: Cipher.cfg.extend({
+		            mode: CBC,
+		            padding: Pkcs7
+		        }),
+
+		        reset: function () {
+		            // Reset cipher
+		            Cipher.reset.call(this);
+
+		            // Shortcuts
+		            var cfg = this.cfg;
+		            var iv = cfg.iv;
+		            var mode = cfg.mode;
+
+		            // Reset block mode
+		            if (this._xformMode == this._ENC_XFORM_MODE) {
+		                var modeCreator = mode.createEncryptor;
+		            } else /* if (this._xformMode == this._DEC_XFORM_MODE) */ {
+		                var modeCreator = mode.createDecryptor;
+		                // Keep at least one block in the buffer for unpadding
+		                this._minBufferSize = 1;
+		            }
+
+		            if (this._mode && this._mode.__creator == modeCreator) {
+		                this._mode.init(this, iv && iv.words);
+		            } else {
+		                this._mode = modeCreator.call(mode, this, iv && iv.words);
+		                this._mode.__creator = modeCreator;
+		            }
+		        },
+
+		        _doProcessBlock: function (words, offset) {
+		            this._mode.processBlock(words, offset);
+		        },
+
+		        _doFinalize: function () {
+		            // Shortcut
+		            var padding = this.cfg.padding;
+
+		            // Finalize
+		            if (this._xformMode == this._ENC_XFORM_MODE) {
+		                // Pad data
+		                padding.pad(this._data, this.blockSize);
+
+		                // Process final blocks
+		                var finalProcessedBlocks = this._process(!!'flush');
+		            } else /* if (this._xformMode == this._DEC_XFORM_MODE) */ {
+		                // Process final blocks
+		                var finalProcessedBlocks = this._process(!!'flush');
+
+		                // Unpad data
+		                padding.unpad(finalProcessedBlocks);
+		            }
+
+		            return finalProcessedBlocks;
+		        },
+
+		        blockSize: 128/32
+		    });
+
+		    /**
+		     * A collection of cipher parameters.
+		     *
+		     * @property {WordArray} ciphertext The raw ciphertext.
+		     * @property {WordArray} key The key to this ciphertext.
+		     * @property {WordArray} iv The IV used in the ciphering operation.
+		     * @property {WordArray} salt The salt used with a key derivation function.
+		     * @property {Cipher} algorithm The cipher algorithm.
+		     * @property {Mode} mode The block mode used in the ciphering operation.
+		     * @property {Padding} padding The padding scheme used in the ciphering operation.
+		     * @property {number} blockSize The block size of the cipher.
+		     * @property {Format} formatter The default formatting strategy to convert this cipher params object to a string.
+		     */
+		    var CipherParams = C_lib.CipherParams = Base.extend({
+		        /**
+		         * Initializes a newly created cipher params object.
+		         *
+		         * @param {Object} cipherParams An object with any of the possible cipher parameters.
+		         *
+		         * @example
+		         *
+		         *     var cipherParams = CryptoJS.lib.CipherParams.create({
+		         *         ciphertext: ciphertextWordArray,
+		         *         key: keyWordArray,
+		         *         iv: ivWordArray,
+		         *         salt: saltWordArray,
+		         *         algorithm: CryptoJS.algo.AES,
+		         *         mode: CryptoJS.mode.CBC,
+		         *         padding: CryptoJS.pad.PKCS7,
+		         *         blockSize: 4,
+		         *         formatter: CryptoJS.format.OpenSSL
+		         *     });
+		         */
+		        init: function (cipherParams) {
+		            this.mixIn(cipherParams);
+		        },
+
+		        /**
+		         * Converts this cipher params object to a string.
+		         *
+		         * @param {Format} formatter (Optional) The formatting strategy to use.
+		         *
+		         * @return {string} The stringified cipher params.
+		         *
+		         * @throws Error If neither the formatter nor the default formatter is set.
+		         *
+		         * @example
+		         *
+		         *     var string = cipherParams + '';
+		         *     var string = cipherParams.toString();
+		         *     var string = cipherParams.toString(CryptoJS.format.OpenSSL);
+		         */
+		        toString: function (formatter) {
+		            return (formatter || this.formatter).stringify(this);
+		        }
+		    });
+
+		    /**
+		     * Format namespace.
+		     */
+		    var C_format = C.format = {};
+
+		    /**
+		     * OpenSSL formatting strategy.
+		     */
+		    var OpenSSLFormatter = C_format.OpenSSL = {
+		        /**
+		         * Converts a cipher params object to an OpenSSL-compatible string.
+		         *
+		         * @param {CipherParams} cipherParams The cipher params object.
+		         *
+		         * @return {string} The OpenSSL-compatible string.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var openSSLString = CryptoJS.format.OpenSSL.stringify(cipherParams);
+		         */
+		        stringify: function (cipherParams) {
+		            // Shortcuts
+		            var ciphertext = cipherParams.ciphertext;
+		            var salt = cipherParams.salt;
+
+		            // Format
+		            if (salt) {
+		                var wordArray = WordArray.create([0x53616c74, 0x65645f5f]).concat(salt).concat(ciphertext);
+		            } else {
+		                var wordArray = ciphertext;
+		            }
+
+		            return wordArray.toString(Base64);
+		        },
+
+		        /**
+		         * Converts an OpenSSL-compatible string to a cipher params object.
+		         *
+		         * @param {string} openSSLStr The OpenSSL-compatible string.
+		         *
+		         * @return {CipherParams} The cipher params object.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var cipherParams = CryptoJS.format.OpenSSL.parse(openSSLString);
+		         */
+		        parse: function (openSSLStr) {
+		            // Parse base64
+		            var ciphertext = Base64.parse(openSSLStr);
+
+		            // Shortcut
+		            var ciphertextWords = ciphertext.words;
+
+		            // Test for salt
+		            if (ciphertextWords[0] == 0x53616c74 && ciphertextWords[1] == 0x65645f5f) {
+		                // Extract salt
+		                var salt = WordArray.create(ciphertextWords.slice(2, 4));
+
+		                // Remove salt from ciphertext
+		                ciphertextWords.splice(0, 4);
+		                ciphertext.sigBytes -= 16;
+		            }
+
+		            return CipherParams.create({ ciphertext: ciphertext, salt: salt });
+		        }
+		    };
+
+		    /**
+		     * A cipher wrapper that returns ciphertext as a serializable cipher params object.
+		     */
+		    var SerializableCipher = C_lib.SerializableCipher = Base.extend({
+		        /**
+		         * Configuration options.
+		         *
+		         * @property {Formatter} format The formatting strategy to convert cipher param objects to and from a string. Default: OpenSSL
+		         */
+		        cfg: Base.extend({
+		            format: OpenSSLFormatter
+		        }),
+
+		        /**
+		         * Encrypts a message.
+		         *
+		         * @param {Cipher} cipher The cipher algorithm to use.
+		         * @param {WordArray|string} message The message to encrypt.
+		         * @param {WordArray} key The key.
+		         * @param {Object} cfg (Optional) The configuration options to use for this operation.
+		         *
+		         * @return {CipherParams} A cipher params object.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var ciphertextParams = CryptoJS.lib.SerializableCipher.encrypt(CryptoJS.algo.AES, message, key);
+		         *     var ciphertextParams = CryptoJS.lib.SerializableCipher.encrypt(CryptoJS.algo.AES, message, key, { iv: iv });
+		         *     var ciphertextParams = CryptoJS.lib.SerializableCipher.encrypt(CryptoJS.algo.AES, message, key, { iv: iv, format: CryptoJS.format.OpenSSL });
+		         */
+		        encrypt: function (cipher, message, key, cfg) {
+		            // Apply config defaults
+		            cfg = this.cfg.extend(cfg);
+
+		            // Encrypt
+		            var encryptor = cipher.createEncryptor(key, cfg);
+		            var ciphertext = encryptor.finalize(message);
+
+		            // Shortcut
+		            var cipherCfg = encryptor.cfg;
+
+		            // Create and return serializable cipher params
+		            return CipherParams.create({
+		                ciphertext: ciphertext,
+		                key: key,
+		                iv: cipherCfg.iv,
+		                algorithm: cipher,
+		                mode: cipherCfg.mode,
+		                padding: cipherCfg.padding,
+		                blockSize: cipher.blockSize,
+		                formatter: cfg.format
+		            });
+		        },
+
+		        /**
+		         * Decrypts serialized ciphertext.
+		         *
+		         * @param {Cipher} cipher The cipher algorithm to use.
+		         * @param {CipherParams|string} ciphertext The ciphertext to decrypt.
+		         * @param {WordArray} key The key.
+		         * @param {Object} cfg (Optional) The configuration options to use for this operation.
+		         *
+		         * @return {WordArray} The plaintext.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var plaintext = CryptoJS.lib.SerializableCipher.decrypt(CryptoJS.algo.AES, formattedCiphertext, key, { iv: iv, format: CryptoJS.format.OpenSSL });
+		         *     var plaintext = CryptoJS.lib.SerializableCipher.decrypt(CryptoJS.algo.AES, ciphertextParams, key, { iv: iv, format: CryptoJS.format.OpenSSL });
+		         */
+		        decrypt: function (cipher, ciphertext, key, cfg) {
+		            // Apply config defaults
+		            cfg = this.cfg.extend(cfg);
+
+		            // Convert string to CipherParams
+		            ciphertext = this._parse(ciphertext, cfg.format);
+
+		            // Decrypt
+		            var plaintext = cipher.createDecryptor(key, cfg).finalize(ciphertext.ciphertext);
+
+		            return plaintext;
+		        },
+
+		        /**
+		         * Converts serialized ciphertext to CipherParams,
+		         * else assumed CipherParams already and returns ciphertext unchanged.
+		         *
+		         * @param {CipherParams|string} ciphertext The ciphertext.
+		         * @param {Formatter} format The formatting strategy to use to parse serialized ciphertext.
+		         *
+		         * @return {CipherParams} The unserialized ciphertext.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var ciphertextParams = CryptoJS.lib.SerializableCipher._parse(ciphertextStringOrParams, format);
+		         */
+		        _parse: function (ciphertext, format) {
+		            if (typeof ciphertext == 'string') {
+		                return format.parse(ciphertext, this);
+		            } else {
+		                return ciphertext;
+		            }
+		        }
+		    });
+
+		    /**
+		     * Key derivation function namespace.
+		     */
+		    var C_kdf = C.kdf = {};
+
+		    /**
+		     * OpenSSL key derivation function.
+		     */
+		    var OpenSSLKdf = C_kdf.OpenSSL = {
+		        /**
+		         * Derives a key and IV from a password.
+		         *
+		         * @param {string} password The password to derive from.
+		         * @param {number} keySize The size in words of the key to generate.
+		         * @param {number} ivSize The size in words of the IV to generate.
+		         * @param {WordArray|string} salt (Optional) A 64-bit salt to use. If omitted, a salt will be generated randomly.
+		         *
+		         * @return {CipherParams} A cipher params object with the key, IV, and salt.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var derivedParams = CryptoJS.kdf.OpenSSL.execute('Password', 256/32, 128/32);
+		         *     var derivedParams = CryptoJS.kdf.OpenSSL.execute('Password', 256/32, 128/32, 'saltsalt');
+		         */
+		        execute: function (password, keySize, ivSize, salt) {
+		            // Generate random salt
+		            if (!salt) {
+		                salt = WordArray.random(64/8);
+		            }
+
+		            // Derive key and IV
+		            var key = EvpKDF.create({ keySize: keySize + ivSize }).compute(password, salt);
+
+		            // Separate key and IV
+		            var iv = WordArray.create(key.words.slice(keySize), ivSize * 4);
+		            key.sigBytes = keySize * 4;
+
+		            // Return params
+		            return CipherParams.create({ key: key, iv: iv, salt: salt });
+		        }
+		    };
+
+		    /**
+		     * A serializable cipher wrapper that derives the key from a password,
+		     * and returns ciphertext as a serializable cipher params object.
+		     */
+		    var PasswordBasedCipher = C_lib.PasswordBasedCipher = SerializableCipher.extend({
+		        /**
+		         * Configuration options.
+		         *
+		         * @property {KDF} kdf The key derivation function to use to generate a key and IV from a password. Default: OpenSSL
+		         */
+		        cfg: SerializableCipher.cfg.extend({
+		            kdf: OpenSSLKdf
+		        }),
+
+		        /**
+		         * Encrypts a message using a password.
+		         *
+		         * @param {Cipher} cipher The cipher algorithm to use.
+		         * @param {WordArray|string} message The message to encrypt.
+		         * @param {string} password The password.
+		         * @param {Object} cfg (Optional) The configuration options to use for this operation.
+		         *
+		         * @return {CipherParams} A cipher params object.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var ciphertextParams = CryptoJS.lib.PasswordBasedCipher.encrypt(CryptoJS.algo.AES, message, 'password');
+		         *     var ciphertextParams = CryptoJS.lib.PasswordBasedCipher.encrypt(CryptoJS.algo.AES, message, 'password', { format: CryptoJS.format.OpenSSL });
+		         */
+		        encrypt: function (cipher, message, password, cfg) {
+		            // Apply config defaults
+		            cfg = this.cfg.extend(cfg);
+
+		            // Derive key and other params
+		            var derivedParams = cfg.kdf.execute(password, cipher.keySize, cipher.ivSize);
+
+		            // Add IV to config
+		            cfg.iv = derivedParams.iv;
+
+		            // Encrypt
+		            var ciphertext = SerializableCipher.encrypt.call(this, cipher, message, derivedParams.key, cfg);
+
+		            // Mix in derived params
+		            ciphertext.mixIn(derivedParams);
+
+		            return ciphertext;
+		        },
+
+		        /**
+		         * Decrypts serialized ciphertext using a password.
+		         *
+		         * @param {Cipher} cipher The cipher algorithm to use.
+		         * @param {CipherParams|string} ciphertext The ciphertext to decrypt.
+		         * @param {string} password The password.
+		         * @param {Object} cfg (Optional) The configuration options to use for this operation.
+		         *
+		         * @return {WordArray} The plaintext.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var plaintext = CryptoJS.lib.PasswordBasedCipher.decrypt(CryptoJS.algo.AES, formattedCiphertext, 'password', { format: CryptoJS.format.OpenSSL });
+		         *     var plaintext = CryptoJS.lib.PasswordBasedCipher.decrypt(CryptoJS.algo.AES, ciphertextParams, 'password', { format: CryptoJS.format.OpenSSL });
+		         */
+		        decrypt: function (cipher, ciphertext, password, cfg) {
+		            // Apply config defaults
+		            cfg = this.cfg.extend(cfg);
+
+		            // Convert string to CipherParams
+		            ciphertext = this._parse(ciphertext, cfg.format);
+
+		            // Derive key and other params
+		            var derivedParams = cfg.kdf.execute(password, cipher.keySize, cipher.ivSize, ciphertext.salt);
+
+		            // Add IV to config
+		            cfg.iv = derivedParams.iv;
+
+		            // Decrypt
+		            var plaintext = SerializableCipher.decrypt.call(this, cipher, ciphertext, derivedParams.key, cfg);
+
+		            return plaintext;
+		        }
+		    });
+		}());
+
+
+	}));
+
+/***/ },
+/* 503 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(502));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./cipher-core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		/**
+		 * Cipher Feedback block mode.
+		 */
+		CryptoJS.mode.CFB = (function () {
+		    var CFB = CryptoJS.lib.BlockCipherMode.extend();
+
+		    CFB.Encryptor = CFB.extend({
+		        processBlock: function (words, offset) {
+		            // Shortcuts
+		            var cipher = this._cipher;
+		            var blockSize = cipher.blockSize;
+
+		            generateKeystreamAndEncrypt.call(this, words, offset, blockSize, cipher);
+
+		            // Remember this block to use with next block
+		            this._prevBlock = words.slice(offset, offset + blockSize);
+		        }
+		    });
+
+		    CFB.Decryptor = CFB.extend({
+		        processBlock: function (words, offset) {
+		            // Shortcuts
+		            var cipher = this._cipher;
+		            var blockSize = cipher.blockSize;
+
+		            // Remember this block to use with next block
+		            var thisBlock = words.slice(offset, offset + blockSize);
+
+		            generateKeystreamAndEncrypt.call(this, words, offset, blockSize, cipher);
+
+		            // This block becomes the previous block
+		            this._prevBlock = thisBlock;
+		        }
+		    });
+
+		    function generateKeystreamAndEncrypt(words, offset, blockSize, cipher) {
+		        // Shortcut
+		        var iv = this._iv;
+
+		        // Generate keystream
+		        if (iv) {
+		            var keystream = iv.slice(0);
+
+		            // Remove IV for subsequent blocks
+		            this._iv = undefined;
+		        } else {
+		            var keystream = this._prevBlock;
+		        }
+		        cipher.encryptBlock(keystream, 0);
+
+		        // Encrypt
+		        for (var i = 0; i < blockSize; i++) {
+		            words[offset + i] ^= keystream[i];
+		        }
+		    }
+
+		    return CFB;
+		}());
+
+
+		return CryptoJS.mode.CFB;
+
+	}));
+
+/***/ },
+/* 504 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(502));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./cipher-core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		/**
+		 * Counter block mode.
+		 */
+		CryptoJS.mode.CTR = (function () {
+		    var CTR = CryptoJS.lib.BlockCipherMode.extend();
+
+		    var Encryptor = CTR.Encryptor = CTR.extend({
+		        processBlock: function (words, offset) {
+		            // Shortcuts
+		            var cipher = this._cipher
+		            var blockSize = cipher.blockSize;
+		            var iv = this._iv;
+		            var counter = this._counter;
+
+		            // Generate keystream
+		            if (iv) {
+		                counter = this._counter = iv.slice(0);
+
+		                // Remove IV for subsequent blocks
+		                this._iv = undefined;
+		            }
+		            var keystream = counter.slice(0);
+		            cipher.encryptBlock(keystream, 0);
+
+		            // Increment counter
+		            counter[blockSize - 1] = (counter[blockSize - 1] + 1) | 0
+
+		            // Encrypt
+		            for (var i = 0; i < blockSize; i++) {
+		                words[offset + i] ^= keystream[i];
+		            }
+		        }
+		    });
+
+		    CTR.Decryptor = Encryptor;
+
+		    return CTR;
+		}());
+
+
+		return CryptoJS.mode.CTR;
+
+	}));
+
+/***/ },
+/* 505 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(502));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./cipher-core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		/** @preserve
+		 * Counter block mode compatible with  Dr Brian Gladman fileenc.c
+		 * derived from CryptoJS.mode.CTR
+		 * Jan Hruby jhruby.web@gmail.com
+		 */
+		CryptoJS.mode.CTRGladman = (function () {
+		    var CTRGladman = CryptoJS.lib.BlockCipherMode.extend();
+
+			function incWord(word)
+			{
+				if (((word >> 24) & 0xff) === 0xff) { //overflow
+				var b1 = (word >> 16)&0xff;
+				var b2 = (word >> 8)&0xff;
+				var b3 = word & 0xff;
+
+				if (b1 === 0xff) // overflow b1
+				{
+				b1 = 0;
+				if (b2 === 0xff)
+				{
+					b2 = 0;
+					if (b3 === 0xff)
+					{
+						b3 = 0;
+					}
+					else
+					{
+						++b3;
+					}
+				}
+				else
+				{
+					++b2;
+				}
+				}
+				else
+				{
+				++b1;
+				}
+
+				word = 0;
+				word += (b1 << 16);
+				word += (b2 << 8);
+				word += b3;
+				}
+				else
+				{
+				word += (0x01 << 24);
+				}
+				return word;
+			}
+
+			function incCounter(counter)
+			{
+				if ((counter[0] = incWord(counter[0])) === 0)
+				{
+					// encr_data in fileenc.c from  Dr Brian Gladman's counts only with DWORD j < 8
+					counter[1] = incWord(counter[1]);
+				}
+				return counter;
+			}
+
+		    var Encryptor = CTRGladman.Encryptor = CTRGladman.extend({
+		        processBlock: function (words, offset) {
+		            // Shortcuts
+		            var cipher = this._cipher
+		            var blockSize = cipher.blockSize;
+		            var iv = this._iv;
+		            var counter = this._counter;
+
+		            // Generate keystream
+		            if (iv) {
+		                counter = this._counter = iv.slice(0);
+
+		                // Remove IV for subsequent blocks
+		                this._iv = undefined;
+		            }
+
+					incCounter(counter);
+
+					var keystream = counter.slice(0);
+		            cipher.encryptBlock(keystream, 0);
+
+		            // Encrypt
+		            for (var i = 0; i < blockSize; i++) {
+		                words[offset + i] ^= keystream[i];
+		            }
+		        }
+		    });
+
+		    CTRGladman.Decryptor = Encryptor;
+
+		    return CTRGladman;
+		}());
+
+
+
+
+		return CryptoJS.mode.CTRGladman;
+
+	}));
+
+/***/ },
+/* 506 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(502));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./cipher-core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		/**
+		 * Output Feedback block mode.
+		 */
+		CryptoJS.mode.OFB = (function () {
+		    var OFB = CryptoJS.lib.BlockCipherMode.extend();
+
+		    var Encryptor = OFB.Encryptor = OFB.extend({
+		        processBlock: function (words, offset) {
+		            // Shortcuts
+		            var cipher = this._cipher
+		            var blockSize = cipher.blockSize;
+		            var iv = this._iv;
+		            var keystream = this._keystream;
+
+		            // Generate keystream
+		            if (iv) {
+		                keystream = this._keystream = iv.slice(0);
+
+		                // Remove IV for subsequent blocks
+		                this._iv = undefined;
+		            }
+		            cipher.encryptBlock(keystream, 0);
+
+		            // Encrypt
+		            for (var i = 0; i < blockSize; i++) {
+		                words[offset + i] ^= keystream[i];
+		            }
+		        }
+		    });
+
+		    OFB.Decryptor = Encryptor;
+
+		    return OFB;
+		}());
+
+
+		return CryptoJS.mode.OFB;
+
+	}));
+
+/***/ },
+/* 507 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(502));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./cipher-core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		/**
+		 * Electronic Codebook block mode.
+		 */
+		CryptoJS.mode.ECB = (function () {
+		    var ECB = CryptoJS.lib.BlockCipherMode.extend();
+
+		    ECB.Encryptor = ECB.extend({
+		        processBlock: function (words, offset) {
+		            this._cipher.encryptBlock(words, offset);
+		        }
+		    });
+
+		    ECB.Decryptor = ECB.extend({
+		        processBlock: function (words, offset) {
+		            this._cipher.decryptBlock(words, offset);
+		        }
+		    });
+
+		    return ECB;
+		}());
+
+
+		return CryptoJS.mode.ECB;
+
+	}));
+
+/***/ },
+/* 508 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(502));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./cipher-core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		/**
+		 * ANSI X.923 padding strategy.
+		 */
+		CryptoJS.pad.AnsiX923 = {
+		    pad: function (data, blockSize) {
+		        // Shortcuts
+		        var dataSigBytes = data.sigBytes;
+		        var blockSizeBytes = blockSize * 4;
+
+		        // Count padding bytes
+		        var nPaddingBytes = blockSizeBytes - dataSigBytes % blockSizeBytes;
+
+		        // Compute last byte position
+		        var lastBytePos = dataSigBytes + nPaddingBytes - 1;
+
+		        // Pad
+		        data.clamp();
+		        data.words[lastBytePos >>> 2] |= nPaddingBytes << (24 - (lastBytePos % 4) * 8);
+		        data.sigBytes += nPaddingBytes;
+		    },
+
+		    unpad: function (data) {
+		        // Get number of padding bytes from last byte
+		        var nPaddingBytes = data.words[(data.sigBytes - 1) >>> 2] & 0xff;
+
+		        // Remove padding
+		        data.sigBytes -= nPaddingBytes;
+		    }
+		};
+
+
+		return CryptoJS.pad.Ansix923;
+
+	}));
+
+/***/ },
+/* 509 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(502));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./cipher-core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		/**
+		 * ISO 10126 padding strategy.
+		 */
+		CryptoJS.pad.Iso10126 = {
+		    pad: function (data, blockSize) {
+		        // Shortcut
+		        var blockSizeBytes = blockSize * 4;
+
+		        // Count padding bytes
+		        var nPaddingBytes = blockSizeBytes - data.sigBytes % blockSizeBytes;
+
+		        // Pad
+		        data.concat(CryptoJS.lib.WordArray.random(nPaddingBytes - 1)).
+		             concat(CryptoJS.lib.WordArray.create([nPaddingBytes << 24], 1));
+		    },
+
+		    unpad: function (data) {
+		        // Get number of padding bytes from last byte
+		        var nPaddingBytes = data.words[(data.sigBytes - 1) >>> 2] & 0xff;
+
+		        // Remove padding
+		        data.sigBytes -= nPaddingBytes;
+		    }
+		};
+
+
+		return CryptoJS.pad.Iso10126;
+
+	}));
+
+/***/ },
+/* 510 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(502));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./cipher-core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		/**
+		 * ISO/IEC 9797-1 Padding Method 2.
+		 */
+		CryptoJS.pad.Iso97971 = {
+		    pad: function (data, blockSize) {
+		        // Add 0x80 byte
+		        data.concat(CryptoJS.lib.WordArray.create([0x80000000], 1));
+
+		        // Zero pad the rest
+		        CryptoJS.pad.ZeroPadding.pad(data, blockSize);
+		    },
+
+		    unpad: function (data) {
+		        // Remove zero padding
+		        CryptoJS.pad.ZeroPadding.unpad(data);
+
+		        // Remove one more byte -- the 0x80 byte
+		        data.sigBytes--;
+		    }
+		};
+
+
+		return CryptoJS.pad.Iso97971;
+
+	}));
+
+/***/ },
+/* 511 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(502));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./cipher-core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		/**
+		 * Zero padding strategy.
+		 */
+		CryptoJS.pad.ZeroPadding = {
+		    pad: function (data, blockSize) {
+		        // Shortcut
+		        var blockSizeBytes = blockSize * 4;
+
+		        // Pad
+		        data.clamp();
+		        data.sigBytes += blockSizeBytes - ((data.sigBytes % blockSizeBytes) || blockSizeBytes);
+		    },
+
+		    unpad: function (data) {
+		        // Shortcut
+		        var dataWords = data.words;
+
+		        // Unpad
+		        var i = data.sigBytes - 1;
+		        while (!((dataWords[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff)) {
+		            i--;
+		        }
+		        data.sigBytes = i + 1;
+		    }
+		};
+
+
+		return CryptoJS.pad.ZeroPadding;
+
+	}));
+
+/***/ },
+/* 512 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(502));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./cipher-core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		/**
+		 * A noop padding strategy.
+		 */
+		CryptoJS.pad.NoPadding = {
+		    pad: function () {
+		    },
+
+		    unpad: function () {
+		    }
+		};
+
+
+		return CryptoJS.pad.NoPadding;
+
+	}));
+
+/***/ },
+/* 513 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(502));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./cipher-core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		(function (undefined) {
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_lib = C.lib;
+		    var CipherParams = C_lib.CipherParams;
+		    var C_enc = C.enc;
+		    var Hex = C_enc.Hex;
+		    var C_format = C.format;
+
+		    var HexFormatter = C_format.Hex = {
+		        /**
+		         * Converts the ciphertext of a cipher params object to a hexadecimally encoded string.
+		         *
+		         * @param {CipherParams} cipherParams The cipher params object.
+		         *
+		         * @return {string} The hexadecimally encoded string.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var hexString = CryptoJS.format.Hex.stringify(cipherParams);
+		         */
+		        stringify: function (cipherParams) {
+		            return cipherParams.ciphertext.toString(Hex);
+		        },
+
+		        /**
+		         * Converts a hexadecimally encoded ciphertext string to a cipher params object.
+		         *
+		         * @param {string} input The hexadecimally encoded string.
+		         *
+		         * @return {CipherParams} The cipher params object.
+		         *
+		         * @static
+		         *
+		         * @example
+		         *
+		         *     var cipherParams = CryptoJS.format.Hex.parse(hexString);
+		         */
+		        parse: function (input) {
+		            var ciphertext = Hex.parse(input);
+		            return CipherParams.create({ ciphertext: ciphertext });
+		        }
+		    };
+		}());
+
+
+		return CryptoJS.format.Hex;
+
+	}));
+
+/***/ },
+/* 514 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(490), __webpack_require__(491), __webpack_require__(501), __webpack_require__(502));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./enc-base64", "./md5", "./evpkdf", "./cipher-core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		(function () {
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_lib = C.lib;
+		    var BlockCipher = C_lib.BlockCipher;
+		    var C_algo = C.algo;
+
+		    // Lookup tables
+		    var SBOX = [];
+		    var INV_SBOX = [];
+		    var SUB_MIX_0 = [];
+		    var SUB_MIX_1 = [];
+		    var SUB_MIX_2 = [];
+		    var SUB_MIX_3 = [];
+		    var INV_SUB_MIX_0 = [];
+		    var INV_SUB_MIX_1 = [];
+		    var INV_SUB_MIX_2 = [];
+		    var INV_SUB_MIX_3 = [];
+
+		    // Compute lookup tables
+		    (function () {
+		        // Compute double table
+		        var d = [];
+		        for (var i = 0; i < 256; i++) {
+		            if (i < 128) {
+		                d[i] = i << 1;
+		            } else {
+		                d[i] = (i << 1) ^ 0x11b;
+		            }
+		        }
+
+		        // Walk GF(2^8)
+		        var x = 0;
+		        var xi = 0;
+		        for (var i = 0; i < 256; i++) {
+		            // Compute sbox
+		            var sx = xi ^ (xi << 1) ^ (xi << 2) ^ (xi << 3) ^ (xi << 4);
+		            sx = (sx >>> 8) ^ (sx & 0xff) ^ 0x63;
+		            SBOX[x] = sx;
+		            INV_SBOX[sx] = x;
+
+		            // Compute multiplication
+		            var x2 = d[x];
+		            var x4 = d[x2];
+		            var x8 = d[x4];
+
+		            // Compute sub bytes, mix columns tables
+		            var t = (d[sx] * 0x101) ^ (sx * 0x1010100);
+		            SUB_MIX_0[x] = (t << 24) | (t >>> 8);
+		            SUB_MIX_1[x] = (t << 16) | (t >>> 16);
+		            SUB_MIX_2[x] = (t << 8)  | (t >>> 24);
+		            SUB_MIX_3[x] = t;
+
+		            // Compute inv sub bytes, inv mix columns tables
+		            var t = (x8 * 0x1010101) ^ (x4 * 0x10001) ^ (x2 * 0x101) ^ (x * 0x1010100);
+		            INV_SUB_MIX_0[sx] = (t << 24) | (t >>> 8);
+		            INV_SUB_MIX_1[sx] = (t << 16) | (t >>> 16);
+		            INV_SUB_MIX_2[sx] = (t << 8)  | (t >>> 24);
+		            INV_SUB_MIX_3[sx] = t;
+
+		            // Compute next counter
+		            if (!x) {
+		                x = xi = 1;
+		            } else {
+		                x = x2 ^ d[d[d[x8 ^ x2]]];
+		                xi ^= d[d[xi]];
+		            }
+		        }
+		    }());
+
+		    // Precomputed Rcon lookup
+		    var RCON = [0x00, 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36];
+
+		    /**
+		     * AES block cipher algorithm.
+		     */
+		    var AES = C_algo.AES = BlockCipher.extend({
+		        _doReset: function () {
+		            // Skip reset of nRounds has been set before and key did not change
+		            if (this._nRounds && this._keyPriorReset === this._key) {
+		                return;
+		            }
+
+		            // Shortcuts
+		            var key = this._keyPriorReset = this._key;
+		            var keyWords = key.words;
+		            var keySize = key.sigBytes / 4;
+
+		            // Compute number of rounds
+		            var nRounds = this._nRounds = keySize + 6;
+
+		            // Compute number of key schedule rows
+		            var ksRows = (nRounds + 1) * 4;
+
+		            // Compute key schedule
+		            var keySchedule = this._keySchedule = [];
+		            for (var ksRow = 0; ksRow < ksRows; ksRow++) {
+		                if (ksRow < keySize) {
+		                    keySchedule[ksRow] = keyWords[ksRow];
+		                } else {
+		                    var t = keySchedule[ksRow - 1];
+
+		                    if (!(ksRow % keySize)) {
+		                        // Rot word
+		                        t = (t << 8) | (t >>> 24);
+
+		                        // Sub word
+		                        t = (SBOX[t >>> 24] << 24) | (SBOX[(t >>> 16) & 0xff] << 16) | (SBOX[(t >>> 8) & 0xff] << 8) | SBOX[t & 0xff];
+
+		                        // Mix Rcon
+		                        t ^= RCON[(ksRow / keySize) | 0] << 24;
+		                    } else if (keySize > 6 && ksRow % keySize == 4) {
+		                        // Sub word
+		                        t = (SBOX[t >>> 24] << 24) | (SBOX[(t >>> 16) & 0xff] << 16) | (SBOX[(t >>> 8) & 0xff] << 8) | SBOX[t & 0xff];
+		                    }
+
+		                    keySchedule[ksRow] = keySchedule[ksRow - keySize] ^ t;
+		                }
+		            }
+
+		            // Compute inv key schedule
+		            var invKeySchedule = this._invKeySchedule = [];
+		            for (var invKsRow = 0; invKsRow < ksRows; invKsRow++) {
+		                var ksRow = ksRows - invKsRow;
+
+		                if (invKsRow % 4) {
+		                    var t = keySchedule[ksRow];
+		                } else {
+		                    var t = keySchedule[ksRow - 4];
+		                }
+
+		                if (invKsRow < 4 || ksRow <= 4) {
+		                    invKeySchedule[invKsRow] = t;
+		                } else {
+		                    invKeySchedule[invKsRow] = INV_SUB_MIX_0[SBOX[t >>> 24]] ^ INV_SUB_MIX_1[SBOX[(t >>> 16) & 0xff]] ^
+		                                               INV_SUB_MIX_2[SBOX[(t >>> 8) & 0xff]] ^ INV_SUB_MIX_3[SBOX[t & 0xff]];
+		                }
+		            }
+		        },
+
+		        encryptBlock: function (M, offset) {
+		            this._doCryptBlock(M, offset, this._keySchedule, SUB_MIX_0, SUB_MIX_1, SUB_MIX_2, SUB_MIX_3, SBOX);
+		        },
+
+		        decryptBlock: function (M, offset) {
+		            // Swap 2nd and 4th rows
+		            var t = M[offset + 1];
+		            M[offset + 1] = M[offset + 3];
+		            M[offset + 3] = t;
+
+		            this._doCryptBlock(M, offset, this._invKeySchedule, INV_SUB_MIX_0, INV_SUB_MIX_1, INV_SUB_MIX_2, INV_SUB_MIX_3, INV_SBOX);
+
+		            // Inv swap 2nd and 4th rows
+		            var t = M[offset + 1];
+		            M[offset + 1] = M[offset + 3];
+		            M[offset + 3] = t;
+		        },
+
+		        _doCryptBlock: function (M, offset, keySchedule, SUB_MIX_0, SUB_MIX_1, SUB_MIX_2, SUB_MIX_3, SBOX) {
+		            // Shortcut
+		            var nRounds = this._nRounds;
+
+		            // Get input, add round key
+		            var s0 = M[offset]     ^ keySchedule[0];
+		            var s1 = M[offset + 1] ^ keySchedule[1];
+		            var s2 = M[offset + 2] ^ keySchedule[2];
+		            var s3 = M[offset + 3] ^ keySchedule[3];
+
+		            // Key schedule row counter
+		            var ksRow = 4;
+
+		            // Rounds
+		            for (var round = 1; round < nRounds; round++) {
+		                // Shift rows, sub bytes, mix columns, add round key
+		                var t0 = SUB_MIX_0[s0 >>> 24] ^ SUB_MIX_1[(s1 >>> 16) & 0xff] ^ SUB_MIX_2[(s2 >>> 8) & 0xff] ^ SUB_MIX_3[s3 & 0xff] ^ keySchedule[ksRow++];
+		                var t1 = SUB_MIX_0[s1 >>> 24] ^ SUB_MIX_1[(s2 >>> 16) & 0xff] ^ SUB_MIX_2[(s3 >>> 8) & 0xff] ^ SUB_MIX_3[s0 & 0xff] ^ keySchedule[ksRow++];
+		                var t2 = SUB_MIX_0[s2 >>> 24] ^ SUB_MIX_1[(s3 >>> 16) & 0xff] ^ SUB_MIX_2[(s0 >>> 8) & 0xff] ^ SUB_MIX_3[s1 & 0xff] ^ keySchedule[ksRow++];
+		                var t3 = SUB_MIX_0[s3 >>> 24] ^ SUB_MIX_1[(s0 >>> 16) & 0xff] ^ SUB_MIX_2[(s1 >>> 8) & 0xff] ^ SUB_MIX_3[s2 & 0xff] ^ keySchedule[ksRow++];
+
+		                // Update state
+		                s0 = t0;
+		                s1 = t1;
+		                s2 = t2;
+		                s3 = t3;
+		            }
+
+		            // Shift rows, sub bytes, add round key
+		            var t0 = ((SBOX[s0 >>> 24] << 24) | (SBOX[(s1 >>> 16) & 0xff] << 16) | (SBOX[(s2 >>> 8) & 0xff] << 8) | SBOX[s3 & 0xff]) ^ keySchedule[ksRow++];
+		            var t1 = ((SBOX[s1 >>> 24] << 24) | (SBOX[(s2 >>> 16) & 0xff] << 16) | (SBOX[(s3 >>> 8) & 0xff] << 8) | SBOX[s0 & 0xff]) ^ keySchedule[ksRow++];
+		            var t2 = ((SBOX[s2 >>> 24] << 24) | (SBOX[(s3 >>> 16) & 0xff] << 16) | (SBOX[(s0 >>> 8) & 0xff] << 8) | SBOX[s1 & 0xff]) ^ keySchedule[ksRow++];
+		            var t3 = ((SBOX[s3 >>> 24] << 24) | (SBOX[(s0 >>> 16) & 0xff] << 16) | (SBOX[(s1 >>> 8) & 0xff] << 8) | SBOX[s2 & 0xff]) ^ keySchedule[ksRow++];
+
+		            // Set output
+		            M[offset]     = t0;
+		            M[offset + 1] = t1;
+		            M[offset + 2] = t2;
+		            M[offset + 3] = t3;
+		        },
+
+		        keySize: 256/32
+		    });
+
+		    /**
+		     * Shortcut functions to the cipher's object interface.
+		     *
+		     * @example
+		     *
+		     *     var ciphertext = CryptoJS.AES.encrypt(message, key, cfg);
+		     *     var plaintext  = CryptoJS.AES.decrypt(ciphertext, key, cfg);
+		     */
+		    C.AES = BlockCipher._createHelper(AES);
+		}());
+
+
+		return CryptoJS.AES;
+
+	}));
+
+/***/ },
+/* 515 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(490), __webpack_require__(491), __webpack_require__(501), __webpack_require__(502));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./enc-base64", "./md5", "./evpkdf", "./cipher-core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		(function () {
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_lib = C.lib;
+		    var WordArray = C_lib.WordArray;
+		    var BlockCipher = C_lib.BlockCipher;
+		    var C_algo = C.algo;
+
+		    // Permuted Choice 1 constants
+		    var PC1 = [
+		        57, 49, 41, 33, 25, 17, 9,  1,
+		        58, 50, 42, 34, 26, 18, 10, 2,
+		        59, 51, 43, 35, 27, 19, 11, 3,
+		        60, 52, 44, 36, 63, 55, 47, 39,
+		        31, 23, 15, 7,  62, 54, 46, 38,
+		        30, 22, 14, 6,  61, 53, 45, 37,
+		        29, 21, 13, 5,  28, 20, 12, 4
+		    ];
+
+		    // Permuted Choice 2 constants
+		    var PC2 = [
+		        14, 17, 11, 24, 1,  5,
+		        3,  28, 15, 6,  21, 10,
+		        23, 19, 12, 4,  26, 8,
+		        16, 7,  27, 20, 13, 2,
+		        41, 52, 31, 37, 47, 55,
+		        30, 40, 51, 45, 33, 48,
+		        44, 49, 39, 56, 34, 53,
+		        46, 42, 50, 36, 29, 32
+		    ];
+
+		    // Cumulative bit shift constants
+		    var BIT_SHIFTS = [1,  2,  4,  6,  8,  10, 12, 14, 15, 17, 19, 21, 23, 25, 27, 28];
+
+		    // SBOXes and round permutation constants
+		    var SBOX_P = [
+		        {
+		            0x0: 0x808200,
+		            0x10000000: 0x8000,
+		            0x20000000: 0x808002,
+		            0x30000000: 0x2,
+		            0x40000000: 0x200,
+		            0x50000000: 0x808202,
+		            0x60000000: 0x800202,
+		            0x70000000: 0x800000,
+		            0x80000000: 0x202,
+		            0x90000000: 0x800200,
+		            0xa0000000: 0x8200,
+		            0xb0000000: 0x808000,
+		            0xc0000000: 0x8002,
+		            0xd0000000: 0x800002,
+		            0xe0000000: 0x0,
+		            0xf0000000: 0x8202,
+		            0x8000000: 0x0,
+		            0x18000000: 0x808202,
+		            0x28000000: 0x8202,
+		            0x38000000: 0x8000,
+		            0x48000000: 0x808200,
+		            0x58000000: 0x200,
+		            0x68000000: 0x808002,
+		            0x78000000: 0x2,
+		            0x88000000: 0x800200,
+		            0x98000000: 0x8200,
+		            0xa8000000: 0x808000,
+		            0xb8000000: 0x800202,
+		            0xc8000000: 0x800002,
+		            0xd8000000: 0x8002,
+		            0xe8000000: 0x202,
+		            0xf8000000: 0x800000,
+		            0x1: 0x8000,
+		            0x10000001: 0x2,
+		            0x20000001: 0x808200,
+		            0x30000001: 0x800000,
+		            0x40000001: 0x808002,
+		            0x50000001: 0x8200,
+		            0x60000001: 0x200,
+		            0x70000001: 0x800202,
+		            0x80000001: 0x808202,
+		            0x90000001: 0x808000,
+		            0xa0000001: 0x800002,
+		            0xb0000001: 0x8202,
+		            0xc0000001: 0x202,
+		            0xd0000001: 0x800200,
+		            0xe0000001: 0x8002,
+		            0xf0000001: 0x0,
+		            0x8000001: 0x808202,
+		            0x18000001: 0x808000,
+		            0x28000001: 0x800000,
+		            0x38000001: 0x200,
+		            0x48000001: 0x8000,
+		            0x58000001: 0x800002,
+		            0x68000001: 0x2,
+		            0x78000001: 0x8202,
+		            0x88000001: 0x8002,
+		            0x98000001: 0x800202,
+		            0xa8000001: 0x202,
+		            0xb8000001: 0x808200,
+		            0xc8000001: 0x800200,
+		            0xd8000001: 0x0,
+		            0xe8000001: 0x8200,
+		            0xf8000001: 0x808002
+		        },
+		        {
+		            0x0: 0x40084010,
+		            0x1000000: 0x4000,
+		            0x2000000: 0x80000,
+		            0x3000000: 0x40080010,
+		            0x4000000: 0x40000010,
+		            0x5000000: 0x40084000,
+		            0x6000000: 0x40004000,
+		            0x7000000: 0x10,
+		            0x8000000: 0x84000,
+		            0x9000000: 0x40004010,
+		            0xa000000: 0x40000000,
+		            0xb000000: 0x84010,
+		            0xc000000: 0x80010,
+		            0xd000000: 0x0,
+		            0xe000000: 0x4010,
+		            0xf000000: 0x40080000,
+		            0x800000: 0x40004000,
+		            0x1800000: 0x84010,
+		            0x2800000: 0x10,
+		            0x3800000: 0x40004010,
+		            0x4800000: 0x40084010,
+		            0x5800000: 0x40000000,
+		            0x6800000: 0x80000,
+		            0x7800000: 0x40080010,
+		            0x8800000: 0x80010,
+		            0x9800000: 0x0,
+		            0xa800000: 0x4000,
+		            0xb800000: 0x40080000,
+		            0xc800000: 0x40000010,
+		            0xd800000: 0x84000,
+		            0xe800000: 0x40084000,
+		            0xf800000: 0x4010,
+		            0x10000000: 0x0,
+		            0x11000000: 0x40080010,
+		            0x12000000: 0x40004010,
+		            0x13000000: 0x40084000,
+		            0x14000000: 0x40080000,
+		            0x15000000: 0x10,
+		            0x16000000: 0x84010,
+		            0x17000000: 0x4000,
+		            0x18000000: 0x4010,
+		            0x19000000: 0x80000,
+		            0x1a000000: 0x80010,
+		            0x1b000000: 0x40000010,
+		            0x1c000000: 0x84000,
+		            0x1d000000: 0x40004000,
+		            0x1e000000: 0x40000000,
+		            0x1f000000: 0x40084010,
+		            0x10800000: 0x84010,
+		            0x11800000: 0x80000,
+		            0x12800000: 0x40080000,
+		            0x13800000: 0x4000,
+		            0x14800000: 0x40004000,
+		            0x15800000: 0x40084010,
+		            0x16800000: 0x10,
+		            0x17800000: 0x40000000,
+		            0x18800000: 0x40084000,
+		            0x19800000: 0x40000010,
+		            0x1a800000: 0x40004010,
+		            0x1b800000: 0x80010,
+		            0x1c800000: 0x0,
+		            0x1d800000: 0x4010,
+		            0x1e800000: 0x40080010,
+		            0x1f800000: 0x84000
+		        },
+		        {
+		            0x0: 0x104,
+		            0x100000: 0x0,
+		            0x200000: 0x4000100,
+		            0x300000: 0x10104,
+		            0x400000: 0x10004,
+		            0x500000: 0x4000004,
+		            0x600000: 0x4010104,
+		            0x700000: 0x4010000,
+		            0x800000: 0x4000000,
+		            0x900000: 0x4010100,
+		            0xa00000: 0x10100,
+		            0xb00000: 0x4010004,
+		            0xc00000: 0x4000104,
+		            0xd00000: 0x10000,
+		            0xe00000: 0x4,
+		            0xf00000: 0x100,
+		            0x80000: 0x4010100,
+		            0x180000: 0x4010004,
+		            0x280000: 0x0,
+		            0x380000: 0x4000100,
+		            0x480000: 0x4000004,
+		            0x580000: 0x10000,
+		            0x680000: 0x10004,
+		            0x780000: 0x104,
+		            0x880000: 0x4,
+		            0x980000: 0x100,
+		            0xa80000: 0x4010000,
+		            0xb80000: 0x10104,
+		            0xc80000: 0x10100,
+		            0xd80000: 0x4000104,
+		            0xe80000: 0x4010104,
+		            0xf80000: 0x4000000,
+		            0x1000000: 0x4010100,
+		            0x1100000: 0x10004,
+		            0x1200000: 0x10000,
+		            0x1300000: 0x4000100,
+		            0x1400000: 0x100,
+		            0x1500000: 0x4010104,
+		            0x1600000: 0x4000004,
+		            0x1700000: 0x0,
+		            0x1800000: 0x4000104,
+		            0x1900000: 0x4000000,
+		            0x1a00000: 0x4,
+		            0x1b00000: 0x10100,
+		            0x1c00000: 0x4010000,
+		            0x1d00000: 0x104,
+		            0x1e00000: 0x10104,
+		            0x1f00000: 0x4010004,
+		            0x1080000: 0x4000000,
+		            0x1180000: 0x104,
+		            0x1280000: 0x4010100,
+		            0x1380000: 0x0,
+		            0x1480000: 0x10004,
+		            0x1580000: 0x4000100,
+		            0x1680000: 0x100,
+		            0x1780000: 0x4010004,
+		            0x1880000: 0x10000,
+		            0x1980000: 0x4010104,
+		            0x1a80000: 0x10104,
+		            0x1b80000: 0x4000004,
+		            0x1c80000: 0x4000104,
+		            0x1d80000: 0x4010000,
+		            0x1e80000: 0x4,
+		            0x1f80000: 0x10100
+		        },
+		        {
+		            0x0: 0x80401000,
+		            0x10000: 0x80001040,
+		            0x20000: 0x401040,
+		            0x30000: 0x80400000,
+		            0x40000: 0x0,
+		            0x50000: 0x401000,
+		            0x60000: 0x80000040,
+		            0x70000: 0x400040,
+		            0x80000: 0x80000000,
+		            0x90000: 0x400000,
+		            0xa0000: 0x40,
+		            0xb0000: 0x80001000,
+		            0xc0000: 0x80400040,
+		            0xd0000: 0x1040,
+		            0xe0000: 0x1000,
+		            0xf0000: 0x80401040,
+		            0x8000: 0x80001040,
+		            0x18000: 0x40,
+		            0x28000: 0x80400040,
+		            0x38000: 0x80001000,
+		            0x48000: 0x401000,
+		            0x58000: 0x80401040,
+		            0x68000: 0x0,
+		            0x78000: 0x80400000,
+		            0x88000: 0x1000,
+		            0x98000: 0x80401000,
+		            0xa8000: 0x400000,
+		            0xb8000: 0x1040,
+		            0xc8000: 0x80000000,
+		            0xd8000: 0x400040,
+		            0xe8000: 0x401040,
+		            0xf8000: 0x80000040,
+		            0x100000: 0x400040,
+		            0x110000: 0x401000,
+		            0x120000: 0x80000040,
+		            0x130000: 0x0,
+		            0x140000: 0x1040,
+		            0x150000: 0x80400040,
+		            0x160000: 0x80401000,
+		            0x170000: 0x80001040,
+		            0x180000: 0x80401040,
+		            0x190000: 0x80000000,
+		            0x1a0000: 0x80400000,
+		            0x1b0000: 0x401040,
+		            0x1c0000: 0x80001000,
+		            0x1d0000: 0x400000,
+		            0x1e0000: 0x40,
+		            0x1f0000: 0x1000,
+		            0x108000: 0x80400000,
+		            0x118000: 0x80401040,
+		            0x128000: 0x0,
+		            0x138000: 0x401000,
+		            0x148000: 0x400040,
+		            0x158000: 0x80000000,
+		            0x168000: 0x80001040,
+		            0x178000: 0x40,
+		            0x188000: 0x80000040,
+		            0x198000: 0x1000,
+		            0x1a8000: 0x80001000,
+		            0x1b8000: 0x80400040,
+		            0x1c8000: 0x1040,
+		            0x1d8000: 0x80401000,
+		            0x1e8000: 0x400000,
+		            0x1f8000: 0x401040
+		        },
+		        {
+		            0x0: 0x80,
+		            0x1000: 0x1040000,
+		            0x2000: 0x40000,
+		            0x3000: 0x20000000,
+		            0x4000: 0x20040080,
+		            0x5000: 0x1000080,
+		            0x6000: 0x21000080,
+		            0x7000: 0x40080,
+		            0x8000: 0x1000000,
+		            0x9000: 0x20040000,
+		            0xa000: 0x20000080,
+		            0xb000: 0x21040080,
+		            0xc000: 0x21040000,
+		            0xd000: 0x0,
+		            0xe000: 0x1040080,
+		            0xf000: 0x21000000,
+		            0x800: 0x1040080,
+		            0x1800: 0x21000080,
+		            0x2800: 0x80,
+		            0x3800: 0x1040000,
+		            0x4800: 0x40000,
+		            0x5800: 0x20040080,
+		            0x6800: 0x21040000,
+		            0x7800: 0x20000000,
+		            0x8800: 0x20040000,
+		            0x9800: 0x0,
+		            0xa800: 0x21040080,
+		            0xb800: 0x1000080,
+		            0xc800: 0x20000080,
+		            0xd800: 0x21000000,
+		            0xe800: 0x1000000,
+		            0xf800: 0x40080,
+		            0x10000: 0x40000,
+		            0x11000: 0x80,
+		            0x12000: 0x20000000,
+		            0x13000: 0x21000080,
+		            0x14000: 0x1000080,
+		            0x15000: 0x21040000,
+		            0x16000: 0x20040080,
+		            0x17000: 0x1000000,
+		            0x18000: 0x21040080,
+		            0x19000: 0x21000000,
+		            0x1a000: 0x1040000,
+		            0x1b000: 0x20040000,
+		            0x1c000: 0x40080,
+		            0x1d000: 0x20000080,
+		            0x1e000: 0x0,
+		            0x1f000: 0x1040080,
+		            0x10800: 0x21000080,
+		            0x11800: 0x1000000,
+		            0x12800: 0x1040000,
+		            0x13800: 0x20040080,
+		            0x14800: 0x20000000,
+		            0x15800: 0x1040080,
+		            0x16800: 0x80,
+		            0x17800: 0x21040000,
+		            0x18800: 0x40080,
+		            0x19800: 0x21040080,
+		            0x1a800: 0x0,
+		            0x1b800: 0x21000000,
+		            0x1c800: 0x1000080,
+		            0x1d800: 0x40000,
+		            0x1e800: 0x20040000,
+		            0x1f800: 0x20000080
+		        },
+		        {
+		            0x0: 0x10000008,
+		            0x100: 0x2000,
+		            0x200: 0x10200000,
+		            0x300: 0x10202008,
+		            0x400: 0x10002000,
+		            0x500: 0x200000,
+		            0x600: 0x200008,
+		            0x700: 0x10000000,
+		            0x800: 0x0,
+		            0x900: 0x10002008,
+		            0xa00: 0x202000,
+		            0xb00: 0x8,
+		            0xc00: 0x10200008,
+		            0xd00: 0x202008,
+		            0xe00: 0x2008,
+		            0xf00: 0x10202000,
+		            0x80: 0x10200000,
+		            0x180: 0x10202008,
+		            0x280: 0x8,
+		            0x380: 0x200000,
+		            0x480: 0x202008,
+		            0x580: 0x10000008,
+		            0x680: 0x10002000,
+		            0x780: 0x2008,
+		            0x880: 0x200008,
+		            0x980: 0x2000,
+		            0xa80: 0x10002008,
+		            0xb80: 0x10200008,
+		            0xc80: 0x0,
+		            0xd80: 0x10202000,
+		            0xe80: 0x202000,
+		            0xf80: 0x10000000,
+		            0x1000: 0x10002000,
+		            0x1100: 0x10200008,
+		            0x1200: 0x10202008,
+		            0x1300: 0x2008,
+		            0x1400: 0x200000,
+		            0x1500: 0x10000000,
+		            0x1600: 0x10000008,
+		            0x1700: 0x202000,
+		            0x1800: 0x202008,
+		            0x1900: 0x0,
+		            0x1a00: 0x8,
+		            0x1b00: 0x10200000,
+		            0x1c00: 0x2000,
+		            0x1d00: 0x10002008,
+		            0x1e00: 0x10202000,
+		            0x1f00: 0x200008,
+		            0x1080: 0x8,
+		            0x1180: 0x202000,
+		            0x1280: 0x200000,
+		            0x1380: 0x10000008,
+		            0x1480: 0x10002000,
+		            0x1580: 0x2008,
+		            0x1680: 0x10202008,
+		            0x1780: 0x10200000,
+		            0x1880: 0x10202000,
+		            0x1980: 0x10200008,
+		            0x1a80: 0x2000,
+		            0x1b80: 0x202008,
+		            0x1c80: 0x200008,
+		            0x1d80: 0x0,
+		            0x1e80: 0x10000000,
+		            0x1f80: 0x10002008
+		        },
+		        {
+		            0x0: 0x100000,
+		            0x10: 0x2000401,
+		            0x20: 0x400,
+		            0x30: 0x100401,
+		            0x40: 0x2100401,
+		            0x50: 0x0,
+		            0x60: 0x1,
+		            0x70: 0x2100001,
+		            0x80: 0x2000400,
+		            0x90: 0x100001,
+		            0xa0: 0x2000001,
+		            0xb0: 0x2100400,
+		            0xc0: 0x2100000,
+		            0xd0: 0x401,
+		            0xe0: 0x100400,
+		            0xf0: 0x2000000,
+		            0x8: 0x2100001,
+		            0x18: 0x0,
+		            0x28: 0x2000401,
+		            0x38: 0x2100400,
+		            0x48: 0x100000,
+		            0x58: 0x2000001,
+		            0x68: 0x2000000,
+		            0x78: 0x401,
+		            0x88: 0x100401,
+		            0x98: 0x2000400,
+		            0xa8: 0x2100000,
+		            0xb8: 0x100001,
+		            0xc8: 0x400,
+		            0xd8: 0x2100401,
+		            0xe8: 0x1,
+		            0xf8: 0x100400,
+		            0x100: 0x2000000,
+		            0x110: 0x100000,
+		            0x120: 0x2000401,
+		            0x130: 0x2100001,
+		            0x140: 0x100001,
+		            0x150: 0x2000400,
+		            0x160: 0x2100400,
+		            0x170: 0x100401,
+		            0x180: 0x401,
+		            0x190: 0x2100401,
+		            0x1a0: 0x100400,
+		            0x1b0: 0x1,
+		            0x1c0: 0x0,
+		            0x1d0: 0x2100000,
+		            0x1e0: 0x2000001,
+		            0x1f0: 0x400,
+		            0x108: 0x100400,
+		            0x118: 0x2000401,
+		            0x128: 0x2100001,
+		            0x138: 0x1,
+		            0x148: 0x2000000,
+		            0x158: 0x100000,
+		            0x168: 0x401,
+		            0x178: 0x2100400,
+		            0x188: 0x2000001,
+		            0x198: 0x2100000,
+		            0x1a8: 0x0,
+		            0x1b8: 0x2100401,
+		            0x1c8: 0x100401,
+		            0x1d8: 0x400,
+		            0x1e8: 0x2000400,
+		            0x1f8: 0x100001
+		        },
+		        {
+		            0x0: 0x8000820,
+		            0x1: 0x20000,
+		            0x2: 0x8000000,
+		            0x3: 0x20,
+		            0x4: 0x20020,
+		            0x5: 0x8020820,
+		            0x6: 0x8020800,
+		            0x7: 0x800,
+		            0x8: 0x8020000,
+		            0x9: 0x8000800,
+		            0xa: 0x20800,
+		            0xb: 0x8020020,
+		            0xc: 0x820,
+		            0xd: 0x0,
+		            0xe: 0x8000020,
+		            0xf: 0x20820,
+		            0x80000000: 0x800,
+		            0x80000001: 0x8020820,
+		            0x80000002: 0x8000820,
+		            0x80000003: 0x8000000,
+		            0x80000004: 0x8020000,
+		            0x80000005: 0x20800,
+		            0x80000006: 0x20820,
+		            0x80000007: 0x20,
+		            0x80000008: 0x8000020,
+		            0x80000009: 0x820,
+		            0x8000000a: 0x20020,
+		            0x8000000b: 0x8020800,
+		            0x8000000c: 0x0,
+		            0x8000000d: 0x8020020,
+		            0x8000000e: 0x8000800,
+		            0x8000000f: 0x20000,
+		            0x10: 0x20820,
+		            0x11: 0x8020800,
+		            0x12: 0x20,
+		            0x13: 0x800,
+		            0x14: 0x8000800,
+		            0x15: 0x8000020,
+		            0x16: 0x8020020,
+		            0x17: 0x20000,
+		            0x18: 0x0,
+		            0x19: 0x20020,
+		            0x1a: 0x8020000,
+		            0x1b: 0x8000820,
+		            0x1c: 0x8020820,
+		            0x1d: 0x20800,
+		            0x1e: 0x820,
+		            0x1f: 0x8000000,
+		            0x80000010: 0x20000,
+		            0x80000011: 0x800,
+		            0x80000012: 0x8020020,
+		            0x80000013: 0x20820,
+		            0x80000014: 0x20,
+		            0x80000015: 0x8020000,
+		            0x80000016: 0x8000000,
+		            0x80000017: 0x8000820,
+		            0x80000018: 0x8020820,
+		            0x80000019: 0x8000020,
+		            0x8000001a: 0x8000800,
+		            0x8000001b: 0x0,
+		            0x8000001c: 0x20800,
+		            0x8000001d: 0x820,
+		            0x8000001e: 0x20020,
+		            0x8000001f: 0x8020800
+		        }
+		    ];
+
+		    // Masks that select the SBOX input
+		    var SBOX_MASK = [
+		        0xf8000001, 0x1f800000, 0x01f80000, 0x001f8000,
+		        0x0001f800, 0x00001f80, 0x000001f8, 0x8000001f
+		    ];
+
+		    /**
+		     * DES block cipher algorithm.
+		     */
+		    var DES = C_algo.DES = BlockCipher.extend({
+		        _doReset: function () {
+		            // Shortcuts
+		            var key = this._key;
+		            var keyWords = key.words;
+
+		            // Select 56 bits according to PC1
+		            var keyBits = [];
+		            for (var i = 0; i < 56; i++) {
+		                var keyBitPos = PC1[i] - 1;
+		                keyBits[i] = (keyWords[keyBitPos >>> 5] >>> (31 - keyBitPos % 32)) & 1;
+		            }
+
+		            // Assemble 16 subkeys
+		            var subKeys = this._subKeys = [];
+		            for (var nSubKey = 0; nSubKey < 16; nSubKey++) {
+		                // Create subkey
+		                var subKey = subKeys[nSubKey] = [];
+
+		                // Shortcut
+		                var bitShift = BIT_SHIFTS[nSubKey];
+
+		                // Select 48 bits according to PC2
+		                for (var i = 0; i < 24; i++) {
+		                    // Select from the left 28 key bits
+		                    subKey[(i / 6) | 0] |= keyBits[((PC2[i] - 1) + bitShift) % 28] << (31 - i % 6);
+
+		                    // Select from the right 28 key bits
+		                    subKey[4 + ((i / 6) | 0)] |= keyBits[28 + (((PC2[i + 24] - 1) + bitShift) % 28)] << (31 - i % 6);
+		                }
+
+		                // Since each subkey is applied to an expanded 32-bit input,
+		                // the subkey can be broken into 8 values scaled to 32-bits,
+		                // which allows the key to be used without expansion
+		                subKey[0] = (subKey[0] << 1) | (subKey[0] >>> 31);
+		                for (var i = 1; i < 7; i++) {
+		                    subKey[i] = subKey[i] >>> ((i - 1) * 4 + 3);
+		                }
+		                subKey[7] = (subKey[7] << 5) | (subKey[7] >>> 27);
+		            }
+
+		            // Compute inverse subkeys
+		            var invSubKeys = this._invSubKeys = [];
+		            for (var i = 0; i < 16; i++) {
+		                invSubKeys[i] = subKeys[15 - i];
+		            }
+		        },
+
+		        encryptBlock: function (M, offset) {
+		            this._doCryptBlock(M, offset, this._subKeys);
+		        },
+
+		        decryptBlock: function (M, offset) {
+		            this._doCryptBlock(M, offset, this._invSubKeys);
+		        },
+
+		        _doCryptBlock: function (M, offset, subKeys) {
+		            // Get input
+		            this._lBlock = M[offset];
+		            this._rBlock = M[offset + 1];
+
+		            // Initial permutation
+		            exchangeLR.call(this, 4,  0x0f0f0f0f);
+		            exchangeLR.call(this, 16, 0x0000ffff);
+		            exchangeRL.call(this, 2,  0x33333333);
+		            exchangeRL.call(this, 8,  0x00ff00ff);
+		            exchangeLR.call(this, 1,  0x55555555);
+
+		            // Rounds
+		            for (var round = 0; round < 16; round++) {
+		                // Shortcuts
+		                var subKey = subKeys[round];
+		                var lBlock = this._lBlock;
+		                var rBlock = this._rBlock;
+
+		                // Feistel function
+		                var f = 0;
+		                for (var i = 0; i < 8; i++) {
+		                    f |= SBOX_P[i][((rBlock ^ subKey[i]) & SBOX_MASK[i]) >>> 0];
+		                }
+		                this._lBlock = rBlock;
+		                this._rBlock = lBlock ^ f;
+		            }
+
+		            // Undo swap from last round
+		            var t = this._lBlock;
+		            this._lBlock = this._rBlock;
+		            this._rBlock = t;
+
+		            // Final permutation
+		            exchangeLR.call(this, 1,  0x55555555);
+		            exchangeRL.call(this, 8,  0x00ff00ff);
+		            exchangeRL.call(this, 2,  0x33333333);
+		            exchangeLR.call(this, 16, 0x0000ffff);
+		            exchangeLR.call(this, 4,  0x0f0f0f0f);
+
+		            // Set output
+		            M[offset] = this._lBlock;
+		            M[offset + 1] = this._rBlock;
+		        },
+
+		        keySize: 64/32,
+
+		        ivSize: 64/32,
+
+		        blockSize: 64/32
+		    });
+
+		    // Swap bits across the left and right words
+		    function exchangeLR(offset, mask) {
+		        var t = ((this._lBlock >>> offset) ^ this._rBlock) & mask;
+		        this._rBlock ^= t;
+		        this._lBlock ^= t << offset;
+		    }
+
+		    function exchangeRL(offset, mask) {
+		        var t = ((this._rBlock >>> offset) ^ this._lBlock) & mask;
+		        this._lBlock ^= t;
+		        this._rBlock ^= t << offset;
+		    }
+
+		    /**
+		     * Shortcut functions to the cipher's object interface.
+		     *
+		     * @example
+		     *
+		     *     var ciphertext = CryptoJS.DES.encrypt(message, key, cfg);
+		     *     var plaintext  = CryptoJS.DES.decrypt(ciphertext, key, cfg);
+		     */
+		    C.DES = BlockCipher._createHelper(DES);
+
+		    /**
+		     * Triple-DES block cipher algorithm.
+		     */
+		    var TripleDES = C_algo.TripleDES = BlockCipher.extend({
+		        _doReset: function () {
+		            // Shortcuts
+		            var key = this._key;
+		            var keyWords = key.words;
+
+		            // Create DES instances
+		            this._des1 = DES.createEncryptor(WordArray.create(keyWords.slice(0, 2)));
+		            this._des2 = DES.createEncryptor(WordArray.create(keyWords.slice(2, 4)));
+		            this._des3 = DES.createEncryptor(WordArray.create(keyWords.slice(4, 6)));
+		        },
+
+		        encryptBlock: function (M, offset) {
+		            this._des1.encryptBlock(M, offset);
+		            this._des2.decryptBlock(M, offset);
+		            this._des3.encryptBlock(M, offset);
+		        },
+
+		        decryptBlock: function (M, offset) {
+		            this._des3.decryptBlock(M, offset);
+		            this._des2.encryptBlock(M, offset);
+		            this._des1.decryptBlock(M, offset);
+		        },
+
+		        keySize: 192/32,
+
+		        ivSize: 64/32,
+
+		        blockSize: 64/32
+		    });
+
+		    /**
+		     * Shortcut functions to the cipher's object interface.
+		     *
+		     * @example
+		     *
+		     *     var ciphertext = CryptoJS.TripleDES.encrypt(message, key, cfg);
+		     *     var plaintext  = CryptoJS.TripleDES.decrypt(ciphertext, key, cfg);
+		     */
+		    C.TripleDES = BlockCipher._createHelper(TripleDES);
+		}());
+
+
+		return CryptoJS.TripleDES;
+
+	}));
+
+/***/ },
+/* 516 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(490), __webpack_require__(491), __webpack_require__(501), __webpack_require__(502));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./enc-base64", "./md5", "./evpkdf", "./cipher-core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		(function () {
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_lib = C.lib;
+		    var StreamCipher = C_lib.StreamCipher;
+		    var C_algo = C.algo;
+
+		    /**
+		     * RC4 stream cipher algorithm.
+		     */
+		    var RC4 = C_algo.RC4 = StreamCipher.extend({
+		        _doReset: function () {
+		            // Shortcuts
+		            var key = this._key;
+		            var keyWords = key.words;
+		            var keySigBytes = key.sigBytes;
+
+		            // Init sbox
+		            var S = this._S = [];
+		            for (var i = 0; i < 256; i++) {
+		                S[i] = i;
+		            }
+
+		            // Key setup
+		            for (var i = 0, j = 0; i < 256; i++) {
+		                var keyByteIndex = i % keySigBytes;
+		                var keyByte = (keyWords[keyByteIndex >>> 2] >>> (24 - (keyByteIndex % 4) * 8)) & 0xff;
+
+		                j = (j + S[i] + keyByte) % 256;
+
+		                // Swap
+		                var t = S[i];
+		                S[i] = S[j];
+		                S[j] = t;
+		            }
+
+		            // Counters
+		            this._i = this._j = 0;
+		        },
+
+		        _doProcessBlock: function (M, offset) {
+		            M[offset] ^= generateKeystreamWord.call(this);
+		        },
+
+		        keySize: 256/32,
+
+		        ivSize: 0
+		    });
+
+		    function generateKeystreamWord() {
+		        // Shortcuts
+		        var S = this._S;
+		        var i = this._i;
+		        var j = this._j;
+
+		        // Generate keystream word
+		        var keystreamWord = 0;
+		        for (var n = 0; n < 4; n++) {
+		            i = (i + 1) % 256;
+		            j = (j + S[i]) % 256;
+
+		            // Swap
+		            var t = S[i];
+		            S[i] = S[j];
+		            S[j] = t;
+
+		            keystreamWord |= S[(S[i] + S[j]) % 256] << (24 - n * 8);
+		        }
+
+		        // Update counters
+		        this._i = i;
+		        this._j = j;
+
+		        return keystreamWord;
+		    }
+
+		    /**
+		     * Shortcut functions to the cipher's object interface.
+		     *
+		     * @example
+		     *
+		     *     var ciphertext = CryptoJS.RC4.encrypt(message, key, cfg);
+		     *     var plaintext  = CryptoJS.RC4.decrypt(ciphertext, key, cfg);
+		     */
+		    C.RC4 = StreamCipher._createHelper(RC4);
+
+		    /**
+		     * Modified RC4 stream cipher algorithm.
+		     */
+		    var RC4Drop = C_algo.RC4Drop = RC4.extend({
+		        /**
+		         * Configuration options.
+		         *
+		         * @property {number} drop The number of keystream words to drop. Default 192
+		         */
+		        cfg: RC4.cfg.extend({
+		            drop: 192
+		        }),
+
+		        _doReset: function () {
+		            RC4._doReset.call(this);
+
+		            // Drop
+		            for (var i = this.cfg.drop; i > 0; i--) {
+		                generateKeystreamWord.call(this);
+		            }
+		        }
+		    });
+
+		    /**
+		     * Shortcut functions to the cipher's object interface.
+		     *
+		     * @example
+		     *
+		     *     var ciphertext = CryptoJS.RC4Drop.encrypt(message, key, cfg);
+		     *     var plaintext  = CryptoJS.RC4Drop.decrypt(ciphertext, key, cfg);
+		     */
+		    C.RC4Drop = StreamCipher._createHelper(RC4Drop);
+		}());
+
+
+		return CryptoJS.RC4;
+
+	}));
+
+/***/ },
+/* 517 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(490), __webpack_require__(491), __webpack_require__(501), __webpack_require__(502));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./enc-base64", "./md5", "./evpkdf", "./cipher-core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		(function () {
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_lib = C.lib;
+		    var StreamCipher = C_lib.StreamCipher;
+		    var C_algo = C.algo;
+
+		    // Reusable objects
+		    var S  = [];
+		    var C_ = [];
+		    var G  = [];
+
+		    /**
+		     * Rabbit stream cipher algorithm
+		     */
+		    var Rabbit = C_algo.Rabbit = StreamCipher.extend({
+		        _doReset: function () {
+		            // Shortcuts
+		            var K = this._key.words;
+		            var iv = this.cfg.iv;
+
+		            // Swap endian
+		            for (var i = 0; i < 4; i++) {
+		                K[i] = (((K[i] << 8)  | (K[i] >>> 24)) & 0x00ff00ff) |
+		                       (((K[i] << 24) | (K[i] >>> 8))  & 0xff00ff00);
+		            }
+
+		            // Generate initial state values
+		            var X = this._X = [
+		                K[0], (K[3] << 16) | (K[2] >>> 16),
+		                K[1], (K[0] << 16) | (K[3] >>> 16),
+		                K[2], (K[1] << 16) | (K[0] >>> 16),
+		                K[3], (K[2] << 16) | (K[1] >>> 16)
+		            ];
+
+		            // Generate initial counter values
+		            var C = this._C = [
+		                (K[2] << 16) | (K[2] >>> 16), (K[0] & 0xffff0000) | (K[1] & 0x0000ffff),
+		                (K[3] << 16) | (K[3] >>> 16), (K[1] & 0xffff0000) | (K[2] & 0x0000ffff),
+		                (K[0] << 16) | (K[0] >>> 16), (K[2] & 0xffff0000) | (K[3] & 0x0000ffff),
+		                (K[1] << 16) | (K[1] >>> 16), (K[3] & 0xffff0000) | (K[0] & 0x0000ffff)
+		            ];
+
+		            // Carry bit
+		            this._b = 0;
+
+		            // Iterate the system four times
+		            for (var i = 0; i < 4; i++) {
+		                nextState.call(this);
+		            }
+
+		            // Modify the counters
+		            for (var i = 0; i < 8; i++) {
+		                C[i] ^= X[(i + 4) & 7];
+		            }
+
+		            // IV setup
+		            if (iv) {
+		                // Shortcuts
+		                var IV = iv.words;
+		                var IV_0 = IV[0];
+		                var IV_1 = IV[1];
+
+		                // Generate four subvectors
+		                var i0 = (((IV_0 << 8) | (IV_0 >>> 24)) & 0x00ff00ff) | (((IV_0 << 24) | (IV_0 >>> 8)) & 0xff00ff00);
+		                var i2 = (((IV_1 << 8) | (IV_1 >>> 24)) & 0x00ff00ff) | (((IV_1 << 24) | (IV_1 >>> 8)) & 0xff00ff00);
+		                var i1 = (i0 >>> 16) | (i2 & 0xffff0000);
+		                var i3 = (i2 << 16)  | (i0 & 0x0000ffff);
+
+		                // Modify counter values
+		                C[0] ^= i0;
+		                C[1] ^= i1;
+		                C[2] ^= i2;
+		                C[3] ^= i3;
+		                C[4] ^= i0;
+		                C[5] ^= i1;
+		                C[6] ^= i2;
+		                C[7] ^= i3;
+
+		                // Iterate the system four times
+		                for (var i = 0; i < 4; i++) {
+		                    nextState.call(this);
+		                }
+		            }
+		        },
+
+		        _doProcessBlock: function (M, offset) {
+		            // Shortcut
+		            var X = this._X;
+
+		            // Iterate the system
+		            nextState.call(this);
+
+		            // Generate four keystream words
+		            S[0] = X[0] ^ (X[5] >>> 16) ^ (X[3] << 16);
+		            S[1] = X[2] ^ (X[7] >>> 16) ^ (X[5] << 16);
+		            S[2] = X[4] ^ (X[1] >>> 16) ^ (X[7] << 16);
+		            S[3] = X[6] ^ (X[3] >>> 16) ^ (X[1] << 16);
+
+		            for (var i = 0; i < 4; i++) {
+		                // Swap endian
+		                S[i] = (((S[i] << 8)  | (S[i] >>> 24)) & 0x00ff00ff) |
+		                       (((S[i] << 24) | (S[i] >>> 8))  & 0xff00ff00);
+
+		                // Encrypt
+		                M[offset + i] ^= S[i];
+		            }
+		        },
+
+		        blockSize: 128/32,
+
+		        ivSize: 64/32
+		    });
+
+		    function nextState() {
+		        // Shortcuts
+		        var X = this._X;
+		        var C = this._C;
+
+		        // Save old counter values
+		        for (var i = 0; i < 8; i++) {
+		            C_[i] = C[i];
+		        }
+
+		        // Calculate new counter values
+		        C[0] = (C[0] + 0x4d34d34d + this._b) | 0;
+		        C[1] = (C[1] + 0xd34d34d3 + ((C[0] >>> 0) < (C_[0] >>> 0) ? 1 : 0)) | 0;
+		        C[2] = (C[2] + 0x34d34d34 + ((C[1] >>> 0) < (C_[1] >>> 0) ? 1 : 0)) | 0;
+		        C[3] = (C[3] + 0x4d34d34d + ((C[2] >>> 0) < (C_[2] >>> 0) ? 1 : 0)) | 0;
+		        C[4] = (C[4] + 0xd34d34d3 + ((C[3] >>> 0) < (C_[3] >>> 0) ? 1 : 0)) | 0;
+		        C[5] = (C[5] + 0x34d34d34 + ((C[4] >>> 0) < (C_[4] >>> 0) ? 1 : 0)) | 0;
+		        C[6] = (C[6] + 0x4d34d34d + ((C[5] >>> 0) < (C_[5] >>> 0) ? 1 : 0)) | 0;
+		        C[7] = (C[7] + 0xd34d34d3 + ((C[6] >>> 0) < (C_[6] >>> 0) ? 1 : 0)) | 0;
+		        this._b = (C[7] >>> 0) < (C_[7] >>> 0) ? 1 : 0;
+
+		        // Calculate the g-values
+		        for (var i = 0; i < 8; i++) {
+		            var gx = X[i] + C[i];
+
+		            // Construct high and low argument for squaring
+		            var ga = gx & 0xffff;
+		            var gb = gx >>> 16;
+
+		            // Calculate high and low result of squaring
+		            var gh = ((((ga * ga) >>> 17) + ga * gb) >>> 15) + gb * gb;
+		            var gl = (((gx & 0xffff0000) * gx) | 0) + (((gx & 0x0000ffff) * gx) | 0);
+
+		            // High XOR low
+		            G[i] = gh ^ gl;
+		        }
+
+		        // Calculate new state values
+		        X[0] = (G[0] + ((G[7] << 16) | (G[7] >>> 16)) + ((G[6] << 16) | (G[6] >>> 16))) | 0;
+		        X[1] = (G[1] + ((G[0] << 8)  | (G[0] >>> 24)) + G[7]) | 0;
+		        X[2] = (G[2] + ((G[1] << 16) | (G[1] >>> 16)) + ((G[0] << 16) | (G[0] >>> 16))) | 0;
+		        X[3] = (G[3] + ((G[2] << 8)  | (G[2] >>> 24)) + G[1]) | 0;
+		        X[4] = (G[4] + ((G[3] << 16) | (G[3] >>> 16)) + ((G[2] << 16) | (G[2] >>> 16))) | 0;
+		        X[5] = (G[5] + ((G[4] << 8)  | (G[4] >>> 24)) + G[3]) | 0;
+		        X[6] = (G[6] + ((G[5] << 16) | (G[5] >>> 16)) + ((G[4] << 16) | (G[4] >>> 16))) | 0;
+		        X[7] = (G[7] + ((G[6] << 8)  | (G[6] >>> 24)) + G[5]) | 0;
+		    }
+
+		    /**
+		     * Shortcut functions to the cipher's object interface.
+		     *
+		     * @example
+		     *
+		     *     var ciphertext = CryptoJS.Rabbit.encrypt(message, key, cfg);
+		     *     var plaintext  = CryptoJS.Rabbit.decrypt(ciphertext, key, cfg);
+		     */
+		    C.Rabbit = StreamCipher._createHelper(Rabbit);
+		}());
+
+
+		return CryptoJS.Rabbit;
+
+	}));
+
+/***/ },
+/* 518 */
+/***/ function(module, exports, __webpack_require__) {
+
+	;(function (root, factory, undef) {
+		if (true) {
+			// CommonJS
+			module.exports = exports = factory(__webpack_require__(486), __webpack_require__(490), __webpack_require__(491), __webpack_require__(501), __webpack_require__(502));
+		}
+		else if (typeof define === "function" && define.amd) {
+			// AMD
+			define(["./core", "./enc-base64", "./md5", "./evpkdf", "./cipher-core"], factory);
+		}
+		else {
+			// Global (browser)
+			factory(root.CryptoJS);
+		}
+	}(this, function (CryptoJS) {
+
+		(function () {
+		    // Shortcuts
+		    var C = CryptoJS;
+		    var C_lib = C.lib;
+		    var StreamCipher = C_lib.StreamCipher;
+		    var C_algo = C.algo;
+
+		    // Reusable objects
+		    var S  = [];
+		    var C_ = [];
+		    var G  = [];
+
+		    /**
+		     * Rabbit stream cipher algorithm.
+		     *
+		     * This is a legacy version that neglected to convert the key to little-endian.
+		     * This error doesn't affect the cipher's security,
+		     * but it does affect its compatibility with other implementations.
+		     */
+		    var RabbitLegacy = C_algo.RabbitLegacy = StreamCipher.extend({
+		        _doReset: function () {
+		            // Shortcuts
+		            var K = this._key.words;
+		            var iv = this.cfg.iv;
+
+		            // Generate initial state values
+		            var X = this._X = [
+		                K[0], (K[3] << 16) | (K[2] >>> 16),
+		                K[1], (K[0] << 16) | (K[3] >>> 16),
+		                K[2], (K[1] << 16) | (K[0] >>> 16),
+		                K[3], (K[2] << 16) | (K[1] >>> 16)
+		            ];
+
+		            // Generate initial counter values
+		            var C = this._C = [
+		                (K[2] << 16) | (K[2] >>> 16), (K[0] & 0xffff0000) | (K[1] & 0x0000ffff),
+		                (K[3] << 16) | (K[3] >>> 16), (K[1] & 0xffff0000) | (K[2] & 0x0000ffff),
+		                (K[0] << 16) | (K[0] >>> 16), (K[2] & 0xffff0000) | (K[3] & 0x0000ffff),
+		                (K[1] << 16) | (K[1] >>> 16), (K[3] & 0xffff0000) | (K[0] & 0x0000ffff)
+		            ];
+
+		            // Carry bit
+		            this._b = 0;
+
+		            // Iterate the system four times
+		            for (var i = 0; i < 4; i++) {
+		                nextState.call(this);
+		            }
+
+		            // Modify the counters
+		            for (var i = 0; i < 8; i++) {
+		                C[i] ^= X[(i + 4) & 7];
+		            }
+
+		            // IV setup
+		            if (iv) {
+		                // Shortcuts
+		                var IV = iv.words;
+		                var IV_0 = IV[0];
+		                var IV_1 = IV[1];
+
+		                // Generate four subvectors
+		                var i0 = (((IV_0 << 8) | (IV_0 >>> 24)) & 0x00ff00ff) | (((IV_0 << 24) | (IV_0 >>> 8)) & 0xff00ff00);
+		                var i2 = (((IV_1 << 8) | (IV_1 >>> 24)) & 0x00ff00ff) | (((IV_1 << 24) | (IV_1 >>> 8)) & 0xff00ff00);
+		                var i1 = (i0 >>> 16) | (i2 & 0xffff0000);
+		                var i3 = (i2 << 16)  | (i0 & 0x0000ffff);
+
+		                // Modify counter values
+		                C[0] ^= i0;
+		                C[1] ^= i1;
+		                C[2] ^= i2;
+		                C[3] ^= i3;
+		                C[4] ^= i0;
+		                C[5] ^= i1;
+		                C[6] ^= i2;
+		                C[7] ^= i3;
+
+		                // Iterate the system four times
+		                for (var i = 0; i < 4; i++) {
+		                    nextState.call(this);
+		                }
+		            }
+		        },
+
+		        _doProcessBlock: function (M, offset) {
+		            // Shortcut
+		            var X = this._X;
+
+		            // Iterate the system
+		            nextState.call(this);
+
+		            // Generate four keystream words
+		            S[0] = X[0] ^ (X[5] >>> 16) ^ (X[3] << 16);
+		            S[1] = X[2] ^ (X[7] >>> 16) ^ (X[5] << 16);
+		            S[2] = X[4] ^ (X[1] >>> 16) ^ (X[7] << 16);
+		            S[3] = X[6] ^ (X[3] >>> 16) ^ (X[1] << 16);
+
+		            for (var i = 0; i < 4; i++) {
+		                // Swap endian
+		                S[i] = (((S[i] << 8)  | (S[i] >>> 24)) & 0x00ff00ff) |
+		                       (((S[i] << 24) | (S[i] >>> 8))  & 0xff00ff00);
+
+		                // Encrypt
+		                M[offset + i] ^= S[i];
+		            }
+		        },
+
+		        blockSize: 128/32,
+
+		        ivSize: 64/32
+		    });
+
+		    function nextState() {
+		        // Shortcuts
+		        var X = this._X;
+		        var C = this._C;
+
+		        // Save old counter values
+		        for (var i = 0; i < 8; i++) {
+		            C_[i] = C[i];
+		        }
+
+		        // Calculate new counter values
+		        C[0] = (C[0] + 0x4d34d34d + this._b) | 0;
+		        C[1] = (C[1] + 0xd34d34d3 + ((C[0] >>> 0) < (C_[0] >>> 0) ? 1 : 0)) | 0;
+		        C[2] = (C[2] + 0x34d34d34 + ((C[1] >>> 0) < (C_[1] >>> 0) ? 1 : 0)) | 0;
+		        C[3] = (C[3] + 0x4d34d34d + ((C[2] >>> 0) < (C_[2] >>> 0) ? 1 : 0)) | 0;
+		        C[4] = (C[4] + 0xd34d34d3 + ((C[3] >>> 0) < (C_[3] >>> 0) ? 1 : 0)) | 0;
+		        C[5] = (C[5] + 0x34d34d34 + ((C[4] >>> 0) < (C_[4] >>> 0) ? 1 : 0)) | 0;
+		        C[6] = (C[6] + 0x4d34d34d + ((C[5] >>> 0) < (C_[5] >>> 0) ? 1 : 0)) | 0;
+		        C[7] = (C[7] + 0xd34d34d3 + ((C[6] >>> 0) < (C_[6] >>> 0) ? 1 : 0)) | 0;
+		        this._b = (C[7] >>> 0) < (C_[7] >>> 0) ? 1 : 0;
+
+		        // Calculate the g-values
+		        for (var i = 0; i < 8; i++) {
+		            var gx = X[i] + C[i];
+
+		            // Construct high and low argument for squaring
+		            var ga = gx & 0xffff;
+		            var gb = gx >>> 16;
+
+		            // Calculate high and low result of squaring
+		            var gh = ((((ga * ga) >>> 17) + ga * gb) >>> 15) + gb * gb;
+		            var gl = (((gx & 0xffff0000) * gx) | 0) + (((gx & 0x0000ffff) * gx) | 0);
+
+		            // High XOR low
+		            G[i] = gh ^ gl;
+		        }
+
+		        // Calculate new state values
+		        X[0] = (G[0] + ((G[7] << 16) | (G[7] >>> 16)) + ((G[6] << 16) | (G[6] >>> 16))) | 0;
+		        X[1] = (G[1] + ((G[0] << 8)  | (G[0] >>> 24)) + G[7]) | 0;
+		        X[2] = (G[2] + ((G[1] << 16) | (G[1] >>> 16)) + ((G[0] << 16) | (G[0] >>> 16))) | 0;
+		        X[3] = (G[3] + ((G[2] << 8)  | (G[2] >>> 24)) + G[1]) | 0;
+		        X[4] = (G[4] + ((G[3] << 16) | (G[3] >>> 16)) + ((G[2] << 16) | (G[2] >>> 16))) | 0;
+		        X[5] = (G[5] + ((G[4] << 8)  | (G[4] >>> 24)) + G[3]) | 0;
+		        X[6] = (G[6] + ((G[5] << 16) | (G[5] >>> 16)) + ((G[4] << 16) | (G[4] >>> 16))) | 0;
+		        X[7] = (G[7] + ((G[6] << 8)  | (G[6] >>> 24)) + G[5]) | 0;
+		    }
+
+		    /**
+		     * Shortcut functions to the cipher's object interface.
+		     *
+		     * @example
+		     *
+		     *     var ciphertext = CryptoJS.RabbitLegacy.encrypt(message, key, cfg);
+		     *     var plaintext  = CryptoJS.RabbitLegacy.decrypt(ciphertext, key, cfg);
+		     */
+		    C.RabbitLegacy = StreamCipher._createHelper(RabbitLegacy);
+		}());
+
+
+		return CryptoJS.RabbitLegacy;
+
+	}));
+
+/***/ },
+/* 519 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
@@ -45019,45 +51811,45 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _PatientOverviewPage = __webpack_require__(486);
+	var _PatientOverviewPage = __webpack_require__(520);
 
 	var _PatientOverviewPage2 = _interopRequireDefault(_PatientOverviewPage);
 
-	var _PatientDailyTodoPage = __webpack_require__(492);
+	var _PatientDailyTodoPage = __webpack_require__(526);
 
 	var _PatientDailyTodoPage2 = _interopRequireDefault(_PatientDailyTodoPage);
 
-	var _PatientFollowUpsPage = __webpack_require__(496);
+	var _PatientFollowUpsPage = __webpack_require__(546);
 
 	var _PatientFollowUpsPage2 = _interopRequireDefault(_PatientFollowUpsPage);
 
-	var _PatientFollowUpInputPage = __webpack_require__(500);
+	var _PatientFollowUpInputPage = __webpack_require__(550);
 
 	var _PatientFollowUpInputPage2 = _interopRequireDefault(_PatientFollowUpInputPage);
 
-	var _PatientConsultsPage = __webpack_require__(502);
+	var _PatientConsultsPage = __webpack_require__(552);
 
 	var _PatientConsultsPage2 = _interopRequireDefault(_PatientConsultsPage);
 
-	var _PatientConsultInputPage = __webpack_require__(505);
+	var _PatientConsultInputPage = __webpack_require__(705);
 
 	var _PatientConsultInputPage2 = _interopRequireDefault(_PatientConsultInputPage);
 
-	var _PatientGeneralPage = __webpack_require__(506);
+	var _LearningGeneralPage = __webpack_require__(706);
 
-	var _PatientGeneralPage2 = _interopRequireDefault(_PatientGeneralPage);
+	var _LearningGeneralPage2 = _interopRequireDefault(_LearningGeneralPage);
 
-	var _PatientLabsPage = __webpack_require__(510);
+	var _PatientLabsPage = __webpack_require__(710);
 
 	var _PatientLabsPage2 = _interopRequireDefault(_PatientLabsPage);
 
-	var _PatientLearning = __webpack_require__(514);
+	var _LearningLearningPage = __webpack_require__(714);
 
-	var _PatientLearning2 = _interopRequireDefault(_PatientLearning);
+	var _LearningLearningPage2 = _interopRequireDefault(_LearningLearningPage);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var PatientViewController = function PatientViewController(_ref) {
+	var LearningViewController = function LearningViewController(_ref) {
 	  var onUpdate = _ref.onUpdate,
 	      patientData = _ref.patientData,
 	      secretCode = _ref.secretCode;
@@ -45070,7 +51862,7 @@
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'col' },
-	        _react2.default.createElement(_PatientGeneralPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode })
+	        _react2.default.createElement(_LearningGeneralPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode })
 	      )
 	    ),
 	    _react2.default.createElement(
@@ -45079,53 +51871,22 @@
 	      _react2.default.createElement(
 	        'div',
 	        { className: 'col' },
-	        _react2.default.createElement(_PatientOverviewPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode })
-	      )
-	    ),
-	    _react2.default.createElement(
-	      'div',
-	      { className: 'flex-grid' },
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'col' },
-	        _react2.default.createElement(_PatientLabsPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode })
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'col' },
-	        _react2.default.createElement(_PatientDailyTodoPage2.default, { onUpdate: onUpdate, patientData: patientData })
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'col' },
-	        _react2.default.createElement(_PatientFollowUpInputPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode }),
-	        _react2.default.createElement(_PatientFollowUpsPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode })
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'col' },
-	        _react2.default.createElement(_PatientConsultInputPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode }),
-	        _react2.default.createElement(_PatientConsultsPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode })
-	      ),
-	      _react2.default.createElement(
-	        'div',
-	        { className: 'col' },
-	        _react2.default.createElement(_PatientLearning2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode })
+	        _react2.default.createElement(_LearningLearningPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode })
 	      )
 	    )
 	  );
 	};
 
-	PatientViewController.propTypes = {
+	LearningViewController.propTypes = {
 	  onUpdate: _react.PropTypes.func.isRequired,
 	  patientData: _react.PropTypes.object.isRequired,
 	  secretCode: _react.PropTypes.string.isRequired
 	};
 
-	exports.default = PatientViewController;
+	exports.default = LearningViewController;
 
 /***/ },
-/* 486 */
+/* 520 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45140,7 +51901,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _PatientOverviewTextArea = __webpack_require__(487);
+	var _PatientOverviewTextArea = __webpack_require__(521);
 
 	var _PatientOverviewTextArea2 = _interopRequireDefault(_PatientOverviewTextArea);
 
@@ -45156,7 +51917,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	__webpack_require__(488);
+	__webpack_require__(522);
 
 	var PatientOverviewPage = function (_React$Component) {
 	  _inherits(PatientOverviewPage, _React$Component);
@@ -45201,7 +51962,7 @@
 	exports.default = PatientOverviewPage;
 
 /***/ },
-/* 487 */
+/* 521 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -45235,16 +51996,16 @@
 	exports.default = PatientOverviewTextArea;
 
 /***/ },
-/* 488 */
+/* 522 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(489);
+	var content = __webpack_require__(523);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(491)(content, {});
+	var update = __webpack_require__(525)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -45261,10 +52022,10 @@
 	}
 
 /***/ },
-/* 489 */
+/* 523 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(490)();
+	exports = module.exports = __webpack_require__(524)();
 	// imports
 
 
@@ -45275,7 +52036,7 @@
 
 
 /***/ },
-/* 490 */
+/* 524 */
 /***/ function(module, exports) {
 
 	/*
@@ -45331,7 +52092,7 @@
 
 
 /***/ },
-/* 491 */
+/* 525 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -45583,7 +52344,7 @@
 
 
 /***/ },
-/* 492 */
+/* 526 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45598,7 +52359,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _PatientDailyTodoList = __webpack_require__(493);
+	var _PatientDailyTodoList = __webpack_require__(527);
 
 	var _PatientDailyTodoList2 = _interopRequireDefault(_PatientDailyTodoList);
 
@@ -45612,7 +52373,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	__webpack_require__(494);
+	__webpack_require__(544);
 
 	var PatientDailyTodoPage = function (_React$Component) {
 	  _inherits(PatientDailyTodoPage, _React$Component);
@@ -45647,10 +52408,11 @@
 	  _createClass(PatientDailyTodoPage, [{
 	    key: 'handleChange',
 	    value: function handleChange(event) {
-	      var value = event.target.value;
-	      var className = event.target.className;
 
-	      this.props.onUpdate({ className: className, trueFalse: this.state[value] }, this.props.patientData._id); // updates on the server. Got rid of lots of code with [value]
+	      var value = event.target.checked;
+	      var className = event.target.id;
+
+	      this.props.onUpdate({ className: className, trueFalse: value }, this.props.patientData._id); // updates on the server. Got rid of lots of code with [value]
 	      this.state[value] === true ? this.setState(_defineProperty({}, value, false)) : this.setState(_defineProperty({}, value, true)); // updates locally.
 	    }
 	  }, {
@@ -45666,10 +52428,10 @@
 	exports.default = PatientDailyTodoPage;
 
 /***/ },
-/* 493 */
+/* 527 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -45679,7 +52441,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _List = __webpack_require__(528);
+
+	var _Checkbox = __webpack_require__(537);
+
+	var _Checkbox2 = _interopRequireDefault(_Checkbox);
+
+	var _Toggle = __webpack_require__(542);
+
+	var _Toggle2 = _interopRequireDefault(_Toggle);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var listHeight = '10px';
 
 	var PatientDailyTodoList = function PatientDailyTodoList(_ref) {
 	  var handleChange = _ref.handleChange,
@@ -45696,132 +52470,56 @@
 	      foley = _ref.foley,
 	      mobility = _ref.mobility;
 	  return _react2.default.createElement(
-	    "div",
+	    'div',
 	    null,
 	    _react2.default.createElement(
-	      "ul",
-	      { id: "dailyToDoUl" },
-	      _react2.default.createElement(
-	        "li",
-	        null,
-	        _react2.default.createElement(
-	          "label",
-	          null,
-	          _react2.default.createElement("input", { type: "checkbox", className: "LabsBack", value: "labsback", onChange: handleChange, defaultChecked: labsback }),
-	          "Labs Back"
-	        )
-	      ),
-	      _react2.default.createElement(
-	        "li",
-	        null,
-	        _react2.default.createElement(
-	          "label",
-	          null,
-	          _react2.default.createElement("input", { type: "checkbox", className: "Consults", value: "consults", onChange: handleChange, defaultChecked: consults }),
-	          "Consults"
-	        )
-	      ),
-	      _react2.default.createElement(
-	        "li",
-	        null,
-	        _react2.default.createElement(
-	          "label",
-	          null,
-	          _react2.default.createElement("input", { type: "checkbox", className: "Andon", value: "andon", onChange: handleChange, defaultChecked: andon }),
-	          "Andon - VTE/Glucose"
-	        )
-	      ),
-	      _react2.default.createElement(
-	        "li",
-	        null,
-	        _react2.default.createElement(
-	          "label",
-	          null,
-	          _react2.default.createElement("input", { type: "checkbox", className: "IVMed", value: "ivmed", onChange: handleChange, defaultChecked: ivmed }),
-	          "Micro"
-	        )
-	      ),
-	      _react2.default.createElement(
-	        "li",
-	        null,
-	        _react2.default.createElement(
-	          "label",
-	          null,
-	          _react2.default.createElement("input", { type: "checkbox", className: "Mar", value: "mar", onChange: handleChange, defaultChecked: mar }),
-	          "MAR 48"
-	        )
-	      ),
-	      _react2.default.createElement(
-	        "li",
-	        null,
-	        _react2.default.createElement(
-	          "label",
-	          null,
-	          _react2.default.createElement("input", { type: "checkbox", className: "AMLab", value: "amlab", onChange: handleChange, defaultChecked: amlab }),
-	          "AM Labs"
-	        )
-	      ),
-	      _react2.default.createElement(
-	        "li",
-	        null,
-	        _react2.default.createElement(
-	          "label",
-	          null,
-	          _react2.default.createElement("input", { type: "checkbox", className: "Dispo", value: "dispo", onChange: handleChange, defaultChecked: dispo }),
-	          "Discharge/Dispo"
-	        )
-	      ),
-	      _react2.default.createElement(
-	        "li",
-	        null,
-	        _react2.default.createElement(
-	          "label",
-	          null,
-	          _react2.default.createElement("input", { type: "checkbox", className: "Learning", value: "learning", onChange: handleChange, defaultChecked: learning }),
-	          "Learning"
-	        )
-	      ),
-	      _react2.default.createElement(
-	        "li",
-	        null,
-	        _react2.default.createElement(
-	          "label",
-	          null,
-	          _react2.default.createElement("input", { type: "checkbox", className: "Seen", value: "seen", onChange: handleChange, defaultChecked: seen }),
-	          "Seen"
-	        )
-	      ),
-	      _react2.default.createElement("hr", null),
-	      _react2.default.createElement(
-	        "li",
-	        null,
-	        _react2.default.createElement(
-	          "label",
-	          null,
-	          _react2.default.createElement("input", { type: "checkbox", className: "Lines", value: "lines", onChange: handleChange, defaultChecked: lines }),
-	          "Lines"
-	        )
-	      ),
-	      _react2.default.createElement(
-	        "li",
-	        null,
-	        _react2.default.createElement(
-	          "label",
-	          null,
-	          _react2.default.createElement("input", { type: "checkbox", className: "Foley", value: "foley", onChange: handleChange, defaultChecked: foley }),
-	          "Foley"
-	        )
-	      ),
-	      _react2.default.createElement(
-	        "li",
-	        null,
-	        _react2.default.createElement(
-	          "label",
-	          null,
-	          _react2.default.createElement("input", { type: "checkbox", className: "Mobility", value: "mobility", onChange: handleChange, defaultChecked: mobility }),
-	          "Mobility"
-	        )
-	      )
+	      _List.List,
+	      null,
+	      _react2.default.createElement(_List.ListItem, { leftCheckbox: _react2.default.createElement(_Checkbox2.default, { id: 'LabsBack', defaultChecked: labsback }),
+	        primaryText: 'Labs Back',
+	        onChange: handleChange,
+	        style: { height: listHeight }
+	      }),
+	      _react2.default.createElement(_List.ListItem, { leftCheckbox: _react2.default.createElement(_Checkbox2.default, { id: 'Consults', defaultChecked: consults }),
+	        primaryText: 'Consults',
+	        onChange: handleChange,
+	        style: { height: listHeight }
+	      }),
+	      _react2.default.createElement(_List.ListItem, { leftCheckbox: _react2.default.createElement(_Checkbox2.default, { id: 'Andon', defaultChecked: andon }),
+	        primaryText: 'Andon',
+	        onChange: handleChange,
+	        style: { height: listHeight }
+	      }),
+	      _react2.default.createElement(_List.ListItem, { leftCheckbox: _react2.default.createElement(_Checkbox2.default, { id: 'IVMed', defaultChecked: ivmed }),
+	        primaryText: 'Micro',
+	        onChange: handleChange,
+	        style: { height: listHeight }
+	      }),
+	      _react2.default.createElement(_List.ListItem, { leftCheckbox: _react2.default.createElement(_Checkbox2.default, { id: 'Mar', defaultChecked: mar }),
+	        primaryText: 'MAR 48',
+	        onChange: handleChange,
+	        style: { height: listHeight }
+	      }),
+	      _react2.default.createElement(_List.ListItem, { leftCheckbox: _react2.default.createElement(_Checkbox2.default, { id: 'AMLab', defaultChecked: amlab }),
+	        primaryText: 'AM Labs',
+	        onChange: handleChange,
+	        style: { height: listHeight }
+	      }),
+	      _react2.default.createElement(_List.ListItem, { leftCheckbox: _react2.default.createElement(_Checkbox2.default, { id: 'Dispo', defaultChecked: dispo }),
+	        primaryText: 'Discharge/Dispo',
+	        onChange: handleChange,
+	        style: { height: listHeight }
+	      }),
+	      _react2.default.createElement(_List.ListItem, { leftCheckbox: _react2.default.createElement(_Checkbox2.default, { id: 'Learning', defaultChecked: learning }),
+	        primaryText: 'Learning',
+	        onChange: handleChange,
+	        style: { height: listHeight }
+	      }),
+	      _react2.default.createElement(_List.ListItem, { leftCheckbox: _react2.default.createElement(_Checkbox2.default, { id: 'Seen', defaultChecked: seen }),
+	        primaryText: 'Seen',
+	        onChange: handleChange,
+	        style: { height: listHeight }
+	      })
 	    )
 	  );
 	};
@@ -45845,16 +52543,2475 @@
 	exports.default = PatientDailyTodoList;
 
 /***/ },
-/* 494 */
+/* 528 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = exports.makeSelectable = exports.ListItem = exports.List = undefined;
+
+	var _List2 = __webpack_require__(529);
+
+	var _List3 = _interopRequireDefault(_List2);
+
+	var _ListItem2 = __webpack_require__(532);
+
+	var _ListItem3 = _interopRequireDefault(_ListItem2);
+
+	var _makeSelectable2 = __webpack_require__(536);
+
+	var _makeSelectable3 = _interopRequireDefault(_makeSelectable2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.List = _List3.default;
+	exports.ListItem = _ListItem3.default;
+	exports.makeSelectable = _makeSelectable3.default;
+	exports.default = _List3.default;
+
+/***/ },
+/* 529 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends2 = __webpack_require__(400);
+
+	var _extends3 = _interopRequireDefault(_extends2);
+
+	var _objectWithoutProperties2 = __webpack_require__(405);
+
+	var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+	var _getPrototypeOf = __webpack_require__(323);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(321);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(326);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(330);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(331);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
+	var _simpleAssign = __webpack_require__(406);
+
+	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Subheader = __webpack_require__(530);
+
+	var _Subheader2 = _interopRequireDefault(_Subheader);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var List = function (_Component) {
+	  (0, _inherits3.default)(List, _Component);
+
+	  function List() {
+	    (0, _classCallCheck3.default)(this, List);
+	    return (0, _possibleConstructorReturn3.default)(this, (List.__proto__ || (0, _getPrototypeOf2.default)(List)).apply(this, arguments));
+	  }
+
+	  (0, _createClass3.default)(List, [{
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props,
+	          children = _props.children,
+	          style = _props.style,
+	          other = (0, _objectWithoutProperties3.default)(_props, ['children', 'style']);
+	      var prepareStyles = this.context.muiTheme.prepareStyles;
+
+
+	      var hasSubheader = false;
+
+	      var firstChild = _react.Children.toArray(children)[0];
+	      if ((0, _react.isValidElement)(firstChild) && firstChild.type === _Subheader2.default) {
+	        hasSubheader = true;
+	      }
+
+	      var styles = {
+	        root: {
+	          padding: (hasSubheader ? 0 : 8) + 'px 0px 8px 0px'
+	        }
+	      };
+
+	      return _react2.default.createElement(
+	        'div',
+	        (0, _extends3.default)({}, other, { style: prepareStyles((0, _simpleAssign2.default)(styles.root, style)) }),
+	        children
+	      );
+	    }
+	  }]);
+	  return List;
+	}(_react.Component);
+
+	List.contextTypes = {
+	  muiTheme: _react.PropTypes.object.isRequired
+	};
+	process.env.NODE_ENV !== "production" ? List.propTypes = {
+	  /**
+	   * These are usually `ListItem`s that are passed to
+	   * be part of the list.
+	   */
+	  children: _react.PropTypes.node,
+	  /**
+	   * Override the inline-styles of the root element.
+	   */
+	  style: _react.PropTypes.object
+	} : void 0;
+	exports.default = List;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 530 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _Subheader = __webpack_require__(531);
+
+	var _Subheader2 = _interopRequireDefault(_Subheader);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _Subheader2.default;
+
+/***/ },
+/* 531 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends2 = __webpack_require__(400);
+
+	var _extends3 = _interopRequireDefault(_extends2);
+
+	var _objectWithoutProperties2 = __webpack_require__(405);
+
+	var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+	var _simpleAssign = __webpack_require__(406);
+
+	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Subheader = function Subheader(props, context) {
+	  var children = props.children,
+	      inset = props.inset,
+	      style = props.style,
+	      other = (0, _objectWithoutProperties3.default)(props, ['children', 'inset', 'style']);
+	  var _context$muiTheme = context.muiTheme,
+	      prepareStyles = _context$muiTheme.prepareStyles,
+	      subheader = _context$muiTheme.subheader;
+
+
+	  var styles = {
+	    root: {
+	      boxSizing: 'border-box',
+	      color: subheader.color,
+	      fontSize: 14,
+	      fontWeight: subheader.fontWeight,
+	      lineHeight: '48px',
+	      paddingLeft: inset ? 72 : 16,
+	      width: '100%'
+	    }
+	  };
+
+	  return _react2.default.createElement(
+	    'div',
+	    (0, _extends3.default)({}, other, { style: prepareStyles((0, _simpleAssign2.default)(styles.root, style)) }),
+	    children
+	  );
+	};
+
+	Subheader.muiName = 'Subheader';
+
+	process.env.NODE_ENV !== "production" ? Subheader.propTypes = {
+	  /**
+	   * Node that will be placed inside the `Subheader`.
+	   */
+	  children: _react.PropTypes.node,
+	  /**
+	   * If true, the `Subheader` will be indented.
+	   */
+	  inset: _react.PropTypes.bool,
+	  /**
+	   * Override the inline-styles of the root element.
+	   */
+	  style: _react.PropTypes.object
+	} : void 0;
+
+	Subheader.defaultProps = {
+	  inset: false
+	};
+
+	Subheader.contextTypes = {
+	  muiTheme: _react.PropTypes.object.isRequired
+	};
+
+	exports.default = Subheader;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 532 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _objectWithoutProperties2 = __webpack_require__(405);
+
+	var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+	var _extends2 = __webpack_require__(400);
+
+	var _extends3 = _interopRequireDefault(_extends2);
+
+	var _getPrototypeOf = __webpack_require__(323);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(321);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(326);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(330);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(331);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
+	var _simpleAssign = __webpack_require__(406);
+
+	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(32);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _shallowEqual = __webpack_require__(422);
+
+	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
+
+	var _colorManipulator = __webpack_require__(247);
+
+	var _transitions = __webpack_require__(410);
+
+	var _transitions2 = _interopRequireDefault(_transitions);
+
+	var _EnhancedButton = __webpack_require__(429);
+
+	var _EnhancedButton2 = _interopRequireDefault(_EnhancedButton);
+
+	var _IconButton = __webpack_require__(427);
+
+	var _IconButton2 = _interopRequireDefault(_IconButton);
+
+	var _expandLess = __webpack_require__(533);
+
+	var _expandLess2 = _interopRequireDefault(_expandLess);
+
+	var _expandMore = __webpack_require__(534);
+
+	var _expandMore2 = _interopRequireDefault(_expandMore);
+
+	var _NestedList = __webpack_require__(535);
+
+	var _NestedList2 = _interopRequireDefault(_NestedList);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getStyles(props, context, state) {
+	  var insetChildren = props.insetChildren,
+	      leftAvatar = props.leftAvatar,
+	      leftCheckbox = props.leftCheckbox,
+	      leftIcon = props.leftIcon,
+	      nestedLevel = props.nestedLevel,
+	      rightAvatar = props.rightAvatar,
+	      rightIcon = props.rightIcon,
+	      rightIconButton = props.rightIconButton,
+	      rightToggle = props.rightToggle,
+	      secondaryText = props.secondaryText,
+	      secondaryTextLines = props.secondaryTextLines;
+	  var muiTheme = context.muiTheme;
+	  var listItem = muiTheme.listItem;
+
+
+	  var textColor = muiTheme.baseTheme.palette.textColor;
+	  var hoverColor = props.hoverColor || (0, _colorManipulator.fade)(textColor, 0.1);
+	  var singleAvatar = !secondaryText && (leftAvatar || rightAvatar);
+	  var singleNoAvatar = !secondaryText && !(leftAvatar || rightAvatar);
+	  var twoLine = secondaryText && secondaryTextLines === 1;
+	  var threeLine = secondaryText && secondaryTextLines > 1;
+
+	  var styles = {
+	    root: {
+	      backgroundColor: (state.isKeyboardFocused || state.hovered) && !state.rightIconButtonHovered && !state.rightIconButtonKeyboardFocused ? hoverColor : null,
+	      color: textColor,
+	      display: 'block',
+	      fontSize: 16,
+	      lineHeight: '16px',
+	      position: 'relative',
+	      transition: _transitions2.default.easeOut()
+	    },
+
+	    // This inner div is needed so that ripples will span the entire container
+	    innerDiv: {
+	      marginLeft: nestedLevel * listItem.nestedLevelDepth,
+	      paddingLeft: leftIcon || leftAvatar || leftCheckbox || insetChildren ? 72 : 16,
+	      paddingRight: rightIcon || rightAvatar || rightIconButton ? 56 : rightToggle ? 72 : 16,
+	      paddingBottom: singleAvatar ? 20 : 16,
+	      paddingTop: singleNoAvatar || threeLine ? 16 : 20,
+	      position: 'relative'
+	    },
+
+	    icons: {
+	      height: 24,
+	      width: 24,
+	      display: 'block',
+	      position: 'absolute',
+	      top: twoLine ? 12 : singleAvatar ? 4 : 0,
+	      margin: 12
+	    },
+
+	    leftIcon: {
+	      left: 4
+	    },
+
+	    rightIcon: {
+	      right: 4
+	    },
+
+	    avatars: {
+	      position: 'absolute',
+	      top: singleAvatar ? 8 : 16
+	    },
+
+	    label: {
+	      cursor: 'pointer'
+	    },
+
+	    leftAvatar: {
+	      left: 16
+	    },
+
+	    rightAvatar: {
+	      right: 16
+	    },
+
+	    leftCheckbox: {
+	      position: 'absolute',
+	      display: 'block',
+	      width: 24,
+	      top: twoLine ? 24 : singleAvatar ? 16 : 12,
+	      left: 16
+	    },
+
+	    primaryText: {},
+
+	    rightIconButton: {
+	      position: 'absolute',
+	      display: 'block',
+	      top: twoLine ? 12 : singleAvatar ? 4 : 0,
+	      right: 4
+	    },
+
+	    rightToggle: {
+	      position: 'absolute',
+	      display: 'block',
+	      width: 54,
+	      top: twoLine ? 25 : singleAvatar ? 17 : 13,
+	      right: 8
+	    },
+
+	    secondaryText: {
+	      fontSize: 14,
+	      lineHeight: threeLine ? '18px' : '16px',
+	      height: threeLine ? 36 : 16,
+	      margin: 0,
+	      marginTop: 4,
+	      color: listItem.secondaryTextColor,
+
+	      // needed for 2 and 3 line ellipsis
+	      overflow: 'hidden',
+	      textOverflow: 'ellipsis',
+	      whiteSpace: threeLine ? null : 'nowrap',
+	      display: threeLine ? '-webkit-box' : null,
+	      WebkitLineClamp: threeLine ? 2 : null,
+	      WebkitBoxOrient: threeLine ? 'vertical' : null
+	    }
+	  };
+
+	  return styles;
+	}
+
+	var ListItem = function (_Component) {
+	  (0, _inherits3.default)(ListItem, _Component);
+
+	  function ListItem() {
+	    var _ref;
+
+	    var _temp, _this, _ret;
+
+	    (0, _classCallCheck3.default)(this, ListItem);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = ListItem.__proto__ || (0, _getPrototypeOf2.default)(ListItem)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+	      hovered: false,
+	      isKeyboardFocused: false,
+	      open: false,
+	      rightIconButtonHovered: false,
+	      rightIconButtonKeyboardFocused: false,
+	      touch: false
+	    }, _this.handleKeyboardFocus = function (event, isKeyboardFocused) {
+	      _this.setState({ isKeyboardFocused: isKeyboardFocused });
+	      _this.props.onKeyboardFocus(event, isKeyboardFocused);
+	    }, _this.handleMouseEnter = function (event) {
+	      if (!_this.state.touch) _this.setState({ hovered: true });
+	      _this.props.onMouseEnter(event);
+	    }, _this.handleMouseLeave = function (event) {
+	      _this.setState({ hovered: false });
+	      _this.props.onMouseLeave(event);
+	    }, _this.handleNestedListToggle = function (event) {
+	      event.stopPropagation();
+
+	      if (_this.props.open === null) {
+	        _this.setState({ open: !_this.state.open }, function () {
+	          _this.props.onNestedListToggle(_this);
+	        });
+	      } else {
+	        // Exposing `this` in the callback is quite a bad API.
+	        // I'm doing a one level deep clone to expose a fake state.open.
+	        _this.props.onNestedListToggle((0, _extends3.default)({}, _this, {
+	          state: {
+	            open: !_this.state.open
+	          }
+	        }));
+	      }
+	    }, _this.handleRightIconButtonKeyboardFocus = function (event, isKeyboardFocused) {
+	      if (isKeyboardFocused) {
+	        _this.setState({
+	          isKeyboardFocused: false,
+	          rightIconButtonKeyboardFocused: isKeyboardFocused
+	        });
+	      }
+
+	      var iconButton = _this.props.rightIconButton;
+
+	      if (iconButton && iconButton.props.onKeyboardFocus) iconButton.props.onKeyboardFocus(event, isKeyboardFocused);
+	    }, _this.handleRightIconButtonMouseLeave = function (event) {
+	      var iconButton = _this.props.rightIconButton;
+	      _this.setState({ rightIconButtonHovered: false });
+	      if (iconButton && iconButton.props.onMouseLeave) iconButton.props.onMouseLeave(event);
+	    }, _this.handleRightIconButtonMouseEnter = function (event) {
+	      var iconButton = _this.props.rightIconButton;
+	      _this.setState({ rightIconButtonHovered: true });
+	      if (iconButton && iconButton.props.onMouseEnter) iconButton.props.onMouseEnter(event);
+	    }, _this.handleRightIconButtonMouseUp = function (event) {
+	      var iconButton = _this.props.rightIconButton;
+	      event.stopPropagation();
+	      if (iconButton && iconButton.props.onMouseUp) iconButton.props.onMouseUp(event);
+	    }, _this.handleRightIconButtonTouchTap = function (event) {
+	      var iconButton = _this.props.rightIconButton;
+
+	      // Stop the event from bubbling up to the list-item
+	      event.stopPropagation();
+	      if (iconButton && iconButton.props.onTouchTap) iconButton.props.onTouchTap(event);
+	    }, _this.handleTouchStart = function (event) {
+	      _this.setState({ touch: true });
+	      _this.props.onTouchStart(event);
+	    }, _this.handleTouchEnd = function (event) {
+	      _this.setState({ touch: true });
+	      _this.props.onTouchEnd(event);
+	    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+	  }
+
+	  (0, _createClass3.default)(ListItem, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      this.setState({
+	        open: this.props.open === null ? this.props.initiallyOpen === true : this.props.open
+	      });
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      // update the state when the component is controlled.
+	      if (nextProps.open !== null) this.setState({ open: nextProps.open });
+	      if (nextProps.disabled && this.state.hovered) this.setState({ hovered: false });
+	    }
+	  }, {
+	    key: 'shouldComponentUpdate',
+	    value: function shouldComponentUpdate(nextProps, nextState, nextContext) {
+	      return !(0, _shallowEqual2.default)(this.props, nextProps) || !(0, _shallowEqual2.default)(this.state, nextState) || !(0, _shallowEqual2.default)(this.context, nextContext);
+	    }
+
+	    // This method is needed by the `MenuItem` component.
+
+	  }, {
+	    key: 'applyFocusState',
+	    value: function applyFocusState(focusState) {
+	      var button = this.refs.enhancedButton;
+
+	      if (button) {
+	        var buttonEl = _reactDom2.default.findDOMNode(button);
+
+	        switch (focusState) {
+	          case 'none':
+	            buttonEl.blur();
+	            break;
+	          case 'focused':
+	            buttonEl.focus();
+	            break;
+	          case 'keyboard-focused':
+	            button.setKeyboardFocus();
+	            buttonEl.focus();
+	            break;
+	        }
+	      }
+	    }
+	  }, {
+	    key: 'createDisabledElement',
+	    value: function createDisabledElement(styles, contentChildren, additionalProps) {
+	      var _props = this.props,
+	          innerDivStyle = _props.innerDivStyle,
+	          style = _props.style;
+
+
+	      var mergedDivStyles = (0, _simpleAssign2.default)({}, styles.root, styles.innerDiv, innerDivStyle, style);
+
+	      return _react2.default.createElement(
+	        'div',
+	        (0, _extends3.default)({}, additionalProps, {
+	          style: this.context.muiTheme.prepareStyles(mergedDivStyles)
+	        }),
+	        contentChildren
+	      );
+	    }
+	  }, {
+	    key: 'createLabelElement',
+	    value: function createLabelElement(styles, contentChildren, additionalProps) {
+	      var _props2 = this.props,
+	          innerDivStyle = _props2.innerDivStyle,
+	          style = _props2.style;
+
+
+	      var mergedLabelStyles = (0, _simpleAssign2.default)({}, styles.root, styles.innerDiv, innerDivStyle, styles.label, style);
+
+	      return _react2.default.createElement(
+	        'label',
+	        (0, _extends3.default)({}, additionalProps, {
+	          style: this.context.muiTheme.prepareStyles(mergedLabelStyles)
+	        }),
+	        contentChildren
+	      );
+	    }
+	  }, {
+	    key: 'createTextElement',
+	    value: function createTextElement(styles, data, key) {
+	      var prepareStyles = this.context.muiTheme.prepareStyles;
+
+	      if (_react2.default.isValidElement(data)) {
+	        var style = (0, _simpleAssign2.default)({}, styles, data.props.style);
+	        if (typeof data.type === 'string') {
+	          // if element is a native dom node
+	          style = prepareStyles(style);
+	        }
+	        return _react2.default.cloneElement(data, {
+	          key: key,
+	          style: style
+	        });
+	      }
+
+	      return _react2.default.createElement(
+	        'div',
+	        { key: key, style: prepareStyles(styles) },
+	        data
+	      );
+	    }
+	  }, {
+	    key: 'pushElement',
+	    value: function pushElement(children, element, baseStyles, additionalProps) {
+	      if (element) {
+	        var styles = (0, _simpleAssign2.default)({}, baseStyles, element.props.style);
+	        children.push(_react2.default.cloneElement(element, (0, _extends3.default)({
+	          key: children.length,
+	          style: styles
+	        }, additionalProps)));
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props3 = this.props,
+	          autoGenerateNestedIndicator = _props3.autoGenerateNestedIndicator,
+	          children = _props3.children,
+	          disabled = _props3.disabled,
+	          disableKeyboardFocus = _props3.disableKeyboardFocus,
+	          hoverColor = _props3.hoverColor,
+	          initiallyOpen = _props3.initiallyOpen,
+	          innerDivStyle = _props3.innerDivStyle,
+	          insetChildren = _props3.insetChildren,
+	          leftAvatar = _props3.leftAvatar,
+	          leftCheckbox = _props3.leftCheckbox,
+	          leftIcon = _props3.leftIcon,
+	          nestedItems = _props3.nestedItems,
+	          nestedLevel = _props3.nestedLevel,
+	          nestedListStyle = _props3.nestedListStyle,
+	          onKeyboardFocus = _props3.onKeyboardFocus,
+	          onMouseEnter = _props3.onMouseEnter,
+	          onMouseLeave = _props3.onMouseLeave,
+	          onNestedListToggle = _props3.onNestedListToggle,
+	          onTouchStart = _props3.onTouchStart,
+	          onTouchTap = _props3.onTouchTap,
+	          rightAvatar = _props3.rightAvatar,
+	          rightIcon = _props3.rightIcon,
+	          rightIconButton = _props3.rightIconButton,
+	          rightToggle = _props3.rightToggle,
+	          primaryText = _props3.primaryText,
+	          primaryTogglesNestedList = _props3.primaryTogglesNestedList,
+	          secondaryText = _props3.secondaryText,
+	          secondaryTextLines = _props3.secondaryTextLines,
+	          style = _props3.style,
+	          other = (0, _objectWithoutProperties3.default)(_props3, ['autoGenerateNestedIndicator', 'children', 'disabled', 'disableKeyboardFocus', 'hoverColor', 'initiallyOpen', 'innerDivStyle', 'insetChildren', 'leftAvatar', 'leftCheckbox', 'leftIcon', 'nestedItems', 'nestedLevel', 'nestedListStyle', 'onKeyboardFocus', 'onMouseEnter', 'onMouseLeave', 'onNestedListToggle', 'onTouchStart', 'onTouchTap', 'rightAvatar', 'rightIcon', 'rightIconButton', 'rightToggle', 'primaryText', 'primaryTogglesNestedList', 'secondaryText', 'secondaryTextLines', 'style']);
+	      var prepareStyles = this.context.muiTheme.prepareStyles;
+
+	      var styles = getStyles(this.props, this.context, this.state);
+	      var contentChildren = [children];
+
+	      if (leftIcon) {
+	        var additionalProps = {
+	          color: leftIcon.props.color || this.context.muiTheme.listItem.leftIconColor
+	        };
+	        this.pushElement(contentChildren, leftIcon, (0, _simpleAssign2.default)({}, styles.icons, styles.leftIcon), additionalProps);
+	      }
+
+	      if (rightIcon) {
+	        var _additionalProps = {
+	          color: rightIcon.props.color || this.context.muiTheme.listItem.rightIconColor
+	        };
+	        this.pushElement(contentChildren, rightIcon, (0, _simpleAssign2.default)({}, styles.icons, styles.rightIcon), _additionalProps);
+	      }
+
+	      if (leftAvatar) {
+	        this.pushElement(contentChildren, leftAvatar, (0, _simpleAssign2.default)({}, styles.avatars, styles.leftAvatar));
+	      }
+
+	      if (rightAvatar) {
+	        this.pushElement(contentChildren, rightAvatar, (0, _simpleAssign2.default)({}, styles.avatars, styles.rightAvatar));
+	      }
+
+	      if (leftCheckbox) {
+	        this.pushElement(contentChildren, leftCheckbox, (0, _simpleAssign2.default)({}, styles.leftCheckbox));
+	      }
+
+	      // RightIconButtonElement
+	      var hasNestListItems = nestedItems.length;
+	      var hasRightElement = rightAvatar || rightIcon || rightIconButton || rightToggle;
+	      var needsNestedIndicator = hasNestListItems && autoGenerateNestedIndicator && !hasRightElement;
+
+	      if (rightIconButton || needsNestedIndicator) {
+	        var rightIconButtonElement = rightIconButton;
+	        var rightIconButtonHandlers = {
+	          onKeyboardFocus: this.handleRightIconButtonKeyboardFocus,
+	          onMouseEnter: this.handleRightIconButtonMouseEnter,
+	          onMouseLeave: this.handleRightIconButtonMouseLeave,
+	          onTouchTap: this.handleRightIconButtonTouchTap,
+	          onMouseDown: this.handleRightIconButtonMouseUp,
+	          onMouseUp: this.handleRightIconButtonMouseUp
+	        };
+
+	        // Create a nested list indicator icon if we don't have an icon on the right
+	        if (needsNestedIndicator) {
+	          rightIconButtonElement = this.state.open ? _react2.default.createElement(
+	            _IconButton2.default,
+	            null,
+	            _react2.default.createElement(_expandLess2.default, null)
+	          ) : _react2.default.createElement(
+	            _IconButton2.default,
+	            null,
+	            _react2.default.createElement(_expandMore2.default, null)
+	          );
+	          rightIconButtonHandlers.onTouchTap = this.handleNestedListToggle;
+	        }
+
+	        this.pushElement(contentChildren, rightIconButtonElement, (0, _simpleAssign2.default)({}, styles.rightIconButton), rightIconButtonHandlers);
+	      }
+
+	      if (rightToggle) {
+	        this.pushElement(contentChildren, rightToggle, (0, _simpleAssign2.default)({}, styles.rightToggle));
+	      }
+
+	      if (primaryText) {
+	        var primaryTextElement = this.createTextElement(styles.primaryText, primaryText, 'primaryText');
+	        contentChildren.push(primaryTextElement);
+	      }
+
+	      if (secondaryText) {
+	        var secondaryTextElement = this.createTextElement(styles.secondaryText, secondaryText, 'secondaryText');
+	        contentChildren.push(secondaryTextElement);
+	      }
+
+	      var nestedList = nestedItems.length ? _react2.default.createElement(
+	        _NestedList2.default,
+	        { nestedLevel: nestedLevel, open: this.state.open, style: nestedListStyle },
+	        nestedItems
+	      ) : undefined;
+
+	      var simpleLabel = !primaryTogglesNestedList && (leftCheckbox || rightToggle);
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        simpleLabel ? this.createLabelElement(styles, contentChildren, other) : disabled ? this.createDisabledElement(styles, contentChildren, other) : _react2.default.createElement(
+	          _EnhancedButton2.default,
+	          (0, _extends3.default)({
+	            containerElement: 'span'
+	          }, other, {
+	            disableKeyboardFocus: disableKeyboardFocus || this.state.rightIconButtonKeyboardFocused,
+	            onKeyboardFocus: this.handleKeyboardFocus,
+	            onMouseLeave: this.handleMouseLeave,
+	            onMouseEnter: this.handleMouseEnter,
+	            onTouchStart: this.handleTouchStart,
+	            onTouchEnd: this.handleTouchEnd,
+	            onTouchTap: primaryTogglesNestedList ? this.handleNestedListToggle : onTouchTap,
+	            ref: 'enhancedButton',
+	            style: (0, _simpleAssign2.default)({}, styles.root, style)
+	          }),
+	          _react2.default.createElement(
+	            'div',
+	            { style: prepareStyles((0, _simpleAssign2.default)(styles.innerDiv, innerDivStyle)) },
+	            contentChildren
+	          )
+	        ),
+	        nestedList
+	      );
+	    }
+	  }]);
+	  return ListItem;
+	}(_react.Component);
+
+	ListItem.muiName = 'ListItem';
+	ListItem.defaultProps = {
+	  autoGenerateNestedIndicator: true,
+	  disableKeyboardFocus: false,
+	  disabled: false,
+	  initiallyOpen: false,
+	  insetChildren: false,
+	  nestedItems: [],
+	  nestedLevel: 0,
+	  onKeyboardFocus: function onKeyboardFocus() {},
+	  onMouseEnter: function onMouseEnter() {},
+	  onMouseLeave: function onMouseLeave() {},
+	  onNestedListToggle: function onNestedListToggle() {},
+	  onTouchEnd: function onTouchEnd() {},
+	  onTouchStart: function onTouchStart() {},
+	  open: null,
+	  primaryTogglesNestedList: false,
+	  secondaryTextLines: 1
+	};
+	ListItem.contextTypes = {
+	  muiTheme: _react.PropTypes.object.isRequired
+	};
+	process.env.NODE_ENV !== "production" ? ListItem.propTypes = {
+	  /**
+	   * If true, generate a nested-list-indicator icon when nested list
+	   * items are detected. Note that an indicator will not be created
+	   * if a `rightIcon` or `rightIconButton` has been provided to
+	   * the element.
+	   */
+	  autoGenerateNestedIndicator: _react.PropTypes.bool,
+	  /**
+	   * Children passed into the `ListItem`.
+	   */
+	  children: _react.PropTypes.node,
+	  /**
+	   * If true, the element will not be able to be focused by the keyboard.
+	   */
+	  disableKeyboardFocus: _react.PropTypes.bool,
+	  /**
+	   * If true, the element will not be clickable
+	   * and will not display hover effects.
+	   * This is automatically disabled if either `leftCheckbox`
+	   * or `rightToggle` is set.
+	   */
+	  disabled: _react.PropTypes.bool,
+	  /**
+	  * Override the hover background color.
+	  */
+	  hoverColor: _react.PropTypes.string,
+	  /**
+	   * If true, the nested `ListItem`s are initially displayed.
+	   */
+	  initiallyOpen: _react.PropTypes.bool,
+	  /**
+	   * Override the inline-styles of the inner div element.
+	   */
+	  innerDivStyle: _react.PropTypes.object,
+	  /**
+	   * If true, the children will be indented by 72px.
+	   * This is useful if there is no left avatar or left icon.
+	   */
+	  insetChildren: _react.PropTypes.bool,
+	  /**
+	   * This is the `Avatar` element to be displayed on the left side.
+	   */
+	  leftAvatar: _react.PropTypes.element,
+	  /**
+	   * This is the `Checkbox` element to be displayed on the left side.
+	   */
+	  leftCheckbox: _react.PropTypes.element,
+	  /**
+	   * This is the `SvgIcon` or `FontIcon` to be displayed on the left side.
+	   */
+	  leftIcon: _react.PropTypes.element,
+	  /**
+	   * An array of `ListItem`s to nest underneath the current `ListItem`.
+	   */
+	  nestedItems: _react.PropTypes.arrayOf(_react.PropTypes.element),
+	  /**
+	   * Controls how deep a `ListItem` appears.
+	   * This property is automatically managed, so modify at your own risk.
+	   */
+	  nestedLevel: _react.PropTypes.number,
+	  /**
+	   * Override the inline-styles of the nested items' `NestedList`.
+	   */
+	  nestedListStyle: _react.PropTypes.object,
+	  /**
+	   * Callback function fired when the `ListItem` is focused or blurred by the keyboard.
+	   *
+	   * @param {object} event `focus` or `blur` event targeting the `ListItem`.
+	   * @param {boolean} isKeyboardFocused If true, the `ListItem` is focused.
+	   */
+	  onKeyboardFocus: _react.PropTypes.func,
+	  /** @ignore */
+	  onMouseEnter: _react.PropTypes.func,
+	  /** @ignore */
+	  onMouseLeave: _react.PropTypes.func,
+	  /**
+	   * Callbak function fired when the `ListItem` toggles its nested list.
+	   *
+	   * @param {object} listItem The `ListItem`.
+	   */
+	  onNestedListToggle: _react.PropTypes.func,
+	  /** @ignore */
+	  onTouchEnd: _react.PropTypes.func,
+	  /** @ignore */
+	  onTouchStart: _react.PropTypes.func,
+	  /** @ignore */
+	  onTouchTap: _react.PropTypes.func,
+	  /**
+	   * Control toggle state of nested list.
+	   */
+	  open: _react.PropTypes.bool,
+	  /**
+	   * This is the block element that contains the primary text.
+	   * If a string is passed in, a div tag will be rendered.
+	   */
+	  primaryText: _react.PropTypes.node,
+	  /**
+	   * If true, clicking or tapping the primary text of the `ListItem`
+	   * toggles the nested list.
+	   */
+	  primaryTogglesNestedList: _react.PropTypes.bool,
+	  /**
+	   * This is the `Avatar` element to be displayed on the right side.
+	   */
+	  rightAvatar: _react.PropTypes.element,
+	  /**
+	   * This is the `SvgIcon` or `FontIcon` to be displayed on the right side.
+	   */
+	  rightIcon: _react.PropTypes.element,
+	  /**
+	   * This is the `IconButton` to be displayed on the right side.
+	   * Hovering over this button will remove the `ListItem` hover.
+	   * Also, clicking on this button will not trigger a
+	   * ripple on the `ListItem`; the event will be stopped and prevented
+	   * from bubbling up to cause a `ListItem` click.
+	   */
+	  rightIconButton: _react.PropTypes.element,
+	  /**
+	   * This is the `Toggle` element to display on the right side.
+	   */
+	  rightToggle: _react.PropTypes.element,
+	  /**
+	   * This is the block element that contains the secondary text.
+	   * If a string is passed in, a div tag will be rendered.
+	   */
+	  secondaryText: _react.PropTypes.node,
+	  /**
+	   * Can be 1 or 2. This is the number of secondary
+	   * text lines before ellipsis will show.
+	   */
+	  secondaryTextLines: _react.PropTypes.oneOf([1, 2]),
+	  /**
+	   * Override the inline-styles of the root element.
+	   */
+	  style: _react.PropTypes.object
+	} : void 0;
+	exports.default = ListItem;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 533 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(413);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _SvgIcon = __webpack_require__(424);
+
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var NavigationExpandLess = function NavigationExpandLess(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z' })
+	  );
+	};
+	NavigationExpandLess = (0, _pure2.default)(NavigationExpandLess);
+	NavigationExpandLess.displayName = 'NavigationExpandLess';
+	NavigationExpandLess.muiName = 'SvgIcon';
+
+	exports.default = NavigationExpandLess;
+
+/***/ },
+/* 534 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(413);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _SvgIcon = __webpack_require__(424);
+
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var NavigationExpandMore = function NavigationExpandMore(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z' })
+	  );
+	};
+	NavigationExpandMore = (0, _pure2.default)(NavigationExpandMore);
+	NavigationExpandMore.displayName = 'NavigationExpandMore';
+	NavigationExpandMore.muiName = 'SvgIcon';
+
+	exports.default = NavigationExpandMore;
+
+/***/ },
+/* 535 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _List = __webpack_require__(529);
+
+	var _List2 = _interopRequireDefault(_List);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var NestedList = function NestedList(props) {
+	  var children = props.children,
+	      open = props.open,
+	      nestedLevel = props.nestedLevel,
+	      style = props.style;
+
+
+	  if (!open) {
+	    return null;
+	  }
+
+	  return _react2.default.createElement(
+	    _List2.default,
+	    { style: style },
+	    _react.Children.map(children, function (child) {
+	      return (0, _react.isValidElement)(child) ? (0, _react.cloneElement)(child, {
+	        nestedLevel: nestedLevel + 1
+	      }) : child;
+	    })
+	  );
+	};
+
+	process.env.NODE_ENV !== "production" ? NestedList.propTypes = {
+	  children: _react.PropTypes.node,
+	  nestedLevel: _react.PropTypes.number.isRequired,
+	  open: _react.PropTypes.bool.isRequired,
+	  /**
+	   * Override the inline-styles of the root element.
+	   */
+	  style: _react.PropTypes.object
+	} : void 0;
+
+	exports.default = NestedList;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 536 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.makeSelectable = undefined;
+
+	var _extends2 = __webpack_require__(400);
+
+	var _extends3 = _interopRequireDefault(_extends2);
+
+	var _objectWithoutProperties2 = __webpack_require__(405);
+
+	var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+	var _getPrototypeOf = __webpack_require__(323);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(321);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(326);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(330);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(331);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
+	var _simpleAssign = __webpack_require__(406);
+
+	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _colorManipulator = __webpack_require__(247);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var makeSelectable = exports.makeSelectable = function makeSelectable(MyComponent) {
+	  var _class, _temp2;
+
+	  return _temp2 = _class = function (_Component) {
+	    (0, _inherits3.default)(_class, _Component);
+
+	    function _class() {
+	      var _ref;
+
+	      var _temp, _this, _ret;
+
+	      (0, _classCallCheck3.default)(this, _class);
+
+	      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	        args[_key] = arguments[_key];
+	      }
+
+	      return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = _class.__proto__ || (0, _getPrototypeOf2.default)(_class)).call.apply(_ref, [this].concat(args))), _this), _this.hasSelectedDescendant = function (previousValue, child) {
+	        if (_react2.default.isValidElement(child) && child.props.nestedItems && child.props.nestedItems.length > 0) {
+	          return child.props.nestedItems.reduce(_this.hasSelectedDescendant, previousValue);
+	        }
+	        return previousValue || _this.isChildSelected(child, _this.props);
+	      }, _this.handleItemTouchTap = function (event, item) {
+	        var itemValue = item.props.value;
+
+	        if (itemValue !== _this.props.value) {
+	          if (_this.props.onChange) {
+	            _this.props.onChange(event, itemValue);
+	          }
+	        }
+	      }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+	    }
+
+	    (0, _createClass3.default)(_class, [{
+	      key: 'extendChild',
+	      value: function extendChild(child, styles, selectedItemStyle) {
+	        var _this2 = this;
+
+	        if (child && child.type && child.type.muiName === 'ListItem') {
+	          var selected = this.isChildSelected(child, this.props);
+	          var selectedChildrenStyles = void 0;
+	          if (selected) {
+	            selectedChildrenStyles = (0, _simpleAssign2.default)({}, styles, selectedItemStyle);
+	          }
+
+	          var mergedChildrenStyles = (0, _simpleAssign2.default)({}, child.props.style, selectedChildrenStyles);
+
+	          this.keyIndex += 1;
+
+	          return _react2.default.cloneElement(child, {
+	            onTouchTap: function onTouchTap(event) {
+	              _this2.handleItemTouchTap(event, child);
+	              if (child.props.onTouchTap) {
+	                child.props.onTouchTap(event);
+	              }
+	            },
+	            key: this.keyIndex,
+	            style: mergedChildrenStyles,
+	            nestedItems: child.props.nestedItems.map(function (child) {
+	              return _this2.extendChild(child, styles, selectedItemStyle);
+	            }),
+	            initiallyOpen: this.isInitiallyOpen(child)
+	          });
+	        } else {
+	          return child;
+	        }
+	      }
+	    }, {
+	      key: 'isInitiallyOpen',
+	      value: function isInitiallyOpen(child) {
+	        if (child.props.initiallyOpen) {
+	          return child.props.initiallyOpen;
+	        }
+	        return this.hasSelectedDescendant(false, child);
+	      }
+	    }, {
+	      key: 'isChildSelected',
+	      value: function isChildSelected(child, props) {
+	        return props.value === child.props.value;
+	      }
+	    }, {
+	      key: 'render',
+	      value: function render() {
+	        var _this3 = this;
+
+	        var _props = this.props,
+	            children = _props.children,
+	            selectedItemStyle = _props.selectedItemStyle,
+	            other = (0, _objectWithoutProperties3.default)(_props, ['children', 'selectedItemStyle']);
+
+
+	        this.keyIndex = 0;
+	        var styles = {};
+
+	        if (!selectedItemStyle) {
+	          var textColor = this.context.muiTheme.baseTheme.palette.textColor;
+	          styles.backgroundColor = (0, _colorManipulator.fade)(textColor, 0.2);
+	        }
+
+	        return _react2.default.createElement(
+	          MyComponent,
+	          (0, _extends3.default)({}, other, this.state),
+	          _react.Children.map(children, function (child) {
+	            return _this3.extendChild(child, styles, selectedItemStyle);
+	          })
+	        );
+	      }
+	    }]);
+	    return _class;
+	  }(_react.Component), _class.propTypes = {
+	    children: _react.PropTypes.node,
+	    onChange: _react.PropTypes.func,
+	    selectedItemStyle: _react.PropTypes.object,
+	    value: _react.PropTypes.any
+	  }, _class.contextTypes = {
+	    muiTheme: _react.PropTypes.object.isRequired
+	  }, _temp2;
+	};
+
+	exports.default = makeSelectable;
+
+/***/ },
+/* 537 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _Checkbox = __webpack_require__(538);
+
+	var _Checkbox2 = _interopRequireDefault(_Checkbox);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _Checkbox2.default;
+
+/***/ },
+/* 538 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends2 = __webpack_require__(400);
+
+	var _extends3 = _interopRequireDefault(_extends2);
+
+	var _objectWithoutProperties2 = __webpack_require__(405);
+
+	var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+	var _getPrototypeOf = __webpack_require__(323);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(321);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(326);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(330);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(331);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
+	var _simpleAssign = __webpack_require__(406);
+
+	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _EnhancedSwitch = __webpack_require__(539);
+
+	var _EnhancedSwitch2 = _interopRequireDefault(_EnhancedSwitch);
+
+	var _transitions = __webpack_require__(410);
+
+	var _transitions2 = _interopRequireDefault(_transitions);
+
+	var _checkBoxOutlineBlank = __webpack_require__(540);
+
+	var _checkBoxOutlineBlank2 = _interopRequireDefault(_checkBoxOutlineBlank);
+
+	var _checkBox = __webpack_require__(541);
+
+	var _checkBox2 = _interopRequireDefault(_checkBox);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getStyles(props, context) {
+	  var checkbox = context.muiTheme.checkbox;
+
+	  var checkboxSize = 24;
+
+	  return {
+	    icon: {
+	      height: checkboxSize,
+	      width: checkboxSize
+	    },
+	    check: {
+	      position: 'absolute',
+	      opacity: 0,
+	      transform: 'scale(0)',
+	      transitionOrigin: '50% 50%',
+	      transition: _transitions2.default.easeOut('450ms', 'opacity', '0ms') + ', ' + _transitions2.default.easeOut('0ms', 'transform', '450ms'),
+	      fill: checkbox.checkedColor
+	    },
+	    checkWhenSwitched: {
+	      opacity: 1,
+	      transform: 'scale(1)',
+	      transition: _transitions2.default.easeOut('0ms', 'opacity', '0ms') + ', ' + _transitions2.default.easeOut('800ms', 'transform', '0ms')
+	    },
+	    checkWhenDisabled: {
+	      fill: checkbox.disabledColor
+	    },
+	    box: {
+	      position: 'absolute',
+	      opacity: 1,
+	      fill: checkbox.boxColor,
+	      transition: _transitions2.default.easeOut('1000ms', 'opacity', '200ms')
+	    },
+	    boxWhenSwitched: {
+	      opacity: 0,
+	      transition: _transitions2.default.easeOut('650ms', 'opacity', '150ms'),
+	      fill: checkbox.checkedColor
+	    },
+	    boxWhenDisabled: {
+	      fill: props.checked ? 'transparent' : checkbox.disabledColor
+	    },
+	    label: {
+	      color: props.disabled ? checkbox.labelDisabledColor : checkbox.labelColor
+	    }
+	  };
+	}
+
+	var Checkbox = function (_Component) {
+	  (0, _inherits3.default)(Checkbox, _Component);
+
+	  function Checkbox() {
+	    var _ref;
+
+	    var _temp, _this, _ret;
+
+	    (0, _classCallCheck3.default)(this, Checkbox);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Checkbox.__proto__ || (0, _getPrototypeOf2.default)(Checkbox)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+	      switched: false
+	    }, _this.handleStateChange = function (newSwitched) {
+	      _this.setState({
+	        switched: newSwitched
+	      });
+	    }, _this.handleCheck = function (event, isInputChecked) {
+	      if (_this.props.onCheck) {
+	        _this.props.onCheck(event, isInputChecked);
+	      }
+	    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+	  }
+
+	  (0, _createClass3.default)(Checkbox, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var _props = this.props,
+	          checked = _props.checked,
+	          defaultChecked = _props.defaultChecked,
+	          valueLink = _props.valueLink;
+
+
+	      if (checked || defaultChecked || valueLink && valueLink.value) {
+	        this.setState({
+	          switched: true
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      if (this.props.checked !== nextProps.checked) {
+	        this.setState({
+	          switched: nextProps.checked
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'isChecked',
+	    value: function isChecked() {
+	      return this.refs.enhancedSwitch.isSwitched();
+	    }
+	  }, {
+	    key: 'setChecked',
+	    value: function setChecked(newCheckedValue) {
+	      this.refs.enhancedSwitch.setSwitched(newCheckedValue);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props2 = this.props,
+	          iconStyle = _props2.iconStyle,
+	          onCheck = _props2.onCheck,
+	          checkedIcon = _props2.checkedIcon,
+	          uncheckedIcon = _props2.uncheckedIcon,
+	          other = (0, _objectWithoutProperties3.default)(_props2, ['iconStyle', 'onCheck', 'checkedIcon', 'uncheckedIcon']);
+
+	      var styles = getStyles(this.props, this.context);
+	      var boxStyles = (0, _simpleAssign2.default)(styles.box, this.state.switched && styles.boxWhenSwitched, iconStyle, this.props.disabled && styles.boxWhenDisabled);
+	      var checkStyles = (0, _simpleAssign2.default)(styles.check, this.state.switched && styles.checkWhenSwitched, iconStyle, this.props.disabled && styles.checkWhenDisabled);
+
+	      var checkedElement = checkedIcon ? _react2.default.cloneElement(checkedIcon, {
+	        style: (0, _simpleAssign2.default)(checkStyles, checkedIcon.props.style)
+	      }) : _react2.default.createElement(_checkBox2.default, {
+	        style: checkStyles
+	      });
+
+	      var unCheckedElement = uncheckedIcon ? _react2.default.cloneElement(uncheckedIcon, {
+	        style: (0, _simpleAssign2.default)(boxStyles, uncheckedIcon.props.style)
+	      }) : _react2.default.createElement(_checkBoxOutlineBlank2.default, {
+	        style: boxStyles
+	      });
+
+	      var checkboxElement = _react2.default.createElement(
+	        'div',
+	        null,
+	        unCheckedElement,
+	        checkedElement
+	      );
+
+	      var rippleColor = this.state.switched ? checkStyles.fill : boxStyles.fill;
+	      var mergedIconStyle = (0, _simpleAssign2.default)(styles.icon, iconStyle);
+
+	      var labelStyle = (0, _simpleAssign2.default)(styles.label, this.props.labelStyle);
+
+	      var enhancedSwitchProps = {
+	        ref: 'enhancedSwitch',
+	        inputType: 'checkbox',
+	        switched: this.state.switched,
+	        switchElement: checkboxElement,
+	        rippleColor: rippleColor,
+	        iconStyle: mergedIconStyle,
+	        onSwitch: this.handleCheck,
+	        labelStyle: labelStyle,
+	        onParentShouldUpdate: this.handleStateChange,
+	        labelPosition: this.props.labelPosition
+	      };
+
+	      return _react2.default.createElement(_EnhancedSwitch2.default, (0, _extends3.default)({}, other, enhancedSwitchProps));
+	    }
+	  }]);
+	  return Checkbox;
+	}(_react.Component);
+
+	Checkbox.defaultProps = {
+	  labelPosition: 'right',
+	  disabled: false
+	};
+	Checkbox.contextTypes = {
+	  muiTheme: _react.PropTypes.object.isRequired
+	};
+	process.env.NODE_ENV !== "production" ? Checkbox.propTypes = {
+	  /**
+	   * Checkbox is checked if true.
+	   */
+	  checked: _react.PropTypes.bool,
+	  /**
+	   * The SvgIcon to use for the checked state.
+	   * This is useful to create icon toggles.
+	   */
+	  checkedIcon: _react.PropTypes.element,
+	  /**
+	   * The default state of our checkbox component.
+	   * **Warning:** This cannot be used in conjunction with `checked`.
+	   * Decide between using a controlled or uncontrolled input element and remove one of these props.
+	   * More info: https://fb.me/react-controlled-components
+	   */
+	  defaultChecked: _react.PropTypes.bool,
+	  /**
+	   * Disabled if true.
+	   */
+	  disabled: _react.PropTypes.bool,
+	  /**
+	   * Overrides the inline-styles of the icon element.
+	   */
+	  iconStyle: _react.PropTypes.object,
+	  /**
+	   * Overrides the inline-styles of the input element.
+	   */
+	  inputStyle: _react.PropTypes.object,
+	  /**
+	   * Where the label will be placed next to the checkbox.
+	   */
+	  labelPosition: _react.PropTypes.oneOf(['left', 'right']),
+	  /**
+	   * Overrides the inline-styles of the Checkbox element label.
+	   */
+	  labelStyle: _react.PropTypes.object,
+	  /**
+	   * Callback function that is fired when the checkbox is checked.
+	   *
+	   * @param {object} event `change` event targeting the underlying checkbox `input`.
+	   * @param {boolean} isInputChecked The `checked` value of the underlying checkbox `input`.
+	   */
+	  onCheck: _react.PropTypes.func,
+	  /**
+	   * Override the inline-styles of the root element.
+	   */
+	  style: _react.PropTypes.object,
+	  /**
+	   * The SvgIcon to use for the unchecked state.
+	   * This is useful to create icon toggles.
+	   */
+	  uncheckedIcon: _react.PropTypes.element,
+	  /**
+	   * ValueLink for when using controlled checkbox.
+	   */
+	  valueLink: _react.PropTypes.object
+	} : void 0;
+	exports.default = Checkbox;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 539 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends2 = __webpack_require__(400);
+
+	var _extends3 = _interopRequireDefault(_extends2);
+
+	var _objectWithoutProperties2 = __webpack_require__(405);
+
+	var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+	var _getPrototypeOf = __webpack_require__(323);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(321);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(326);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(330);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(331);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
+	var _simpleAssign = __webpack_require__(406);
+
+	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactEventListener = __webpack_require__(470);
+
+	var _reactEventListener2 = _interopRequireDefault(_reactEventListener);
+
+	var _keycode = __webpack_require__(434);
+
+	var _keycode2 = _interopRequireDefault(_keycode);
+
+	var _transitions = __webpack_require__(410);
+
+	var _transitions2 = _interopRequireDefault(_transitions);
+
+	var _FocusRipple = __webpack_require__(435);
+
+	var _FocusRipple2 = _interopRequireDefault(_FocusRipple);
+
+	var _TouchRipple = __webpack_require__(447);
+
+	var _TouchRipple2 = _interopRequireDefault(_TouchRipple);
+
+	var _Paper = __webpack_require__(407);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
+
+	var _warning = __webpack_require__(312);
+
+	var _warning2 = _interopRequireDefault(_warning);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getStyles(props, context) {
+	  var baseTheme = context.muiTheme.baseTheme;
+
+
+	  return {
+	    root: {
+	      cursor: props.disabled ? 'not-allowed' : 'pointer',
+	      position: 'relative',
+	      overflow: 'visible',
+	      display: 'table',
+	      height: 'auto',
+	      width: '100%'
+	    },
+	    input: {
+	      position: 'absolute',
+	      cursor: 'inherit',
+	      pointerEvents: 'all',
+	      opacity: 0,
+	      width: '100%',
+	      height: '100%',
+	      zIndex: 2,
+	      left: 0,
+	      boxSizing: 'border-box',
+	      padding: 0,
+	      margin: 0
+	    },
+	    controls: {
+	      display: 'flex',
+	      width: '100%',
+	      height: '100%'
+	    },
+	    label: {
+	      float: 'left',
+	      position: 'relative',
+	      display: 'block',
+	      width: 'calc(100% - 60px)',
+	      lineHeight: '24px',
+	      color: baseTheme.palette.textColor,
+	      fontFamily: baseTheme.fontFamily
+	    },
+	    wrap: {
+	      transition: _transitions2.default.easeOut(),
+	      float: 'left',
+	      position: 'relative',
+	      display: 'block',
+	      flexShrink: 0,
+	      width: 60 - baseTheme.spacing.desktopGutterLess,
+	      marginRight: props.labelPosition === 'right' ? baseTheme.spacing.desktopGutterLess : 0,
+	      marginLeft: props.labelPosition === 'left' ? baseTheme.spacing.desktopGutterLess : 0
+	    },
+	    ripple: {
+	      color: props.rippleColor || baseTheme.palette.primary1Color,
+	      height: '200%',
+	      width: '200%',
+	      top: -12,
+	      left: -12
+	    }
+	  };
+	}
+
+	var EnhancedSwitch = function (_Component) {
+	  (0, _inherits3.default)(EnhancedSwitch, _Component);
+
+	  function EnhancedSwitch() {
+	    var _ref;
+
+	    var _temp, _this, _ret;
+
+	    (0, _classCallCheck3.default)(this, EnhancedSwitch);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = EnhancedSwitch.__proto__ || (0, _getPrototypeOf2.default)(EnhancedSwitch)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+	      isKeyboardFocused: false
+	    }, _this.handleChange = function (event) {
+	      _this.tabPressed = false;
+	      _this.setState({
+	        isKeyboardFocused: false
+	      });
+
+	      var isInputChecked = _this.refs.checkbox.checked;
+
+	      if (!_this.props.hasOwnProperty('checked') && _this.props.onParentShouldUpdate) {
+	        _this.props.onParentShouldUpdate(isInputChecked);
+	      }
+
+	      if (_this.props.onSwitch) {
+	        _this.props.onSwitch(event, isInputChecked);
+	      }
+	    }, _this.handleKeyDown = function (event) {
+	      var code = (0, _keycode2.default)(event);
+
+	      if (code === 'tab') {
+	        _this.tabPressed = true;
+	      }
+	      if (_this.state.isKeyboardFocused && code === 'space') {
+	        _this.handleChange(event);
+	      }
+	    }, _this.handleKeyUp = function (event) {
+	      if (_this.state.isKeyboardFocused && (0, _keycode2.default)(event) === 'space') {
+	        _this.handleChange(event);
+	      }
+	    }, _this.handleMouseDown = function (event) {
+	      // only listen to left clicks
+	      if (event.button === 0) {
+	        _this.refs.touchRipple.start(event);
+	      }
+	    }, _this.handleMouseUp = function () {
+	      _this.refs.touchRipple.end();
+	    }, _this.handleMouseLeave = function () {
+	      _this.refs.touchRipple.end();
+	    }, _this.handleTouchStart = function (event) {
+	      _this.refs.touchRipple.start(event);
+	    }, _this.handleTouchEnd = function () {
+	      _this.refs.touchRipple.end();
+	    }, _this.handleBlur = function (event) {
+	      _this.setState({
+	        isKeyboardFocused: false
+	      });
+
+	      if (_this.props.onBlur) {
+	        _this.props.onBlur(event);
+	      }
+	    }, _this.handleFocus = function (event) {
+	      // setTimeout is needed becuase the focus event fires first
+	      // Wait so that we can capture if this was a keyboard focus
+	      // or touch focus
+	      setTimeout(function () {
+	        if (_this.tabPressed) {
+	          _this.setState({
+	            isKeyboardFocused: true
+	          });
+	        }
+	      }, 150);
+
+	      if (_this.props.onFocus) {
+	        _this.props.onFocus(event);
+	      }
+	    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+	  }
+
+	  (0, _createClass3.default)(EnhancedSwitch, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var inputNode = this.refs.checkbox;
+	      if ((!this.props.switched || inputNode.checked !== this.props.switched) && this.props.onParentShouldUpdate) {
+	        this.props.onParentShouldUpdate(inputNode.checked);
+	      }
+	    }
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      var hasCheckedProp = nextProps.hasOwnProperty('checked');
+	      var hasToggledProp = nextProps.hasOwnProperty('toggled');
+	      var hasNewDefaultProp = nextProps.hasOwnProperty('defaultChecked') && nextProps.defaultChecked !== this.props.defaultChecked;
+
+	      if (hasCheckedProp || hasToggledProp || hasNewDefaultProp) {
+	        var switched = nextProps.checked || nextProps.toggled || nextProps.defaultChecked || false;
+
+	        this.setState({
+	          switched: switched
+	        });
+
+	        if (this.props.onParentShouldUpdate && switched !== this.props.switched) {
+	          this.props.onParentShouldUpdate(switched);
+	        }
+	      }
+	    }
+	  }, {
+	    key: 'isSwitched',
+	    value: function isSwitched() {
+	      return this.refs.checkbox.checked;
+	    }
+
+	    // no callback here because there is no event
+
+	  }, {
+	    key: 'setSwitched',
+	    value: function setSwitched(newSwitchedValue) {
+	      if (!this.props.hasOwnProperty('checked') || this.props.checked === false) {
+	        if (this.props.onParentShouldUpdate) {
+	          this.props.onParentShouldUpdate(newSwitchedValue);
+	        }
+	        this.refs.checkbox.checked = newSwitchedValue;
+	      } else {
+	        process.env.NODE_ENV !== "production" ? (0, _warning2.default)(false, 'Material-UI: Cannot call set method while checked is defined as a property.') : void 0;
+	      }
+	    }
+	  }, {
+	    key: 'getValue',
+	    value: function getValue() {
+	      return this.refs.checkbox.value;
+	    }
+
+	    // Checkbox inputs only use SPACE to change their state. Using ENTER will
+	    // update the ui but not the input.
+
+
+	    /**
+	     * Because both the ripples and the checkbox input cannot share pointer
+	     * events, the checkbox input takes control of pointer events and calls
+	     * ripple animations manually.
+	     */
+
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props = this.props,
+	          name = _props.name,
+	          value = _props.value,
+	          iconStyle = _props.iconStyle,
+	          inputStyle = _props.inputStyle,
+	          inputType = _props.inputType,
+	          label = _props.label,
+	          labelStyle = _props.labelStyle,
+	          labelPosition = _props.labelPosition,
+	          onSwitch = _props.onSwitch,
+	          onBlur = _props.onBlur,
+	          onFocus = _props.onFocus,
+	          onMouseUp = _props.onMouseUp,
+	          onMouseDown = _props.onMouseDown,
+	          onMouseLeave = _props.onMouseLeave,
+	          onTouchStart = _props.onTouchStart,
+	          onTouchEnd = _props.onTouchEnd,
+	          onParentShouldUpdate = _props.onParentShouldUpdate,
+	          disabled = _props.disabled,
+	          disableTouchRipple = _props.disableTouchRipple,
+	          disableFocusRipple = _props.disableFocusRipple,
+	          className = _props.className,
+	          rippleColor = _props.rippleColor,
+	          rippleStyle = _props.rippleStyle,
+	          style = _props.style,
+	          switched = _props.switched,
+	          switchElement = _props.switchElement,
+	          thumbStyle = _props.thumbStyle,
+	          trackStyle = _props.trackStyle,
+	          other = (0, _objectWithoutProperties3.default)(_props, ['name', 'value', 'iconStyle', 'inputStyle', 'inputType', 'label', 'labelStyle', 'labelPosition', 'onSwitch', 'onBlur', 'onFocus', 'onMouseUp', 'onMouseDown', 'onMouseLeave', 'onTouchStart', 'onTouchEnd', 'onParentShouldUpdate', 'disabled', 'disableTouchRipple', 'disableFocusRipple', 'className', 'rippleColor', 'rippleStyle', 'style', 'switched', 'switchElement', 'thumbStyle', 'trackStyle']);
+	      var prepareStyles = this.context.muiTheme.prepareStyles;
+
+	      var styles = getStyles(this.props, this.context);
+	      var wrapStyles = (0, _simpleAssign2.default)(styles.wrap, iconStyle);
+	      var mergedRippleStyle = (0, _simpleAssign2.default)(styles.ripple, rippleStyle);
+
+	      if (thumbStyle) {
+	        wrapStyles.marginLeft /= 2;
+	        wrapStyles.marginRight /= 2;
+	      }
+
+	      var labelElement = label && _react2.default.createElement(
+	        'label',
+	        { style: prepareStyles((0, _simpleAssign2.default)(styles.label, labelStyle)) },
+	        label
+	      );
+
+	      var showTouchRipple = !disabled && !disableTouchRipple;
+	      var showFocusRipple = !disabled && !disableFocusRipple;
+
+	      var touchRipple = _react2.default.createElement(_TouchRipple2.default, {
+	        ref: 'touchRipple',
+	        key: 'touchRipple',
+	        style: mergedRippleStyle,
+	        color: mergedRippleStyle.color,
+	        muiTheme: this.context.muiTheme,
+	        centerRipple: true
+	      });
+
+	      var focusRipple = _react2.default.createElement(_FocusRipple2.default, {
+	        key: 'focusRipple',
+	        innerStyle: mergedRippleStyle,
+	        color: mergedRippleStyle.color,
+	        muiTheme: this.context.muiTheme,
+	        show: this.state.isKeyboardFocused
+	      });
+
+	      var ripples = [showTouchRipple ? touchRipple : null, showFocusRipple ? focusRipple : null];
+
+	      var inputElement = _react2.default.createElement('input', (0, _extends3.default)({}, other, {
+	        ref: 'checkbox',
+	        type: inputType,
+	        style: prepareStyles((0, _simpleAssign2.default)(styles.input, inputStyle)),
+	        name: name,
+	        value: value,
+	        disabled: disabled,
+	        onBlur: this.handleBlur,
+	        onFocus: this.handleFocus,
+	        onChange: this.handleChange,
+	        onMouseUp: showTouchRipple && this.handleMouseUp,
+	        onMouseDown: showTouchRipple && this.handleMouseDown,
+	        onMouseLeave: showTouchRipple && this.handleMouseLeave,
+	        onTouchStart: showTouchRipple && this.handleTouchStart,
+	        onTouchEnd: showTouchRipple && this.handleTouchEnd
+	      }));
+
+	      // If toggle component (indicated by whether the style includes thumb) manually lay out
+	      // elements in order to nest ripple elements
+	      var switchOrThumbElement = !thumbStyle ? _react2.default.createElement(
+	        'div',
+	        { style: prepareStyles(wrapStyles) },
+	        switchElement,
+	        ripples
+	      ) : _react2.default.createElement(
+	        'div',
+	        { style: prepareStyles(wrapStyles) },
+	        _react2.default.createElement('div', { style: prepareStyles((0, _simpleAssign2.default)({}, trackStyle)) }),
+	        _react2.default.createElement(
+	          _Paper2.default,
+	          { style: thumbStyle, zDepth: 1, circle: true },
+	          ' ',
+	          ripples,
+	          ' '
+	        )
+	      );
+
+	      var elementsInOrder = labelPosition === 'right' ? _react2.default.createElement(
+	        'div',
+	        { style: styles.controls },
+	        switchOrThumbElement,
+	        labelElement
+	      ) : _react2.default.createElement(
+	        'div',
+	        { style: styles.controls },
+	        labelElement,
+	        switchOrThumbElement
+	      );
+
+	      return _react2.default.createElement(
+	        'div',
+	        { ref: 'root', className: className, style: prepareStyles((0, _simpleAssign2.default)(styles.root, style)) },
+	        _react2.default.createElement(_reactEventListener2.default, {
+	          target: 'window',
+	          onKeyDown: this.handleKeyDown,
+	          onKeyUp: this.handleKeyUp
+	        }),
+	        inputElement,
+	        elementsInOrder
+	      );
+	    }
+	  }]);
+	  return EnhancedSwitch;
+	}(_react.Component);
+
+	EnhancedSwitch.contextTypes = {
+	  muiTheme: _react.PropTypes.object.isRequired
+	};
+	process.env.NODE_ENV !== "production" ? EnhancedSwitch.propTypes = {
+	  checked: _react.PropTypes.bool,
+	  className: _react.PropTypes.string,
+	  defaultChecked: _react.PropTypes.bool,
+	  disableFocusRipple: _react.PropTypes.bool,
+	  disableTouchRipple: _react.PropTypes.bool,
+	  disabled: _react.PropTypes.bool,
+	  iconStyle: _react.PropTypes.object,
+	  inputStyle: _react.PropTypes.object,
+	  inputType: _react.PropTypes.string.isRequired,
+	  label: _react.PropTypes.node,
+	  labelPosition: _react.PropTypes.oneOf(['left', 'right']),
+	  labelStyle: _react.PropTypes.object,
+	  name: _react.PropTypes.string,
+	  onBlur: _react.PropTypes.func,
+	  onFocus: _react.PropTypes.func,
+	  onMouseDown: _react.PropTypes.func,
+	  onMouseLeave: _react.PropTypes.func,
+	  onMouseUp: _react.PropTypes.func,
+	  onParentShouldUpdate: _react.PropTypes.func,
+	  onSwitch: _react.PropTypes.func,
+	  onTouchEnd: _react.PropTypes.func,
+	  onTouchStart: _react.PropTypes.func,
+	  rippleColor: _react.PropTypes.string,
+	  rippleStyle: _react.PropTypes.object,
+	  style: _react.PropTypes.object,
+	  switchElement: _react.PropTypes.element.isRequired,
+	  switched: _react.PropTypes.bool.isRequired,
+	  thumbStyle: _react.PropTypes.object,
+	  trackStyle: _react.PropTypes.object,
+	  value: _react.PropTypes.any
+	} : void 0;
+	exports.default = EnhancedSwitch;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 540 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(413);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _SvgIcon = __webpack_require__(424);
+
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ToggleCheckBoxOutlineBlank = function ToggleCheckBoxOutlineBlank(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z' })
+	  );
+	};
+	ToggleCheckBoxOutlineBlank = (0, _pure2.default)(ToggleCheckBoxOutlineBlank);
+	ToggleCheckBoxOutlineBlank.displayName = 'ToggleCheckBoxOutlineBlank';
+	ToggleCheckBoxOutlineBlank.muiName = 'SvgIcon';
+
+	exports.default = ToggleCheckBoxOutlineBlank;
+
+/***/ },
+/* 541 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(413);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _SvgIcon = __webpack_require__(424);
+
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ToggleCheckBox = function ToggleCheckBox(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z' })
+	  );
+	};
+	ToggleCheckBox = (0, _pure2.default)(ToggleCheckBox);
+	ToggleCheckBox.displayName = 'ToggleCheckBox';
+	ToggleCheckBox.muiName = 'SvgIcon';
+
+	exports.default = ToggleCheckBox;
+
+/***/ },
+/* 542 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _Toggle = __webpack_require__(543);
+
+	var _Toggle2 = _interopRequireDefault(_Toggle);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = _Toggle2.default;
+
+/***/ },
+/* 543 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends2 = __webpack_require__(400);
+
+	var _extends3 = _interopRequireDefault(_extends2);
+
+	var _objectWithoutProperties2 = __webpack_require__(405);
+
+	var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+	var _getPrototypeOf = __webpack_require__(323);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(321);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(326);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(330);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(331);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
+	var _simpleAssign = __webpack_require__(406);
+
+	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _transitions = __webpack_require__(410);
+
+	var _transitions2 = _interopRequireDefault(_transitions);
+
+	var _Paper = __webpack_require__(407);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
+
+	var _EnhancedSwitch = __webpack_require__(539);
+
+	var _EnhancedSwitch2 = _interopRequireDefault(_EnhancedSwitch);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function getStyles(props, context, state) {
+	  var disabled = props.disabled,
+	      elementStyle = props.elementStyle,
+	      trackSwitchedStyle = props.trackSwitchedStyle,
+	      thumbSwitchedStyle = props.thumbSwitchedStyle,
+	      trackStyle = props.trackStyle,
+	      thumbStyle = props.thumbStyle,
+	      iconStyle = props.iconStyle,
+	      rippleStyle = props.rippleStyle,
+	      labelStyle = props.labelStyle;
+	  var _context$muiTheme = context.muiTheme,
+	      baseTheme = _context$muiTheme.baseTheme,
+	      toggle = _context$muiTheme.toggle;
+
+
+	  var toggleSize = 20;
+	  var toggleTrackWidth = 36;
+	  var styles = {
+	    icon: {
+	      width: 36,
+	      padding: '4px 0px 6px 2px'
+	    },
+	    ripple: {
+	      top: -10,
+	      left: -10,
+	      color: state.switched ? toggle.thumbOnColor : baseTheme.palette.textColor
+	    },
+	    toggleElement: {
+	      width: toggleTrackWidth
+	    },
+	    track: {
+	      transition: _transitions2.default.easeOut(),
+	      width: '100%',
+	      height: 14,
+	      borderRadius: 30,
+	      backgroundColor: toggle.trackOffColor
+	    },
+	    thumb: {
+	      transition: _transitions2.default.easeOut(),
+	      position: 'absolute',
+	      top: 1,
+	      left: 0,
+	      width: toggleSize,
+	      height: toggleSize,
+	      lineHeight: '24px',
+	      borderRadius: '50%',
+	      backgroundColor: toggle.thumbOffColor
+	    },
+	    trackWhenSwitched: {
+	      backgroundColor: toggle.trackOnColor
+	    },
+	    thumbWhenSwitched: {
+	      backgroundColor: toggle.thumbOnColor,
+	      left: '100%'
+	    },
+	    trackWhenDisabled: {
+	      backgroundColor: toggle.trackDisabledColor
+	    },
+	    thumbWhenDisabled: {
+	      backgroundColor: toggle.thumbDisabledColor
+	    },
+	    label: {
+	      color: disabled ? toggle.labelDisabledColor : toggle.labelColor,
+	      width: 'calc(100% - ' + (toggleTrackWidth + 10) + 'px)'
+	    }
+	  };
+
+	  (0, _simpleAssign2.default)(styles.track, trackStyle, state.switched && styles.trackWhenSwitched, state.switched && trackSwitchedStyle, disabled && styles.trackWhenDisabled);
+
+	  (0, _simpleAssign2.default)(styles.thumb, thumbStyle, state.switched && styles.thumbWhenSwitched, state.switched && thumbSwitchedStyle, disabled && styles.thumbWhenDisabled);
+
+	  if (state.switched) {
+	    styles.thumb.marginLeft = 0 - styles.thumb.width;
+	  }
+
+	  (0, _simpleAssign2.default)(styles.icon, iconStyle);
+
+	  (0, _simpleAssign2.default)(styles.ripple, rippleStyle);
+
+	  (0, _simpleAssign2.default)(styles.label, labelStyle);
+
+	  (0, _simpleAssign2.default)(styles.toggleElement, elementStyle);
+
+	  return styles;
+	}
+
+	var Toggle = function (_Component) {
+	  (0, _inherits3.default)(Toggle, _Component);
+
+	  function Toggle() {
+	    var _ref;
+
+	    var _temp, _this, _ret;
+
+	    (0, _classCallCheck3.default)(this, Toggle);
+
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+
+	    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Toggle.__proto__ || (0, _getPrototypeOf2.default)(Toggle)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+	      switched: false
+	    }, _this.handleStateChange = function (newSwitched) {
+	      _this.setState({
+	        switched: newSwitched
+	      });
+	    }, _this.handleToggle = function (event, isInputChecked) {
+	      if (_this.props.onToggle) {
+	        _this.props.onToggle(event, isInputChecked);
+	      }
+	    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
+	  }
+
+	  (0, _createClass3.default)(Toggle, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var _props = this.props,
+	          toggled = _props.toggled,
+	          defaultToggled = _props.defaultToggled,
+	          valueLink = _props.valueLink;
+
+
+	      if (toggled || defaultToggled || valueLink && valueLink.value) {
+	        this.setState({
+	          switched: true
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'isToggled',
+	    value: function isToggled() {
+	      return this.refs.enhancedSwitch.isSwitched();
+	    }
+	  }, {
+	    key: 'setToggled',
+	    value: function setToggled(newToggledValue) {
+	      this.refs.enhancedSwitch.setSwitched(newToggledValue);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props2 = this.props,
+	          defaultToggled = _props2.defaultToggled,
+	          elementStyle = _props2.elementStyle,
+	          onToggle = _props2.onToggle,
+	          trackSwitchedStyle = _props2.trackSwitchedStyle,
+	          thumbSwitchedStyle = _props2.thumbSwitchedStyle,
+	          toggled = _props2.toggled,
+	          other = (0, _objectWithoutProperties3.default)(_props2, ['defaultToggled', 'elementStyle', 'onToggle', 'trackSwitchedStyle', 'thumbSwitchedStyle', 'toggled']);
+	      var prepareStyles = this.context.muiTheme.prepareStyles;
+
+	      var styles = getStyles(this.props, this.context, this.state);
+
+	      var toggleElement = _react2.default.createElement(
+	        'div',
+	        { style: prepareStyles((0, _simpleAssign2.default)({}, styles.toggleElement)) },
+	        _react2.default.createElement('div', { style: prepareStyles((0, _simpleAssign2.default)({}, styles.track)) }),
+	        _react2.default.createElement(_Paper2.default, { style: styles.thumb, circle: true, zDepth: 1 })
+	      );
+
+	      var enhancedSwitchProps = {
+	        ref: 'enhancedSwitch',
+	        inputType: 'checkbox',
+	        switchElement: toggleElement,
+	        rippleStyle: styles.ripple,
+	        rippleColor: styles.ripple.color,
+	        iconStyle: styles.icon,
+	        trackStyle: styles.track,
+	        thumbStyle: styles.thumb,
+	        labelStyle: styles.label,
+	        switched: this.state.switched,
+	        onSwitch: this.handleToggle,
+	        onParentShouldUpdate: this.handleStateChange,
+	        labelPosition: this.props.labelPosition
+	      };
+
+	      if (this.props.hasOwnProperty('toggled')) {
+	        enhancedSwitchProps.checked = toggled;
+	      } else if (this.props.hasOwnProperty('defaultToggled')) {
+	        enhancedSwitchProps.defaultChecked = defaultToggled;
+	      }
+
+	      return _react2.default.createElement(_EnhancedSwitch2.default, (0, _extends3.default)({}, other, enhancedSwitchProps));
+	    }
+	  }]);
+	  return Toggle;
+	}(_react.Component);
+
+	Toggle.defaultProps = {
+	  defaultToggled: false,
+	  disabled: false,
+	  labelPosition: 'left'
+	};
+	Toggle.contextTypes = {
+	  muiTheme: _react.PropTypes.object.isRequired
+	};
+	process.env.NODE_ENV !== "production" ? Toggle.propTypes = {
+	  /**
+	   * Determines whether the Toggle is initially turned on.
+	   * **Warning:** This cannot be used in conjunction with `toggled`.
+	   * Decide between using a controlled or uncontrolled input element and remove one of these props.
+	   * More info: https://fb.me/react-controlled-components
+	   */
+	  defaultToggled: _react.PropTypes.bool,
+	  /**
+	   * Will disable the toggle if true.
+	   */
+	  disabled: _react.PropTypes.bool,
+	  /**
+	   * Overrides the inline-styles of the Toggle element.
+	   */
+	  elementStyle: _react.PropTypes.object,
+	  /**
+	   * Overrides the inline-styles of the Icon element.
+	   */
+	  iconStyle: _react.PropTypes.object,
+	  /**
+	   * Overrides the inline-styles of the input element.
+	   */
+	  inputStyle: _react.PropTypes.object,
+	  /**
+	   * Label for toggle.
+	   */
+	  label: _react.PropTypes.node,
+	  /**
+	   * Where the label will be placed next to the toggle.
+	   */
+	  labelPosition: _react.PropTypes.oneOf(['left', 'right']),
+	  /**
+	   * Overrides the inline-styles of the Toggle element label.
+	   */
+	  labelStyle: _react.PropTypes.object,
+	  /**
+	   * Callback function that is fired when the toggle switch is toggled.
+	   */
+	  onToggle: _react.PropTypes.func,
+	  /**
+	   * Override style of ripple.
+	   */
+	  rippleStyle: _react.PropTypes.object,
+	  /**
+	   * Override the inline-styles of the root element.
+	   */
+	  style: _react.PropTypes.object,
+	  /**
+	   * Override style for thumb.
+	   */
+	  thumbStyle: _react.PropTypes.object,
+	  /**
+	  * Override the inline styles for thumb when the toggle switch is toggled on.
+	  */
+	  thumbSwitchedStyle: _react.PropTypes.object,
+	  /**
+	   * Toggled if set to true.
+	   */
+	  toggled: _react.PropTypes.bool,
+	  /**
+	   * Override style for track.
+	   */
+	  trackStyle: _react.PropTypes.object,
+	  /**
+	  * Override the inline styles for track when the toggle switch is toggled on.
+	  */
+	  trackSwitchedStyle: _react.PropTypes.object,
+	  /**
+	   * ValueLink prop for when using controlled toggle.
+	   */
+	  valueLink: _react.PropTypes.object
+	} : void 0;
+	exports.default = Toggle;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 544 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(495);
+	var content = __webpack_require__(545);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(491)(content, {});
+	var update = __webpack_require__(525)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -45871,10 +55028,10 @@
 	}
 
 /***/ },
-/* 495 */
+/* 545 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(490)();
+	exports = module.exports = __webpack_require__(524)();
 	// imports
 
 
@@ -45885,7 +55042,7 @@
 
 
 /***/ },
-/* 496 */
+/* 546 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45900,13 +55057,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _PatientDynamicList = __webpack_require__(497);
+	var _PatientDynamicList = __webpack_require__(547);
 
 	var _PatientDynamicList2 = _interopRequireDefault(_PatientDynamicList);
 
 	var _Crypto = __webpack_require__(484);
 
 	var _Crypto2 = _interopRequireDefault(_Crypto);
+
+	var _List = __webpack_require__(528);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -45916,7 +55075,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	__webpack_require__(498);
+	__webpack_require__(548);
 
 	var PatientFollowUpsPage = function (_React$Component) {
 	  _inherits(PatientFollowUpsPage, _React$Component);
@@ -46068,10 +55227,10 @@
 	exports.default = PatientFollowUpsPage;
 
 /***/ },
-/* 497 */
+/* 547 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -46080,6 +55239,16 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _List = __webpack_require__(528);
+
+	var _Checkbox = __webpack_require__(537);
+
+	var _Checkbox2 = _interopRequireDefault(_Checkbox);
+
+	var _Toggle = __webpack_require__(542);
+
+	var _Toggle2 = _interopRequireDefault(_Toggle);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -46101,13 +55270,13 @@
 	      sortClassName = _ref.sortClassName,
 	      handleKeyPress = _ref.handleKeyPress;
 	  return _react2.default.createElement(
-	    "li",
-	    { className: sortClassName, key: i, "data-id": i, "data-name": i, draggable: "true", onDragEnd: dragEnd, onDragStart: dragStart, onDragOver: dragOver, onDoubleClick: editElement },
-	    isEditing ? _react2.default.createElement("input", { type: "text", className: editClassName, onKeyPress: handleKeyPress, defaultValue: text, "data-name": i }) : _react2.default.createElement(
-	      "div",
-	      { className: editClassName, "data-name": i },
-	      _react2.default.createElement("input", {
-	        type: "checkbox",
+	    'li',
+	    { className: sortClassName, key: i, 'data-id': i, 'data-name': i, draggable: 'true', onDragEnd: dragEnd, onDragStart: dragStart, onDragOver: dragOver, onDoubleClick: editElement },
+	    isEditing ? _react2.default.createElement('input', { type: 'text', className: editClassName, onKeyPress: handleKeyPress, defaultValue: text, 'data-name': i }) : _react2.default.createElement(
+	      'div',
+	      { className: editClassName, 'data-name': i },
+	      _react2.default.createElement('input', {
+	        type: 'checkbox',
 	        className: listClassName,
 	        name: i,
 	        value: text,
@@ -46115,7 +55284,7 @@
 	        checked: isComplete }),
 	      text,
 	      _react2.default.createElement(
-	        "a",
+	        'a',
 	        { className: deleteText,
 	          name: i,
 	          onClick: handleDelete },
@@ -46147,16 +55316,16 @@
 	exports.default = PatientDynamicList;
 
 /***/ },
-/* 498 */
+/* 548 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(499);
+	var content = __webpack_require__(549);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(491)(content, {});
+	var update = __webpack_require__(525)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -46173,10 +55342,10 @@
 	}
 
 /***/ },
-/* 499 */
+/* 549 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(490)();
+	exports = module.exports = __webpack_require__(524)();
 	// imports
 
 
@@ -46187,7 +55356,7 @@
 
 
 /***/ },
-/* 500 */
+/* 550 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46202,7 +55371,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _PatientDynamicInputBox = __webpack_require__(501);
+	var _PatientDynamicInputBox = __webpack_require__(551);
 
 	var _PatientDynamicInputBox2 = _interopRequireDefault(_PatientDynamicInputBox);
 
@@ -46218,7 +55387,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	__webpack_require__(498);
+	__webpack_require__(548);
 
 	var PatientFollowUpInputPage = function (_React$Component) {
 	  _inherits(PatientFollowUpInputPage, _React$Component);
@@ -46233,7 +55402,8 @@
 	    var _this = _possibleConstructorReturn(this, (PatientFollowUpInputPage.__proto__ || Object.getPrototypeOf(PatientFollowUpInputPage)).call(this, props));
 
 	    _this.state = {
-	      inputBoxClassName: "AddFollowUp"
+	      inputBoxClassName: "AddFollowUp",
+	      name: "Follow Ups"
 	    };
 
 	    _this.handleKeyPress = _this.handleKeyPress.bind(_this);
@@ -46244,7 +55414,9 @@
 	    key: 'handleKeyPress',
 	    value: function handleKeyPress(e) {
 	      if (e.key === 'Enter') {
-	        this.props.onUpdate(e.target, this.props.patientData._id);
+	        if (e.currentTarget.value != "") {
+	          this.props.onUpdate(e.target, this.props.patientData._id);
+	        }
 	        e.currentTarget.value = "";
 	      }
 	    }
@@ -46254,13 +55426,12 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
+	        _react2.default.createElement(_PatientDynamicInputBox2.default, { handleKeyPress: this.handleKeyPress, inputBoxClassName: this.state.inputBoxClassName, name: this.state.name }),
 	        _react2.default.createElement(
-	          'label',
+	          'div',
 	          null,
-	          'Follow Ups'
-	        ),
-	        _react2.default.createElement('br', null),
-	        _react2.default.createElement(_PatientDynamicInputBox2.default, { handleKeyPress: this.handleKeyPress, inputBoxClassName: this.state.inputBoxClassName })
+	          _react2.default.createElement('br', null)
+	        )
 	      );
 	    }
 	  }]);
@@ -46271,10 +55442,10 @@
 	exports.default = PatientFollowUpInputPage;
 
 /***/ },
-/* 501 */
+/* 551 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -46284,23 +55455,29 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _TextField = __webpack_require__(467);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var PatientDynamicInputBox = function PatientDynamicInputBox(_ref) {
 	  var handleKeyPress = _ref.handleKeyPress,
-	      inputBoxClassName = _ref.inputBoxClassName;
-	  return _react2.default.createElement("input", { type: "text", className: inputBoxClassName, onKeyPress: handleKeyPress });
+	      inputBoxClassName = _ref.inputBoxClassName,
+	      name = _ref.name;
+	  return _react2.default.createElement(_TextField2.default, { id: inputBoxClassName, onKeyPress: handleKeyPress, hintText: name, floatingLabelText: name, style: { width: 150 } });
 	};
 
 	PatientDynamicInputBox.PropTypes = {
 	  handleKeyPress: _react.PropTypes.func.isRequired,
-	  inputBoxClassName: _react.PropTypes.string.isRequired
+	  inputBoxClassName: _react.PropTypes.string.isRequired,
+	  name: _react.PropTypes.string.isRequired
 	};
 
 	exports.default = PatientDynamicInputBox;
 
 /***/ },
-/* 502 */
+/* 552 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46315,13 +55492,29 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _PatientDynamicList = __webpack_require__(497);
+	var _PatientDynamicList = __webpack_require__(547);
 
 	var _PatientDynamicList2 = _interopRequireDefault(_PatientDynamicList);
+
+	var _reactSortableHoc = __webpack_require__(553);
 
 	var _Crypto = __webpack_require__(484);
 
 	var _Crypto2 = _interopRequireDefault(_Crypto);
+
+	var _List = __webpack_require__(528);
+
+	var _Checkbox = __webpack_require__(537);
+
+	var _Checkbox2 = _interopRequireDefault(_Checkbox);
+
+	var _delete = __webpack_require__(702);
+
+	var _delete2 = _interopRequireDefault(_delete);
+
+	var _Toggle = __webpack_require__(542);
+
+	var _Toggle2 = _interopRequireDefault(_Toggle);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -46331,7 +55524,58 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	__webpack_require__(503);
+	__webpack_require__(703);
+
+	var SortableItem = (0, _reactSortableHoc.SortableElement)(function (_ref) {
+	  var value = _ref.value,
+	      editElement = _ref.editElement,
+	      handleChange = _ref.handleChange,
+	      isComplete = _ref.isComplete,
+	      index = _ref.index,
+	      anIndex = _ref.anIndex,
+	      handleDelete = _ref.handleDelete,
+	      handleClick = _ref.handleClick,
+	      key = _ref.key;
+
+	  // Pass a div with ID as the primary text to access the index on click!
+	  return _react2.default.createElement(_List.ListItem, {
+	    onDoubleClick: editElement,
+	    onClick: handleClick,
+	    onChange: handleChange,
+	    primaryText: _react2.default.createElement(
+	      'div',
+	      { id: anIndex, className: 'Consult' },
+	      value
+	    ),
+	    style: isComplete ? { color: "#d32f2f" } : { color: "#212121" }
+	  });
+	});
+
+	var SortableList = (0, _reactSortableHoc.SortableContainer)(function (_ref2) {
+	  var items = _ref2.items,
+	      secretCode = _ref2.secretCode,
+	      editElement = _ref2.editElement,
+	      handleChange = _ref2.handleChange,
+	      handleDelete = _ref2.handleDelete,
+	      handleClick = _ref2.handleClick;
+
+	  return _react2.default.createElement(
+	    _List.List,
+	    null,
+	    items.map(function (value, index) {
+	      return _react2.default.createElement(SortableItem, {
+	        key: 'item-' + index,
+	        editElement: editElement,
+	        handleChange: handleChange,
+	        handleDelete: handleDelete,
+	        handleClick: handleChange,
+	        index: index,
+	        anIndex: index,
+	        isComplete: value.complete,
+	        value: _Crypto2.default.decodeString(value.consultText, secretCode) });
+	    })
+	  );
+	});
 
 	var PatientConsultsPage = function (_React$Component) {
 	  _inherits(PatientConsultsPage, _React$Component);
@@ -46347,7 +55591,8 @@
 
 	    _this.state = {
 	      data: _this.props.patientData,
-	      consult: _this.props.patientData.consult
+	      consult: _this.props.patientData.consult,
+	      sortClassName: "ConsultSort"
 	    };
 
 	    _this.handleChange = _this.handleChange.bind(_this);
@@ -46358,6 +55603,7 @@
 	    _this.sort = _this.sort.bind(_this);
 	    _this.editElement = _this.editElement.bind(_this);
 	    _this.handleKeyPress = _this.handleKeyPress.bind(_this);
+	    _this.onSortEnd = _this.onSortEnd.bind(_this);
 	    return _this;
 	  }
 
@@ -46439,6 +55685,26 @@
 	      this.sort(items, to);
 	    }
 	  }, {
+	    key: 'elementClicked',
+	    value: function elementClicked(e) {
+	      e.preventDefault();
+
+	      console.log("Clicked once");
+	    }
+	  }, {
+	    key: 'onSortEnd',
+	    value: function onSortEnd(oldIndex, newIndex) {
+	      //console.log(oldIndex.oldIndex);
+	      //console.log(oldIndex.newIndex);
+
+	      var data = this.state.data;
+	      data.consult = (0, _reactSortableHoc.arrayMove)(this.state.data.consult, oldIndex.oldIndex, oldIndex.newIndex);
+	      this.setState({ data: data });
+
+	      //console.log(this.state.data);
+	      this.props.onUpdate({ className: "ConsultSort" }, this.props.patientData._id);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -46483,16 +55749,5984 @@
 	exports.default = PatientConsultsPage;
 
 /***/ },
-/* 503 */
+/* 553 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.arrayMove = exports.sortableHandle = exports.sortableElement = exports.sortableContainer = exports.SortableHandle = exports.SortableElement = exports.SortableContainer = undefined;
+
+	var _utils = __webpack_require__(554);
+
+	Object.defineProperty(exports, 'arrayMove', {
+	  enumerable: true,
+	  get: function get() {
+	    return _utils.arrayMove;
+	  }
+	});
+
+	var _SortableContainer2 = __webpack_require__(555);
+
+	var _SortableContainer3 = _interopRequireDefault(_SortableContainer2);
+
+	var _SortableElement2 = __webpack_require__(700);
+
+	var _SortableElement3 = _interopRequireDefault(_SortableElement2);
+
+	var _SortableHandle2 = __webpack_require__(701);
+
+	var _SortableHandle3 = _interopRequireDefault(_SortableHandle2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.SortableContainer = _SortableContainer3.default;
+	exports.SortableElement = _SortableElement3.default;
+	exports.SortableHandle = _SortableHandle3.default;
+	exports.sortableContainer = _SortableContainer3.default;
+	exports.sortableElement = _SortableElement3.default;
+	exports.sortableHandle = _SortableHandle3.default;
+
+/***/ },
+/* 554 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.arrayMove = arrayMove;
+	exports.omit = omit;
+	exports.closest = closest;
+	exports.limit = limit;
+	exports.getElementMargin = getElementMargin;
+	exports.provideDisplayName = provideDisplayName;
+	function arrayMove(arr, previousIndex, newIndex) {
+	  var array = arr.slice(0);
+	  if (newIndex >= array.length) {
+	    var k = newIndex - array.length;
+	    while (k-- + 1) {
+	      array.push(undefined);
+	    }
+	  }
+	  array.splice(newIndex, 0, array.splice(previousIndex, 1)[0]);
+	  return array;
+	}
+
+	function omit(obj) {
+	  for (var _len = arguments.length, keysToOmit = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	    keysToOmit[_key - 1] = arguments[_key];
+	  }
+
+	  return Object.keys(obj).reduce(function (acc, key) {
+	    if (keysToOmit.indexOf(key) === -1) acc[key] = obj[key];
+	    return acc;
+	  }, {});
+	}
+
+	var events = exports.events = {
+	  start: ['touchstart', 'mousedown'],
+	  move: ['touchmove', 'mousemove'],
+	  end: ['touchend', 'touchcancel', 'mouseup']
+	};
+
+	var vendorPrefix = exports.vendorPrefix = function () {
+	  if (typeof window === 'undefined' || typeof document === 'undefined') return ''; // server environment
+	  // fix for:
+	  //    https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+	  //    window.getComputedStyle() returns null inside an iframe with display: none
+	  // in this case return an array with a fake mozilla style in it.
+	  var styles = window.getComputedStyle(document.documentElement, '') || ['-moz-hidden-iframe'];
+	  var pre = (Array.prototype.slice.call(styles).join('').match(/-(moz|webkit|ms)-/) || styles.OLink === '' && ['', 'o'])[1];
+
+	  switch (pre) {
+	    case 'ms':
+	      return 'ms';
+	    default:
+	      return pre && pre.length ? pre[0].toUpperCase() + pre.substr(1) : '';
+	  }
+	}();
+
+	function closest(el, fn) {
+	  while (el) {
+	    if (fn(el)) return el;
+	    el = el.parentNode;
+	  }
+	}
+
+	function limit(min, max, value) {
+	  if (value < min) {
+	    return min;
+	  }
+	  if (value > max) {
+	    return max;
+	  }
+	  return value;
+	}
+
+	function getCSSPixelValue(stringValue) {
+	  if (stringValue.substr(-2) === 'px') {
+	    return parseFloat(stringValue);
+	  }
+	  return 0;
+	}
+
+	function getElementMargin(element) {
+	  var style = window.getComputedStyle(element);
+
+	  return {
+	    top: getCSSPixelValue(style.marginTop),
+	    right: getCSSPixelValue(style.marginRight),
+	    bottom: getCSSPixelValue(style.marginBottom),
+	    left: getCSSPixelValue(style.marginLeft)
+	  };
+	}
+
+	function provideDisplayName(prefix, Component) {
+	  var componentName = Component.displayName || Component.name;
+
+	  return componentName ? prefix + '(' + componentName + ')' : prefix;
+	}
+
+/***/ },
+/* 555 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	exports.default = sortableContainer;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(32);
+
+	var _invariant = __webpack_require__(343);
+
+	var _invariant2 = _interopRequireDefault(_invariant);
+
+	var _Manager = __webpack_require__(556);
+
+	var _Manager2 = _interopRequireDefault(_Manager);
+
+	var _utils = __webpack_require__(554);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	// Export Higher Order Sortable Container Component
+	function sortableContainer(WrappedComponent) {
+	  var _class, _temp;
+
+	  var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { withRef: false };
+
+	  return _temp = _class = function (_Component) {
+	    _inherits(_class, _Component);
+
+	    function _class(props) {
+	      _classCallCheck(this, _class);
+
+	      var _this = _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).call(this, props));
+
+	      _this.handleStart = function (e) {
+	        var _this$props = _this.props,
+	            distance = _this$props.distance,
+	            shouldCancelStart = _this$props.shouldCancelStart;
+
+
+	        if (e.button === 2 || shouldCancelStart(e)) {
+	          return false;
+	        }
+
+	        _this._touched = true;
+	        _this._pos = {
+	          x: e.clientX,
+	          y: e.clientY
+	        };
+
+	        var node = (0, _utils.closest)(e.target, function (el) {
+	          return el.sortableInfo != null;
+	        });
+
+	        if (node && node.sortableInfo && _this.nodeIsChild(node) && !_this.state.sorting) {
+	          var useDragHandle = _this.props.useDragHandle;
+	          var _node$sortableInfo = node.sortableInfo,
+	              index = _node$sortableInfo.index,
+	              collection = _node$sortableInfo.collection;
+
+
+	          if (useDragHandle && !(0, _utils.closest)(e.target, function (el) {
+	            return el.sortableHandle != null;
+	          })) return;
+
+	          _this.manager.active = { index: index, collection: collection };
+
+	          /*
+	          * Fixes a bug in Firefox where the :active state of anchor tags
+	          * prevent subsequent 'mousemove' events from being fired
+	          * (see https://github.com/clauderic/react-sortable-hoc/issues/118)
+	          */
+	          if (e.target.tagName.toLowerCase() === 'a') {
+	            e.preventDefault();
+	          }
+
+	          if (!distance) {
+	            if (_this.props.pressDelay === 0) {
+	              _this.handlePress(e);
+	            } else {
+	              _this.pressTimer = setTimeout(function () {
+	                return _this.handlePress(e);
+	              }, _this.props.pressDelay);
+	            }
+	          }
+	        }
+	      };
+
+	      _this.nodeIsChild = function (node) {
+	        return node.sortableInfo.manager === _this.manager;
+	      };
+
+	      _this.handleMove = function (e) {
+	        var _this$props2 = _this.props,
+	            distance = _this$props2.distance,
+	            pressThreshold = _this$props2.pressThreshold;
+
+
+	        if (!_this.state.sorting && _this._touched) {
+	          _this._delta = {
+	            x: _this._pos.x - e.clientX,
+	            y: _this._pos.y - e.clientY
+	          };
+	          var delta = Math.abs(_this._delta.x) + Math.abs(_this._delta.y);
+
+	          if (!distance && (!pressThreshold || pressThreshold && delta >= pressThreshold)) {
+	            clearTimeout(_this.cancelTimer);
+	            _this.cancelTimer = setTimeout(_this.cancel, 0);
+	          } else if (distance && delta >= distance) {
+	            _this.handlePress(e);
+	          }
+	        }
+	      };
+
+	      _this.handleEnd = function () {
+	        var distance = _this.props.distance;
+
+
+	        _this._touched = false;
+
+	        if (!distance) {
+	          _this.cancel();
+	        }
+	      };
+
+	      _this.cancel = function () {
+	        if (!_this.state.sorting) {
+	          clearTimeout(_this.pressTimer);
+	          _this.manager.active = null;
+	        }
+	      };
+
+	      _this.handlePress = function (e) {
+	        var active = _this.manager.getActive();
+
+	        if (active) {
+	          var _this$props3 = _this.props,
+	              axis = _this$props3.axis,
+	              getHelperDimensions = _this$props3.getHelperDimensions,
+	              helperClass = _this$props3.helperClass,
+	              hideSortableGhost = _this$props3.hideSortableGhost,
+	              onSortStart = _this$props3.onSortStart,
+	              useWindowAsScrollContainer = _this$props3.useWindowAsScrollContainer;
+	          var node = active.node,
+	              collection = active.collection;
+	          var index = node.sortableInfo.index;
+
+	          var margin = (0, _utils.getElementMargin)(node);
+
+	          var containerBoundingRect = _this.container.getBoundingClientRect();
+	          var dimensions = getHelperDimensions({ index: index, node: node, collection: collection });
+
+	          _this.node = node;
+	          _this.margin = margin;
+	          _this.width = dimensions.width;
+	          _this.height = dimensions.height;
+	          _this.marginOffset = {
+	            x: _this.margin.left + _this.margin.right,
+	            y: Math.max(_this.margin.top, _this.margin.bottom)
+	          };
+	          _this.boundingClientRect = node.getBoundingClientRect();
+	          _this.containerBoundingRect = containerBoundingRect;
+	          _this.index = index;
+	          _this.newIndex = index;
+
+	          _this.axis = {
+	            x: axis.indexOf('x') >= 0,
+	            y: axis.indexOf('y') >= 0
+	          };
+	          _this.offsetEdge = _this.getEdgeOffset(node);
+	          _this.initialOffset = _this.getOffset(e);
+	          _this.initialScroll = {
+	            top: _this.scrollContainer.scrollTop,
+	            left: _this.scrollContainer.scrollLeft
+	          };
+
+	          var fields = node.querySelectorAll('input, textarea, select');
+	          var clonedNode = node.cloneNode(true);
+	          var clonedFields = [].concat(_toConsumableArray(clonedNode.querySelectorAll('input, textarea, select'))); // Convert NodeList to Array
+
+	          clonedFields.forEach(function (field, index) {
+	            return field.value = fields[index] && fields[index].value;
+	          });
+
+	          _this.helper = _this.document.body.appendChild(clonedNode);
+
+	          _this.helper.style.position = 'fixed';
+	          _this.helper.style.top = _this.boundingClientRect.top - margin.top + 'px';
+	          _this.helper.style.left = _this.boundingClientRect.left - margin.left + 'px';
+	          _this.helper.style.width = _this.width + 'px';
+	          _this.helper.style.height = _this.height + 'px';
+	          _this.helper.style.boxSizing = 'border-box';
+	          _this.helper.style.pointerEvents = 'none';
+
+	          if (hideSortableGhost) {
+	            _this.sortableGhost = node;
+	            node.style.visibility = 'hidden';
+	          }
+
+	          _this.minTranslate = {};
+	          _this.maxTranslate = {};
+	          if (_this.axis.x) {
+	            _this.minTranslate.x = (useWindowAsScrollContainer ? 0 : containerBoundingRect.left) - _this.boundingClientRect.left - _this.width / 2;
+	            _this.maxTranslate.x = (useWindowAsScrollContainer ? _this.contentWindow.innerWidth : containerBoundingRect.left + containerBoundingRect.width) - _this.boundingClientRect.left - _this.width / 2;
+	          }
+	          if (_this.axis.y) {
+	            _this.minTranslate.y = (useWindowAsScrollContainer ? 0 : containerBoundingRect.top) - _this.boundingClientRect.top - _this.height / 2;
+	            _this.maxTranslate.y = (useWindowAsScrollContainer ? _this.contentWindow.innerHeight : containerBoundingRect.top + containerBoundingRect.height) - _this.boundingClientRect.top - _this.height / 2;
+	          }
+
+	          if (helperClass) {
+	            var _this$helper$classLis;
+
+	            (_this$helper$classLis = _this.helper.classList).add.apply(_this$helper$classLis, _toConsumableArray(helperClass.split(' ')));
+	          }
+
+	          _this.listenerNode = e.touches ? node : _this.contentWindow;
+	          _utils.events.move.forEach(function (eventName) {
+	            return _this.listenerNode.addEventListener(eventName, _this.handleSortMove, false);
+	          });
+	          _utils.events.end.forEach(function (eventName) {
+	            return _this.listenerNode.addEventListener(eventName, _this.handleSortEnd, false);
+	          });
+
+	          _this.setState({
+	            sorting: true,
+	            sortingIndex: index
+	          });
+
+	          if (onSortStart) onSortStart({ node: node, index: index, collection: collection }, e);
+	        }
+	      };
+
+	      _this.handleSortMove = function (e) {
+	        var onSortMove = _this.props.onSortMove;
+
+	        e.preventDefault(); // Prevent scrolling on mobile
+
+	        _this.updatePosition(e);
+	        _this.animateNodes();
+	        _this.autoscroll();
+
+	        if (onSortMove) onSortMove(e);
+	      };
+
+	      _this.handleSortEnd = function (e) {
+	        var _this$props4 = _this.props,
+	            hideSortableGhost = _this$props4.hideSortableGhost,
+	            onSortEnd = _this$props4.onSortEnd;
+	        var collection = _this.manager.active.collection;
+
+	        // Remove the event listeners if the node is still in the DOM
+
+	        if (_this.listenerNode) {
+	          _utils.events.move.forEach(function (eventName) {
+	            return _this.listenerNode.removeEventListener(eventName, _this.handleSortMove);
+	          });
+	          _utils.events.end.forEach(function (eventName) {
+	            return _this.listenerNode.removeEventListener(eventName, _this.handleSortEnd);
+	          });
+	        }
+
+	        // Remove the helper from the DOM
+	        _this.helper.parentNode.removeChild(_this.helper);
+
+	        if (hideSortableGhost && _this.sortableGhost) {
+	          _this.sortableGhost.style.visibility = '';
+	        }
+
+	        var nodes = _this.manager.refs[collection];
+	        for (var i = 0, len = nodes.length; i < len; i++) {
+	          var node = nodes[i];
+	          var el = node.node;
+
+	          // Clear the cached offsetTop / offsetLeft value
+	          node.edgeOffset = null;
+
+	          // Remove the transforms / transitions
+	          el.style[_utils.vendorPrefix + 'Transform'] = '';
+	          el.style[_utils.vendorPrefix + 'TransitionDuration'] = '';
+	        }
+
+	        // Stop autoscroll
+	        clearInterval(_this.autoscrollInterval);
+	        _this.autoscrollInterval = null;
+
+	        // Update state
+	        _this.manager.active = null;
+
+	        _this.setState({
+	          sorting: false,
+	          sortingIndex: null
+	        });
+
+	        if (typeof onSortEnd === 'function') {
+	          onSortEnd({
+	            oldIndex: _this.index,
+	            newIndex: _this.newIndex,
+	            collection: collection
+	          }, e);
+	        }
+
+	        _this._touched = false;
+	      };
+
+	      _this.autoscroll = function () {
+	        var translate = _this.translate;
+	        var direction = {
+	          x: 0,
+	          y: 0
+	        };
+	        var speed = {
+	          x: 1,
+	          y: 1
+	        };
+	        var acceleration = {
+	          x: 10,
+	          y: 10
+	        };
+
+	        if (translate.y >= _this.maxTranslate.y - _this.height / 2) {
+	          direction.y = 1; // Scroll Down
+	          speed.y = acceleration.y * Math.abs((_this.maxTranslate.y - _this.height / 2 - translate.y) / _this.height);
+	        } else if (translate.x >= _this.maxTranslate.x - _this.width / 2) {
+	          direction.x = 1; // Scroll Right
+	          speed.x = acceleration.x * Math.abs((_this.maxTranslate.x - _this.width / 2 - translate.x) / _this.width);
+	        } else if (translate.y <= _this.minTranslate.y + _this.height / 2) {
+	          direction.y = -1; // Scroll Up
+	          speed.y = acceleration.y * Math.abs((translate.y - _this.height / 2 - _this.minTranslate.y) / _this.height);
+	        } else if (translate.x <= _this.minTranslate.x + _this.width / 2) {
+	          direction.x = -1; // Scroll Left
+	          speed.x = acceleration.x * Math.abs((translate.x - _this.width / 2 - _this.minTranslate.x) / _this.width);
+	        }
+
+	        if (_this.autoscrollInterval) {
+	          clearInterval(_this.autoscrollInterval);
+	          _this.autoscrollInterval = null;
+	          _this.isAutoScrolling = false;
+	        }
+
+	        if (direction.x !== 0 || direction.y !== 0) {
+	          _this.autoscrollInterval = setInterval(function () {
+	            _this.isAutoScrolling = true;
+	            var offset = {
+	              left: 1 * speed.x * direction.x,
+	              top: 1 * speed.y * direction.y
+	            };
+	            _this.scrollContainer.scrollTop += offset.top;
+	            _this.scrollContainer.scrollLeft += offset.left;
+	            _this.translate.x += offset.left;
+	            _this.translate.y += offset.top;
+	            _this.animateNodes();
+	          }, 5);
+	        }
+	      };
+
+	      _this.manager = new _Manager2.default();
+	      _this.events = {
+	        start: _this.handleStart,
+	        move: _this.handleMove,
+	        end: _this.handleEnd
+	      };
+
+	      (0, _invariant2.default)(!(props.distance && props.pressDelay), 'Attempted to set both `pressDelay` and `distance` on SortableContainer, you may only use one or the other, not both at the same time.');
+
+	      _this.state = {};
+	      return _this;
+	    }
+
+	    _createClass(_class, [{
+	      key: 'getChildContext',
+	      value: function getChildContext() {
+	        return {
+	          manager: this.manager
+	        };
+	      }
+	    }, {
+	      key: 'componentDidMount',
+	      value: function componentDidMount() {
+	        var _this2 = this;
+
+	        var _props = this.props,
+	            contentWindow = _props.contentWindow,
+	            getContainer = _props.getContainer,
+	            useWindowAsScrollContainer = _props.useWindowAsScrollContainer;
+
+
+	        this.container = typeof getContainer === 'function' ? getContainer(this.getWrappedInstance()) : (0, _reactDom.findDOMNode)(this);
+	        this.document = this.container.ownerDocument || document;
+	        this.scrollContainer = useWindowAsScrollContainer ? this.document.body : this.container;
+	        this.contentWindow = typeof contentWindow === 'function' ? contentWindow() : contentWindow;
+
+	        var _loop = function _loop(key) {
+	          if (_this2.events.hasOwnProperty(key)) {
+	            _utils.events[key].forEach(function (eventName) {
+	              return _this2.container.addEventListener(eventName, _this2.events[key], false);
+	            });
+	          }
+	        };
+
+	        for (var key in this.events) {
+	          _loop(key);
+	        }
+	      }
+	    }, {
+	      key: 'componentWillUnmount',
+	      value: function componentWillUnmount() {
+	        var _this3 = this;
+
+	        var _loop2 = function _loop2(key) {
+	          if (_this3.events.hasOwnProperty(key)) {
+	            _utils.events[key].forEach(function (eventName) {
+	              return _this3.container.removeEventListener(eventName, _this3.events[key]);
+	            });
+	          }
+	        };
+
+	        for (var key in this.events) {
+	          _loop2(key);
+	        }
+	      }
+	    }, {
+	      key: 'getEdgeOffset',
+	      value: function getEdgeOffset(node) {
+	        var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { top: 0, left: 0 };
+
+	        // Get the actual offsetTop / offsetLeft value, no matter how deep the node is nested
+	        if (node) {
+	          var nodeOffset = {
+	            top: offset.top + node.offsetTop,
+	            left: offset.left + node.offsetLeft
+	          };
+	          if (node.parentNode !== this.container) {
+	            return this.getEdgeOffset(node.parentNode, nodeOffset);
+	          } else {
+	            return nodeOffset;
+	          }
+	        }
+	      }
+	    }, {
+	      key: 'getOffset',
+	      value: function getOffset(e) {
+	        return {
+	          x: e.touches ? e.touches[0].clientX : e.clientX,
+	          y: e.touches ? e.touches[0].clientY : e.clientY
+	        };
+	      }
+	    }, {
+	      key: 'getLockPixelOffsets',
+	      value: function getLockPixelOffsets() {
+	        var lockOffset = this.props.lockOffset;
+
+
+	        if (!Array.isArray(lockOffset)) {
+	          lockOffset = [lockOffset, lockOffset];
+	        }
+
+	        (0, _invariant2.default)(lockOffset.length === 2, 'lockOffset prop of SortableContainer should be a single ' + 'value or an array of exactly two values. Given %s', lockOffset);
+
+	        var _lockOffset = lockOffset,
+	            _lockOffset2 = _slicedToArray(_lockOffset, 2),
+	            minLockOffset = _lockOffset2[0],
+	            maxLockOffset = _lockOffset2[1];
+
+	        return [this.getLockPixelOffset(minLockOffset), this.getLockPixelOffset(maxLockOffset)];
+	      }
+	    }, {
+	      key: 'getLockPixelOffset',
+	      value: function getLockPixelOffset(lockOffset) {
+	        var offsetX = lockOffset;
+	        var offsetY = lockOffset;
+	        var unit = 'px';
+
+	        if (typeof lockOffset === 'string') {
+	          var match = /^[+-]?\d*(?:\.\d*)?(px|%)$/.exec(lockOffset);
+
+	          (0, _invariant2.default)(match !== null, 'lockOffset value should be a number or a string of a ' + 'number followed by "px" or "%". Given %s', lockOffset);
+
+	          offsetX = offsetY = parseFloat(lockOffset);
+	          unit = match[1];
+	        }
+
+	        (0, _invariant2.default)(isFinite(offsetX) && isFinite(offsetY), 'lockOffset value should be a finite. Given %s', lockOffset);
+
+	        if (unit === '%') {
+	          offsetX = offsetX * this.width / 100;
+	          offsetY = offsetY * this.height / 100;
+	        }
+
+	        return {
+	          x: offsetX,
+	          y: offsetY
+	        };
+	      }
+	    }, {
+	      key: 'updatePosition',
+	      value: function updatePosition(e) {
+	        var _props2 = this.props,
+	            lockAxis = _props2.lockAxis,
+	            lockToContainerEdges = _props2.lockToContainerEdges;
+
+	        var offset = this.getOffset(e);
+	        var translate = {
+	          x: offset.x - this.initialOffset.x,
+	          y: offset.y - this.initialOffset.y
+	        };
+	        this.translate = translate;
+
+	        if (lockToContainerEdges) {
+	          var _getLockPixelOffsets = this.getLockPixelOffsets(),
+	              _getLockPixelOffsets2 = _slicedToArray(_getLockPixelOffsets, 2),
+	              minLockOffset = _getLockPixelOffsets2[0],
+	              maxLockOffset = _getLockPixelOffsets2[1];
+
+	          var minOffset = {
+	            x: this.width / 2 - minLockOffset.x,
+	            y: this.height / 2 - minLockOffset.y
+	          };
+	          var maxOffset = {
+	            x: this.width / 2 - maxLockOffset.x,
+	            y: this.height / 2 - maxLockOffset.y
+	          };
+
+	          translate.x = (0, _utils.limit)(this.minTranslate.x + minOffset.x, this.maxTranslate.x - maxOffset.x, translate.x);
+	          translate.y = (0, _utils.limit)(this.minTranslate.y + minOffset.y, this.maxTranslate.y - maxOffset.y, translate.y);
+	        }
+
+	        if (lockAxis === 'x') {
+	          translate.y = 0;
+	        } else if (lockAxis === 'y') {
+	          translate.x = 0;
+	        }
+
+	        this.helper.style[_utils.vendorPrefix + 'Transform'] = 'translate3d(' + translate.x + 'px,' + translate.y + 'px, 0)';
+	      }
+	    }, {
+	      key: 'animateNodes',
+	      value: function animateNodes() {
+	        var _props3 = this.props,
+	            transitionDuration = _props3.transitionDuration,
+	            hideSortableGhost = _props3.hideSortableGhost;
+
+	        var nodes = this.manager.getOrderedRefs();
+	        var deltaScroll = {
+	          left: this.scrollContainer.scrollLeft - this.initialScroll.left,
+	          top: this.scrollContainer.scrollTop - this.initialScroll.top
+	        };
+	        var sortingOffset = {
+	          left: this.offsetEdge.left + this.translate.x + deltaScroll.left,
+	          top: this.offsetEdge.top + this.translate.y + deltaScroll.top
+	        };
+	        this.newIndex = null;
+
+	        for (var i = 0, len = nodes.length; i < len; i++) {
+	          var node = nodes[i].node;
+
+	          var index = node.sortableInfo.index;
+	          var width = node.offsetWidth;
+	          var height = node.offsetHeight;
+	          var offset = {
+	            width: this.width > width ? width / 2 : this.width / 2,
+	            height: this.height > height ? height / 2 : this.height / 2
+	          };
+	          var translate = {
+	            x: 0,
+	            y: 0
+	          };
+	          var edgeOffset = nodes[i].edgeOffset;
+
+	          // If we haven't cached the node's offsetTop / offsetLeft value
+
+	          if (!edgeOffset) {
+	            nodes[i].edgeOffset = edgeOffset = this.getEdgeOffset(node);
+	          }
+
+	          // Get a reference to the next and previous node
+	          var nextNode = i < nodes.length - 1 && nodes[i + 1];
+	          var prevNode = i > 0 && nodes[i - 1];
+
+	          // Also cache the next node's edge offset if needed.
+	          // We need this for calculating the animation in a grid setup
+	          if (nextNode && !nextNode.edgeOffset) {
+	            nextNode.edgeOffset = this.getEdgeOffset(nextNode.node);
+	          }
+
+	          // If the node is the one we're currently animating, skip it
+	          if (index === this.index) {
+	            if (hideSortableGhost) {
+	              /*
+	              * With windowing libraries such as `react-virtualized`, the sortableGhost
+	              * node may change while scrolling down and then back up (or vice-versa),
+	              * so we need to update the reference to the new node just to be safe.
+	              */
+	              this.sortableGhost = node;
+	              node.style.visibility = 'hidden';
+	            }
+	            continue;
+	          }
+
+	          if (transitionDuration) {
+	            node.style[_utils.vendorPrefix + 'TransitionDuration'] = transitionDuration + 'ms';
+	          }
+
+	          if (this.axis.x) {
+	            if (this.axis.y) {
+	              // Calculations for a grid setup
+	              if (index < this.index && (sortingOffset.left - offset.width <= edgeOffset.left && sortingOffset.top <= edgeOffset.top + offset.height || sortingOffset.top + offset.height <= edgeOffset.top)) {
+	                // If the current node is to the left on the same row, or above the node that's being dragged
+	                // then move it to the right
+	                translate.x = this.width + this.marginOffset.x;
+	                if (edgeOffset.left + translate.x > this.containerBoundingRect.width - offset.width) {
+	                  // If it moves passed the right bounds, then animate it to the first position of the next row.
+	                  // We just use the offset of the next node to calculate where to move, because that node's original position
+	                  // is exactly where we want to go
+	                  translate.x = nextNode.edgeOffset.left - edgeOffset.left;
+	                  translate.y = nextNode.edgeOffset.top - edgeOffset.top;
+	                }
+	                if (this.newIndex === null) {
+	                  this.newIndex = index;
+	                }
+	              } else if (index > this.index && (sortingOffset.left + offset.width >= edgeOffset.left && sortingOffset.top + offset.height >= edgeOffset.top || sortingOffset.top + offset.height >= edgeOffset.top + height)) {
+	                // If the current node is to the right on the same row, or below the node that's being dragged
+	                // then move it to the left
+	                translate.x = -(this.width + this.marginOffset.x);
+	                if (edgeOffset.left + translate.x < this.containerBoundingRect.left + offset.width) {
+	                  // If it moves passed the left bounds, then animate it to the last position of the previous row.
+	                  // We just use the offset of the previous node to calculate where to move, because that node's original position
+	                  // is exactly where we want to go
+	                  translate.x = prevNode.edgeOffset.left - edgeOffset.left;
+	                  translate.y = prevNode.edgeOffset.top - edgeOffset.top;
+	                }
+	                this.newIndex = index;
+	              }
+	            } else {
+	              if (index > this.index && sortingOffset.left + offset.width >= edgeOffset.left) {
+	                translate.x = -(this.width + this.marginOffset.x);
+	                this.newIndex = index;
+	              } else if (index < this.index && sortingOffset.left <= edgeOffset.left + offset.width) {
+	                translate.x = this.width + this.marginOffset.x;
+	                if (this.newIndex == null) {
+	                  this.newIndex = index;
+	                }
+	              }
+	            }
+	          } else if (this.axis.y) {
+	            if (index > this.index && sortingOffset.top + offset.height >= edgeOffset.top) {
+	              translate.y = -(this.height + this.marginOffset.y);
+	              this.newIndex = index;
+	            } else if (index < this.index && sortingOffset.top <= edgeOffset.top + offset.height) {
+	              translate.y = this.height + this.marginOffset.y;
+	              if (this.newIndex == null) {
+	                this.newIndex = index;
+	              }
+	            }
+	          }
+	          node.style[_utils.vendorPrefix + 'Transform'] = 'translate3d(' + translate.x + 'px,' + translate.y + 'px,0)';
+	        }
+
+	        if (this.newIndex == null) {
+	          this.newIndex = this.index;
+	        }
+	      }
+	    }, {
+	      key: 'getWrappedInstance',
+	      value: function getWrappedInstance() {
+	        (0, _invariant2.default)(config.withRef, 'To access the wrapped instance, you need to pass in {withRef: true} as the second argument of the SortableContainer() call');
+	        return this.refs.wrappedInstance;
+	      }
+	    }, {
+	      key: 'render',
+	      value: function render() {
+	        var ref = config.withRef ? 'wrappedInstance' : null;
+
+	        return _react2.default.createElement(WrappedComponent, _extends({
+	          ref: ref
+	        }, (0, _utils.omit)(this.props, 'contentWindow', 'useWindowAsScrollContainer', 'distance', 'helperClass', 'hideSortableGhost', 'transitionDuration', 'useDragHandle', 'pressDelay', 'shouldCancelStart', 'onSortStart', 'onSortMove', 'onSortEnd', 'axis', 'lockAxis', 'lockOffset', 'lockToContainerEdges', 'getContainer', 'getHelperDimensions')));
+	      }
+	    }]);
+
+	    return _class;
+	  }(_react.Component), _class.displayName = (0, _utils.provideDisplayName)('sortableList', WrappedComponent), _class.defaultProps = {
+	    axis: 'y',
+	    transitionDuration: 300,
+	    pressDelay: 0,
+	    pressThreshold: 5,
+	    distance: 0,
+	    useWindowAsScrollContainer: false,
+	    hideSortableGhost: true,
+	    contentWindow: typeof window !== 'undefined' ? window : null,
+	    shouldCancelStart: function shouldCancelStart(e) {
+	      // Cancel sorting if the event target is an `input`, `textarea`, `select` or `option`
+	      var disabledElements = ['input', 'textarea', 'select', 'option', 'button'];
+
+	      if (disabledElements.indexOf(e.target.tagName.toLowerCase()) !== -1) {
+	        return true; // Return true to cancel sorting
+	      }
+	    },
+	    lockToContainerEdges: false,
+	    lockOffset: '50%',
+	    getHelperDimensions: function getHelperDimensions(_ref) {
+	      var node = _ref.node;
+	      return {
+	        width: node.offsetWidth,
+	        height: node.offsetHeight
+	      };
+	    }
+	  }, _class.propTypes = {
+	    axis: _react.PropTypes.oneOf(['x', 'y', 'xy']),
+	    distance: _react.PropTypes.number,
+	    lockAxis: _react.PropTypes.string,
+	    helperClass: _react.PropTypes.string,
+	    transitionDuration: _react.PropTypes.number,
+	    contentWindow: _react.PropTypes.any,
+	    onSortStart: _react.PropTypes.func,
+	    onSortMove: _react.PropTypes.func,
+	    onSortEnd: _react.PropTypes.func,
+	    shouldCancelStart: _react.PropTypes.func,
+	    pressDelay: _react.PropTypes.number,
+	    useDragHandle: _react.PropTypes.bool,
+	    useWindowAsScrollContainer: _react.PropTypes.bool,
+	    hideSortableGhost: _react.PropTypes.bool,
+	    lockToContainerEdges: _react.PropTypes.bool,
+	    lockOffset: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.string, _react.PropTypes.arrayOf(_react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.string]))]),
+	    getContainer: _react.PropTypes.func,
+	    getHelperDimensions: _react.PropTypes.func
+	  }, _class.childContextTypes = {
+	    manager: _react.PropTypes.object.isRequired
+	  }, _temp;
+	}
+
+/***/ },
+/* 556 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _find = __webpack_require__(557);
+
+	var _find2 = _interopRequireDefault(_find);
+
+	var _sortBy = __webpack_require__(678);
+
+	var _sortBy2 = _interopRequireDefault(_sortBy);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Manager = function () {
+	  function Manager() {
+	    _classCallCheck(this, Manager);
+
+	    this.refs = {};
+	  }
+
+	  _createClass(Manager, [{
+	    key: 'add',
+	    value: function add(collection, ref) {
+	      if (!this.refs[collection]) {
+	        this.refs[collection] = [];
+	      }
+
+	      this.refs[collection].push(ref);
+	    }
+	  }, {
+	    key: 'remove',
+	    value: function remove(collection, ref) {
+	      var index = this.getIndex(collection, ref);
+
+	      if (index !== -1) {
+	        this.refs[collection].splice(index, 1);
+	      }
+	    }
+	  }, {
+	    key: 'getActive',
+	    value: function getActive() {
+	      var _this = this;
+
+	      return (0, _find2.default)(this.refs[this.active.collection],
+	      // eslint-disable-next-line eqeqeq
+	      function (_ref) {
+	        var node = _ref.node;
+	        return node.sortableInfo.index == _this.active.index;
+	      });
+	    }
+	  }, {
+	    key: 'getIndex',
+	    value: function getIndex(collection, ref) {
+	      return this.refs[collection].indexOf(ref);
+	    }
+	  }, {
+	    key: 'getOrderedRefs',
+	    value: function getOrderedRefs() {
+	      var collection = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : this.active.collection;
+
+	      return (0, _sortBy2.default)(this.refs[collection], function (_ref2) {
+	        var node = _ref2.node;
+	        return node.sortableInfo.index;
+	      });
+	    }
+	  }]);
+
+	  return Manager;
+	}();
+
+	exports.default = Manager;
+
+/***/ },
+/* 557 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var createFind = __webpack_require__(558),
+	    findIndex = __webpack_require__(673);
+
+	/**
+	 * Iterates over elements of `collection`, returning the first element
+	 * `predicate` returns truthy for. The predicate is invoked with three
+	 * arguments: (value, index|key, collection).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Collection
+	 * @param {Array|Object} collection The collection to inspect.
+	 * @param {Function} [predicate=_.identity] The function invoked per iteration.
+	 * @param {number} [fromIndex=0] The index to search from.
+	 * @returns {*} Returns the matched element, else `undefined`.
+	 * @example
+	 *
+	 * var users = [
+	 *   { 'user': 'barney',  'age': 36, 'active': true },
+	 *   { 'user': 'fred',    'age': 40, 'active': false },
+	 *   { 'user': 'pebbles', 'age': 1,  'active': true }
+	 * ];
+	 *
+	 * _.find(users, function(o) { return o.age < 40; });
+	 * // => object for 'barney'
+	 *
+	 * // The `_.matches` iteratee shorthand.
+	 * _.find(users, { 'age': 1, 'active': true });
+	 * // => object for 'pebbles'
+	 *
+	 * // The `_.matchesProperty` iteratee shorthand.
+	 * _.find(users, ['active', false]);
+	 * // => object for 'fred'
+	 *
+	 * // The `_.property` iteratee shorthand.
+	 * _.find(users, 'active');
+	 * // => object for 'barney'
+	 */
+	var find = createFind(findIndex);
+
+	module.exports = find;
+
+
+/***/ },
+/* 558 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseIteratee = __webpack_require__(559),
+	    isArrayLike = __webpack_require__(644),
+	    keys = __webpack_require__(626);
+
+	/**
+	 * Creates a `_.find` or `_.findLast` function.
+	 *
+	 * @private
+	 * @param {Function} findIndexFunc The function to find the collection index.
+	 * @returns {Function} Returns the new find function.
+	 */
+	function createFind(findIndexFunc) {
+	  return function(collection, predicate, fromIndex) {
+	    var iterable = Object(collection);
+	    if (!isArrayLike(collection)) {
+	      var iteratee = baseIteratee(predicate, 3);
+	      collection = keys(collection);
+	      predicate = function(key) { return iteratee(iterable[key], key, iterable); };
+	    }
+	    var index = findIndexFunc(collection, predicate, fromIndex);
+	    return index > -1 ? iterable[iteratee ? collection[index] : index] : undefined;
+	  };
+	}
+
+	module.exports = createFind;
+
+
+/***/ },
+/* 559 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseMatches = __webpack_require__(560),
+	    baseMatchesProperty = __webpack_require__(653),
+	    identity = __webpack_require__(669),
+	    isArray = __webpack_require__(622),
+	    property = __webpack_require__(670);
+
+	/**
+	 * The base implementation of `_.iteratee`.
+	 *
+	 * @private
+	 * @param {*} [value=_.identity] The value to convert to an iteratee.
+	 * @returns {Function} Returns the iteratee.
+	 */
+	function baseIteratee(value) {
+	  // Don't store the `typeof` result in a variable to avoid a JIT bug in Safari 9.
+	  // See https://bugs.webkit.org/show_bug.cgi?id=156034 for more details.
+	  if (typeof value == 'function') {
+	    return value;
+	  }
+	  if (value == null) {
+	    return identity;
+	  }
+	  if (typeof value == 'object') {
+	    return isArray(value)
+	      ? baseMatchesProperty(value[0], value[1])
+	      : baseMatches(value);
+	  }
+	  return property(value);
+	}
+
+	module.exports = baseIteratee;
+
+
+/***/ },
+/* 560 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseIsMatch = __webpack_require__(561),
+	    getMatchData = __webpack_require__(650),
+	    matchesStrictComparable = __webpack_require__(652);
+
+	/**
+	 * The base implementation of `_.matches` which doesn't clone `source`.
+	 *
+	 * @private
+	 * @param {Object} source The object of property values to match.
+	 * @returns {Function} Returns the new spec function.
+	 */
+	function baseMatches(source) {
+	  var matchData = getMatchData(source);
+	  if (matchData.length == 1 && matchData[0][2]) {
+	    return matchesStrictComparable(matchData[0][0], matchData[0][1]);
+	  }
+	  return function(object) {
+	    return object === source || baseIsMatch(object, source, matchData);
+	  };
+	}
+
+	module.exports = baseMatches;
+
+
+/***/ },
+/* 561 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Stack = __webpack_require__(562),
+	    baseIsEqual = __webpack_require__(606);
+
+	/** Used to compose bitmasks for value comparisons. */
+	var COMPARE_PARTIAL_FLAG = 1,
+	    COMPARE_UNORDERED_FLAG = 2;
+
+	/**
+	 * The base implementation of `_.isMatch` without support for iteratee shorthands.
+	 *
+	 * @private
+	 * @param {Object} object The object to inspect.
+	 * @param {Object} source The object of property values to match.
+	 * @param {Array} matchData The property names, values, and compare flags to match.
+	 * @param {Function} [customizer] The function to customize comparisons.
+	 * @returns {boolean} Returns `true` if `object` is a match, else `false`.
+	 */
+	function baseIsMatch(object, source, matchData, customizer) {
+	  var index = matchData.length,
+	      length = index,
+	      noCustomizer = !customizer;
+
+	  if (object == null) {
+	    return !length;
+	  }
+	  object = Object(object);
+	  while (index--) {
+	    var data = matchData[index];
+	    if ((noCustomizer && data[2])
+	          ? data[1] !== object[data[0]]
+	          : !(data[0] in object)
+	        ) {
+	      return false;
+	    }
+	  }
+	  while (++index < length) {
+	    data = matchData[index];
+	    var key = data[0],
+	        objValue = object[key],
+	        srcValue = data[1];
+
+	    if (noCustomizer && data[2]) {
+	      if (objValue === undefined && !(key in object)) {
+	        return false;
+	      }
+	    } else {
+	      var stack = new Stack;
+	      if (customizer) {
+	        var result = customizer(objValue, srcValue, key, object, source, stack);
+	      }
+	      if (!(result === undefined
+	            ? baseIsEqual(srcValue, objValue, COMPARE_PARTIAL_FLAG | COMPARE_UNORDERED_FLAG, customizer, stack)
+	            : result
+	          )) {
+	        return false;
+	      }
+	    }
+	  }
+	  return true;
+	}
+
+	module.exports = baseIsMatch;
+
+
+/***/ },
+/* 562 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ListCache = __webpack_require__(563),
+	    stackClear = __webpack_require__(571),
+	    stackDelete = __webpack_require__(572),
+	    stackGet = __webpack_require__(573),
+	    stackHas = __webpack_require__(574),
+	    stackSet = __webpack_require__(575);
+
+	/**
+	 * Creates a stack cache object to store key-value pairs.
+	 *
+	 * @private
+	 * @constructor
+	 * @param {Array} [entries] The key-value pairs to cache.
+	 */
+	function Stack(entries) {
+	  var data = this.__data__ = new ListCache(entries);
+	  this.size = data.size;
+	}
+
+	// Add methods to `Stack`.
+	Stack.prototype.clear = stackClear;
+	Stack.prototype['delete'] = stackDelete;
+	Stack.prototype.get = stackGet;
+	Stack.prototype.has = stackHas;
+	Stack.prototype.set = stackSet;
+
+	module.exports = Stack;
+
+
+/***/ },
+/* 563 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var listCacheClear = __webpack_require__(564),
+	    listCacheDelete = __webpack_require__(565),
+	    listCacheGet = __webpack_require__(568),
+	    listCacheHas = __webpack_require__(569),
+	    listCacheSet = __webpack_require__(570);
+
+	/**
+	 * Creates an list cache object.
+	 *
+	 * @private
+	 * @constructor
+	 * @param {Array} [entries] The key-value pairs to cache.
+	 */
+	function ListCache(entries) {
+	  var index = -1,
+	      length = entries == null ? 0 : entries.length;
+
+	  this.clear();
+	  while (++index < length) {
+	    var entry = entries[index];
+	    this.set(entry[0], entry[1]);
+	  }
+	}
+
+	// Add methods to `ListCache`.
+	ListCache.prototype.clear = listCacheClear;
+	ListCache.prototype['delete'] = listCacheDelete;
+	ListCache.prototype.get = listCacheGet;
+	ListCache.prototype.has = listCacheHas;
+	ListCache.prototype.set = listCacheSet;
+
+	module.exports = ListCache;
+
+
+/***/ },
+/* 564 */
+/***/ function(module, exports) {
+
+	/**
+	 * Removes all key-value entries from the list cache.
+	 *
+	 * @private
+	 * @name clear
+	 * @memberOf ListCache
+	 */
+	function listCacheClear() {
+	  this.__data__ = [];
+	  this.size = 0;
+	}
+
+	module.exports = listCacheClear;
+
+
+/***/ },
+/* 565 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var assocIndexOf = __webpack_require__(566);
+
+	/** Used for built-in method references. */
+	var arrayProto = Array.prototype;
+
+	/** Built-in value references. */
+	var splice = arrayProto.splice;
+
+	/**
+	 * Removes `key` and its value from the list cache.
+	 *
+	 * @private
+	 * @name delete
+	 * @memberOf ListCache
+	 * @param {string} key The key of the value to remove.
+	 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+	 */
+	function listCacheDelete(key) {
+	  var data = this.__data__,
+	      index = assocIndexOf(data, key);
+
+	  if (index < 0) {
+	    return false;
+	  }
+	  var lastIndex = data.length - 1;
+	  if (index == lastIndex) {
+	    data.pop();
+	  } else {
+	    splice.call(data, index, 1);
+	  }
+	  --this.size;
+	  return true;
+	}
+
+	module.exports = listCacheDelete;
+
+
+/***/ },
+/* 566 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var eq = __webpack_require__(567);
+
+	/**
+	 * Gets the index at which the `key` is found in `array` of key-value pairs.
+	 *
+	 * @private
+	 * @param {Array} array The array to inspect.
+	 * @param {*} key The key to search for.
+	 * @returns {number} Returns the index of the matched value, else `-1`.
+	 */
+	function assocIndexOf(array, key) {
+	  var length = array.length;
+	  while (length--) {
+	    if (eq(array[length][0], key)) {
+	      return length;
+	    }
+	  }
+	  return -1;
+	}
+
+	module.exports = assocIndexOf;
+
+
+/***/ },
+/* 567 */
+/***/ function(module, exports) {
+
+	/**
+	 * Performs a
+	 * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+	 * comparison between two values to determine if they are equivalent.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to compare.
+	 * @param {*} other The other value to compare.
+	 * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+	 * @example
+	 *
+	 * var object = { 'a': 1 };
+	 * var other = { 'a': 1 };
+	 *
+	 * _.eq(object, object);
+	 * // => true
+	 *
+	 * _.eq(object, other);
+	 * // => false
+	 *
+	 * _.eq('a', 'a');
+	 * // => true
+	 *
+	 * _.eq('a', Object('a'));
+	 * // => false
+	 *
+	 * _.eq(NaN, NaN);
+	 * // => true
+	 */
+	function eq(value, other) {
+	  return value === other || (value !== value && other !== other);
+	}
+
+	module.exports = eq;
+
+
+/***/ },
+/* 568 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var assocIndexOf = __webpack_require__(566);
+
+	/**
+	 * Gets the list cache value for `key`.
+	 *
+	 * @private
+	 * @name get
+	 * @memberOf ListCache
+	 * @param {string} key The key of the value to get.
+	 * @returns {*} Returns the entry value.
+	 */
+	function listCacheGet(key) {
+	  var data = this.__data__,
+	      index = assocIndexOf(data, key);
+
+	  return index < 0 ? undefined : data[index][1];
+	}
+
+	module.exports = listCacheGet;
+
+
+/***/ },
+/* 569 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var assocIndexOf = __webpack_require__(566);
+
+	/**
+	 * Checks if a list cache value for `key` exists.
+	 *
+	 * @private
+	 * @name has
+	 * @memberOf ListCache
+	 * @param {string} key The key of the entry to check.
+	 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+	 */
+	function listCacheHas(key) {
+	  return assocIndexOf(this.__data__, key) > -1;
+	}
+
+	module.exports = listCacheHas;
+
+
+/***/ },
+/* 570 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var assocIndexOf = __webpack_require__(566);
+
+	/**
+	 * Sets the list cache `key` to `value`.
+	 *
+	 * @private
+	 * @name set
+	 * @memberOf ListCache
+	 * @param {string} key The key of the value to set.
+	 * @param {*} value The value to set.
+	 * @returns {Object} Returns the list cache instance.
+	 */
+	function listCacheSet(key, value) {
+	  var data = this.__data__,
+	      index = assocIndexOf(data, key);
+
+	  if (index < 0) {
+	    ++this.size;
+	    data.push([key, value]);
+	  } else {
+	    data[index][1] = value;
+	  }
+	  return this;
+	}
+
+	module.exports = listCacheSet;
+
+
+/***/ },
+/* 571 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ListCache = __webpack_require__(563);
+
+	/**
+	 * Removes all key-value entries from the stack.
+	 *
+	 * @private
+	 * @name clear
+	 * @memberOf Stack
+	 */
+	function stackClear() {
+	  this.__data__ = new ListCache;
+	  this.size = 0;
+	}
+
+	module.exports = stackClear;
+
+
+/***/ },
+/* 572 */
+/***/ function(module, exports) {
+
+	/**
+	 * Removes `key` and its value from the stack.
+	 *
+	 * @private
+	 * @name delete
+	 * @memberOf Stack
+	 * @param {string} key The key of the value to remove.
+	 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+	 */
+	function stackDelete(key) {
+	  var data = this.__data__,
+	      result = data['delete'](key);
+
+	  this.size = data.size;
+	  return result;
+	}
+
+	module.exports = stackDelete;
+
+
+/***/ },
+/* 573 */
+/***/ function(module, exports) {
+
+	/**
+	 * Gets the stack value for `key`.
+	 *
+	 * @private
+	 * @name get
+	 * @memberOf Stack
+	 * @param {string} key The key of the value to get.
+	 * @returns {*} Returns the entry value.
+	 */
+	function stackGet(key) {
+	  return this.__data__.get(key);
+	}
+
+	module.exports = stackGet;
+
+
+/***/ },
+/* 574 */
+/***/ function(module, exports) {
+
+	/**
+	 * Checks if a stack value for `key` exists.
+	 *
+	 * @private
+	 * @name has
+	 * @memberOf Stack
+	 * @param {string} key The key of the entry to check.
+	 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+	 */
+	function stackHas(key) {
+	  return this.__data__.has(key);
+	}
+
+	module.exports = stackHas;
+
+
+/***/ },
+/* 575 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var ListCache = __webpack_require__(563),
+	    Map = __webpack_require__(576),
+	    MapCache = __webpack_require__(591);
+
+	/** Used as the size to enable large array optimizations. */
+	var LARGE_ARRAY_SIZE = 200;
+
+	/**
+	 * Sets the stack `key` to `value`.
+	 *
+	 * @private
+	 * @name set
+	 * @memberOf Stack
+	 * @param {string} key The key of the value to set.
+	 * @param {*} value The value to set.
+	 * @returns {Object} Returns the stack cache instance.
+	 */
+	function stackSet(key, value) {
+	  var data = this.__data__;
+	  if (data instanceof ListCache) {
+	    var pairs = data.__data__;
+	    if (!Map || (pairs.length < LARGE_ARRAY_SIZE - 1)) {
+	      pairs.push([key, value]);
+	      this.size = ++data.size;
+	      return this;
+	    }
+	    data = this.__data__ = new MapCache(pairs);
+	  }
+	  data.set(key, value);
+	  this.size = data.size;
+	  return this;
+	}
+
+	module.exports = stackSet;
+
+
+/***/ },
+/* 576 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var getNative = __webpack_require__(577),
+	    root = __webpack_require__(582);
+
+	/* Built-in method references that are verified to be native. */
+	var Map = getNative(root, 'Map');
+
+	module.exports = Map;
+
+
+/***/ },
+/* 577 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseIsNative = __webpack_require__(578),
+	    getValue = __webpack_require__(590);
+
+	/**
+	 * Gets the native function at `key` of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @param {string} key The key of the method to get.
+	 * @returns {*} Returns the function if it's native, else `undefined`.
+	 */
+	function getNative(object, key) {
+	  var value = getValue(object, key);
+	  return baseIsNative(value) ? value : undefined;
+	}
+
+	module.exports = getNative;
+
+
+/***/ },
+/* 578 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isFunction = __webpack_require__(579),
+	    isMasked = __webpack_require__(587),
+	    isObject = __webpack_require__(586),
+	    toSource = __webpack_require__(589);
+
+	/**
+	 * Used to match `RegExp`
+	 * [syntax characters](http://ecma-international.org/ecma-262/7.0/#sec-patterns).
+	 */
+	var reRegExpChar = /[\\^$.*+?()[\]{}|]/g;
+
+	/** Used to detect host constructors (Safari). */
+	var reIsHostCtor = /^\[object .+?Constructor\]$/;
+
+	/** Used for built-in method references. */
+	var funcProto = Function.prototype,
+	    objectProto = Object.prototype;
+
+	/** Used to resolve the decompiled source of functions. */
+	var funcToString = funcProto.toString;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/** Used to detect if a method is native. */
+	var reIsNative = RegExp('^' +
+	  funcToString.call(hasOwnProperty).replace(reRegExpChar, '\\$&')
+	  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
+	);
+
+	/**
+	 * The base implementation of `_.isNative` without bad shim checks.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a native function,
+	 *  else `false`.
+	 */
+	function baseIsNative(value) {
+	  if (!isObject(value) || isMasked(value)) {
+	    return false;
+	  }
+	  var pattern = isFunction(value) ? reIsNative : reIsHostCtor;
+	  return pattern.test(toSource(value));
+	}
+
+	module.exports = baseIsNative;
+
+
+/***/ },
+/* 579 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseGetTag = __webpack_require__(580),
+	    isObject = __webpack_require__(586);
+
+	/** `Object#toString` result references. */
+	var asyncTag = '[object AsyncFunction]',
+	    funcTag = '[object Function]',
+	    genTag = '[object GeneratorFunction]',
+	    proxyTag = '[object Proxy]';
+
+	/**
+	 * Checks if `value` is classified as a `Function` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a function, else `false`.
+	 * @example
+	 *
+	 * _.isFunction(_);
+	 * // => true
+	 *
+	 * _.isFunction(/abc/);
+	 * // => false
+	 */
+	function isFunction(value) {
+	  if (!isObject(value)) {
+	    return false;
+	  }
+	  // The use of `Object#toString` avoids issues with the `typeof` operator
+	  // in Safari 9 which returns 'object' for typed arrays and other constructors.
+	  var tag = baseGetTag(value);
+	  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
+	}
+
+	module.exports = isFunction;
+
+
+/***/ },
+/* 580 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Symbol = __webpack_require__(581),
+	    getRawTag = __webpack_require__(584),
+	    objectToString = __webpack_require__(585);
+
+	/** `Object#toString` result references. */
+	var nullTag = '[object Null]',
+	    undefinedTag = '[object Undefined]';
+
+	/** Built-in value references. */
+	var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+	/**
+	 * The base implementation of `getTag` without fallbacks for buggy environments.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {string} Returns the `toStringTag`.
+	 */
+	function baseGetTag(value) {
+	  if (value == null) {
+	    return value === undefined ? undefinedTag : nullTag;
+	  }
+	  return (symToStringTag && symToStringTag in Object(value))
+	    ? getRawTag(value)
+	    : objectToString(value);
+	}
+
+	module.exports = baseGetTag;
+
+
+/***/ },
+/* 581 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var root = __webpack_require__(582);
+
+	/** Built-in value references. */
+	var Symbol = root.Symbol;
+
+	module.exports = Symbol;
+
+
+/***/ },
+/* 582 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var freeGlobal = __webpack_require__(583);
+
+	/** Detect free variable `self`. */
+	var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+	/** Used as a reference to the global object. */
+	var root = freeGlobal || freeSelf || Function('return this')();
+
+	module.exports = root;
+
+
+/***/ },
+/* 583 */
+/***/ function(module, exports) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
+	var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+
+	module.exports = freeGlobal;
+
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 584 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Symbol = __webpack_require__(581);
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var nativeObjectToString = objectProto.toString;
+
+	/** Built-in value references. */
+	var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+	/**
+	 * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {string} Returns the raw `toStringTag`.
+	 */
+	function getRawTag(value) {
+	  var isOwn = hasOwnProperty.call(value, symToStringTag),
+	      tag = value[symToStringTag];
+
+	  try {
+	    value[symToStringTag] = undefined;
+	    var unmasked = true;
+	  } catch (e) {}
+
+	  var result = nativeObjectToString.call(value);
+	  if (unmasked) {
+	    if (isOwn) {
+	      value[symToStringTag] = tag;
+	    } else {
+	      delete value[symToStringTag];
+	    }
+	  }
+	  return result;
+	}
+
+	module.exports = getRawTag;
+
+
+/***/ },
+/* 585 */
+/***/ function(module, exports) {
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var nativeObjectToString = objectProto.toString;
+
+	/**
+	 * Converts `value` to a string using `Object.prototype.toString`.
+	 *
+	 * @private
+	 * @param {*} value The value to convert.
+	 * @returns {string} Returns the converted string.
+	 */
+	function objectToString(value) {
+	  return nativeObjectToString.call(value);
+	}
+
+	module.exports = objectToString;
+
+
+/***/ },
+/* 586 */
+/***/ function(module, exports) {
+
+	/**
+	 * Checks if `value` is the
+	 * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+	 * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+	 * @example
+	 *
+	 * _.isObject({});
+	 * // => true
+	 *
+	 * _.isObject([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObject(_.noop);
+	 * // => true
+	 *
+	 * _.isObject(null);
+	 * // => false
+	 */
+	function isObject(value) {
+	  var type = typeof value;
+	  return value != null && (type == 'object' || type == 'function');
+	}
+
+	module.exports = isObject;
+
+
+/***/ },
+/* 587 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var coreJsData = __webpack_require__(588);
+
+	/** Used to detect methods masquerading as native. */
+	var maskSrcKey = (function() {
+	  var uid = /[^.]+$/.exec(coreJsData && coreJsData.keys && coreJsData.keys.IE_PROTO || '');
+	  return uid ? ('Symbol(src)_1.' + uid) : '';
+	}());
+
+	/**
+	 * Checks if `func` has its source masked.
+	 *
+	 * @private
+	 * @param {Function} func The function to check.
+	 * @returns {boolean} Returns `true` if `func` is masked, else `false`.
+	 */
+	function isMasked(func) {
+	  return !!maskSrcKey && (maskSrcKey in func);
+	}
+
+	module.exports = isMasked;
+
+
+/***/ },
+/* 588 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var root = __webpack_require__(582);
+
+	/** Used to detect overreaching core-js shims. */
+	var coreJsData = root['__core-js_shared__'];
+
+	module.exports = coreJsData;
+
+
+/***/ },
+/* 589 */
+/***/ function(module, exports) {
+
+	/** Used for built-in method references. */
+	var funcProto = Function.prototype;
+
+	/** Used to resolve the decompiled source of functions. */
+	var funcToString = funcProto.toString;
+
+	/**
+	 * Converts `func` to its source code.
+	 *
+	 * @private
+	 * @param {Function} func The function to convert.
+	 * @returns {string} Returns the source code.
+	 */
+	function toSource(func) {
+	  if (func != null) {
+	    try {
+	      return funcToString.call(func);
+	    } catch (e) {}
+	    try {
+	      return (func + '');
+	    } catch (e) {}
+	  }
+	  return '';
+	}
+
+	module.exports = toSource;
+
+
+/***/ },
+/* 590 */
+/***/ function(module, exports) {
+
+	/**
+	 * Gets the value at `key` of `object`.
+	 *
+	 * @private
+	 * @param {Object} [object] The object to query.
+	 * @param {string} key The key of the property to get.
+	 * @returns {*} Returns the property value.
+	 */
+	function getValue(object, key) {
+	  return object == null ? undefined : object[key];
+	}
+
+	module.exports = getValue;
+
+
+/***/ },
+/* 591 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var mapCacheClear = __webpack_require__(592),
+	    mapCacheDelete = __webpack_require__(600),
+	    mapCacheGet = __webpack_require__(603),
+	    mapCacheHas = __webpack_require__(604),
+	    mapCacheSet = __webpack_require__(605);
+
+	/**
+	 * Creates a map cache object to store key-value pairs.
+	 *
+	 * @private
+	 * @constructor
+	 * @param {Array} [entries] The key-value pairs to cache.
+	 */
+	function MapCache(entries) {
+	  var index = -1,
+	      length = entries == null ? 0 : entries.length;
+
+	  this.clear();
+	  while (++index < length) {
+	    var entry = entries[index];
+	    this.set(entry[0], entry[1]);
+	  }
+	}
+
+	// Add methods to `MapCache`.
+	MapCache.prototype.clear = mapCacheClear;
+	MapCache.prototype['delete'] = mapCacheDelete;
+	MapCache.prototype.get = mapCacheGet;
+	MapCache.prototype.has = mapCacheHas;
+	MapCache.prototype.set = mapCacheSet;
+
+	module.exports = MapCache;
+
+
+/***/ },
+/* 592 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Hash = __webpack_require__(593),
+	    ListCache = __webpack_require__(563),
+	    Map = __webpack_require__(576);
+
+	/**
+	 * Removes all key-value entries from the map.
+	 *
+	 * @private
+	 * @name clear
+	 * @memberOf MapCache
+	 */
+	function mapCacheClear() {
+	  this.size = 0;
+	  this.__data__ = {
+	    'hash': new Hash,
+	    'map': new (Map || ListCache),
+	    'string': new Hash
+	  };
+	}
+
+	module.exports = mapCacheClear;
+
+
+/***/ },
+/* 593 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var hashClear = __webpack_require__(594),
+	    hashDelete = __webpack_require__(596),
+	    hashGet = __webpack_require__(597),
+	    hashHas = __webpack_require__(598),
+	    hashSet = __webpack_require__(599);
+
+	/**
+	 * Creates a hash object.
+	 *
+	 * @private
+	 * @constructor
+	 * @param {Array} [entries] The key-value pairs to cache.
+	 */
+	function Hash(entries) {
+	  var index = -1,
+	      length = entries == null ? 0 : entries.length;
+
+	  this.clear();
+	  while (++index < length) {
+	    var entry = entries[index];
+	    this.set(entry[0], entry[1]);
+	  }
+	}
+
+	// Add methods to `Hash`.
+	Hash.prototype.clear = hashClear;
+	Hash.prototype['delete'] = hashDelete;
+	Hash.prototype.get = hashGet;
+	Hash.prototype.has = hashHas;
+	Hash.prototype.set = hashSet;
+
+	module.exports = Hash;
+
+
+/***/ },
+/* 594 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var nativeCreate = __webpack_require__(595);
+
+	/**
+	 * Removes all key-value entries from the hash.
+	 *
+	 * @private
+	 * @name clear
+	 * @memberOf Hash
+	 */
+	function hashClear() {
+	  this.__data__ = nativeCreate ? nativeCreate(null) : {};
+	  this.size = 0;
+	}
+
+	module.exports = hashClear;
+
+
+/***/ },
+/* 595 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var getNative = __webpack_require__(577);
+
+	/* Built-in method references that are verified to be native. */
+	var nativeCreate = getNative(Object, 'create');
+
+	module.exports = nativeCreate;
+
+
+/***/ },
+/* 596 */
+/***/ function(module, exports) {
+
+	/**
+	 * Removes `key` and its value from the hash.
+	 *
+	 * @private
+	 * @name delete
+	 * @memberOf Hash
+	 * @param {Object} hash The hash to modify.
+	 * @param {string} key The key of the value to remove.
+	 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+	 */
+	function hashDelete(key) {
+	  var result = this.has(key) && delete this.__data__[key];
+	  this.size -= result ? 1 : 0;
+	  return result;
+	}
+
+	module.exports = hashDelete;
+
+
+/***/ },
+/* 597 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var nativeCreate = __webpack_require__(595);
+
+	/** Used to stand-in for `undefined` hash values. */
+	var HASH_UNDEFINED = '__lodash_hash_undefined__';
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/**
+	 * Gets the hash value for `key`.
+	 *
+	 * @private
+	 * @name get
+	 * @memberOf Hash
+	 * @param {string} key The key of the value to get.
+	 * @returns {*} Returns the entry value.
+	 */
+	function hashGet(key) {
+	  var data = this.__data__;
+	  if (nativeCreate) {
+	    var result = data[key];
+	    return result === HASH_UNDEFINED ? undefined : result;
+	  }
+	  return hasOwnProperty.call(data, key) ? data[key] : undefined;
+	}
+
+	module.exports = hashGet;
+
+
+/***/ },
+/* 598 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var nativeCreate = __webpack_require__(595);
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/**
+	 * Checks if a hash value for `key` exists.
+	 *
+	 * @private
+	 * @name has
+	 * @memberOf Hash
+	 * @param {string} key The key of the entry to check.
+	 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+	 */
+	function hashHas(key) {
+	  var data = this.__data__;
+	  return nativeCreate ? (data[key] !== undefined) : hasOwnProperty.call(data, key);
+	}
+
+	module.exports = hashHas;
+
+
+/***/ },
+/* 599 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var nativeCreate = __webpack_require__(595);
+
+	/** Used to stand-in for `undefined` hash values. */
+	var HASH_UNDEFINED = '__lodash_hash_undefined__';
+
+	/**
+	 * Sets the hash `key` to `value`.
+	 *
+	 * @private
+	 * @name set
+	 * @memberOf Hash
+	 * @param {string} key The key of the value to set.
+	 * @param {*} value The value to set.
+	 * @returns {Object} Returns the hash instance.
+	 */
+	function hashSet(key, value) {
+	  var data = this.__data__;
+	  this.size += this.has(key) ? 0 : 1;
+	  data[key] = (nativeCreate && value === undefined) ? HASH_UNDEFINED : value;
+	  return this;
+	}
+
+	module.exports = hashSet;
+
+
+/***/ },
+/* 600 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var getMapData = __webpack_require__(601);
+
+	/**
+	 * Removes `key` and its value from the map.
+	 *
+	 * @private
+	 * @name delete
+	 * @memberOf MapCache
+	 * @param {string} key The key of the value to remove.
+	 * @returns {boolean} Returns `true` if the entry was removed, else `false`.
+	 */
+	function mapCacheDelete(key) {
+	  var result = getMapData(this, key)['delete'](key);
+	  this.size -= result ? 1 : 0;
+	  return result;
+	}
+
+	module.exports = mapCacheDelete;
+
+
+/***/ },
+/* 601 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isKeyable = __webpack_require__(602);
+
+	/**
+	 * Gets the data for `map`.
+	 *
+	 * @private
+	 * @param {Object} map The map to query.
+	 * @param {string} key The reference key.
+	 * @returns {*} Returns the map data.
+	 */
+	function getMapData(map, key) {
+	  var data = map.__data__;
+	  return isKeyable(key)
+	    ? data[typeof key == 'string' ? 'string' : 'hash']
+	    : data.map;
+	}
+
+	module.exports = getMapData;
+
+
+/***/ },
+/* 602 */
+/***/ function(module, exports) {
+
+	/**
+	 * Checks if `value` is suitable for use as unique object key.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is suitable, else `false`.
+	 */
+	function isKeyable(value) {
+	  var type = typeof value;
+	  return (type == 'string' || type == 'number' || type == 'symbol' || type == 'boolean')
+	    ? (value !== '__proto__')
+	    : (value === null);
+	}
+
+	module.exports = isKeyable;
+
+
+/***/ },
+/* 603 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var getMapData = __webpack_require__(601);
+
+	/**
+	 * Gets the map value for `key`.
+	 *
+	 * @private
+	 * @name get
+	 * @memberOf MapCache
+	 * @param {string} key The key of the value to get.
+	 * @returns {*} Returns the entry value.
+	 */
+	function mapCacheGet(key) {
+	  return getMapData(this, key).get(key);
+	}
+
+	module.exports = mapCacheGet;
+
+
+/***/ },
+/* 604 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var getMapData = __webpack_require__(601);
+
+	/**
+	 * Checks if a map value for `key` exists.
+	 *
+	 * @private
+	 * @name has
+	 * @memberOf MapCache
+	 * @param {string} key The key of the entry to check.
+	 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+	 */
+	function mapCacheHas(key) {
+	  return getMapData(this, key).has(key);
+	}
+
+	module.exports = mapCacheHas;
+
+
+/***/ },
+/* 605 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var getMapData = __webpack_require__(601);
+
+	/**
+	 * Sets the map `key` to `value`.
+	 *
+	 * @private
+	 * @name set
+	 * @memberOf MapCache
+	 * @param {string} key The key of the value to set.
+	 * @param {*} value The value to set.
+	 * @returns {Object} Returns the map cache instance.
+	 */
+	function mapCacheSet(key, value) {
+	  var data = getMapData(this, key),
+	      size = data.size;
+
+	  data.set(key, value);
+	  this.size += data.size == size ? 0 : 1;
+	  return this;
+	}
+
+	module.exports = mapCacheSet;
+
+
+/***/ },
+/* 606 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseIsEqualDeep = __webpack_require__(607),
+	    isObjectLike = __webpack_require__(631);
+
+	/**
+	 * The base implementation of `_.isEqual` which supports partial comparisons
+	 * and tracks traversed objects.
+	 *
+	 * @private
+	 * @param {*} value The value to compare.
+	 * @param {*} other The other value to compare.
+	 * @param {boolean} bitmask The bitmask flags.
+	 *  1 - Unordered comparison
+	 *  2 - Partial comparison
+	 * @param {Function} [customizer] The function to customize comparisons.
+	 * @param {Object} [stack] Tracks traversed `value` and `other` objects.
+	 * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
+	 */
+	function baseIsEqual(value, other, bitmask, customizer, stack) {
+	  if (value === other) {
+	    return true;
+	  }
+	  if (value == null || other == null || (!isObjectLike(value) && !isObjectLike(other))) {
+	    return value !== value && other !== other;
+	  }
+	  return baseIsEqualDeep(value, other, bitmask, customizer, baseIsEqual, stack);
+	}
+
+	module.exports = baseIsEqual;
+
+
+/***/ },
+/* 607 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Stack = __webpack_require__(562),
+	    equalArrays = __webpack_require__(608),
+	    equalByTag = __webpack_require__(614),
+	    equalObjects = __webpack_require__(618),
+	    getTag = __webpack_require__(645),
+	    isArray = __webpack_require__(622),
+	    isBuffer = __webpack_require__(632),
+	    isTypedArray = __webpack_require__(635);
+
+	/** Used to compose bitmasks for value comparisons. */
+	var COMPARE_PARTIAL_FLAG = 1;
+
+	/** `Object#toString` result references. */
+	var argsTag = '[object Arguments]',
+	    arrayTag = '[object Array]',
+	    objectTag = '[object Object]';
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/**
+	 * A specialized version of `baseIsEqual` for arrays and objects which performs
+	 * deep comparisons and tracks traversed objects enabling objects with circular
+	 * references to be compared.
+	 *
+	 * @private
+	 * @param {Object} object The object to compare.
+	 * @param {Object} other The other object to compare.
+	 * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+	 * @param {Function} customizer The function to customize comparisons.
+	 * @param {Function} equalFunc The function to determine equivalents of values.
+	 * @param {Object} [stack] Tracks traversed `object` and `other` objects.
+	 * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+	 */
+	function baseIsEqualDeep(object, other, bitmask, customizer, equalFunc, stack) {
+	  var objIsArr = isArray(object),
+	      othIsArr = isArray(other),
+	      objTag = objIsArr ? arrayTag : getTag(object),
+	      othTag = othIsArr ? arrayTag : getTag(other);
+
+	  objTag = objTag == argsTag ? objectTag : objTag;
+	  othTag = othTag == argsTag ? objectTag : othTag;
+
+	  var objIsObj = objTag == objectTag,
+	      othIsObj = othTag == objectTag,
+	      isSameTag = objTag == othTag;
+
+	  if (isSameTag && isBuffer(object)) {
+	    if (!isBuffer(other)) {
+	      return false;
+	    }
+	    objIsArr = true;
+	    objIsObj = false;
+	  }
+	  if (isSameTag && !objIsObj) {
+	    stack || (stack = new Stack);
+	    return (objIsArr || isTypedArray(object))
+	      ? equalArrays(object, other, bitmask, customizer, equalFunc, stack)
+	      : equalByTag(object, other, objTag, bitmask, customizer, equalFunc, stack);
+	  }
+	  if (!(bitmask & COMPARE_PARTIAL_FLAG)) {
+	    var objIsWrapped = objIsObj && hasOwnProperty.call(object, '__wrapped__'),
+	        othIsWrapped = othIsObj && hasOwnProperty.call(other, '__wrapped__');
+
+	    if (objIsWrapped || othIsWrapped) {
+	      var objUnwrapped = objIsWrapped ? object.value() : object,
+	          othUnwrapped = othIsWrapped ? other.value() : other;
+
+	      stack || (stack = new Stack);
+	      return equalFunc(objUnwrapped, othUnwrapped, bitmask, customizer, stack);
+	    }
+	  }
+	  if (!isSameTag) {
+	    return false;
+	  }
+	  stack || (stack = new Stack);
+	  return equalObjects(object, other, bitmask, customizer, equalFunc, stack);
+	}
+
+	module.exports = baseIsEqualDeep;
+
+
+/***/ },
+/* 608 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var SetCache = __webpack_require__(609),
+	    arraySome = __webpack_require__(612),
+	    cacheHas = __webpack_require__(613);
+
+	/** Used to compose bitmasks for value comparisons. */
+	var COMPARE_PARTIAL_FLAG = 1,
+	    COMPARE_UNORDERED_FLAG = 2;
+
+	/**
+	 * A specialized version of `baseIsEqualDeep` for arrays with support for
+	 * partial deep comparisons.
+	 *
+	 * @private
+	 * @param {Array} array The array to compare.
+	 * @param {Array} other The other array to compare.
+	 * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+	 * @param {Function} customizer The function to customize comparisons.
+	 * @param {Function} equalFunc The function to determine equivalents of values.
+	 * @param {Object} stack Tracks traversed `array` and `other` objects.
+	 * @returns {boolean} Returns `true` if the arrays are equivalent, else `false`.
+	 */
+	function equalArrays(array, other, bitmask, customizer, equalFunc, stack) {
+	  var isPartial = bitmask & COMPARE_PARTIAL_FLAG,
+	      arrLength = array.length,
+	      othLength = other.length;
+
+	  if (arrLength != othLength && !(isPartial && othLength > arrLength)) {
+	    return false;
+	  }
+	  // Assume cyclic values are equal.
+	  var stacked = stack.get(array);
+	  if (stacked && stack.get(other)) {
+	    return stacked == other;
+	  }
+	  var index = -1,
+	      result = true,
+	      seen = (bitmask & COMPARE_UNORDERED_FLAG) ? new SetCache : undefined;
+
+	  stack.set(array, other);
+	  stack.set(other, array);
+
+	  // Ignore non-index properties.
+	  while (++index < arrLength) {
+	    var arrValue = array[index],
+	        othValue = other[index];
+
+	    if (customizer) {
+	      var compared = isPartial
+	        ? customizer(othValue, arrValue, index, other, array, stack)
+	        : customizer(arrValue, othValue, index, array, other, stack);
+	    }
+	    if (compared !== undefined) {
+	      if (compared) {
+	        continue;
+	      }
+	      result = false;
+	      break;
+	    }
+	    // Recursively compare arrays (susceptible to call stack limits).
+	    if (seen) {
+	      if (!arraySome(other, function(othValue, othIndex) {
+	            if (!cacheHas(seen, othIndex) &&
+	                (arrValue === othValue || equalFunc(arrValue, othValue, bitmask, customizer, stack))) {
+	              return seen.push(othIndex);
+	            }
+	          })) {
+	        result = false;
+	        break;
+	      }
+	    } else if (!(
+	          arrValue === othValue ||
+	            equalFunc(arrValue, othValue, bitmask, customizer, stack)
+	        )) {
+	      result = false;
+	      break;
+	    }
+	  }
+	  stack['delete'](array);
+	  stack['delete'](other);
+	  return result;
+	}
+
+	module.exports = equalArrays;
+
+
+/***/ },
+/* 609 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var MapCache = __webpack_require__(591),
+	    setCacheAdd = __webpack_require__(610),
+	    setCacheHas = __webpack_require__(611);
+
+	/**
+	 *
+	 * Creates an array cache object to store unique values.
+	 *
+	 * @private
+	 * @constructor
+	 * @param {Array} [values] The values to cache.
+	 */
+	function SetCache(values) {
+	  var index = -1,
+	      length = values == null ? 0 : values.length;
+
+	  this.__data__ = new MapCache;
+	  while (++index < length) {
+	    this.add(values[index]);
+	  }
+	}
+
+	// Add methods to `SetCache`.
+	SetCache.prototype.add = SetCache.prototype.push = setCacheAdd;
+	SetCache.prototype.has = setCacheHas;
+
+	module.exports = SetCache;
+
+
+/***/ },
+/* 610 */
+/***/ function(module, exports) {
+
+	/** Used to stand-in for `undefined` hash values. */
+	var HASH_UNDEFINED = '__lodash_hash_undefined__';
+
+	/**
+	 * Adds `value` to the array cache.
+	 *
+	 * @private
+	 * @name add
+	 * @memberOf SetCache
+	 * @alias push
+	 * @param {*} value The value to cache.
+	 * @returns {Object} Returns the cache instance.
+	 */
+	function setCacheAdd(value) {
+	  this.__data__.set(value, HASH_UNDEFINED);
+	  return this;
+	}
+
+	module.exports = setCacheAdd;
+
+
+/***/ },
+/* 611 */
+/***/ function(module, exports) {
+
+	/**
+	 * Checks if `value` is in the array cache.
+	 *
+	 * @private
+	 * @name has
+	 * @memberOf SetCache
+	 * @param {*} value The value to search for.
+	 * @returns {number} Returns `true` if `value` is found, else `false`.
+	 */
+	function setCacheHas(value) {
+	  return this.__data__.has(value);
+	}
+
+	module.exports = setCacheHas;
+
+
+/***/ },
+/* 612 */
+/***/ function(module, exports) {
+
+	/**
+	 * A specialized version of `_.some` for arrays without support for iteratee
+	 * shorthands.
+	 *
+	 * @private
+	 * @param {Array} [array] The array to iterate over.
+	 * @param {Function} predicate The function invoked per iteration.
+	 * @returns {boolean} Returns `true` if any element passes the predicate check,
+	 *  else `false`.
+	 */
+	function arraySome(array, predicate) {
+	  var index = -1,
+	      length = array == null ? 0 : array.length;
+
+	  while (++index < length) {
+	    if (predicate(array[index], index, array)) {
+	      return true;
+	    }
+	  }
+	  return false;
+	}
+
+	module.exports = arraySome;
+
+
+/***/ },
+/* 613 */
+/***/ function(module, exports) {
+
+	/**
+	 * Checks if a `cache` value for `key` exists.
+	 *
+	 * @private
+	 * @param {Object} cache The cache to query.
+	 * @param {string} key The key of the entry to check.
+	 * @returns {boolean} Returns `true` if an entry for `key` exists, else `false`.
+	 */
+	function cacheHas(cache, key) {
+	  return cache.has(key);
+	}
+
+	module.exports = cacheHas;
+
+
+/***/ },
+/* 614 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Symbol = __webpack_require__(581),
+	    Uint8Array = __webpack_require__(615),
+	    eq = __webpack_require__(567),
+	    equalArrays = __webpack_require__(608),
+	    mapToArray = __webpack_require__(616),
+	    setToArray = __webpack_require__(617);
+
+	/** Used to compose bitmasks for value comparisons. */
+	var COMPARE_PARTIAL_FLAG = 1,
+	    COMPARE_UNORDERED_FLAG = 2;
+
+	/** `Object#toString` result references. */
+	var boolTag = '[object Boolean]',
+	    dateTag = '[object Date]',
+	    errorTag = '[object Error]',
+	    mapTag = '[object Map]',
+	    numberTag = '[object Number]',
+	    regexpTag = '[object RegExp]',
+	    setTag = '[object Set]',
+	    stringTag = '[object String]',
+	    symbolTag = '[object Symbol]';
+
+	var arrayBufferTag = '[object ArrayBuffer]',
+	    dataViewTag = '[object DataView]';
+
+	/** Used to convert symbols to primitives and strings. */
+	var symbolProto = Symbol ? Symbol.prototype : undefined,
+	    symbolValueOf = symbolProto ? symbolProto.valueOf : undefined;
+
+	/**
+	 * A specialized version of `baseIsEqualDeep` for comparing objects of
+	 * the same `toStringTag`.
+	 *
+	 * **Note:** This function only supports comparing values with tags of
+	 * `Boolean`, `Date`, `Error`, `Number`, `RegExp`, or `String`.
+	 *
+	 * @private
+	 * @param {Object} object The object to compare.
+	 * @param {Object} other The other object to compare.
+	 * @param {string} tag The `toStringTag` of the objects to compare.
+	 * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+	 * @param {Function} customizer The function to customize comparisons.
+	 * @param {Function} equalFunc The function to determine equivalents of values.
+	 * @param {Object} stack Tracks traversed `object` and `other` objects.
+	 * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+	 */
+	function equalByTag(object, other, tag, bitmask, customizer, equalFunc, stack) {
+	  switch (tag) {
+	    case dataViewTag:
+	      if ((object.byteLength != other.byteLength) ||
+	          (object.byteOffset != other.byteOffset)) {
+	        return false;
+	      }
+	      object = object.buffer;
+	      other = other.buffer;
+
+	    case arrayBufferTag:
+	      if ((object.byteLength != other.byteLength) ||
+	          !equalFunc(new Uint8Array(object), new Uint8Array(other))) {
+	        return false;
+	      }
+	      return true;
+
+	    case boolTag:
+	    case dateTag:
+	    case numberTag:
+	      // Coerce booleans to `1` or `0` and dates to milliseconds.
+	      // Invalid dates are coerced to `NaN`.
+	      return eq(+object, +other);
+
+	    case errorTag:
+	      return object.name == other.name && object.message == other.message;
+
+	    case regexpTag:
+	    case stringTag:
+	      // Coerce regexes to strings and treat strings, primitives and objects,
+	      // as equal. See http://www.ecma-international.org/ecma-262/7.0/#sec-regexp.prototype.tostring
+	      // for more details.
+	      return object == (other + '');
+
+	    case mapTag:
+	      var convert = mapToArray;
+
+	    case setTag:
+	      var isPartial = bitmask & COMPARE_PARTIAL_FLAG;
+	      convert || (convert = setToArray);
+
+	      if (object.size != other.size && !isPartial) {
+	        return false;
+	      }
+	      // Assume cyclic values are equal.
+	      var stacked = stack.get(object);
+	      if (stacked) {
+	        return stacked == other;
+	      }
+	      bitmask |= COMPARE_UNORDERED_FLAG;
+
+	      // Recursively compare objects (susceptible to call stack limits).
+	      stack.set(object, other);
+	      var result = equalArrays(convert(object), convert(other), bitmask, customizer, equalFunc, stack);
+	      stack['delete'](object);
+	      return result;
+
+	    case symbolTag:
+	      if (symbolValueOf) {
+	        return symbolValueOf.call(object) == symbolValueOf.call(other);
+	      }
+	  }
+	  return false;
+	}
+
+	module.exports = equalByTag;
+
+
+/***/ },
+/* 615 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var root = __webpack_require__(582);
+
+	/** Built-in value references. */
+	var Uint8Array = root.Uint8Array;
+
+	module.exports = Uint8Array;
+
+
+/***/ },
+/* 616 */
+/***/ function(module, exports) {
+
+	/**
+	 * Converts `map` to its key-value pairs.
+	 *
+	 * @private
+	 * @param {Object} map The map to convert.
+	 * @returns {Array} Returns the key-value pairs.
+	 */
+	function mapToArray(map) {
+	  var index = -1,
+	      result = Array(map.size);
+
+	  map.forEach(function(value, key) {
+	    result[++index] = [key, value];
+	  });
+	  return result;
+	}
+
+	module.exports = mapToArray;
+
+
+/***/ },
+/* 617 */
+/***/ function(module, exports) {
+
+	/**
+	 * Converts `set` to an array of its values.
+	 *
+	 * @private
+	 * @param {Object} set The set to convert.
+	 * @returns {Array} Returns the values.
+	 */
+	function setToArray(set) {
+	  var index = -1,
+	      result = Array(set.size);
+
+	  set.forEach(function(value) {
+	    result[++index] = value;
+	  });
+	  return result;
+	}
+
+	module.exports = setToArray;
+
+
+/***/ },
+/* 618 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var getAllKeys = __webpack_require__(619);
+
+	/** Used to compose bitmasks for value comparisons. */
+	var COMPARE_PARTIAL_FLAG = 1;
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/**
+	 * A specialized version of `baseIsEqualDeep` for objects with support for
+	 * partial deep comparisons.
+	 *
+	 * @private
+	 * @param {Object} object The object to compare.
+	 * @param {Object} other The other object to compare.
+	 * @param {number} bitmask The bitmask flags. See `baseIsEqual` for more details.
+	 * @param {Function} customizer The function to customize comparisons.
+	 * @param {Function} equalFunc The function to determine equivalents of values.
+	 * @param {Object} stack Tracks traversed `object` and `other` objects.
+	 * @returns {boolean} Returns `true` if the objects are equivalent, else `false`.
+	 */
+	function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
+	  var isPartial = bitmask & COMPARE_PARTIAL_FLAG,
+	      objProps = getAllKeys(object),
+	      objLength = objProps.length,
+	      othProps = getAllKeys(other),
+	      othLength = othProps.length;
+
+	  if (objLength != othLength && !isPartial) {
+	    return false;
+	  }
+	  var index = objLength;
+	  while (index--) {
+	    var key = objProps[index];
+	    if (!(isPartial ? key in other : hasOwnProperty.call(other, key))) {
+	      return false;
+	    }
+	  }
+	  // Assume cyclic values are equal.
+	  var stacked = stack.get(object);
+	  if (stacked && stack.get(other)) {
+	    return stacked == other;
+	  }
+	  var result = true;
+	  stack.set(object, other);
+	  stack.set(other, object);
+
+	  var skipCtor = isPartial;
+	  while (++index < objLength) {
+	    key = objProps[index];
+	    var objValue = object[key],
+	        othValue = other[key];
+
+	    if (customizer) {
+	      var compared = isPartial
+	        ? customizer(othValue, objValue, key, other, object, stack)
+	        : customizer(objValue, othValue, key, object, other, stack);
+	    }
+	    // Recursively compare objects (susceptible to call stack limits).
+	    if (!(compared === undefined
+	          ? (objValue === othValue || equalFunc(objValue, othValue, bitmask, customizer, stack))
+	          : compared
+	        )) {
+	      result = false;
+	      break;
+	    }
+	    skipCtor || (skipCtor = key == 'constructor');
+	  }
+	  if (result && !skipCtor) {
+	    var objCtor = object.constructor,
+	        othCtor = other.constructor;
+
+	    // Non `Object` object instances with different constructors are not equal.
+	    if (objCtor != othCtor &&
+	        ('constructor' in object && 'constructor' in other) &&
+	        !(typeof objCtor == 'function' && objCtor instanceof objCtor &&
+	          typeof othCtor == 'function' && othCtor instanceof othCtor)) {
+	      result = false;
+	    }
+	  }
+	  stack['delete'](object);
+	  stack['delete'](other);
+	  return result;
+	}
+
+	module.exports = equalObjects;
+
+
+/***/ },
+/* 619 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseGetAllKeys = __webpack_require__(620),
+	    getSymbols = __webpack_require__(623),
+	    keys = __webpack_require__(626);
+
+	/**
+	 * Creates an array of own enumerable property names and symbols of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names and symbols.
+	 */
+	function getAllKeys(object) {
+	  return baseGetAllKeys(object, keys, getSymbols);
+	}
+
+	module.exports = getAllKeys;
+
+
+/***/ },
+/* 620 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var arrayPush = __webpack_require__(621),
+	    isArray = __webpack_require__(622);
+
+	/**
+	 * The base implementation of `getAllKeys` and `getAllKeysIn` which uses
+	 * `keysFunc` and `symbolsFunc` to get the enumerable property names and
+	 * symbols of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @param {Function} keysFunc The function to get the keys of `object`.
+	 * @param {Function} symbolsFunc The function to get the symbols of `object`.
+	 * @returns {Array} Returns the array of property names and symbols.
+	 */
+	function baseGetAllKeys(object, keysFunc, symbolsFunc) {
+	  var result = keysFunc(object);
+	  return isArray(object) ? result : arrayPush(result, symbolsFunc(object));
+	}
+
+	module.exports = baseGetAllKeys;
+
+
+/***/ },
+/* 621 */
+/***/ function(module, exports) {
+
+	/**
+	 * Appends the elements of `values` to `array`.
+	 *
+	 * @private
+	 * @param {Array} array The array to modify.
+	 * @param {Array} values The values to append.
+	 * @returns {Array} Returns `array`.
+	 */
+	function arrayPush(array, values) {
+	  var index = -1,
+	      length = values.length,
+	      offset = array.length;
+
+	  while (++index < length) {
+	    array[offset + index] = values[index];
+	  }
+	  return array;
+	}
+
+	module.exports = arrayPush;
+
+
+/***/ },
+/* 622 */
+/***/ function(module, exports) {
+
+	/**
+	 * Checks if `value` is classified as an `Array` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+	 * @example
+	 *
+	 * _.isArray([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArray(document.body.children);
+	 * // => false
+	 *
+	 * _.isArray('abc');
+	 * // => false
+	 *
+	 * _.isArray(_.noop);
+	 * // => false
+	 */
+	var isArray = Array.isArray;
+
+	module.exports = isArray;
+
+
+/***/ },
+/* 623 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var arrayFilter = __webpack_require__(624),
+	    stubArray = __webpack_require__(625);
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/** Built-in value references. */
+	var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeGetSymbols = Object.getOwnPropertySymbols;
+
+	/**
+	 * Creates an array of the own enumerable symbols of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of symbols.
+	 */
+	var getSymbols = !nativeGetSymbols ? stubArray : function(object) {
+	  if (object == null) {
+	    return [];
+	  }
+	  object = Object(object);
+	  return arrayFilter(nativeGetSymbols(object), function(symbol) {
+	    return propertyIsEnumerable.call(object, symbol);
+	  });
+	};
+
+	module.exports = getSymbols;
+
+
+/***/ },
+/* 624 */
+/***/ function(module, exports) {
+
+	/**
+	 * A specialized version of `_.filter` for arrays without support for
+	 * iteratee shorthands.
+	 *
+	 * @private
+	 * @param {Array} [array] The array to iterate over.
+	 * @param {Function} predicate The function invoked per iteration.
+	 * @returns {Array} Returns the new filtered array.
+	 */
+	function arrayFilter(array, predicate) {
+	  var index = -1,
+	      length = array == null ? 0 : array.length,
+	      resIndex = 0,
+	      result = [];
+
+	  while (++index < length) {
+	    var value = array[index];
+	    if (predicate(value, index, array)) {
+	      result[resIndex++] = value;
+	    }
+	  }
+	  return result;
+	}
+
+	module.exports = arrayFilter;
+
+
+/***/ },
+/* 625 */
+/***/ function(module, exports) {
+
+	/**
+	 * This method returns a new empty array.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.13.0
+	 * @category Util
+	 * @returns {Array} Returns the new empty array.
+	 * @example
+	 *
+	 * var arrays = _.times(2, _.stubArray);
+	 *
+	 * console.log(arrays);
+	 * // => [[], []]
+	 *
+	 * console.log(arrays[0] === arrays[1]);
+	 * // => false
+	 */
+	function stubArray() {
+	  return [];
+	}
+
+	module.exports = stubArray;
+
+
+/***/ },
+/* 626 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var arrayLikeKeys = __webpack_require__(627),
+	    baseKeys = __webpack_require__(640),
+	    isArrayLike = __webpack_require__(644);
+
+	/**
+	 * Creates an array of the own enumerable property names of `object`.
+	 *
+	 * **Note:** Non-object values are coerced to objects. See the
+	 * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+	 * for more details.
+	 *
+	 * @static
+	 * @since 0.1.0
+	 * @memberOf _
+	 * @category Object
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 *   this.b = 2;
+	 * }
+	 *
+	 * Foo.prototype.c = 3;
+	 *
+	 * _.keys(new Foo);
+	 * // => ['a', 'b'] (iteration order is not guaranteed)
+	 *
+	 * _.keys('hi');
+	 * // => ['0', '1']
+	 */
+	function keys(object) {
+	  return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
+	}
+
+	module.exports = keys;
+
+
+/***/ },
+/* 627 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseTimes = __webpack_require__(628),
+	    isArguments = __webpack_require__(629),
+	    isArray = __webpack_require__(622),
+	    isBuffer = __webpack_require__(632),
+	    isIndex = __webpack_require__(634),
+	    isTypedArray = __webpack_require__(635);
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/**
+	 * Creates an array of the enumerable property names of the array-like `value`.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @param {boolean} inherited Specify returning inherited property names.
+	 * @returns {Array} Returns the array of property names.
+	 */
+	function arrayLikeKeys(value, inherited) {
+	  var isArr = isArray(value),
+	      isArg = !isArr && isArguments(value),
+	      isBuff = !isArr && !isArg && isBuffer(value),
+	      isType = !isArr && !isArg && !isBuff && isTypedArray(value),
+	      skipIndexes = isArr || isArg || isBuff || isType,
+	      result = skipIndexes ? baseTimes(value.length, String) : [],
+	      length = result.length;
+
+	  for (var key in value) {
+	    if ((inherited || hasOwnProperty.call(value, key)) &&
+	        !(skipIndexes && (
+	           // Safari 9 has enumerable `arguments.length` in strict mode.
+	           key == 'length' ||
+	           // Node.js 0.10 has enumerable non-index properties on buffers.
+	           (isBuff && (key == 'offset' || key == 'parent')) ||
+	           // PhantomJS 2 has enumerable non-index properties on typed arrays.
+	           (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
+	           // Skip index properties.
+	           isIndex(key, length)
+	        ))) {
+	      result.push(key);
+	    }
+	  }
+	  return result;
+	}
+
+	module.exports = arrayLikeKeys;
+
+
+/***/ },
+/* 628 */
+/***/ function(module, exports) {
+
+	/**
+	 * The base implementation of `_.times` without support for iteratee shorthands
+	 * or max array length checks.
+	 *
+	 * @private
+	 * @param {number} n The number of times to invoke `iteratee`.
+	 * @param {Function} iteratee The function invoked per iteration.
+	 * @returns {Array} Returns the array of results.
+	 */
+	function baseTimes(n, iteratee) {
+	  var index = -1,
+	      result = Array(n);
+
+	  while (++index < n) {
+	    result[index] = iteratee(index);
+	  }
+	  return result;
+	}
+
+	module.exports = baseTimes;
+
+
+/***/ },
+/* 629 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseIsArguments = __webpack_require__(630),
+	    isObjectLike = __webpack_require__(631);
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/** Built-in value references. */
+	var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+
+	/**
+	 * Checks if `value` is likely an `arguments` object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+	 *  else `false`.
+	 * @example
+	 *
+	 * _.isArguments(function() { return arguments; }());
+	 * // => true
+	 *
+	 * _.isArguments([1, 2, 3]);
+	 * // => false
+	 */
+	var isArguments = baseIsArguments(function() { return arguments; }()) ? baseIsArguments : function(value) {
+	  return isObjectLike(value) && hasOwnProperty.call(value, 'callee') &&
+	    !propertyIsEnumerable.call(value, 'callee');
+	};
+
+	module.exports = isArguments;
+
+
+/***/ },
+/* 630 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseGetTag = __webpack_require__(580),
+	    isObjectLike = __webpack_require__(631);
+
+	/** `Object#toString` result references. */
+	var argsTag = '[object Arguments]';
+
+	/**
+	 * The base implementation of `_.isArguments`.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+	 */
+	function baseIsArguments(value) {
+	  return isObjectLike(value) && baseGetTag(value) == argsTag;
+	}
+
+	module.exports = baseIsArguments;
+
+
+/***/ },
+/* 631 */
+/***/ function(module, exports) {
+
+	/**
+	 * Checks if `value` is object-like. A value is object-like if it's not `null`
+	 * and has a `typeof` result of "object".
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+	 * @example
+	 *
+	 * _.isObjectLike({});
+	 * // => true
+	 *
+	 * _.isObjectLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObjectLike(_.noop);
+	 * // => false
+	 *
+	 * _.isObjectLike(null);
+	 * // => false
+	 */
+	function isObjectLike(value) {
+	  return value != null && typeof value == 'object';
+	}
+
+	module.exports = isObjectLike;
+
+
+/***/ },
+/* 632 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(582),
+	    stubFalse = __webpack_require__(633);
+
+	/** Detect free variable `exports`. */
+	var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
+
+	/** Detect free variable `module`. */
+	var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
+
+	/** Detect the popular CommonJS extension `module.exports`. */
+	var moduleExports = freeModule && freeModule.exports === freeExports;
+
+	/** Built-in value references. */
+	var Buffer = moduleExports ? root.Buffer : undefined;
+
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined;
+
+	/**
+	 * Checks if `value` is a buffer.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.3.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
+	 * @example
+	 *
+	 * _.isBuffer(new Buffer(2));
+	 * // => true
+	 *
+	 * _.isBuffer(new Uint8Array(2));
+	 * // => false
+	 */
+	var isBuffer = nativeIsBuffer || stubFalse;
+
+	module.exports = isBuffer;
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(246)(module)))
+
+/***/ },
+/* 633 */
+/***/ function(module, exports) {
+
+	/**
+	 * This method returns `false`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.13.0
+	 * @category Util
+	 * @returns {boolean} Returns `false`.
+	 * @example
+	 *
+	 * _.times(2, _.stubFalse);
+	 * // => [false, false]
+	 */
+	function stubFalse() {
+	  return false;
+	}
+
+	module.exports = stubFalse;
+
+
+/***/ },
+/* 634 */
+/***/ function(module, exports) {
+
+	/** Used as references for various `Number` constants. */
+	var MAX_SAFE_INTEGER = 9007199254740991;
+
+	/** Used to detect unsigned integer values. */
+	var reIsUint = /^(?:0|[1-9]\d*)$/;
+
+	/**
+	 * Checks if `value` is a valid array-like index.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+	 * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+	 */
+	function isIndex(value, length) {
+	  length = length == null ? MAX_SAFE_INTEGER : length;
+	  return !!length &&
+	    (typeof value == 'number' || reIsUint.test(value)) &&
+	    (value > -1 && value % 1 == 0 && value < length);
+	}
+
+	module.exports = isIndex;
+
+
+/***/ },
+/* 635 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseIsTypedArray = __webpack_require__(636),
+	    baseUnary = __webpack_require__(638),
+	    nodeUtil = __webpack_require__(639);
+
+	/* Node.js helper references. */
+	var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
+
+	/**
+	 * Checks if `value` is classified as a typed array.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 3.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+	 * @example
+	 *
+	 * _.isTypedArray(new Uint8Array);
+	 * // => true
+	 *
+	 * _.isTypedArray([]);
+	 * // => false
+	 */
+	var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
+
+	module.exports = isTypedArray;
+
+
+/***/ },
+/* 636 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseGetTag = __webpack_require__(580),
+	    isLength = __webpack_require__(637),
+	    isObjectLike = __webpack_require__(631);
+
+	/** `Object#toString` result references. */
+	var argsTag = '[object Arguments]',
+	    arrayTag = '[object Array]',
+	    boolTag = '[object Boolean]',
+	    dateTag = '[object Date]',
+	    errorTag = '[object Error]',
+	    funcTag = '[object Function]',
+	    mapTag = '[object Map]',
+	    numberTag = '[object Number]',
+	    objectTag = '[object Object]',
+	    regexpTag = '[object RegExp]',
+	    setTag = '[object Set]',
+	    stringTag = '[object String]',
+	    weakMapTag = '[object WeakMap]';
+
+	var arrayBufferTag = '[object ArrayBuffer]',
+	    dataViewTag = '[object DataView]',
+	    float32Tag = '[object Float32Array]',
+	    float64Tag = '[object Float64Array]',
+	    int8Tag = '[object Int8Array]',
+	    int16Tag = '[object Int16Array]',
+	    int32Tag = '[object Int32Array]',
+	    uint8Tag = '[object Uint8Array]',
+	    uint8ClampedTag = '[object Uint8ClampedArray]',
+	    uint16Tag = '[object Uint16Array]',
+	    uint32Tag = '[object Uint32Array]';
+
+	/** Used to identify `toStringTag` values of typed arrays. */
+	var typedArrayTags = {};
+	typedArrayTags[float32Tag] = typedArrayTags[float64Tag] =
+	typedArrayTags[int8Tag] = typedArrayTags[int16Tag] =
+	typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] =
+	typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] =
+	typedArrayTags[uint32Tag] = true;
+	typedArrayTags[argsTag] = typedArrayTags[arrayTag] =
+	typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] =
+	typedArrayTags[dataViewTag] = typedArrayTags[dateTag] =
+	typedArrayTags[errorTag] = typedArrayTags[funcTag] =
+	typedArrayTags[mapTag] = typedArrayTags[numberTag] =
+	typedArrayTags[objectTag] = typedArrayTags[regexpTag] =
+	typedArrayTags[setTag] = typedArrayTags[stringTag] =
+	typedArrayTags[weakMapTag] = false;
+
+	/**
+	 * The base implementation of `_.isTypedArray` without Node.js optimizations.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+	 */
+	function baseIsTypedArray(value) {
+	  return isObjectLike(value) &&
+	    isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
+	}
+
+	module.exports = baseIsTypedArray;
+
+
+/***/ },
+/* 637 */
+/***/ function(module, exports) {
+
+	/** Used as references for various `Number` constants. */
+	var MAX_SAFE_INTEGER = 9007199254740991;
+
+	/**
+	 * Checks if `value` is a valid array-like length.
+	 *
+	 * **Note:** This method is loosely based on
+	 * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+	 * @example
+	 *
+	 * _.isLength(3);
+	 * // => true
+	 *
+	 * _.isLength(Number.MIN_VALUE);
+	 * // => false
+	 *
+	 * _.isLength(Infinity);
+	 * // => false
+	 *
+	 * _.isLength('3');
+	 * // => false
+	 */
+	function isLength(value) {
+	  return typeof value == 'number' &&
+	    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+	}
+
+	module.exports = isLength;
+
+
+/***/ },
+/* 638 */
+/***/ function(module, exports) {
+
+	/**
+	 * The base implementation of `_.unary` without support for storing metadata.
+	 *
+	 * @private
+	 * @param {Function} func The function to cap arguments for.
+	 * @returns {Function} Returns the new capped function.
+	 */
+	function baseUnary(func) {
+	  return function(value) {
+	    return func(value);
+	  };
+	}
+
+	module.exports = baseUnary;
+
+
+/***/ },
+/* 639 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(module) {var freeGlobal = __webpack_require__(583);
+
+	/** Detect free variable `exports`. */
+	var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
+
+	/** Detect free variable `module`. */
+	var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
+
+	/** Detect the popular CommonJS extension `module.exports`. */
+	var moduleExports = freeModule && freeModule.exports === freeExports;
+
+	/** Detect free variable `process` from Node.js. */
+	var freeProcess = moduleExports && freeGlobal.process;
+
+	/** Used to access faster Node.js helpers. */
+	var nodeUtil = (function() {
+	  try {
+	    return freeProcess && freeProcess.binding && freeProcess.binding('util');
+	  } catch (e) {}
+	}());
+
+	module.exports = nodeUtil;
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(246)(module)))
+
+/***/ },
+/* 640 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isPrototype = __webpack_require__(641),
+	    nativeKeys = __webpack_require__(642);
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/**
+	 * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the array of property names.
+	 */
+	function baseKeys(object) {
+	  if (!isPrototype(object)) {
+	    return nativeKeys(object);
+	  }
+	  var result = [];
+	  for (var key in Object(object)) {
+	    if (hasOwnProperty.call(object, key) && key != 'constructor') {
+	      result.push(key);
+	    }
+	  }
+	  return result;
+	}
+
+	module.exports = baseKeys;
+
+
+/***/ },
+/* 641 */
+/***/ function(module, exports) {
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/**
+	 * Checks if `value` is likely a prototype object.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
+	 */
+	function isPrototype(value) {
+	  var Ctor = value && value.constructor,
+	      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
+
+	  return value === proto;
+	}
+
+	module.exports = isPrototype;
+
+
+/***/ },
+/* 642 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var overArg = __webpack_require__(643);
+
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeKeys = overArg(Object.keys, Object);
+
+	module.exports = nativeKeys;
+
+
+/***/ },
+/* 643 */
+/***/ function(module, exports) {
+
+	/**
+	 * Creates a unary function that invokes `func` with its argument transformed.
+	 *
+	 * @private
+	 * @param {Function} func The function to wrap.
+	 * @param {Function} transform The argument transform.
+	 * @returns {Function} Returns the new function.
+	 */
+	function overArg(func, transform) {
+	  return function(arg) {
+	    return func(transform(arg));
+	  };
+	}
+
+	module.exports = overArg;
+
+
+/***/ },
+/* 644 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isFunction = __webpack_require__(579),
+	    isLength = __webpack_require__(637);
+
+	/**
+	 * Checks if `value` is array-like. A value is considered array-like if it's
+	 * not a function and has a `value.length` that's an integer greater than or
+	 * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+	 * @example
+	 *
+	 * _.isArrayLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isArrayLike(document.body.children);
+	 * // => true
+	 *
+	 * _.isArrayLike('abc');
+	 * // => true
+	 *
+	 * _.isArrayLike(_.noop);
+	 * // => false
+	 */
+	function isArrayLike(value) {
+	  return value != null && isLength(value.length) && !isFunction(value);
+	}
+
+	module.exports = isArrayLike;
+
+
+/***/ },
+/* 645 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var DataView = __webpack_require__(646),
+	    Map = __webpack_require__(576),
+	    Promise = __webpack_require__(647),
+	    Set = __webpack_require__(648),
+	    WeakMap = __webpack_require__(649),
+	    baseGetTag = __webpack_require__(580),
+	    toSource = __webpack_require__(589);
+
+	/** `Object#toString` result references. */
+	var mapTag = '[object Map]',
+	    objectTag = '[object Object]',
+	    promiseTag = '[object Promise]',
+	    setTag = '[object Set]',
+	    weakMapTag = '[object WeakMap]';
+
+	var dataViewTag = '[object DataView]';
+
+	/** Used to detect maps, sets, and weakmaps. */
+	var dataViewCtorString = toSource(DataView),
+	    mapCtorString = toSource(Map),
+	    promiseCtorString = toSource(Promise),
+	    setCtorString = toSource(Set),
+	    weakMapCtorString = toSource(WeakMap);
+
+	/**
+	 * Gets the `toStringTag` of `value`.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {string} Returns the `toStringTag`.
+	 */
+	var getTag = baseGetTag;
+
+	// Fallback for data views, maps, sets, and weak maps in IE 11 and promises in Node.js < 6.
+	if ((DataView && getTag(new DataView(new ArrayBuffer(1))) != dataViewTag) ||
+	    (Map && getTag(new Map) != mapTag) ||
+	    (Promise && getTag(Promise.resolve()) != promiseTag) ||
+	    (Set && getTag(new Set) != setTag) ||
+	    (WeakMap && getTag(new WeakMap) != weakMapTag)) {
+	  getTag = function(value) {
+	    var result = baseGetTag(value),
+	        Ctor = result == objectTag ? value.constructor : undefined,
+	        ctorString = Ctor ? toSource(Ctor) : '';
+
+	    if (ctorString) {
+	      switch (ctorString) {
+	        case dataViewCtorString: return dataViewTag;
+	        case mapCtorString: return mapTag;
+	        case promiseCtorString: return promiseTag;
+	        case setCtorString: return setTag;
+	        case weakMapCtorString: return weakMapTag;
+	      }
+	    }
+	    return result;
+	  };
+	}
+
+	module.exports = getTag;
+
+
+/***/ },
+/* 646 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var getNative = __webpack_require__(577),
+	    root = __webpack_require__(582);
+
+	/* Built-in method references that are verified to be native. */
+	var DataView = getNative(root, 'DataView');
+
+	module.exports = DataView;
+
+
+/***/ },
+/* 647 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var getNative = __webpack_require__(577),
+	    root = __webpack_require__(582);
+
+	/* Built-in method references that are verified to be native. */
+	var Promise = getNative(root, 'Promise');
+
+	module.exports = Promise;
+
+
+/***/ },
+/* 648 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var getNative = __webpack_require__(577),
+	    root = __webpack_require__(582);
+
+	/* Built-in method references that are verified to be native. */
+	var Set = getNative(root, 'Set');
+
+	module.exports = Set;
+
+
+/***/ },
+/* 649 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var getNative = __webpack_require__(577),
+	    root = __webpack_require__(582);
+
+	/* Built-in method references that are verified to be native. */
+	var WeakMap = getNative(root, 'WeakMap');
+
+	module.exports = WeakMap;
+
+
+/***/ },
+/* 650 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isStrictComparable = __webpack_require__(651),
+	    keys = __webpack_require__(626);
+
+	/**
+	 * Gets the property names, values, and compare flags of `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @returns {Array} Returns the match data of `object`.
+	 */
+	function getMatchData(object) {
+	  var result = keys(object),
+	      length = result.length;
+
+	  while (length--) {
+	    var key = result[length],
+	        value = object[key];
+
+	    result[length] = [key, value, isStrictComparable(value)];
+	  }
+	  return result;
+	}
+
+	module.exports = getMatchData;
+
+
+/***/ },
+/* 651 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isObject = __webpack_require__(586);
+
+	/**
+	 * Checks if `value` is suitable for strict equality comparisons, i.e. `===`.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` if suitable for strict
+	 *  equality comparisons, else `false`.
+	 */
+	function isStrictComparable(value) {
+	  return value === value && !isObject(value);
+	}
+
+	module.exports = isStrictComparable;
+
+
+/***/ },
+/* 652 */
+/***/ function(module, exports) {
+
+	/**
+	 * A specialized version of `matchesProperty` for source values suitable
+	 * for strict equality comparisons, i.e. `===`.
+	 *
+	 * @private
+	 * @param {string} key The key of the property to get.
+	 * @param {*} srcValue The value to match.
+	 * @returns {Function} Returns the new spec function.
+	 */
+	function matchesStrictComparable(key, srcValue) {
+	  return function(object) {
+	    if (object == null) {
+	      return false;
+	    }
+	    return object[key] === srcValue &&
+	      (srcValue !== undefined || (key in Object(object)));
+	  };
+	}
+
+	module.exports = matchesStrictComparable;
+
+
+/***/ },
+/* 653 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseIsEqual = __webpack_require__(606),
+	    get = __webpack_require__(654),
+	    hasIn = __webpack_require__(666),
+	    isKey = __webpack_require__(657),
+	    isStrictComparable = __webpack_require__(651),
+	    matchesStrictComparable = __webpack_require__(652),
+	    toKey = __webpack_require__(665);
+
+	/** Used to compose bitmasks for value comparisons. */
+	var COMPARE_PARTIAL_FLAG = 1,
+	    COMPARE_UNORDERED_FLAG = 2;
+
+	/**
+	 * The base implementation of `_.matchesProperty` which doesn't clone `srcValue`.
+	 *
+	 * @private
+	 * @param {string} path The path of the property to get.
+	 * @param {*} srcValue The value to match.
+	 * @returns {Function} Returns the new spec function.
+	 */
+	function baseMatchesProperty(path, srcValue) {
+	  if (isKey(path) && isStrictComparable(srcValue)) {
+	    return matchesStrictComparable(toKey(path), srcValue);
+	  }
+	  return function(object) {
+	    var objValue = get(object, path);
+	    return (objValue === undefined && objValue === srcValue)
+	      ? hasIn(object, path)
+	      : baseIsEqual(srcValue, objValue, COMPARE_PARTIAL_FLAG | COMPARE_UNORDERED_FLAG);
+	  };
+	}
+
+	module.exports = baseMatchesProperty;
+
+
+/***/ },
+/* 654 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseGet = __webpack_require__(655);
+
+	/**
+	 * Gets the value at `path` of `object`. If the resolved value is
+	 * `undefined`, the `defaultValue` is returned in its place.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 3.7.0
+	 * @category Object
+	 * @param {Object} object The object to query.
+	 * @param {Array|string} path The path of the property to get.
+	 * @param {*} [defaultValue] The value returned for `undefined` resolved values.
+	 * @returns {*} Returns the resolved value.
+	 * @example
+	 *
+	 * var object = { 'a': [{ 'b': { 'c': 3 } }] };
+	 *
+	 * _.get(object, 'a[0].b.c');
+	 * // => 3
+	 *
+	 * _.get(object, ['a', '0', 'b', 'c']);
+	 * // => 3
+	 *
+	 * _.get(object, 'a.b.c', 'default');
+	 * // => 'default'
+	 */
+	function get(object, path, defaultValue) {
+	  var result = object == null ? undefined : baseGet(object, path);
+	  return result === undefined ? defaultValue : result;
+	}
+
+	module.exports = get;
+
+
+/***/ },
+/* 655 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var castPath = __webpack_require__(656),
+	    toKey = __webpack_require__(665);
+
+	/**
+	 * The base implementation of `_.get` without support for default values.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @param {Array|string} path The path of the property to get.
+	 * @returns {*} Returns the resolved value.
+	 */
+	function baseGet(object, path) {
+	  path = castPath(path, object);
+
+	  var index = 0,
+	      length = path.length;
+
+	  while (object != null && index < length) {
+	    object = object[toKey(path[index++])];
+	  }
+	  return (index && index == length) ? object : undefined;
+	}
+
+	module.exports = baseGet;
+
+
+/***/ },
+/* 656 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isArray = __webpack_require__(622),
+	    isKey = __webpack_require__(657),
+	    stringToPath = __webpack_require__(659),
+	    toString = __webpack_require__(662);
+
+	/**
+	 * Casts `value` to a path array if it's not one.
+	 *
+	 * @private
+	 * @param {*} value The value to inspect.
+	 * @param {Object} [object] The object to query keys on.
+	 * @returns {Array} Returns the cast property path array.
+	 */
+	function castPath(value, object) {
+	  if (isArray(value)) {
+	    return value;
+	  }
+	  return isKey(value, object) ? [value] : stringToPath(toString(value));
+	}
+
+	module.exports = castPath;
+
+
+/***/ },
+/* 657 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isArray = __webpack_require__(622),
+	    isSymbol = __webpack_require__(658);
+
+	/** Used to match property names within property paths. */
+	var reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/,
+	    reIsPlainProp = /^\w*$/;
+
+	/**
+	 * Checks if `value` is a property name and not a property path.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @param {Object} [object] The object to query keys on.
+	 * @returns {boolean} Returns `true` if `value` is a property name, else `false`.
+	 */
+	function isKey(value, object) {
+	  if (isArray(value)) {
+	    return false;
+	  }
+	  var type = typeof value;
+	  if (type == 'number' || type == 'symbol' || type == 'boolean' ||
+	      value == null || isSymbol(value)) {
+	    return true;
+	  }
+	  return reIsPlainProp.test(value) || !reIsDeepProp.test(value) ||
+	    (object != null && value in Object(object));
+	}
+
+	module.exports = isKey;
+
+
+/***/ },
+/* 658 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseGetTag = __webpack_require__(580),
+	    isObjectLike = __webpack_require__(631);
+
+	/** `Object#toString` result references. */
+	var symbolTag = '[object Symbol]';
+
+	/**
+	 * Checks if `value` is classified as a `Symbol` primitive or object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a symbol, else `false`.
+	 * @example
+	 *
+	 * _.isSymbol(Symbol.iterator);
+	 * // => true
+	 *
+	 * _.isSymbol('abc');
+	 * // => false
+	 */
+	function isSymbol(value) {
+	  return typeof value == 'symbol' ||
+	    (isObjectLike(value) && baseGetTag(value) == symbolTag);
+	}
+
+	module.exports = isSymbol;
+
+
+/***/ },
+/* 659 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var memoizeCapped = __webpack_require__(660);
+
+	/** Used to match property names within property paths. */
+	var reLeadingDot = /^\./,
+	    rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
+
+	/** Used to match backslashes in property paths. */
+	var reEscapeChar = /\\(\\)?/g;
+
+	/**
+	 * Converts `string` to a property path array.
+	 *
+	 * @private
+	 * @param {string} string The string to convert.
+	 * @returns {Array} Returns the property path array.
+	 */
+	var stringToPath = memoizeCapped(function(string) {
+	  var result = [];
+	  if (reLeadingDot.test(string)) {
+	    result.push('');
+	  }
+	  string.replace(rePropName, function(match, number, quote, string) {
+	    result.push(quote ? string.replace(reEscapeChar, '$1') : (number || match));
+	  });
+	  return result;
+	});
+
+	module.exports = stringToPath;
+
+
+/***/ },
+/* 660 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var memoize = __webpack_require__(661);
+
+	/** Used as the maximum memoize cache size. */
+	var MAX_MEMOIZE_SIZE = 500;
+
+	/**
+	 * A specialized version of `_.memoize` which clears the memoized function's
+	 * cache when it exceeds `MAX_MEMOIZE_SIZE`.
+	 *
+	 * @private
+	 * @param {Function} func The function to have its output memoized.
+	 * @returns {Function} Returns the new memoized function.
+	 */
+	function memoizeCapped(func) {
+	  var result = memoize(func, function(key) {
+	    if (cache.size === MAX_MEMOIZE_SIZE) {
+	      cache.clear();
+	    }
+	    return key;
+	  });
+
+	  var cache = result.cache;
+	  return result;
+	}
+
+	module.exports = memoizeCapped;
+
+
+/***/ },
+/* 661 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var MapCache = __webpack_require__(591);
+
+	/** Error message constants. */
+	var FUNC_ERROR_TEXT = 'Expected a function';
+
+	/**
+	 * Creates a function that memoizes the result of `func`. If `resolver` is
+	 * provided, it determines the cache key for storing the result based on the
+	 * arguments provided to the memoized function. By default, the first argument
+	 * provided to the memoized function is used as the map cache key. The `func`
+	 * is invoked with the `this` binding of the memoized function.
+	 *
+	 * **Note:** The cache is exposed as the `cache` property on the memoized
+	 * function. Its creation may be customized by replacing the `_.memoize.Cache`
+	 * constructor with one whose instances implement the
+	 * [`Map`](http://ecma-international.org/ecma-262/7.0/#sec-properties-of-the-map-prototype-object)
+	 * method interface of `clear`, `delete`, `get`, `has`, and `set`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Function
+	 * @param {Function} func The function to have its output memoized.
+	 * @param {Function} [resolver] The function to resolve the cache key.
+	 * @returns {Function} Returns the new memoized function.
+	 * @example
+	 *
+	 * var object = { 'a': 1, 'b': 2 };
+	 * var other = { 'c': 3, 'd': 4 };
+	 *
+	 * var values = _.memoize(_.values);
+	 * values(object);
+	 * // => [1, 2]
+	 *
+	 * values(other);
+	 * // => [3, 4]
+	 *
+	 * object.a = 2;
+	 * values(object);
+	 * // => [1, 2]
+	 *
+	 * // Modify the result cache.
+	 * values.cache.set(object, ['a', 'b']);
+	 * values(object);
+	 * // => ['a', 'b']
+	 *
+	 * // Replace `_.memoize.Cache`.
+	 * _.memoize.Cache = WeakMap;
+	 */
+	function memoize(func, resolver) {
+	  if (typeof func != 'function' || (resolver != null && typeof resolver != 'function')) {
+	    throw new TypeError(FUNC_ERROR_TEXT);
+	  }
+	  var memoized = function() {
+	    var args = arguments,
+	        key = resolver ? resolver.apply(this, args) : args[0],
+	        cache = memoized.cache;
+
+	    if (cache.has(key)) {
+	      return cache.get(key);
+	    }
+	    var result = func.apply(this, args);
+	    memoized.cache = cache.set(key, result) || cache;
+	    return result;
+	  };
+	  memoized.cache = new (memoize.Cache || MapCache);
+	  return memoized;
+	}
+
+	// Expose `MapCache`.
+	memoize.Cache = MapCache;
+
+	module.exports = memoize;
+
+
+/***/ },
+/* 662 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseToString = __webpack_require__(663);
+
+	/**
+	 * Converts `value` to a string. An empty string is returned for `null`
+	 * and `undefined` values. The sign of `-0` is preserved.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to convert.
+	 * @returns {string} Returns the converted string.
+	 * @example
+	 *
+	 * _.toString(null);
+	 * // => ''
+	 *
+	 * _.toString(-0);
+	 * // => '-0'
+	 *
+	 * _.toString([1, 2, 3]);
+	 * // => '1,2,3'
+	 */
+	function toString(value) {
+	  return value == null ? '' : baseToString(value);
+	}
+
+	module.exports = toString;
+
+
+/***/ },
+/* 663 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Symbol = __webpack_require__(581),
+	    arrayMap = __webpack_require__(664),
+	    isArray = __webpack_require__(622),
+	    isSymbol = __webpack_require__(658);
+
+	/** Used as references for various `Number` constants. */
+	var INFINITY = 1 / 0;
+
+	/** Used to convert symbols to primitives and strings. */
+	var symbolProto = Symbol ? Symbol.prototype : undefined,
+	    symbolToString = symbolProto ? symbolProto.toString : undefined;
+
+	/**
+	 * The base implementation of `_.toString` which doesn't convert nullish
+	 * values to empty strings.
+	 *
+	 * @private
+	 * @param {*} value The value to process.
+	 * @returns {string} Returns the string.
+	 */
+	function baseToString(value) {
+	  // Exit early for strings to avoid a performance hit in some environments.
+	  if (typeof value == 'string') {
+	    return value;
+	  }
+	  if (isArray(value)) {
+	    // Recursively convert values (susceptible to call stack limits).
+	    return arrayMap(value, baseToString) + '';
+	  }
+	  if (isSymbol(value)) {
+	    return symbolToString ? symbolToString.call(value) : '';
+	  }
+	  var result = (value + '');
+	  return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
+	}
+
+	module.exports = baseToString;
+
+
+/***/ },
+/* 664 */
+/***/ function(module, exports) {
+
+	/**
+	 * A specialized version of `_.map` for arrays without support for iteratee
+	 * shorthands.
+	 *
+	 * @private
+	 * @param {Array} [array] The array to iterate over.
+	 * @param {Function} iteratee The function invoked per iteration.
+	 * @returns {Array} Returns the new mapped array.
+	 */
+	function arrayMap(array, iteratee) {
+	  var index = -1,
+	      length = array == null ? 0 : array.length,
+	      result = Array(length);
+
+	  while (++index < length) {
+	    result[index] = iteratee(array[index], index, array);
+	  }
+	  return result;
+	}
+
+	module.exports = arrayMap;
+
+
+/***/ },
+/* 665 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isSymbol = __webpack_require__(658);
+
+	/** Used as references for various `Number` constants. */
+	var INFINITY = 1 / 0;
+
+	/**
+	 * Converts `value` to a string key if it's not a string or symbol.
+	 *
+	 * @private
+	 * @param {*} value The value to inspect.
+	 * @returns {string|symbol} Returns the key.
+	 */
+	function toKey(value) {
+	  if (typeof value == 'string' || isSymbol(value)) {
+	    return value;
+	  }
+	  var result = (value + '');
+	  return (result == '0' && (1 / value) == -INFINITY) ? '-0' : result;
+	}
+
+	module.exports = toKey;
+
+
+/***/ },
+/* 666 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseHasIn = __webpack_require__(667),
+	    hasPath = __webpack_require__(668);
+
+	/**
+	 * Checks if `path` is a direct or inherited property of `object`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Object
+	 * @param {Object} object The object to query.
+	 * @param {Array|string} path The path to check.
+	 * @returns {boolean} Returns `true` if `path` exists, else `false`.
+	 * @example
+	 *
+	 * var object = _.create({ 'a': _.create({ 'b': 2 }) });
+	 *
+	 * _.hasIn(object, 'a');
+	 * // => true
+	 *
+	 * _.hasIn(object, 'a.b');
+	 * // => true
+	 *
+	 * _.hasIn(object, ['a', 'b']);
+	 * // => true
+	 *
+	 * _.hasIn(object, 'b');
+	 * // => false
+	 */
+	function hasIn(object, path) {
+	  return object != null && hasPath(object, path, baseHasIn);
+	}
+
+	module.exports = hasIn;
+
+
+/***/ },
+/* 667 */
+/***/ function(module, exports) {
+
+	/**
+	 * The base implementation of `_.hasIn` without support for deep paths.
+	 *
+	 * @private
+	 * @param {Object} [object] The object to query.
+	 * @param {Array|string} key The key to check.
+	 * @returns {boolean} Returns `true` if `key` exists, else `false`.
+	 */
+	function baseHasIn(object, key) {
+	  return object != null && key in Object(object);
+	}
+
+	module.exports = baseHasIn;
+
+
+/***/ },
+/* 668 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var castPath = __webpack_require__(656),
+	    isArguments = __webpack_require__(629),
+	    isArray = __webpack_require__(622),
+	    isIndex = __webpack_require__(634),
+	    isLength = __webpack_require__(637),
+	    toKey = __webpack_require__(665);
+
+	/**
+	 * Checks if `path` exists on `object`.
+	 *
+	 * @private
+	 * @param {Object} object The object to query.
+	 * @param {Array|string} path The path to check.
+	 * @param {Function} hasFunc The function to check properties.
+	 * @returns {boolean} Returns `true` if `path` exists, else `false`.
+	 */
+	function hasPath(object, path, hasFunc) {
+	  path = castPath(path, object);
+
+	  var index = -1,
+	      length = path.length,
+	      result = false;
+
+	  while (++index < length) {
+	    var key = toKey(path[index]);
+	    if (!(result = object != null && hasFunc(object, key))) {
+	      break;
+	    }
+	    object = object[key];
+	  }
+	  if (result || ++index != length) {
+	    return result;
+	  }
+	  length = object == null ? 0 : object.length;
+	  return !!length && isLength(length) && isIndex(key, length) &&
+	    (isArray(object) || isArguments(object));
+	}
+
+	module.exports = hasPath;
+
+
+/***/ },
+/* 669 */
+/***/ function(module, exports) {
+
+	/**
+	 * This method returns the first argument it receives.
+	 *
+	 * @static
+	 * @since 0.1.0
+	 * @memberOf _
+	 * @category Util
+	 * @param {*} value Any value.
+	 * @returns {*} Returns `value`.
+	 * @example
+	 *
+	 * var object = { 'a': 1 };
+	 *
+	 * console.log(_.identity(object) === object);
+	 * // => true
+	 */
+	function identity(value) {
+	  return value;
+	}
+
+	module.exports = identity;
+
+
+/***/ },
+/* 670 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseProperty = __webpack_require__(671),
+	    basePropertyDeep = __webpack_require__(672),
+	    isKey = __webpack_require__(657),
+	    toKey = __webpack_require__(665);
+
+	/**
+	 * Creates a function that returns the value at `path` of a given object.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 2.4.0
+	 * @category Util
+	 * @param {Array|string} path The path of the property to get.
+	 * @returns {Function} Returns the new accessor function.
+	 * @example
+	 *
+	 * var objects = [
+	 *   { 'a': { 'b': 2 } },
+	 *   { 'a': { 'b': 1 } }
+	 * ];
+	 *
+	 * _.map(objects, _.property('a.b'));
+	 * // => [2, 1]
+	 *
+	 * _.map(_.sortBy(objects, _.property(['a', 'b'])), 'a.b');
+	 * // => [1, 2]
+	 */
+	function property(path) {
+	  return isKey(path) ? baseProperty(toKey(path)) : basePropertyDeep(path);
+	}
+
+	module.exports = property;
+
+
+/***/ },
+/* 671 */
+/***/ function(module, exports) {
+
+	/**
+	 * The base implementation of `_.property` without support for deep paths.
+	 *
+	 * @private
+	 * @param {string} key The key of the property to get.
+	 * @returns {Function} Returns the new accessor function.
+	 */
+	function baseProperty(key) {
+	  return function(object) {
+	    return object == null ? undefined : object[key];
+	  };
+	}
+
+	module.exports = baseProperty;
+
+
+/***/ },
+/* 672 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseGet = __webpack_require__(655);
+
+	/**
+	 * A specialized version of `baseProperty` which supports deep paths.
+	 *
+	 * @private
+	 * @param {Array|string} path The path of the property to get.
+	 * @returns {Function} Returns the new accessor function.
+	 */
+	function basePropertyDeep(path) {
+	  return function(object) {
+	    return baseGet(object, path);
+	  };
+	}
+
+	module.exports = basePropertyDeep;
+
+
+/***/ },
+/* 673 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseFindIndex = __webpack_require__(674),
+	    baseIteratee = __webpack_require__(559),
+	    toInteger = __webpack_require__(675);
+
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeMax = Math.max;
+
+	/**
+	 * This method is like `_.find` except that it returns the index of the first
+	 * element `predicate` returns truthy for instead of the element itself.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 1.1.0
+	 * @category Array
+	 * @param {Array} array The array to inspect.
+	 * @param {Function} [predicate=_.identity] The function invoked per iteration.
+	 * @param {number} [fromIndex=0] The index to search from.
+	 * @returns {number} Returns the index of the found element, else `-1`.
+	 * @example
+	 *
+	 * var users = [
+	 *   { 'user': 'barney',  'active': false },
+	 *   { 'user': 'fred',    'active': false },
+	 *   { 'user': 'pebbles', 'active': true }
+	 * ];
+	 *
+	 * _.findIndex(users, function(o) { return o.user == 'barney'; });
+	 * // => 0
+	 *
+	 * // The `_.matches` iteratee shorthand.
+	 * _.findIndex(users, { 'user': 'fred', 'active': false });
+	 * // => 1
+	 *
+	 * // The `_.matchesProperty` iteratee shorthand.
+	 * _.findIndex(users, ['active', false]);
+	 * // => 0
+	 *
+	 * // The `_.property` iteratee shorthand.
+	 * _.findIndex(users, 'active');
+	 * // => 2
+	 */
+	function findIndex(array, predicate, fromIndex) {
+	  var length = array == null ? 0 : array.length;
+	  if (!length) {
+	    return -1;
+	  }
+	  var index = fromIndex == null ? 0 : toInteger(fromIndex);
+	  if (index < 0) {
+	    index = nativeMax(length + index, 0);
+	  }
+	  return baseFindIndex(array, baseIteratee(predicate, 3), index);
+	}
+
+	module.exports = findIndex;
+
+
+/***/ },
+/* 674 */
+/***/ function(module, exports) {
+
+	/**
+	 * The base implementation of `_.findIndex` and `_.findLastIndex` without
+	 * support for iteratee shorthands.
+	 *
+	 * @private
+	 * @param {Array} array The array to inspect.
+	 * @param {Function} predicate The function invoked per iteration.
+	 * @param {number} fromIndex The index to search from.
+	 * @param {boolean} [fromRight] Specify iterating from right to left.
+	 * @returns {number} Returns the index of the matched value, else `-1`.
+	 */
+	function baseFindIndex(array, predicate, fromIndex, fromRight) {
+	  var length = array.length,
+	      index = fromIndex + (fromRight ? 1 : -1);
+
+	  while ((fromRight ? index-- : ++index < length)) {
+	    if (predicate(array[index], index, array)) {
+	      return index;
+	    }
+	  }
+	  return -1;
+	}
+
+	module.exports = baseFindIndex;
+
+
+/***/ },
+/* 675 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var toFinite = __webpack_require__(676);
+
+	/**
+	 * Converts `value` to an integer.
+	 *
+	 * **Note:** This method is loosely based on
+	 * [`ToInteger`](http://www.ecma-international.org/ecma-262/7.0/#sec-tointeger).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to convert.
+	 * @returns {number} Returns the converted integer.
+	 * @example
+	 *
+	 * _.toInteger(3.2);
+	 * // => 3
+	 *
+	 * _.toInteger(Number.MIN_VALUE);
+	 * // => 0
+	 *
+	 * _.toInteger(Infinity);
+	 * // => 1.7976931348623157e+308
+	 *
+	 * _.toInteger('3.2');
+	 * // => 3
+	 */
+	function toInteger(value) {
+	  var result = toFinite(value),
+	      remainder = result % 1;
+
+	  return result === result ? (remainder ? result - remainder : result) : 0;
+	}
+
+	module.exports = toInteger;
+
+
+/***/ },
+/* 676 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var toNumber = __webpack_require__(677);
+
+	/** Used as references for various `Number` constants. */
+	var INFINITY = 1 / 0,
+	    MAX_INTEGER = 1.7976931348623157e+308;
+
+	/**
+	 * Converts `value` to a finite number.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.12.0
+	 * @category Lang
+	 * @param {*} value The value to convert.
+	 * @returns {number} Returns the converted number.
+	 * @example
+	 *
+	 * _.toFinite(3.2);
+	 * // => 3.2
+	 *
+	 * _.toFinite(Number.MIN_VALUE);
+	 * // => 5e-324
+	 *
+	 * _.toFinite(Infinity);
+	 * // => 1.7976931348623157e+308
+	 *
+	 * _.toFinite('3.2');
+	 * // => 3.2
+	 */
+	function toFinite(value) {
+	  if (!value) {
+	    return value === 0 ? value : 0;
+	  }
+	  value = toNumber(value);
+	  if (value === INFINITY || value === -INFINITY) {
+	    var sign = (value < 0 ? -1 : 1);
+	    return sign * MAX_INTEGER;
+	  }
+	  return value === value ? value : 0;
+	}
+
+	module.exports = toFinite;
+
+
+/***/ },
+/* 677 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isObject = __webpack_require__(586),
+	    isSymbol = __webpack_require__(658);
+
+	/** Used as references for various `Number` constants. */
+	var NAN = 0 / 0;
+
+	/** Used to match leading and trailing whitespace. */
+	var reTrim = /^\s+|\s+$/g;
+
+	/** Used to detect bad signed hexadecimal string values. */
+	var reIsBadHex = /^[-+]0x[0-9a-f]+$/i;
+
+	/** Used to detect binary string values. */
+	var reIsBinary = /^0b[01]+$/i;
+
+	/** Used to detect octal string values. */
+	var reIsOctal = /^0o[0-7]+$/i;
+
+	/** Built-in method references without a dependency on `root`. */
+	var freeParseInt = parseInt;
+
+	/**
+	 * Converts `value` to a number.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to process.
+	 * @returns {number} Returns the number.
+	 * @example
+	 *
+	 * _.toNumber(3.2);
+	 * // => 3.2
+	 *
+	 * _.toNumber(Number.MIN_VALUE);
+	 * // => 5e-324
+	 *
+	 * _.toNumber(Infinity);
+	 * // => Infinity
+	 *
+	 * _.toNumber('3.2');
+	 * // => 3.2
+	 */
+	function toNumber(value) {
+	  if (typeof value == 'number') {
+	    return value;
+	  }
+	  if (isSymbol(value)) {
+	    return NAN;
+	  }
+	  if (isObject(value)) {
+	    var other = typeof value.valueOf == 'function' ? value.valueOf() : value;
+	    value = isObject(other) ? (other + '') : other;
+	  }
+	  if (typeof value != 'string') {
+	    return value === 0 ? value : +value;
+	  }
+	  value = value.replace(reTrim, '');
+	  var isBinary = reIsBinary.test(value);
+	  return (isBinary || reIsOctal.test(value))
+	    ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
+	    : (reIsBadHex.test(value) ? NAN : +value);
+	}
+
+	module.exports = toNumber;
+
+
+/***/ },
+/* 678 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseFlatten = __webpack_require__(679),
+	    baseOrderBy = __webpack_require__(681),
+	    baseRest = __webpack_require__(691),
+	    isIterateeCall = __webpack_require__(699);
+
+	/**
+	 * Creates an array of elements, sorted in ascending order by the results of
+	 * running each element in a collection thru each iteratee. This method
+	 * performs a stable sort, that is, it preserves the original sort order of
+	 * equal elements. The iteratees are invoked with one argument: (value).
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.1.0
+	 * @category Collection
+	 * @param {Array|Object} collection The collection to iterate over.
+	 * @param {...(Function|Function[])} [iteratees=[_.identity]]
+	 *  The iteratees to sort by.
+	 * @returns {Array} Returns the new sorted array.
+	 * @example
+	 *
+	 * var users = [
+	 *   { 'user': 'fred',   'age': 48 },
+	 *   { 'user': 'barney', 'age': 36 },
+	 *   { 'user': 'fred',   'age': 40 },
+	 *   { 'user': 'barney', 'age': 34 }
+	 * ];
+	 *
+	 * _.sortBy(users, [function(o) { return o.user; }]);
+	 * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 40]]
+	 *
+	 * _.sortBy(users, ['user', 'age']);
+	 * // => objects for [['barney', 34], ['barney', 36], ['fred', 40], ['fred', 48]]
+	 */
+	var sortBy = baseRest(function(collection, iteratees) {
+	  if (collection == null) {
+	    return [];
+	  }
+	  var length = iteratees.length;
+	  if (length > 1 && isIterateeCall(collection, iteratees[0], iteratees[1])) {
+	    iteratees = [];
+	  } else if (length > 2 && isIterateeCall(iteratees[0], iteratees[1], iteratees[2])) {
+	    iteratees = [iteratees[0]];
+	  }
+	  return baseOrderBy(collection, baseFlatten(iteratees, 1), []);
+	});
+
+	module.exports = sortBy;
+
+
+/***/ },
+/* 679 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var arrayPush = __webpack_require__(621),
+	    isFlattenable = __webpack_require__(680);
+
+	/**
+	 * The base implementation of `_.flatten` with support for restricting flattening.
+	 *
+	 * @private
+	 * @param {Array} array The array to flatten.
+	 * @param {number} depth The maximum recursion depth.
+	 * @param {boolean} [predicate=isFlattenable] The function invoked per iteration.
+	 * @param {boolean} [isStrict] Restrict to values that pass `predicate` checks.
+	 * @param {Array} [result=[]] The initial result value.
+	 * @returns {Array} Returns the new flattened array.
+	 */
+	function baseFlatten(array, depth, predicate, isStrict, result) {
+	  var index = -1,
+	      length = array.length;
+
+	  predicate || (predicate = isFlattenable);
+	  result || (result = []);
+
+	  while (++index < length) {
+	    var value = array[index];
+	    if (depth > 0 && predicate(value)) {
+	      if (depth > 1) {
+	        // Recursively flatten arrays (susceptible to call stack limits).
+	        baseFlatten(value, depth - 1, predicate, isStrict, result);
+	      } else {
+	        arrayPush(result, value);
+	      }
+	    } else if (!isStrict) {
+	      result[result.length] = value;
+	    }
+	  }
+	  return result;
+	}
+
+	module.exports = baseFlatten;
+
+
+/***/ },
+/* 680 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Symbol = __webpack_require__(581),
+	    isArguments = __webpack_require__(629),
+	    isArray = __webpack_require__(622);
+
+	/** Built-in value references. */
+	var spreadableSymbol = Symbol ? Symbol.isConcatSpreadable : undefined;
+
+	/**
+	 * Checks if `value` is a flattenable `arguments` object or array.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is flattenable, else `false`.
+	 */
+	function isFlattenable(value) {
+	  return isArray(value) || isArguments(value) ||
+	    !!(spreadableSymbol && value && value[spreadableSymbol]);
+	}
+
+	module.exports = isFlattenable;
+
+
+/***/ },
+/* 681 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var arrayMap = __webpack_require__(664),
+	    baseIteratee = __webpack_require__(559),
+	    baseMap = __webpack_require__(682),
+	    baseSortBy = __webpack_require__(688),
+	    baseUnary = __webpack_require__(638),
+	    compareMultiple = __webpack_require__(689),
+	    identity = __webpack_require__(669);
+
+	/**
+	 * The base implementation of `_.orderBy` without param guards.
+	 *
+	 * @private
+	 * @param {Array|Object} collection The collection to iterate over.
+	 * @param {Function[]|Object[]|string[]} iteratees The iteratees to sort by.
+	 * @param {string[]} orders The sort orders of `iteratees`.
+	 * @returns {Array} Returns the new sorted array.
+	 */
+	function baseOrderBy(collection, iteratees, orders) {
+	  var index = -1;
+	  iteratees = arrayMap(iteratees.length ? iteratees : [identity], baseUnary(baseIteratee));
+
+	  var result = baseMap(collection, function(value, key, collection) {
+	    var criteria = arrayMap(iteratees, function(iteratee) {
+	      return iteratee(value);
+	    });
+	    return { 'criteria': criteria, 'index': ++index, 'value': value };
+	  });
+
+	  return baseSortBy(result, function(object, other) {
+	    return compareMultiple(object, other, orders);
+	  });
+	}
+
+	module.exports = baseOrderBy;
+
+
+/***/ },
+/* 682 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseEach = __webpack_require__(683),
+	    isArrayLike = __webpack_require__(644);
+
+	/**
+	 * The base implementation of `_.map` without support for iteratee shorthands.
+	 *
+	 * @private
+	 * @param {Array|Object} collection The collection to iterate over.
+	 * @param {Function} iteratee The function invoked per iteration.
+	 * @returns {Array} Returns the new mapped array.
+	 */
+	function baseMap(collection, iteratee) {
+	  var index = -1,
+	      result = isArrayLike(collection) ? Array(collection.length) : [];
+
+	  baseEach(collection, function(value, key, collection) {
+	    result[++index] = iteratee(value, key, collection);
+	  });
+	  return result;
+	}
+
+	module.exports = baseMap;
+
+
+/***/ },
+/* 683 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseForOwn = __webpack_require__(684),
+	    createBaseEach = __webpack_require__(687);
+
+	/**
+	 * The base implementation of `_.forEach` without support for iteratee shorthands.
+	 *
+	 * @private
+	 * @param {Array|Object} collection The collection to iterate over.
+	 * @param {Function} iteratee The function invoked per iteration.
+	 * @returns {Array|Object} Returns `collection`.
+	 */
+	var baseEach = createBaseEach(baseForOwn);
+
+	module.exports = baseEach;
+
+
+/***/ },
+/* 684 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseFor = __webpack_require__(685),
+	    keys = __webpack_require__(626);
+
+	/**
+	 * The base implementation of `_.forOwn` without support for iteratee shorthands.
+	 *
+	 * @private
+	 * @param {Object} object The object to iterate over.
+	 * @param {Function} iteratee The function invoked per iteration.
+	 * @returns {Object} Returns `object`.
+	 */
+	function baseForOwn(object, iteratee) {
+	  return object && baseFor(object, iteratee, keys);
+	}
+
+	module.exports = baseForOwn;
+
+
+/***/ },
+/* 685 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var createBaseFor = __webpack_require__(686);
+
+	/**
+	 * The base implementation of `baseForOwn` which iterates over `object`
+	 * properties returned by `keysFunc` and invokes `iteratee` for each property.
+	 * Iteratee functions may exit iteration early by explicitly returning `false`.
+	 *
+	 * @private
+	 * @param {Object} object The object to iterate over.
+	 * @param {Function} iteratee The function invoked per iteration.
+	 * @param {Function} keysFunc The function to get the keys of `object`.
+	 * @returns {Object} Returns `object`.
+	 */
+	var baseFor = createBaseFor();
+
+	module.exports = baseFor;
+
+
+/***/ },
+/* 686 */
+/***/ function(module, exports) {
+
+	/**
+	 * Creates a base function for methods like `_.forIn` and `_.forOwn`.
+	 *
+	 * @private
+	 * @param {boolean} [fromRight] Specify iterating from right to left.
+	 * @returns {Function} Returns the new base function.
+	 */
+	function createBaseFor(fromRight) {
+	  return function(object, iteratee, keysFunc) {
+	    var index = -1,
+	        iterable = Object(object),
+	        props = keysFunc(object),
+	        length = props.length;
+
+	    while (length--) {
+	      var key = props[fromRight ? length : ++index];
+	      if (iteratee(iterable[key], key, iterable) === false) {
+	        break;
+	      }
+	    }
+	    return object;
+	  };
+	}
+
+	module.exports = createBaseFor;
+
+
+/***/ },
+/* 687 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isArrayLike = __webpack_require__(644);
+
+	/**
+	 * Creates a `baseEach` or `baseEachRight` function.
+	 *
+	 * @private
+	 * @param {Function} eachFunc The function to iterate over a collection.
+	 * @param {boolean} [fromRight] Specify iterating from right to left.
+	 * @returns {Function} Returns the new base function.
+	 */
+	function createBaseEach(eachFunc, fromRight) {
+	  return function(collection, iteratee) {
+	    if (collection == null) {
+	      return collection;
+	    }
+	    if (!isArrayLike(collection)) {
+	      return eachFunc(collection, iteratee);
+	    }
+	    var length = collection.length,
+	        index = fromRight ? length : -1,
+	        iterable = Object(collection);
+
+	    while ((fromRight ? index-- : ++index < length)) {
+	      if (iteratee(iterable[index], index, iterable) === false) {
+	        break;
+	      }
+	    }
+	    return collection;
+	  };
+	}
+
+	module.exports = createBaseEach;
+
+
+/***/ },
+/* 688 */
+/***/ function(module, exports) {
+
+	/**
+	 * The base implementation of `_.sortBy` which uses `comparer` to define the
+	 * sort order of `array` and replaces criteria objects with their corresponding
+	 * values.
+	 *
+	 * @private
+	 * @param {Array} array The array to sort.
+	 * @param {Function} comparer The function to define sort order.
+	 * @returns {Array} Returns `array`.
+	 */
+	function baseSortBy(array, comparer) {
+	  var length = array.length;
+
+	  array.sort(comparer);
+	  while (length--) {
+	    array[length] = array[length].value;
+	  }
+	  return array;
+	}
+
+	module.exports = baseSortBy;
+
+
+/***/ },
+/* 689 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var compareAscending = __webpack_require__(690);
+
+	/**
+	 * Used by `_.orderBy` to compare multiple properties of a value to another
+	 * and stable sort them.
+	 *
+	 * If `orders` is unspecified, all values are sorted in ascending order. Otherwise,
+	 * specify an order of "desc" for descending or "asc" for ascending sort order
+	 * of corresponding values.
+	 *
+	 * @private
+	 * @param {Object} object The object to compare.
+	 * @param {Object} other The other object to compare.
+	 * @param {boolean[]|string[]} orders The order to sort by for each property.
+	 * @returns {number} Returns the sort order indicator for `object`.
+	 */
+	function compareMultiple(object, other, orders) {
+	  var index = -1,
+	      objCriteria = object.criteria,
+	      othCriteria = other.criteria,
+	      length = objCriteria.length,
+	      ordersLength = orders.length;
+
+	  while (++index < length) {
+	    var result = compareAscending(objCriteria[index], othCriteria[index]);
+	    if (result) {
+	      if (index >= ordersLength) {
+	        return result;
+	      }
+	      var order = orders[index];
+	      return result * (order == 'desc' ? -1 : 1);
+	    }
+	  }
+	  // Fixes an `Array#sort` bug in the JS engine embedded in Adobe applications
+	  // that causes it, under certain circumstances, to provide the same value for
+	  // `object` and `other`. See https://github.com/jashkenas/underscore/pull/1247
+	  // for more details.
+	  //
+	  // This also ensures a stable sort in V8 and other engines.
+	  // See https://bugs.chromium.org/p/v8/issues/detail?id=90 for more details.
+	  return object.index - other.index;
+	}
+
+	module.exports = compareMultiple;
+
+
+/***/ },
+/* 690 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isSymbol = __webpack_require__(658);
+
+	/**
+	 * Compares values to sort them in ascending order.
+	 *
+	 * @private
+	 * @param {*} value The value to compare.
+	 * @param {*} other The other value to compare.
+	 * @returns {number} Returns the sort order indicator for `value`.
+	 */
+	function compareAscending(value, other) {
+	  if (value !== other) {
+	    var valIsDefined = value !== undefined,
+	        valIsNull = value === null,
+	        valIsReflexive = value === value,
+	        valIsSymbol = isSymbol(value);
+
+	    var othIsDefined = other !== undefined,
+	        othIsNull = other === null,
+	        othIsReflexive = other === other,
+	        othIsSymbol = isSymbol(other);
+
+	    if ((!othIsNull && !othIsSymbol && !valIsSymbol && value > other) ||
+	        (valIsSymbol && othIsDefined && othIsReflexive && !othIsNull && !othIsSymbol) ||
+	        (valIsNull && othIsDefined && othIsReflexive) ||
+	        (!valIsDefined && othIsReflexive) ||
+	        !valIsReflexive) {
+	      return 1;
+	    }
+	    if ((!valIsNull && !valIsSymbol && !othIsSymbol && value < other) ||
+	        (othIsSymbol && valIsDefined && valIsReflexive && !valIsNull && !valIsSymbol) ||
+	        (othIsNull && valIsDefined && valIsReflexive) ||
+	        (!othIsDefined && valIsReflexive) ||
+	        !othIsReflexive) {
+	      return -1;
+	    }
+	  }
+	  return 0;
+	}
+
+	module.exports = compareAscending;
+
+
+/***/ },
+/* 691 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var identity = __webpack_require__(669),
+	    overRest = __webpack_require__(692),
+	    setToString = __webpack_require__(694);
+
+	/**
+	 * The base implementation of `_.rest` which doesn't validate or coerce arguments.
+	 *
+	 * @private
+	 * @param {Function} func The function to apply a rest parameter to.
+	 * @param {number} [start=func.length-1] The start position of the rest parameter.
+	 * @returns {Function} Returns the new function.
+	 */
+	function baseRest(func, start) {
+	  return setToString(overRest(func, start, identity), func + '');
+	}
+
+	module.exports = baseRest;
+
+
+/***/ },
+/* 692 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var apply = __webpack_require__(693);
+
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeMax = Math.max;
+
+	/**
+	 * A specialized version of `baseRest` which transforms the rest array.
+	 *
+	 * @private
+	 * @param {Function} func The function to apply a rest parameter to.
+	 * @param {number} [start=func.length-1] The start position of the rest parameter.
+	 * @param {Function} transform The rest array transform.
+	 * @returns {Function} Returns the new function.
+	 */
+	function overRest(func, start, transform) {
+	  start = nativeMax(start === undefined ? (func.length - 1) : start, 0);
+	  return function() {
+	    var args = arguments,
+	        index = -1,
+	        length = nativeMax(args.length - start, 0),
+	        array = Array(length);
+
+	    while (++index < length) {
+	      array[index] = args[start + index];
+	    }
+	    index = -1;
+	    var otherArgs = Array(start + 1);
+	    while (++index < start) {
+	      otherArgs[index] = args[index];
+	    }
+	    otherArgs[start] = transform(array);
+	    return apply(func, this, otherArgs);
+	  };
+	}
+
+	module.exports = overRest;
+
+
+/***/ },
+/* 693 */
+/***/ function(module, exports) {
+
+	/**
+	 * A faster alternative to `Function#apply`, this function invokes `func`
+	 * with the `this` binding of `thisArg` and the arguments of `args`.
+	 *
+	 * @private
+	 * @param {Function} func The function to invoke.
+	 * @param {*} thisArg The `this` binding of `func`.
+	 * @param {Array} args The arguments to invoke `func` with.
+	 * @returns {*} Returns the result of `func`.
+	 */
+	function apply(func, thisArg, args) {
+	  switch (args.length) {
+	    case 0: return func.call(thisArg);
+	    case 1: return func.call(thisArg, args[0]);
+	    case 2: return func.call(thisArg, args[0], args[1]);
+	    case 3: return func.call(thisArg, args[0], args[1], args[2]);
+	  }
+	  return func.apply(thisArg, args);
+	}
+
+	module.exports = apply;
+
+
+/***/ },
+/* 694 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseSetToString = __webpack_require__(695),
+	    shortOut = __webpack_require__(698);
+
+	/**
+	 * Sets the `toString` method of `func` to return `string`.
+	 *
+	 * @private
+	 * @param {Function} func The function to modify.
+	 * @param {Function} string The `toString` result.
+	 * @returns {Function} Returns `func`.
+	 */
+	var setToString = shortOut(baseSetToString);
+
+	module.exports = setToString;
+
+
+/***/ },
+/* 695 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var constant = __webpack_require__(696),
+	    defineProperty = __webpack_require__(697),
+	    identity = __webpack_require__(669);
+
+	/**
+	 * The base implementation of `setToString` without support for hot loop shorting.
+	 *
+	 * @private
+	 * @param {Function} func The function to modify.
+	 * @param {Function} string The `toString` result.
+	 * @returns {Function} Returns `func`.
+	 */
+	var baseSetToString = !defineProperty ? identity : function(func, string) {
+	  return defineProperty(func, 'toString', {
+	    'configurable': true,
+	    'enumerable': false,
+	    'value': constant(string),
+	    'writable': true
+	  });
+	};
+
+	module.exports = baseSetToString;
+
+
+/***/ },
+/* 696 */
+/***/ function(module, exports) {
+
+	/**
+	 * Creates a function that returns `value`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 2.4.0
+	 * @category Util
+	 * @param {*} value The value to return from the new function.
+	 * @returns {Function} Returns the new constant function.
+	 * @example
+	 *
+	 * var objects = _.times(2, _.constant({ 'a': 1 }));
+	 *
+	 * console.log(objects);
+	 * // => [{ 'a': 1 }, { 'a': 1 }]
+	 *
+	 * console.log(objects[0] === objects[1]);
+	 * // => true
+	 */
+	function constant(value) {
+	  return function() {
+	    return value;
+	  };
+	}
+
+	module.exports = constant;
+
+
+/***/ },
+/* 697 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var getNative = __webpack_require__(577);
+
+	var defineProperty = (function() {
+	  try {
+	    var func = getNative(Object, 'defineProperty');
+	    func({}, '', {});
+	    return func;
+	  } catch (e) {}
+	}());
+
+	module.exports = defineProperty;
+
+
+/***/ },
+/* 698 */
+/***/ function(module, exports) {
+
+	/** Used to detect hot functions by number of calls within a span of milliseconds. */
+	var HOT_COUNT = 800,
+	    HOT_SPAN = 16;
+
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeNow = Date.now;
+
+	/**
+	 * Creates a function that'll short out and invoke `identity` instead
+	 * of `func` when it's called `HOT_COUNT` or more times in `HOT_SPAN`
+	 * milliseconds.
+	 *
+	 * @private
+	 * @param {Function} func The function to restrict.
+	 * @returns {Function} Returns the new shortable function.
+	 */
+	function shortOut(func) {
+	  var count = 0,
+	      lastCalled = 0;
+
+	  return function() {
+	    var stamp = nativeNow(),
+	        remaining = HOT_SPAN - (stamp - lastCalled);
+
+	    lastCalled = stamp;
+	    if (remaining > 0) {
+	      if (++count >= HOT_COUNT) {
+	        return arguments[0];
+	      }
+	    } else {
+	      count = 0;
+	    }
+	    return func.apply(undefined, arguments);
+	  };
+	}
+
+	module.exports = shortOut;
+
+
+/***/ },
+/* 699 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var eq = __webpack_require__(567),
+	    isArrayLike = __webpack_require__(644),
+	    isIndex = __webpack_require__(634),
+	    isObject = __webpack_require__(586);
+
+	/**
+	 * Checks if the given arguments are from an iteratee call.
+	 *
+	 * @private
+	 * @param {*} value The potential iteratee value argument.
+	 * @param {*} index The potential iteratee index or key argument.
+	 * @param {*} object The potential iteratee object argument.
+	 * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
+	 *  else `false`.
+	 */
+	function isIterateeCall(value, index, object) {
+	  if (!isObject(object)) {
+	    return false;
+	  }
+	  var type = typeof index;
+	  if (type == 'number'
+	        ? (isArrayLike(object) && isIndex(index, object.length))
+	        : (type == 'string' && index in object)
+	      ) {
+	    return eq(object[index], value);
+	  }
+	  return false;
+	}
+
+	module.exports = isIterateeCall;
+
+
+/***/ },
+/* 700 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	exports.default = sortableElement;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(32);
+
+	var _invariant = __webpack_require__(343);
+
+	var _invariant2 = _interopRequireDefault(_invariant);
+
+	var _utils = __webpack_require__(554);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	// Export Higher Order Sortable Element Component
+	function sortableElement(WrappedComponent) {
+	  var _class, _temp;
+
+	  var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { withRef: false };
+
+	  return _temp = _class = function (_Component) {
+	    _inherits(_class, _Component);
+
+	    function _class() {
+	      _classCallCheck(this, _class);
+
+	      return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+	    }
+
+	    _createClass(_class, [{
+	      key: 'componentDidMount',
+	      value: function componentDidMount() {
+	        var _props = this.props,
+	            collection = _props.collection,
+	            disabled = _props.disabled,
+	            index = _props.index;
+
+
+	        if (!disabled) {
+	          this.setDraggable(collection, index);
+	        }
+	      }
+	    }, {
+	      key: 'componentWillReceiveProps',
+	      value: function componentWillReceiveProps(nextProps) {
+	        if (this.props.index !== nextProps.index && this.node) {
+	          this.node.sortableInfo.index = nextProps.index;
+	        }
+	        if (this.props.disabled !== nextProps.disabled) {
+	          var collection = nextProps.collection,
+	              disabled = nextProps.disabled,
+	              index = nextProps.index;
+
+	          if (disabled) {
+	            this.removeDraggable(collection);
+	          } else {
+	            this.setDraggable(collection, index);
+	          }
+	        } else if (this.props.collection !== nextProps.collection) {
+	          this.removeDraggable(this.props.collection);
+	          this.setDraggable(nextProps.collection, nextProps.index);
+	        }
+	      }
+	    }, {
+	      key: 'componentWillUnmount',
+	      value: function componentWillUnmount() {
+	        var _props2 = this.props,
+	            collection = _props2.collection,
+	            disabled = _props2.disabled;
+
+
+	        if (!disabled) this.removeDraggable(collection);
+	      }
+	    }, {
+	      key: 'setDraggable',
+	      value: function setDraggable(collection, index) {
+	        var node = this.node = (0, _reactDom.findDOMNode)(this);
+
+	        node.sortableInfo = {
+	          index: index,
+	          collection: collection,
+	          manager: this.context.manager
+	        };
+
+	        this.ref = { node: node };
+	        this.context.manager.add(collection, this.ref);
+	      }
+	    }, {
+	      key: 'removeDraggable',
+	      value: function removeDraggable(collection) {
+	        this.context.manager.remove(collection, this.ref);
+	      }
+	    }, {
+	      key: 'getWrappedInstance',
+	      value: function getWrappedInstance() {
+	        (0, _invariant2.default)(config.withRef, 'To access the wrapped instance, you need to pass in {withRef: true} as the second argument of the SortableElement() call');
+	        return this.refs.wrappedInstance;
+	      }
+	    }, {
+	      key: 'render',
+	      value: function render() {
+	        var ref = config.withRef ? 'wrappedInstance' : null;
+
+	        return _react2.default.createElement(WrappedComponent, _extends({
+	          ref: ref
+	        }, (0, _utils.omit)(this.props, 'collection', 'disabled', 'index')));
+	      }
+	    }]);
+
+	    return _class;
+	  }(_react.Component), _class.displayName = (0, _utils.provideDisplayName)('sortableElement', WrappedComponent), _class.contextTypes = {
+	    manager: _react.PropTypes.object.isRequired
+	  }, _class.propTypes = {
+	    index: _react.PropTypes.number.isRequired,
+	    collection: _react.PropTypes.oneOfType([_react.PropTypes.number, _react.PropTypes.string]),
+	    disabled: _react.PropTypes.bool
+	  }, _class.defaultProps = {
+	    collection: 0
+	  }, _temp;
+	}
+
+/***/ },
+/* 701 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	exports.default = sortableHandle;
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(32);
+
+	var _invariant = __webpack_require__(343);
+
+	var _invariant2 = _interopRequireDefault(_invariant);
+
+	var _utils = __webpack_require__(554);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	// Export Higher Order Sortable Element Component
+	function sortableHandle(WrappedComponent) {
+	  var _class, _temp;
+
+	  var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { withRef: false };
+
+	  return _temp = _class = function (_Component) {
+	    _inherits(_class, _Component);
+
+	    function _class() {
+	      _classCallCheck(this, _class);
+
+	      return _possibleConstructorReturn(this, (_class.__proto__ || Object.getPrototypeOf(_class)).apply(this, arguments));
+	    }
+
+	    _createClass(_class, [{
+	      key: 'componentDidMount',
+	      value: function componentDidMount() {
+	        var node = (0, _reactDom.findDOMNode)(this);
+	        node.sortableHandle = true;
+	      }
+	    }, {
+	      key: 'getWrappedInstance',
+	      value: function getWrappedInstance() {
+	        (0, _invariant2.default)(config.withRef, 'To access the wrapped instance, you need to pass in {withRef: true} as the second argument of the SortableHandle() call');
+	        return this.refs.wrappedInstance;
+	      }
+	    }, {
+	      key: 'render',
+	      value: function render() {
+	        var ref = config.withRef ? 'wrappedInstance' : null;
+
+	        return _react2.default.createElement(WrappedComponent, _extends({ ref: ref }, this.props));
+	      }
+	    }]);
+
+	    return _class;
+	  }(_react.Component), _class.displayName = (0, _utils.provideDisplayName)('sortableHandle', WrappedComponent), _temp;
+	}
+
+/***/ },
+/* 702 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(413);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _SvgIcon = __webpack_require__(424);
+
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ActionDelete = function ActionDelete(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z' })
+	  );
+	};
+	ActionDelete = (0, _pure2.default)(ActionDelete);
+	ActionDelete.displayName = 'ActionDelete';
+	ActionDelete.muiName = 'SvgIcon';
+
+	exports.default = ActionDelete;
+
+/***/ },
+/* 703 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(504);
+	var content = __webpack_require__(704);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(491)(content, {});
+	var update = __webpack_require__(525)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -46509,10 +61743,10 @@
 	}
 
 /***/ },
-/* 504 */
+/* 704 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(490)();
+	exports = module.exports = __webpack_require__(524)();
 	// imports
 
 
@@ -46523,7 +61757,7 @@
 
 
 /***/ },
-/* 505 */
+/* 705 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46538,7 +61772,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _PatientDynamicInputBox = __webpack_require__(501);
+	var _PatientDynamicInputBox = __webpack_require__(551);
 
 	var _PatientDynamicInputBox2 = _interopRequireDefault(_PatientDynamicInputBox);
 
@@ -46554,7 +61788,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	__webpack_require__(503);
+	__webpack_require__(703);
 
 	var PatientConsultInputPage = function (_React$Component) {
 	  _inherits(PatientConsultInputPage, _React$Component);
@@ -46569,7 +61803,8 @@
 	    var _this = _possibleConstructorReturn(this, (PatientConsultInputPage.__proto__ || Object.getPrototypeOf(PatientConsultInputPage)).call(this, props));
 
 	    _this.state = {
-	      inputBoxClassName: "AddConsult"
+	      inputBoxClassName: "AddConsult",
+	      name: "Consults"
 	    };
 
 	    _this.handleKeyPress = _this.handleKeyPress.bind(_this);
@@ -46590,13 +61825,12 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
+	        _react2.default.createElement(_PatientDynamicInputBox2.default, { handleKeyPress: this.handleKeyPress, inputBoxClassName: this.state.inputBoxClassName, name: this.state.name }),
 	        _react2.default.createElement(
-	          'label',
+	          'div',
 	          null,
-	          'Consults'
-	        ),
-	        _react2.default.createElement('br', null),
-	        _react2.default.createElement(_PatientDynamicInputBox2.default, { handleKeyPress: this.handleKeyPress, inputBoxClassName: this.state.inputBoxClassName })
+	          _react2.default.createElement('br', null)
+	        )
 	      );
 	    }
 	  }]);
@@ -46607,7 +61841,7 @@
 	exports.default = PatientConsultInputPage;
 
 /***/ },
-/* 506 */
+/* 706 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46622,9 +61856,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _PatientGeneralInputBoxes = __webpack_require__(507);
+	var _LearningGeneralInputBoxes = __webpack_require__(707);
 
-	var _PatientGeneralInputBoxes2 = _interopRequireDefault(_PatientGeneralInputBoxes);
+	var _LearningGeneralInputBoxes2 = _interopRequireDefault(_LearningGeneralInputBoxes);
 
 	var _Crypto = __webpack_require__(484);
 
@@ -46638,18 +61872,18 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	__webpack_require__(508);
+	__webpack_require__(708);
 
-	var PatientGeneralPage = function (_React$Component) {
-	  _inherits(PatientGeneralPage, _React$Component);
+	var LearningGeneralPage = function (_React$Component) {
+	  _inherits(LearningGeneralPage, _React$Component);
 
 	  /**
 	    * Class constructor
 	    */
-	  function PatientGeneralPage(props) {
-	    _classCallCheck(this, PatientGeneralPage);
+	  function LearningGeneralPage(props) {
+	    _classCallCheck(this, LearningGeneralPage);
 
-	    var _this = _possibleConstructorReturn(this, (PatientGeneralPage.__proto__ || Object.getPrototypeOf(PatientGeneralPage)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (LearningGeneralPage.__proto__ || Object.getPrototypeOf(LearningGeneralPage)).call(this, props));
 
 	    _this.state = {
 	      name: _Crypto2.default.decodeString(_this.props.patientData.name, _this.props.secretCode),
@@ -46659,6 +61893,7 @@
 	      los: _this.props.patientData.los, // this is the admission date
 	      admitDate: _this.calcDays(_this.props.patientData.los), //This is actually how long they've been in hospital
 	      ro: _this.props.patientData.ro,
+	      intern: _this.props.patientData.intern,
 	      age: _this.calcAge(_Crypto2.default.decodeString(_this.props.patientData.dob, _this.props.secretCode))
 	    };
 
@@ -46668,13 +61903,16 @@
 	    return _this;
 	  }
 
-	  _createClass(PatientGeneralPage, [{
+	  _createClass(LearningGeneralPage, [{
 	    key: 'handleChange',
 	    value: function handleChange(event) {
+	      console.log("value, " + event.target.value);
+	      console.log("id, " + event.target.id);
+
 	      this.props.onUpdate(event.target, this.props.patientData._id);
 
-	      if (event.target.className === "DOB") this.setState({ age: this.calcAge(event.target.value) });
-	      if (event.target.className === "LOS") this.setState({ admitDate: this.calcDays(event.target.value) });
+	      if (event.target.id === "DOB") this.setState({ age: this.calcAge(event.target.value) });
+	      if (event.target.id === "LOS") this.setState({ admitDate: this.calcDays(event.target.value) });
 	    }
 
 	    // updates state with props from PatientAll with they get reloaded
@@ -46708,7 +61946,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(_PatientGeneralInputBoxes2.default, {
+	      return _react2.default.createElement(_LearningGeneralInputBoxes2.default, {
 	        handleChange: this.handleChange,
 	        name: this.state.name,
 	        room: this.state.room,
@@ -46716,21 +61954,22 @@
 	        mrn: this.state.mrn,
 	        los: this.state.los,
 	        ro: this.state.ro,
+	        intern: this.state.intern,
 	        admitDate: this.state.admitDate,
 	        age: this.state.age });
 	    }
 	  }]);
 
-	  return PatientGeneralPage;
+	  return LearningGeneralPage;
 	}(_react2.default.Component);
 
-	exports.default = PatientGeneralPage;
+	exports.default = LearningGeneralPage;
 
 /***/ },
-/* 507 */
+/* 707 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -46740,9 +61979,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _TextField = __webpack_require__(467);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var PatientGeneralInputBoxes = function PatientGeneralInputBoxes(_ref) {
+	var LearningGeneralInputBoxes = function LearningGeneralInputBoxes(_ref) {
 	  var handleChange = _ref.handleChange,
 	      name = _ref.name,
 	      room = _ref.room,
@@ -46750,95 +61993,41 @@
 	      mrn = _ref.mrn,
 	      los = _ref.los,
 	      ro = _ref.ro,
+	      intern = _ref.intern,
 	      admitDate = _ref.admitDate,
 	      age = _ref.age;
 	  return _react2.default.createElement(
-	    "div",
+	    'div',
 	    null,
 	    _react2.default.createElement(
-	      "div",
-	      { className: "flex-grid" },
+	      'div',
+	      { className: 'flex-grid' },
 	      _react2.default.createElement(
-	        "div",
-	        { className: "col" },
-	        _react2.default.createElement("input", { id: "PatientInput", type: "text", className: "Name", placeholder: "Name", onChange: handleChange, defaultValue: name })
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_TextField2.default, { id: 'Name', disabled: true, onChange: handleChange, defaultValue: name, hintText: 'Name', floatingLabelText: 'Name', style: { width: 150 } })
 	      ),
 	      _react2.default.createElement(
-	        "div",
-	        { className: "col" },
-	        _react2.default.createElement(
-	          "label",
-	          { id: "PatientGen" },
-	          "Room:"
-	        ),
-	        _react2.default.createElement("input", { id: "PatientInput", type: "text", className: "Room", onChange: handleChange, defaultValue: room })
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_TextField2.default, { id: 'DOB', disabled: true, onChange: handleChange, defaultValue: dob, hintText: 'Date of Birth', floatingLabelText: 'DOB', style: { width: 100 } })
 	      ),
 	      _react2.default.createElement(
-	        "div",
-	        { className: "col" },
-	        _react2.default.createElement(
-	          "label",
-	          { id: "PatientGen" },
-	          "DOB:"
-	        ),
-	        _react2.default.createElement("input", { id: "PatientInput", type: "text", className: "DOB", onChange: handleChange, defaultValue: dob })
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_TextField2.default, { id: 'Age', value: age, disabled: true, hintText: 'Age', floatingLabelText: 'Age', style: { width: 75 } })
 	      ),
 	      _react2.default.createElement(
-	        "div",
-	        { className: "col" },
-	        _react2.default.createElement(
-	          "label",
-	          null,
-	          "Age: ",
-	          age
-	        )
-	      ),
-	      _react2.default.createElement(
-	        "div",
-	        { className: "col" },
-	        _react2.default.createElement(
-	          "label",
-	          { id: "PatientGen" },
-	          "MRN:"
-	        ),
-	        _react2.default.createElement("input", { id: "PatientInput", type: "text", className: "MRN", onChange: handleChange, defaultValue: mrn })
-	      ),
-	      _react2.default.createElement(
-	        "div",
-	        { className: "col" },
-	        _react2.default.createElement(
-	          "label",
-	          { id: "PatientGen" },
-	          "Admit:"
-	        ),
-	        _react2.default.createElement("input", { id: "PatientInput", type: "text", className: "LOS", onChange: handleChange, defaultValue: los })
-	      ),
-	      _react2.default.createElement(
-	        "div",
-	        { className: "col" },
-	        _react2.default.createElement(
-	          "label",
-	          null,
-	          "Day: ",
-	          admitDate
-	        )
-	      ),
-	      _react2.default.createElement(
-	        "div",
-	        { className: "col" },
-	        _react2.default.createElement(
-	          "label",
-	          { id: "PatientGen" },
-	          "RO:"
-	        ),
-	        _react2.default.createElement("input", { id: "PatientInput", type: "text", className: "RO", onChange: handleChange, defaultValue: ro })
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_TextField2.default, { id: 'Intern', disabled: true, onChange: handleChange, defaultValue: intern, hintText: 'Intern', floatingLabelText: 'Intern', style: { width: 150 } })
 	      )
 	    ),
-	    _react2.default.createElement("br", null)
+	    _react2.default.createElement('br', null)
 	  );
 	};
 
-	PatientGeneralInputBoxes.propTypes = {
+	LearningGeneralInputBoxes.propTypes = {
 	  handleChange: _react.PropTypes.func.isRequired,
 	  name: _react.PropTypes.string.isRequired,
 	  room: _react.PropTypes.string.isRequired,
@@ -46846,23 +62035,24 @@
 	  mrn: _react.PropTypes.string.isRequired,
 	  los: _react.PropTypes.string.isRequired,
 	  ro: _react.PropTypes.string.isRequired,
+	  intern: _react.PropTypes.string.isRequired,
 	  admitDate: _react.PropTypes.number.isRequired,
 	  age: _react.PropTypes.number.isRequired
 	};
 
-	exports.default = PatientGeneralInputBoxes;
+	exports.default = LearningGeneralInputBoxes;
 
 /***/ },
-/* 508 */
+/* 708 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(509);
+	var content = __webpack_require__(709);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(491)(content, {});
+	var update = __webpack_require__(525)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -46879,21 +62069,21 @@
 	}
 
 /***/ },
-/* 509 */
+/* 709 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(490)();
+	exports = module.exports = __webpack_require__(524)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "ul {\n  list-style: none; }\n\n.Name {\n  font-weight: bold;\n  font-size: 18px; }\n\n#PatientInput {\n  border: 1px solid #FFFFFF; }\n\n#PatientInput:hover {\n  border: 1px solid #d0d0d0; }\n\n#PatientGen {\n  display: inline-block;\n  width: 50px; }\n", ""]);
+	exports.push([module.id, "ul {\n  list-style: none; }\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 510 */
+/* 710 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46908,11 +62098,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _PatientLabsInputs = __webpack_require__(511);
+	var _PatientLabsInputs = __webpack_require__(711);
 
 	var _PatientLabsInputs2 = _interopRequireDefault(_PatientLabsInputs);
 
-	var _PatientOverviewTextArea = __webpack_require__(487);
+	var _PatientOverviewTextArea = __webpack_require__(521);
 
 	var _PatientOverviewTextArea2 = _interopRequireDefault(_PatientOverviewTextArea);
 
@@ -46928,7 +62118,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	__webpack_require__(512);
+	__webpack_require__(712);
 
 	var PatientLabsPage = function (_React$Component) {
 	  _inherits(PatientLabsPage, _React$Component);
@@ -47007,7 +62197,7 @@
 	exports.default = PatientLabsPage;
 
 /***/ },
-/* 511 */
+/* 711 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -47164,16 +62354,16 @@
 	exports.default = PatientLabsInputs;
 
 /***/ },
-/* 512 */
+/* 712 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(513);
+	var content = __webpack_require__(713);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(491)(content, {});
+	var update = __webpack_require__(525)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -47190,10 +62380,10 @@
 	}
 
 /***/ },
-/* 513 */
+/* 713 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(490)();
+	exports = module.exports = __webpack_require__(524)();
 	// imports
 
 
@@ -47204,22 +62394,28 @@
 
 
 /***/ },
-/* 514 */
+/* 714 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
+	var _Crypto = __webpack_require__(484);
+
+	var _Crypto2 = _interopRequireDefault(_Crypto);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(32);
 
-	__webpack_require__(515);
+	__webpack_require__(715);
 
 	// Patient learning
 	var PatientLearning = React.createClass({
 	  displayName: 'PatientLearning',
 
 	  decodeString: function decodeString(stringToDecode) {
-	    var decodedString = CryptoJS.AES.decrypt(stringToDecode, this.props.secretCode).toString(CryptoJS.enc.Utf8);
+	    var decodedString = _Crypto2.default.decodeString(stringToDecode, this.props.secretCode);
 	    return decodedString;
 	  },
 
@@ -47236,16 +62432,6 @@
 	    }
 	  },
 
-	  handelDelete: function handelDelete(event) {
-	    //console.log(event.target.name);
-	    this.props.onUpdate(event.target, this.props.patientData._id);
-	  },
-
-	  // Added a buddton to delete patient to this section... This handels that button
-	  handleDeletePatient: function handleDeletePatient(event) {
-	    if (confirm("Are you sure?")) this.props.onUpdate(event.target, this.props.patientData._id);
-	  },
-
 	  render: function render() {
 	    var _this = this;
 
@@ -47258,13 +62444,7 @@
 	          null,
 	          'Learning'
 	        ),
-	        React.createElement(
-	          'button',
-	          { id: 'DeleteButton', className: 'DeleteButton', onClick: this.handleDeletePatient },
-	          'X'
-	        ),
 	        React.createElement('br', null),
-	        React.createElement('input', { type: 'textyh', className: 'AddLearning', onKeyPress: this._handleKeyPress }),
 	        React.createElement(
 	          'ul',
 	          { id: 'learningUl' },
@@ -47273,12 +62453,7 @@
 	              'li',
 	              { key: element.learningText },
 	              React.createElement('input', { type: 'checkbox', className: 'LearningList', name: key, value: _this.decodeString(element.learningText), onChange: _this.handleChange, defaultChecked: element.complete }),
-	              _this.decodeString(element.learningText),
-	              React.createElement(
-	                'a',
-	                { className: 'deleteLearning', name: key, onClick: _this.handelDelete },
-	                element.complete ? "_X_" : ""
-	              )
+	              _this.decodeString(element.learningText)
 	            );
 	          })
 	        )
@@ -47294,14 +62469,7 @@
 	            'label',
 	            null,
 	            'Learning'
-	          ),
-	          React.createElement(
-	            'button',
-	            { id: 'DeleteButton', className: 'DeleteButton', onClick: this.handleDeletePatient },
-	            'X'
-	          ),
-	          React.createElement('br', null),
-	          React.createElement('input', { type: 'text', className: 'AddLearning', onKeyPress: this._handleKeyPress })
+	          )
 	        )
 	      );
 	    }
@@ -47311,16 +62479,16 @@
 	module.exports = PatientLearning;
 
 /***/ },
-/* 515 */
+/* 715 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(516);
+	var content = __webpack_require__(716);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(491)(content, {});
+	var update = __webpack_require__(525)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -47337,10 +62505,10 @@
 	}
 
 /***/ },
-/* 516 */
+/* 716 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(490)();
+	exports = module.exports = __webpack_require__(524)();
 	// imports
 
 
@@ -47351,7 +62519,7 @@
 
 
 /***/ },
-/* 517 */
+/* 717 */
 /***/ function(module, exports) {
 
 	(function(self) {
@@ -47815,16 +62983,16 @@
 
 
 /***/ },
-/* 518 */
+/* 718 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(519);
+	var content = __webpack_require__(719);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(491)(content, {});
+	var update = __webpack_require__(525)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -47841,21 +63009,21 @@
 	}
 
 /***/ },
-/* 519 */
+/* 719 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(490)();
+	exports = module.exports = __webpack_require__(524)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "/* Flexbot grid stuff */\n.flex-grid {\n  display: flex; }\n\n/* makes small spaces / equality between rows */\n.col {\n  flex-direction: row;\n  flex: 1; }\n\n/* stacks content under certain pixel limit */\n@media (max-width: 400px) {\n  .flex-grid {\n    display: block; } }\n", ""]);
+	exports.push([module.id, "/* Flexbot grid stuff */\n.flex-grid {\n  display: flex; }\n\n/* makes small spaces / equality between rows */\n.col {\n  flex-direction: row;\n  flex: 1; }\n\n/* stacks content under certain pixel limit */\n@media (max-width: 800px) {\n  .flex-grid {\n    display: block; } }\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 520 */
+/* 720 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47870,7 +63038,1433 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _NavBar = __webpack_require__(521);
+	var _AllPatients = __webpack_require__(721);
+
+	var _AllPatients2 = _interopRequireDefault(_AllPatients);
+
+	var _Auth = __webpack_require__(396);
+
+	var _Auth2 = _interopRequireDefault(_Auth);
+
+	var _Crypto = __webpack_require__(484);
+
+	var _Crypto2 = _interopRequireDefault(_Crypto);
+
+	__webpack_require__(717);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var AllPatientsPage = function (_React$Component) {
+	  _inherits(AllPatientsPage, _React$Component);
+
+	  // Bitnami origin password bp9kERz59guN
+
+	  /**
+	    * Class constructor
+	    */
+	  // Sets initial state
+	  function AllPatientsPage(props) {
+	    _classCallCheck(this, AllPatientsPage);
+
+	    var _this = _possibleConstructorReturn(this, (AllPatientsPage.__proto__ || Object.getPrototypeOf(AllPatientsPage)).call(this, props));
+
+	    _this.state = {
+	      patientsExist: false,
+	      secretCode: 'frisky',
+	      step: 2,
+	      pageType: 'basic',
+	      patients: [],
+	      webSiteConnect: /*'http://localhost:3000/api/runTheList/',//*/'/api/runTheList/', //Should be one when using for production
+	      sortBy: 'basic',
+	      userID: '',
+	      errors: {}
+	    };
+
+	    _this.decodeString = _this.decodeString.bind(_this);
+	    _this.handleSubmit = _this.handleSubmit.bind(_this);
+	    _this.componentDidMount = _this.componentDidMount.bind(_this);
+	    _this.updateTheState = _this.updateTheState.bind(_this);
+	    _this.addPatient = _this.addPatient.bind(_this);
+	    _this.resetLabsAndTodos = _this.resetLabsAndTodos.bind(_this);
+	    _this.sortPatient = _this.sortPatient.bind(_this);
+	    _this.componentWillReceiveProps = _this.componentWillReceiveProps.bind(_this);
+
+	    return _this;
+	  }
+
+	  // decrypts data with a key
+
+
+	  _createClass(AllPatientsPage, [{
+	    key: 'decodeString',
+	    value: function decodeString(stringToDecode) {
+	      var decodedString = _Crypto2.default.decodeString(stringToDecode, this.state.secretCode);
+	      return decodedString;
+	    }
+
+	    // Handles add patient button click, calls add patient function
+
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit(e) {
+	      e.preventDefault();
+	      this.addPatient({ _creator: this.state.userID });
+	    }
+
+	    // Runs at initial loading of patient info. calls server for data
+
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+
+	      fetch("/api/userID/", {
+	        method: 'get',
+	        headers: {
+	          "Content-type": "application/json",
+	          'Authorization': 'bearer ' + _Auth2.default.getToken()
+	        }
+	      }).then(function (response) {
+	        if (response.status !== 200) {
+	          console.log('Looks like there was a problem. Status Code: ' + response.status);
+	          return;
+	        }
+	        // Examine the text in the response
+	        response.json().then(function (userID) {
+	          //console.log(userID);
+	          _this2.setState({ userID: userID });
+	          fetch(_this2.state.webSiteConnect + "?userID=" + _this2.state.userID, {
+	            method: 'get',
+	            headers: {
+	              "Content-type": "application/json",
+	              'Authorization': 'bearer ' + _Auth2.default.getToken()
+	            }
+	          }).then(function (response) {
+	            if (response.status !== 200) {
+	              console.log('Looks like there was a problem. Status Code: ' + response.status);
+	              return;
+	            }
+	            // Examine the text in the response
+	            response.json().then(function (data) {
+	              //console.log(data);
+	              _this2.setState({ patients: data });
+	              if (data.length > 0) _this2.setState({ patientsExist: true });
+	            });
+	          }).catch(function (err) {
+	            console.log('Fetch Error :' + err);
+	          });
+	        });
+	      }).catch(function (err) {
+	        console.log('Fetch Error :' + err);
+	      });
+	    }
+
+	    // When we need to reload server data this runs
+
+	  }, {
+	    key: 'updateTheState',
+	    value: function updateTheState() {
+	      var _this3 = this;
+
+	      fetch(this.state.webSiteConnect + "?userID=" + this.state.userID, {
+	        method: 'get',
+	        headers: {
+	          "Content-type": "application/json",
+	          'Authorization': 'bearer ' + _Auth2.default.getToken()
+	        }
+	      }).then(function (response) {
+	        if (response.status !== 200) {
+	          console.log('Looks like there was a problem. Status Code: ' + response.status);
+	          return;
+	        }
+	        // Examine the text in the response
+	        response.json().then(function (data) {
+	          _this3.setState({ patients: data });
+	          if (data.length > 0) _this3.setState({ patientsExist: true });
+	          _this3.sortPatient(_this3.state.sortBy);
+	        });
+	      }).catch(function (err) {
+	        console.log('Fetch Error :' + err);
+	      });
+	    }
+	  }, {
+	    key: 'componentWillUpdate',
+	    value: function componentWillUpdate(nextProps, nextState) {}
+	    //console.log("next props ", nextProps);
+	    //console.log("next state ", nextState);
+	    //this.setState ({ data: nextProps.patientData });
+
+
+	    // Saves new patient to the data base
+
+	  }, {
+	    key: 'addPatient',
+	    value: function addPatient(patientToAdd) {
+	      var _this4 = this;
+
+	      console.log("Add patient with ID ", this.state.userID);
+
+	      fetch(this.state.webSiteConnect, {
+	        method: 'post',
+	        headers: {
+	          "Content-type": "application/json",
+	          'Authorization': 'bearer ' + _Auth2.default.getToken()
+	        },
+	        body: JSON.stringify(patientToAdd)
+	      }).then(function (response) {
+	        return response.json();
+	      }).then(function (data) {
+	        console.log("the Data is", data);
+	        console.log("patient to add", patientToAdd);
+	        var patient = data;
+	        // We're advised not to modify the state, it's immutable. So, make a copy.
+	        var patientsModified = _this4.state.patients.concat(patient);
+	        console.log("patientsModified", patientsModified);
+
+	        _this4.setState({ patients: patientsModified });
+	        _this4.updateTheState();
+	      });
+	    }
+
+	    // Does what it says...
+
+	  }, {
+	    key: 'resetLabsAndTodos',
+	    value: function resetLabsAndTodos() {
+	      var _this5 = this;
+
+	      this.state.patients.map(function (element) {
+	        var patient = { wbc: "", hg: "", hct: "", plt: "", na: "", k: "", cl: "", bicarb: "", bun: "", cr: "", gluc: "", input: "", output: "", labsback: false, consults: false, andon: false, mar: false, ivmed: false, amlab: false, dispo: false, learning: false, seen: false, lines: false, foley: false, mobility: false, ro: "" };
+	        fetch(_this5.state.webSiteConnect + element._id, {
+	          method: 'put',
+	          headers: {
+	            "Content-type": "application/json",
+	            'Authorization': 'bearer ' + _Auth2.default.getToken()
+	          },
+	          body: JSON.stringify(patient)
+	        }).then(function (data) {}.bind(_this5));
+	      });
+	    }
+	  }, {
+	    key: 'sortPatient',
+	    value: function sortPatient(sortBy) {
+
+	      if (sortBy === 'Room') {
+	        var tempData = this.state.patients.slice();
+	        tempData.sort(function (a, b) {
+	          if (a.room > b.room) {
+	            return 1;
+	          }
+	          if (a.room < b.room) {
+	            return -1;
+	          }
+	          return 0;
+	        });
+	        this.setState({ patients: tempData });
+	        this.setState({ step: 2 });
+	        this.setState({ sortBy: sortBy });
+	      }
+	      if (sortBy === 'Rounding Order') {
+	        var tempData = this.state.patients.slice();
+	        tempData.sort(function (a, b) {
+	          if (a.ro > b.ro) {
+	            return 1;
+	          }
+	          if (a.ro < b.ro) {
+	            return -1;
+	          }
+	          return 0;
+	        });
+	        this.setState({ patients: tempData });
+	        this.setState({ step: 2 });
+	        this.setState({ sortBy: sortBy });
+	      }
+	      if (sortBy === 'Name') {
+	        var tempData = this.state.patients.slice();
+	        tempData.sort(function (a, b) {
+	          if (this.decodeString(a.name) > this.decodeString(b.name)) {
+	            return 1;
+	          }
+	          if (this.decodeString(a.name) < this.decodeString(b.name)) {
+	            return -1;
+	          }
+
+	          return 0;
+	        }.bind(this));
+	        this.setState({ patients: tempData });
+	        this.setState({ step: 2 });
+	        this.setState({ sortBy: sortBy });
+	      }
+	      if (sortBy === 'Seen') {
+	        var tempData = this.state.patients.slice();
+	        tempData.sort(function (a, b) {
+	          return a.seen === b.seen ? 0 : a.seen ? 1 : -1;
+	        });
+	        this.setState({ patients: tempData });
+	        this.setState({ step: 2 });
+	        this.setState({ sortBy: sortBy });
+	      }
+	    }
+
+	    // lets us sort our patient data before we deisplay it
+
+	  }, {
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      //console.log(nextProps);
+	      this.sortPatient(nextProps.pageType);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_AllPatients2.default, {
+	          patientsExist: this.state.patientsExist,
+	          updateTheState: this.updateTheState,
+	          secretCode: this.state.secretCode,
+	          webSiteConnect: this.state.webSiteConnect,
+	          patients: this.state.patients,
+	          handleSubmit: this.handleSubmit,
+	          resetLabsAndTodos: this.resetLabsAndTodos })
+	      );
+	    }
+	  }]);
+
+	  return AllPatientsPage;
+	}(_react2.default.Component);
+
+	exports.default = AllPatientsPage;
+
+/***/ },
+/* 721 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _RaisedButton = __webpack_require__(465);
+
+	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+	var _PatientViewControllerPage = __webpack_require__(722);
+
+	var _PatientViewControllerPage2 = _interopRequireDefault(_PatientViewControllerPage);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var AllPatients = function AllPatients(_ref) {
+	  var patientsExist = _ref.patientsExist,
+	      updateTheState = _ref.updateTheState,
+	      secretCode = _ref.secretCode,
+	      webSiteConnect = _ref.webSiteConnect,
+	      patients = _ref.patients,
+	      handleSubmit = _ref.handleSubmit,
+	      resetLabsAndTodos = _ref.resetLabsAndTodos;
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    patientsExist ? _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement(
+	        'ul',
+	        null,
+	        patients.map(function (element) {
+	          return _react2.default.createElement(
+	            'li',
+	            { key: element._id },
+	            _react2.default.createElement(_PatientViewControllerPage2.default, { patientData: element, updateTheState: updateTheState, secretCode: secretCode, url: webSiteConnect }),
+	            _react2.default.createElement('br', null),
+	            _react2.default.createElement('hr', null)
+	          );
+	        })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { style: { display: 'flex', justifyContent: 'center' } },
+	        _react2.default.createElement(_RaisedButton2.default, { id: 'addPatientButton', label: 'Add Patient', onClick: handleSubmit, primary: true })
+	      ),
+	      _react2.default.createElement('br', null),
+	      _react2.default.createElement(
+	        'div',
+	        { style: { display: 'flex', justifyContent: 'center' } },
+	        _react2.default.createElement(_RaisedButton2.default, { label: 'ResetLabsAndTodos', onClick: resetLabsAndTodos, primary: true })
+	      )
+	    ) : _react2.default.createElement(
+	      'div',
+	      { style: { display: 'flex', justifyContent: 'center' } },
+	      _react2.default.createElement(_RaisedButton2.default, { id: 'addPatientButton', label: 'Add Patient', onClick: handleSubmit, primary: true })
+	    )
+	  );
+	};
+
+	AllPatients.propTypes = {
+	  patientsExist: _react.PropTypes.bool.isRequired,
+	  updateTheState: _react.PropTypes.func.isRequired,
+	  secretCode: _react.PropTypes.string.isRequired,
+	  webSiteConnect: _react.PropTypes.string.isRequired,
+	  patients: _react.PropTypes.array.isRequired,
+	  handleSubmit: _react.PropTypes.func.isRequired,
+	  resetLabsAndTodos: _react.PropTypes.func.isRequired
+	};
+
+	exports.default = AllPatients;
+
+/***/ },
+/* 722 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Crypto = __webpack_require__(484);
+
+	var _Crypto2 = _interopRequireDefault(_Crypto);
+
+	var _PatientViewController = __webpack_require__(723);
+
+	var _PatientViewController2 = _interopRequireDefault(_PatientViewController);
+
+	var _Auth = __webpack_require__(396);
+
+	var _Auth2 = _interopRequireDefault(_Auth);
+
+	__webpack_require__(717);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	__webpack_require__(718);
+
+	var PatientViewControllerPage = function (_React$Component) {
+	  _inherits(PatientViewControllerPage, _React$Component);
+
+	  /**
+	    * Class constructor
+	    */
+	  // Sets initial state
+	  function PatientViewControllerPage(props) {
+	    _classCallCheck(this, PatientViewControllerPage);
+
+	    var _this = _possibleConstructorReturn(this, (PatientViewControllerPage.__proto__ || Object.getPrototypeOf(PatientViewControllerPage)).call(this, props));
+
+	    _this.state = {
+	      secreteCode: _this.props.secreteCode,
+	      errors: {}
+	    };
+
+	    _this.onUpdate = _this.onUpdate.bind(_this);
+	    _this.encodeString = _this.encodeString.bind(_this);
+	    _this.decodeString = _this.decodeString.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(PatientViewControllerPage, [{
+	    key: 'encodeString',
+	    value: function encodeString(stringToEncode) {
+	      return _Crypto2.default.encodeString(stringToEncode, this.props.secretCode);
+	    }
+
+	    // decrypts data with a key
+
+	  }, {
+	    key: 'decodeString',
+	    value: function decodeString(stringToDecode) {
+	      return _Crypto2.default.decodeString(stringToDecode, this.props.secretCode);
+	    }
+
+	    // The called from children when models needs to be updated
+
+	  }, {
+	    key: 'onUpdate',
+	    value: function onUpdate(val, patientID) {
+
+	      var patient = {}; //Serves as vessel to be delivered to the backend on update
+
+	      // Standard Info
+	      if (val.id === "Name") patient = { name: this.encodeString(val.value) };
+	      if (val.id === "Room") patient = { room: val.value };
+	      if (val.id === "DOB") patient = { dob: this.encodeString(val.value) };
+	      if (val.id === "MRN") patient = { mrn: this.encodeString(val.value) };
+	      if (val.id === "LOS") patient = { los: val.value };
+	      if (val.id === "Intern") patient = { intern: val.value };
+	      if (val.id === "RO") patient = { ro: val.value };
+
+	      // CBC
+	      if (val.className === "WBC") patient = { wbc: this.encodeString(val.value) };
+	      if (val.className === "Hg") patient = { hg: this.encodeString(val.value) };
+	      if (val.className === "Hct") patient = { hct: this.encodeString(val.value) };
+	      if (val.className === "plt") patient = { plt: this.encodeString(val.value) };
+
+	      // BMR
+	      if (val.className === "Na") patient = { na: this.encodeString(val.value) };
+	      if (val.className === "K") patient = { k: this.encodeString(val.value) };
+	      if (val.className === "Cl") patient = { cl: this.encodeString(val.value) };
+	      if (val.className === "Bicarb") patient = { bicarb: this.encodeString(val.value) };
+	      if (val.className === "BUN") patient = { bun: this.encodeString(val.value) };
+	      if (val.className === "Cr") patient = { cr: this.encodeString(val.value) };
+	      if (val.className === "Gluc") patient = { gluc: this.encodeString(val.value) };
+
+	      // I/O
+	      if (val.className === "Input") patient = { input: val.value };
+	      if (val.className === "Output") patient = { output: val.value };
+	      if (val.className === "OtherLabs") patient = { otherLabs: this.encodeString(val.value) };
+
+	      // Overview
+	      if (val.className === "Overview") patient = { overview: this.encodeString(val.value) };
+
+	      // DailyTodos, using a ternary operator
+	      if (val.className === "LabsBack") patient = val.trueFalse === false ? { labsback: false } : { labsback: true };
+	      if (val.className === "Consults") patient = val.trueFalse === false ? { consults: false } : { consults: true };
+	      if (val.className === "Andon") patient = val.trueFalse === false ? { andon: false } : { andon: true };
+	      if (val.className === "Mar") patient = val.trueFalse === false ? { mar: false } : { mar: true };
+	      if (val.className === "IVMed") patient = val.trueFalse === false ? { ivmed: false } : { ivmed: true };
+	      if (val.className === "AMLab") patient = val.trueFalse === false ? { amlab: false } : { amlab: true };
+	      if (val.className === "Dispo") patient = val.trueFalse === false ? { dispo: false } : { dispo: true };
+	      if (val.className === "Learning") patient = val.trueFalse === false ? { learning: false } : { learning: true };
+	      if (val.className === "Seen") patient = val.trueFalse === false ? { seen: false } : { seen: true };
+	      if (val.className === "Lines") patient = val.trueFalse === true ? { lines: false } : { lines: true };
+	      if (val.className === "Foley") patient = val.trueFalse === true ? { foley: false } : { foley: true };
+	      if (val.className === "Mobility") patient = val.trueFalse === true ? { mobility: false } : { mobility: true };
+
+	      // Adding to list of followups, again using ternary operator!
+	      if (val.id === "AddFollowUp") patient = this.props.patientData.followup === undefined ? { followup: [{ complete: false, followUpText: this.encodeString(val.value), hidden: false, isEditing: false }] } : { followup: this.props.patientData.followup.concat({ complete: false, followUpText: this.encodeString(val.value), hidden: false }) };
+	      // checking off a followup
+	      if (val.className === "FollowUp") {
+	        var tempArray = this.props.patientData.followup.concat();
+	        var object = tempArray[val.name]; // .name is actually the index in the array...
+	        object = object.complete === true ? object.complete = false : object.complete = true;
+	        patient = { followup: tempArray };
+	      }
+	      // editing a followup
+	      if (val.className === "FollowUpEdit") {
+	        var tempArray = this.props.patientData.followup.concat();
+	        var object = tempArray[val.dataset.name]; // .name is actually the index in the array...
+	        if (object.isEditing === true) {
+	          object.followUpText = this.encodeString(val.value);
+	          object.isEditing = false;
+	        } else {
+	          object.isEditing = true;
+	        }
+	        patient = { followup: tempArray };
+	      }
+	      // sorting follow up list
+	      if (val.className === "FollowUpSort") {
+	        var tempArray = this.props.patientData.followup.concat();
+	        patient = { followup: tempArray };
+	      }
+	      // deleting a followup
+	      if (val.className === "deleteFollowUp") {
+	        var tempArray = this.props.patientData.followup.concat();
+	        tempArray.splice(val.name, 1);
+	        patient = { followup: tempArray };
+	      }
+
+	      // Adding to list of consults, again using ternary operator!
+	      if (val.id === "AddConsult") patient = this.props.patientData.consult === undefined ? { consult: [{ complete: false, consultText: this.encodeString(val.value), hidden: false, isEditing: false }] } : { consult: this.props.patientData.consult.concat({ complete: false, consultText: this.encodeString(val.value), hidden: false }) };
+	      // checking off a followup
+	      if (val.className === "Consult") {
+	        var tempArray = this.props.patientData.consult.concat();
+	        var object = tempArray[val.name];
+	        object = object.complete === true ? object.complete = false : object.complete = true;
+	        patient = { consult: tempArray };
+	      }
+	      // editing a consult
+	      if (val.className === "ConsultEdit") {
+	        var tempArray = this.props.patientData.consult.concat();
+	        var object = tempArray[val.dataset.name]; // .name is actually the index in the array...
+	        if (object.isEditing === true) {
+	          object.consultText = this.encodeString(val.value);
+	          object.isEditing = false;
+	        } else {
+	          object.isEditing = true;
+	        }
+	        patient = { consult: tempArray };
+	      }
+	      // sorting consult list
+	      if (val.className === "ConsultSort") {
+	        var tempArray = this.props.patientData.consult.concat();
+	        patient = { consult: tempArray };
+	      }
+	      // deleting a consult
+	      if (val.className === "deleteConsult") {
+	        var tempArray = this.props.patientData.consult.concat();
+	        tempArray.splice(val.name, 1);
+	        patient = { consult: tempArray };
+	      }
+
+	      // Adding to list of learning, again using ternary operator!
+	      if (val.id === "AddLearning") patient = this.props.patientData.learningList === undefined ? { learningList: [{ complete: false, learningText: this.encodeString(val.value), hidden: false }] } : { learningList: this.props.patientData.learningList.concat({ complete: false, learningText: this.encodeString(val.value), hidden: false }) };
+
+	      // checking off a learning
+	      if (val.className === "LearningList") {
+	        var tempArray = this.props.patientData.learningList.concat();
+	        var object = tempArray[val.name];
+	        object = object.complete === true ? object.complete = false : object.complete = true;
+	        patient = { learningList: tempArray };
+	      }
+	      // editing a consult
+	      if (val.className === "LearningEdit") {
+	        var tempArray = this.props.patientData.learningList.concat();
+	        var object = tempArray[val.dataset.name]; // .name is actually the index in the array...
+	        if (object.isEditing === true) {
+	          object.learningText = this.encodeString(val.value);
+	          object.isEditing = false;
+	        } else {
+	          object.isEditing = true;
+	        }
+	        patient = { learningList: tempArray };
+	      }
+	      // sorting consult list
+	      if (val.className === "LearningSort") {
+	        var tempArray = this.props.patientData.learningList.concat();
+	        patient = { learningList: tempArray };
+	      }
+	      // deleting a learning
+	      if (val.className === "deleteLearning") {
+	        var tempArray = this.props.patientData.learningList.concat();
+	        tempArray.splice(val.name, 1);
+	        patient = { learningList: tempArray };
+	      }
+
+	      // Deleteing a patient
+	      if (val.className === "DeleteButton") patient = { hidden: true };
+	      fetch(this.props.url + patientID, {
+	        method: 'put',
+	        headers: {
+	          "Content-type": "application/json",
+	          'Authorization': 'bearer ' + _Auth2.default.getToken()
+	        },
+	        body: JSON.stringify(patient)
+	      }).then(function (data) {
+	        if (val.id === "AddFollowUp" || val.className === "FollowUp" || val.className === "FollowUpEdit" || val.className === "deleteFollowUp" || val.id === "AddConsult" || val.className === "Consult" || val.className === "ConsultEdit" || val.className === "deleteConsult" || val.id === "AddLearning" || val.className === "LearningList" || val.className === "LearningEdit" || val.className === "deleteLearning" || val.className === "DeleteButton") {
+	          this.props.updateTheState();
+	          console.log("State updated...");
+	        }
+	      }.bind(this));
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_PatientViewController2.default, {
+	        onUpdate: this.onUpdate,
+	        patientData: this.props.patientData,
+	        secretCode: this.props.secretCode });
+	    }
+	  }]);
+
+	  return PatientViewControllerPage;
+	}(_react2.default.Component);
+
+	exports.default = PatientViewControllerPage;
+
+/***/ },
+/* 723 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _PatientOverviewPage = __webpack_require__(520);
+
+	var _PatientOverviewPage2 = _interopRequireDefault(_PatientOverviewPage);
+
+	var _PatientDailyTodoPage = __webpack_require__(526);
+
+	var _PatientDailyTodoPage2 = _interopRequireDefault(_PatientDailyTodoPage);
+
+	var _PatientFollowUpsPage = __webpack_require__(546);
+
+	var _PatientFollowUpsPage2 = _interopRequireDefault(_PatientFollowUpsPage);
+
+	var _PatientFollowUpInputPage = __webpack_require__(550);
+
+	var _PatientFollowUpInputPage2 = _interopRequireDefault(_PatientFollowUpInputPage);
+
+	var _PatientConsultsPage = __webpack_require__(552);
+
+	var _PatientConsultsPage2 = _interopRequireDefault(_PatientConsultsPage);
+
+	var _PatientConsultInputPage = __webpack_require__(705);
+
+	var _PatientConsultInputPage2 = _interopRequireDefault(_PatientConsultInputPage);
+
+	var _PatientGeneralPage = __webpack_require__(724);
+
+	var _PatientGeneralPage2 = _interopRequireDefault(_PatientGeneralPage);
+
+	var _PatientLabsPage = __webpack_require__(710);
+
+	var _PatientLabsPage2 = _interopRequireDefault(_PatientLabsPage);
+
+	var _PatientLearning = __webpack_require__(726);
+
+	var _PatientLearning2 = _interopRequireDefault(_PatientLearning);
+
+	var _PatientLearningInputPage = __webpack_require__(727);
+
+	var _PatientLearningInputPage2 = _interopRequireDefault(_PatientLearningInputPage);
+
+	var _PatientLearningPage = __webpack_require__(728);
+
+	var _PatientLearningPage2 = _interopRequireDefault(_PatientLearningPage);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var PatientViewController = function PatientViewController(_ref) {
+	  var onUpdate = _ref.onUpdate,
+	      patientData = _ref.patientData,
+	      secretCode = _ref.secretCode;
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'flex-grid' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_PatientGeneralPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode })
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'flex-grid' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_PatientOverviewPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode })
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'flex-grid' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_PatientLabsPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_PatientDailyTodoPage2.default, { onUpdate: onUpdate, patientData: patientData })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_PatientFollowUpInputPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode }),
+	        _react2.default.createElement(_PatientFollowUpsPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_PatientConsultInputPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode }),
+	        _react2.default.createElement(_PatientConsultsPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_PatientLearningInputPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode }),
+	        _react2.default.createElement(_PatientLearningPage2.default, { onUpdate: onUpdate, patientData: patientData, secretCode: secretCode })
+	      )
+	    )
+	  );
+	};
+
+	PatientViewController.propTypes = {
+	  onUpdate: _react.PropTypes.func.isRequired,
+	  patientData: _react.PropTypes.object.isRequired,
+	  secretCode: _react.PropTypes.string.isRequired
+	};
+
+	exports.default = PatientViewController;
+
+/***/ },
+/* 724 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _PatientGeneralInputBoxes = __webpack_require__(725);
+
+	var _PatientGeneralInputBoxes2 = _interopRequireDefault(_PatientGeneralInputBoxes);
+
+	var _Crypto = __webpack_require__(484);
+
+	var _Crypto2 = _interopRequireDefault(_Crypto);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	__webpack_require__(708);
+
+	var PatientGeneralPage = function (_React$Component) {
+	  _inherits(PatientGeneralPage, _React$Component);
+
+	  /**
+	    * Class constructor
+	    */
+	  function PatientGeneralPage(props) {
+	    _classCallCheck(this, PatientGeneralPage);
+
+	    var _this = _possibleConstructorReturn(this, (PatientGeneralPage.__proto__ || Object.getPrototypeOf(PatientGeneralPage)).call(this, props));
+
+	    _this.state = {
+	      name: _Crypto2.default.decodeString(_this.props.patientData.name, _this.props.secretCode),
+	      room: _this.props.patientData.room,
+	      dob: _Crypto2.default.decodeString(_this.props.patientData.dob, _this.props.secretCode),
+	      mrn: _Crypto2.default.decodeString(_this.props.patientData.mrn, _this.props.secretCode),
+	      los: _this.props.patientData.los, // this is the admission date
+	      admitDate: _this.calcDays(_this.props.patientData.los), //This is actually how long they've been in hospital
+	      ro: _this.props.patientData.ro,
+	      intern: _this.props.patientData.intern,
+	      age: _this.calcAge(_Crypto2.default.decodeString(_this.props.patientData.dob, _this.props.secretCode))
+	    };
+
+	    _this.handleChange = _this.handleChange.bind(_this);
+	    _this.calcAge = _this.calcAge.bind(_this);
+	    _this.calcDays = _this.calcDays.bind(_this);
+	    _this.handleDeletePatient = _this.handleDeletePatient.bind(_this);
+
+	    return _this;
+	  }
+
+	  _createClass(PatientGeneralPage, [{
+	    key: 'handleChange',
+	    value: function handleChange(event) {
+	      //console.log("value, " + event.target.value);
+	      //console.log("id, " + event.target.id);
+
+	      this.props.onUpdate(event.target, this.props.patientData._id);
+
+	      if (event.target.id === "DOB") this.setState({ age: this.calcAge(event.target.value) });
+	      if (event.target.id === "LOS") this.setState({ admitDate: this.calcDays(event.target.value) });
+	    }
+
+	    // updates state with props from PatientAll with they get reloaded
+	    /*componentWillReceiveProps(nextProps) {
+	      console.log(nextProps);
+	      //this.setState ({ listContents: nextProps.patientData.followup });
+	    }*/
+
+	  }, {
+	    key: 'calcAge',
+	    value: function calcAge(dob) {
+	      var birthdate = new Date(dob);
+	      var cur = new Date();
+	      var diff = cur - birthdate;
+	      var age = Math.floor(diff / 31536000000);
+	      return age;
+	    }
+
+	    //Number of days patient has been in the hospital
+
+	  }, {
+	    key: 'calcDays',
+	    value: function calcDays(admitDate) {
+	      var one_day = 1000 * 60 * 60 * 24;
+	      var startDate = new Date(admitDate);
+	      var cur = new Date();
+	      var diff = cur - startDate;
+	      var days = Math.floor(diff / one_day);
+	      return days;
+	    }
+
+	    // Added a buddton to delete patient to this section... This handels that button
+
+	  }, {
+	    key: 'handleDeletePatient',
+	    value: function handleDeletePatient(event) {
+	      if (confirm("Are you sure?")) this.props.onUpdate(event.target, this.props.patientData._id);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_PatientGeneralInputBoxes2.default, {
+	        handleChange: this.handleChange,
+	        name: this.state.name,
+	        room: this.state.room,
+	        dob: this.state.dob,
+	        mrn: this.state.mrn,
+	        los: this.state.los,
+	        ro: this.state.ro,
+	        intern: this.state.intern,
+	        admitDate: this.state.admitDate,
+	        age: this.state.age,
+	        handleDeletePatient: this.handleDeletePatient });
+	    }
+	  }]);
+
+	  return PatientGeneralPage;
+	}(_react2.default.Component);
+
+	exports.default = PatientGeneralPage;
+
+/***/ },
+/* 725 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _TextField = __webpack_require__(467);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	var _delete = __webpack_require__(702);
+
+	var _delete2 = _interopRequireDefault(_delete);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var PatientGeneralInputBoxes = function PatientGeneralInputBoxes(_ref) {
+	  var handleChange = _ref.handleChange,
+	      name = _ref.name,
+	      room = _ref.room,
+	      dob = _ref.dob,
+	      mrn = _ref.mrn,
+	      los = _ref.los,
+	      ro = _ref.ro,
+	      intern = _ref.intern,
+	      admitDate = _ref.admitDate,
+	      age = _ref.age,
+	      handleDeletePatient = _ref.handleDeletePatient;
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'flex-grid' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_TextField2.default, { id: 'Name', onChange: handleChange, defaultValue: name, hintText: 'Name', floatingLabelText: 'Name', style: { width: 150 } })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_TextField2.default, { id: 'Room', onChange: handleChange, defaultValue: room, hintText: 'Room', floatingLabelText: 'Room', style: { width: 75 } })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_TextField2.default, { id: 'DOB', onChange: handleChange, defaultValue: dob, hintText: 'Date of Birth', floatingLabelText: 'DOB', style: { width: 100 } })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_TextField2.default, { id: 'Age', value: age, disabled: true, hintText: 'Age', floatingLabelText: 'Age', style: { width: 75 } })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_TextField2.default, { id: 'MRN', onChange: handleChange, defaultValue: mrn, hintText: 'MRN', floatingLabelText: 'MRN', style: { width: 100 } })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_TextField2.default, { id: 'LOS', onChange: handleChange, defaultValue: los, hintText: 'Admit date', floatingLabelText: 'Admit date', style: { width: 100 } })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_TextField2.default, { id: 'Day', value: admitDate, disabled: true, hintText: 'Day', floatingLabelText: 'Day', style: { width: 75 } })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_TextField2.default, { id: 'Intern', onChange: handleChange, defaultValue: intern, hintText: 'Intern', floatingLabelText: 'Intern', style: { width: 100 } })
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'col' },
+	        _react2.default.createElement(_TextField2.default, { id: 'RO', onChange: handleChange, defaultValue: ro, hintText: 'Order', floatingLabelText: 'Order', style: { width: 75 } }),
+	        _react2.default.createElement(
+	          'button',
+	          { id: 'DeleteButton', className: 'DeleteButton', onClick: handleDeletePatient },
+	          'X'
+	        )
+	      )
+	    ),
+	    _react2.default.createElement('br', null)
+	  );
+	};
+
+	PatientGeneralInputBoxes.propTypes = {
+	  handleChange: _react.PropTypes.func.isRequired,
+	  handleDeletePatient: _react.PropTypes.func.isRequired,
+	  name: _react.PropTypes.string.isRequired,
+	  room: _react.PropTypes.string.isRequired,
+	  dob: _react.PropTypes.string.isRequired,
+	  mrn: _react.PropTypes.string.isRequired,
+	  los: _react.PropTypes.string.isRequired,
+	  ro: _react.PropTypes.string.isRequired,
+	  intern: _react.PropTypes.string.isRequired,
+	  admitDate: _react.PropTypes.number.isRequired,
+	  age: _react.PropTypes.number.isRequired
+	};
+
+	exports.default = PatientGeneralInputBoxes;
+
+/***/ },
+/* 726 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _Crypto = __webpack_require__(484);
+
+	var _Crypto2 = _interopRequireDefault(_Crypto);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(32);
+
+	__webpack_require__(715);
+
+	// Patient learning
+	var PatientLearning = React.createClass({
+	  displayName: 'PatientLearning',
+
+	  decodeString: function decodeString(stringToDecode) {
+	    var decodedString = _Crypto2.default.decodeString(stringToDecode, this.props.secretCode);
+	    return decodedString;
+	  },
+
+	  // Updates model that action was checked
+	  handleChange: function handleChange(event) {
+	    this.props.onUpdate(event.target, this.props.patientData._id);
+	  },
+
+	  // Adds new learning when enter pressed
+	  _handleKeyPress: function _handleKeyPress(e) {
+	    if (e.key === 'Enter') {
+	      this.props.onUpdate(e.target, this.props.patientData._id);
+	      e.currentTarget.value = "";
+	    }
+	  },
+
+	  handelDelete: function handelDelete(event) {
+	    //console.log(event.target.name);
+	    this.props.onUpdate(event.target, this.props.patientData._id);
+	  },
+
+	  // Added a buddton to delete patient to this section... This handels that button
+	  handleDeletePatient: function handleDeletePatient(event) {
+	    if (confirm("Are you sure?")) this.props.onUpdate(event.target, this.props.patientData._id);
+	  },
+
+	  render: function render() {
+	    var _this = this;
+
+	    if (this.props.patientData.learningList !== undefined) {
+	      return React.createElement(
+	        'div',
+	        { id: 'LearningDiv' },
+	        React.createElement(
+	          'label',
+	          null,
+	          'Learning'
+	        ),
+	        React.createElement(
+	          'button',
+	          { id: 'DeleteButton', className: 'DeleteButton', onClick: this.handleDeletePatient },
+	          'X'
+	        ),
+	        React.createElement('br', null),
+	        React.createElement('input', { type: 'textyh', className: 'AddLearning', onKeyPress: this._handleKeyPress }),
+	        React.createElement(
+	          'ul',
+	          { id: 'learningUl' },
+	          this.props.patientData.learningList.map(function (element, key) {
+	            return React.createElement(
+	              'li',
+	              { key: element.learningText },
+	              React.createElement('input', { type: 'checkbox', className: 'LearningList', name: key, value: _this.decodeString(element.learningText), onChange: _this.handleChange, defaultChecked: element.complete }),
+	              _this.decodeString(element.learningText),
+	              React.createElement(
+	                'a',
+	                { className: 'deleteLearning', name: key, onClick: _this.handelDelete },
+	                element.complete ? "_X_" : ""
+	              )
+	            );
+	          })
+	        )
+	      );
+	    } else {
+	      return React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'div',
+	          { id: 'LearningDiv' },
+	          React.createElement(
+	            'label',
+	            null,
+	            'Learning'
+	          ),
+	          React.createElement(
+	            'button',
+	            { id: 'DeleteButton', className: 'DeleteButton', onClick: this.handleDeletePatient },
+	            'X'
+	          ),
+	          React.createElement('br', null),
+	          React.createElement('input', { type: 'text', className: 'AddLearning', onKeyPress: this._handleKeyPress })
+	        )
+	      );
+	    }
+	  }
+	});
+
+	module.exports = PatientLearning;
+
+/***/ },
+/* 727 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _PatientDynamicInputBox = __webpack_require__(551);
+
+	var _PatientDynamicInputBox2 = _interopRequireDefault(_PatientDynamicInputBox);
+
+	var _Crypto = __webpack_require__(484);
+
+	var _Crypto2 = _interopRequireDefault(_Crypto);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	__webpack_require__(548);
+
+	var PatientLearningInputPage = function (_React$Component) {
+	  _inherits(PatientLearningInputPage, _React$Component);
+
+	  /**
+	    * Class constructor
+	    */
+	  // Sets initial state
+	  function PatientLearningInputPage(props) {
+	    _classCallCheck(this, PatientLearningInputPage);
+
+	    var _this = _possibleConstructorReturn(this, (PatientLearningInputPage.__proto__ || Object.getPrototypeOf(PatientLearningInputPage)).call(this, props));
+
+	    _this.state = {
+	      inputBoxClassName: "AddLearning",
+	      name: "Learning"
+	    };
+
+	    _this.handleKeyPress = _this.handleKeyPress.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(PatientLearningInputPage, [{
+	    key: 'handleKeyPress',
+	    value: function handleKeyPress(e) {
+	      if (e.key === 'Enter') {
+	        if (e.currentTarget.value != "") {
+	          this.props.onUpdate(e.target, this.props.patientData._id);
+	        }
+	        e.currentTarget.value = "";
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_PatientDynamicInputBox2.default, { handleKeyPress: this.handleKeyPress, inputBoxClassName: this.state.inputBoxClassName, name: this.state.name }),
+	        _react2.default.createElement(
+	          'div',
+	          null,
+	          _react2.default.createElement('br', null)
+	        )
+	      );
+	    }
+	  }]);
+
+	  return PatientLearningInputPage;
+	}(_react2.default.Component);
+
+	exports.default = PatientLearningInputPage;
+
+/***/ },
+/* 728 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _PatientDynamicList = __webpack_require__(547);
+
+	var _PatientDynamicList2 = _interopRequireDefault(_PatientDynamicList);
+
+	var _Crypto = __webpack_require__(484);
+
+	var _Crypto2 = _interopRequireDefault(_Crypto);
+
+	var _List = __webpack_require__(528);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	__webpack_require__(548);
+
+	var PatientLearningPage = function (_React$Component) {
+	  _inherits(PatientLearningPage, _React$Component);
+
+	  /**
+	    * Class constructor
+	    */
+	  // Sets initial state
+	  function PatientLearningPage(props) {
+	    _classCallCheck(this, PatientLearningPage);
+
+	    var _this = _possibleConstructorReturn(this, (PatientLearningPage.__proto__ || Object.getPrototypeOf(PatientLearningPage)).call(this, props));
+
+	    _this.state = {
+	      data: _this.props.patientData,
+	      learningList: _this.props.patientData.learningList
+	    };
+
+	    _this.handleChange = _this.handleChange.bind(_this);
+	    _this.handleDelete = _this.handleDelete.bind(_this);
+	    _this.dragStart = _this.dragStart.bind(_this);
+	    _this.dragEnd = _this.dragEnd.bind(_this);
+	    _this.dragOver = _this.dragOver.bind(_this);
+	    _this.sort = _this.sort.bind(_this);
+	    _this.editElement = _this.editElement.bind(_this);
+	    _this.handleKeyPress = _this.handleKeyPress.bind(_this);
+	    return _this;
+	  }
+
+	  // updates state with props from PatientAll with they get reloaded
+
+
+	  _createClass(PatientLearningPage, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      this.setState({ data: nextProps.patientData });
+	    }
+
+	    // Updates model that action was checked
+
+	  }, {
+	    key: 'handleChange',
+	    value: function handleChange(event) {
+	      this.props.onUpdate(event.target, this.props.patientData._id);
+	    }
+	  }, {
+	    key: 'handleDelete',
+	    value: function handleDelete(event) {
+	      this.props.onUpdate(event.target, this.props.patientData._id);
+	    }
+	  }, {
+	    key: 'editElement',
+	    value: function editElement(event) {
+	      // event.currentTarget.dataset.id gives index of tapped item in list
+	      // We can then probe if currently isEditing
+	      // If already editing, will not change isEditing to false with double click
+	      if (!this.state.data.learningList[event.currentTarget.dataset.id].isEditing) {
+	        this.props.onUpdate(event.target, this.props.patientData._id);
+	      }
+	    }
+	  }, {
+	    key: 'handleKeyPress',
+	    value: function handleKeyPress(event) {
+	      if (event.key === 'Enter') {
+	        this.props.onUpdate(event.target, this.props.patientData._id);
+	      }
+	    }
+	  }, {
+	    key: 'sort',
+	    value: function sort(learningList, dragging) {
+	      var data = this.state.data;
+	      data.learningList = learningList;
+	      data.dragging = dragging;
+	      this.setState({ data: data });
+	    }
+	  }, {
+	    key: 'dragStart',
+	    value: function dragStart(e) {
+	      this.dragged = Number(e.currentTarget.dataset.id);
+	      e.dataTransfer.effectAllowed = 'move';
+	      // for the drag to properly work
+	      e.dataTransfer.setData("text/html", null);
+	    }
+	  }, {
+	    key: 'dragEnd',
+	    value: function dragEnd(e) {
+	      this.sort(this.state.data.learningList, undefined);
+	      this.props.onUpdate(e.target, this.props.patientData._id);
+	    }
+	  }, {
+	    key: 'dragOver',
+	    value: function dragOver(e) {
+	      e.preventDefault();
+
+	      var over = e.currentTarget;
+	      var dragging = this.state.data.dragging;
+	      var from = isFinite(dragging) ? dragging : this.dragged;
+	      var to = Number(over.dataset.id);
+	      if (e.clientY - over.offsetTop > over.offsetHeight / 2) to++;
+	      if (from < to) to--;
+
+	      // move from 'a' to 'b'
+	      var items = this.state.data.learningList;
+	      items.splice(to, 0, items.splice(from, 1)[0]);
+	      this.sort(items, to);
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      if (this.state.learningList !== undefined) {
+	        var listItems = this.state.data.learningList.map(function (item, i) {
+	          var dragging = i == _this2.state.data.dragging ? "dragging" : "";
+	          var isEditing = item.isEditing ? true : false;
+	          return _react2.default.createElement(_PatientDynamicList2.default, {
+	            editElement: _this2.editElement,
+	            isEditing: isEditing,
+	            handleKeyPress: _this2.handleKeyPress,
+	            key: i,
+	            text: _Crypto2.default.decodeString(item.learningText, _this2.props.secretCode),
+	            isComplete: item.complete,
+	            dragging: dragging,
+	            i: i,
+	            dragStart: _this2.dragStart,
+	            dragEnd: _this2.dragEnd,
+	            dragOver: _this2.dragOver,
+	            listClassName: "LearningList",
+	            editClassName: "LearningEdit",
+	            sortClassName: "LearningSort",
+	            deleteText: "deleteLearning",
+	            handleDelete: _this2.handleDelete,
+	            handleChange: _this2.handleChange });
+	        });
+	        return _react2.default.createElement(
+	          'ul',
+	          { id: 'dynamicListUl' },
+	          listItems
+	        );
+	      } else {
+	        return null;
+	      }
+	    }
+	  }]);
+
+	  return PatientLearningPage;
+	}(_react2.default.Component);
+
+	exports.default = PatientLearningPage;
+
+/***/ },
+/* 729 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _NavBar = __webpack_require__(730);
 
 	var _NavBar2 = _interopRequireDefault(_NavBar);
 
@@ -47925,7 +64519,7 @@
 	exports.default = NavBarControl;
 
 /***/ },
-/* 521 */
+/* 730 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

@@ -7,6 +7,9 @@ const router = new express.Router();
 
 var mongoose = require('mongoose');
 const Patient = require('mongoose').model('Patient');
+const User = require('mongoose').model('User');
+const jwt = require('jsonwebtoken');
+const config = require('../../config');
 
 router.get('/dashboard', (req, res) => {
   console.log(res);
@@ -15,9 +18,38 @@ router.get('/dashboard', (req, res) => {
   });
 });
 
+router.get('/userID', (req, res) => {
+  const token = req.headers.authorization.split(' ')[1];
+  jwt.verify(token, config.jwtSecret, (err, decoded) => {
+    // the 401 code is for unauthorized status
+    if (err) { return res.status(401).end(); }
+    const userId = decoded.sub;
+    return res.json(userId);
+  });
+});
+
 router.get('/runTheList', (req, res) => {
   console.log("A request");
-  const filter = { hidden: false };
+
+  const filter = { hidden: false, _creator: req.query.userID};
+  Patient.find(filter).sort({ro: 1}).exec((err, docs) => {
+    if (err) {
+      return console.error(err);
+    }
+    return res.json(docs);
+  });
+});
+
+router.get('/runTheListLearning', (req, res) => {
+  console.log("A learning request");
+  console.log("Query string", req.query);
+  var filter = {_creator: req.query.userID};
+  if (req.query.intern1 && !req.query.intern2)
+    filter.intern = req.query.intern1;
+  if (req.query.intern2 && !req.query.intern1)
+    filter.intern = req.query.intern2;
+  if (req.query.intern1 && req.query.intern2)
+    filter.intern = [req.query.intern1, req.query.intern2];
   Patient.find(filter).sort({ro: 1}).exec((err, docs) => {
     if (err) {
       return console.error(err);

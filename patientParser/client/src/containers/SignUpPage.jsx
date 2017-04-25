@@ -12,7 +12,7 @@ class SignUpPage extends React.Component {
     // set initial component state
     this.state = {
       errors: {},
-      baseWebpage: 'http://localhost:3000',
+      baseWebpage: '',
       user: {
         email: '',
         name: '',

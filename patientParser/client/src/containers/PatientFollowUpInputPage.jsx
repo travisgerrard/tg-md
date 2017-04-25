@@ -14,7 +14,8 @@ class PatientFollowUpInputPage extends React.Component {
       super(props);
 
       this.state = {
-        inputBoxClassName: "AddFollowUp"
+        inputBoxClassName: "AddFollowUp",
+        name: "Follow Ups"
       }
 
       this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -22,7 +23,9 @@ class PatientFollowUpInputPage extends React.Component {
 
     handleKeyPress(e) {
       if (e.key === 'Enter') {
-        this.props.onUpdate(e.target, this.props.patientData._id);
+        if (e.currentTarget.value != "") {
+          this.props.onUpdate(e.target, this.props.patientData._id);
+        }
         e.currentTarget.value = ""
       }
     }
@@ -30,9 +33,10 @@ class PatientFollowUpInputPage extends React.Component {
     render() {
       return (
         <div>
-          <label>Follow Ups</label>
-          <br />
-          <PatientDynamicInputBox handleKeyPress={this.handleKeyPress} inputBoxClassName={this.state.inputBoxClassName} />
+          <PatientDynamicInputBox handleKeyPress={this.handleKeyPress} inputBoxClassName={this.state.inputBoxClassName} name={this.state.name} />
+          <div>
+            <br />
+          </div>
         </div>
       )
     }

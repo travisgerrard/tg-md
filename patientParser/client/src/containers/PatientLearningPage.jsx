@@ -5,7 +5,7 @@ import {List, ListItem} from 'material-ui/List';
 
 require('../sass/PatientFollowUps.scss');
 
-class PatientFollowUpsPage extends React.Component {
+class PatientLearningPage extends React.Component {
   /**
     * Class constructor
     */
@@ -15,7 +15,7 @@ class PatientFollowUpsPage extends React.Component {
 
       this.state = {
         data: this.props.patientData,
-        followup: this.props.patientData.followup,
+        learningList: this.props.patientData.learningList,
       }
 
       this.handleChange = this.handleChange.bind(this);
@@ -46,7 +46,7 @@ class PatientFollowUpsPage extends React.Component {
       // event.currentTarget.dataset.id gives index of tapped item in list
       // We can then probe if currently isEditing
       // If already editing, will not change isEditing to false with double click
-      if (!this.state.data.followup[event.currentTarget.dataset.id].isEditing) {
+      if (!this.state.data.learningList[event.currentTarget.dataset.id].isEditing) {
         this.props.onUpdate(event.target, this.props.patientData._id);
       }
     }
@@ -57,9 +57,9 @@ class PatientFollowUpsPage extends React.Component {
       }
     }
 
-    sort(followup, dragging) {
+    sort(learningList, dragging) {
       var data = this.state.data;
-      data.followup = followup;
+      data.learningList = learningList;
       data.dragging = dragging;
       this.setState({data: data});
     }
@@ -72,7 +72,7 @@ class PatientFollowUpsPage extends React.Component {
     }
 
     dragEnd(e) {
-      this.sort(this.state.data.followup, undefined);
+      this.sort(this.state.data.learningList, undefined);
       this.props.onUpdate(e.target, this.props.patientData._id);
     }
 
@@ -87,14 +87,14 @@ class PatientFollowUpsPage extends React.Component {
       if(from < to) to--;
 
       // move from 'a' to 'b'
-      var items = this.state.data.followup;
+      var items = this.state.data.learningList;
       items.splice(to, 0, items.splice(from,1)[0]);
       this.sort(items, to);
     }
 
     render() {
-      if (this.state.followup !== undefined) {
-        var listItems = this.state.data.followup.map((item, i) => {
+      if (this.state.learningList !== undefined) {
+        var listItems = this.state.data.learningList.map((item, i) => {
           var dragging = (i == this.state.data.dragging) ? "dragging" : "";
           var isEditing = (item.isEditing) ? true : false;
           return (
@@ -103,17 +103,17 @@ class PatientFollowUpsPage extends React.Component {
               isEditing={isEditing}
               handleKeyPress={this.handleKeyPress}
               key={i}
-              text={Crypto.decodeString(item.followUpText, this.props.secretCode)}
+              text={Crypto.decodeString(item.learningText, this.props.secretCode)}
               isComplete={item.complete}
               dragging={dragging}
               i={i}
               dragStart={this.dragStart}
               dragEnd={this.dragEnd}
               dragOver={this.dragOver}
-              listClassName={"FollowUp"}
-              editClassName={"FollowUpEdit"}
-              sortClassName={"FollowUpSort"}
-              deleteText={"deleteFollowUp"}
+              listClassName={"LearningList"}
+              editClassName={"LearningEdit"}
+              sortClassName={"LearningSort"}
+              deleteText={"deleteLearning"}
               handleDelete={this.handleDelete}
               handleChange={this.handleChange} />
           )
@@ -126,4 +126,4 @@ class PatientFollowUpsPage extends React.Component {
       }
     }
 }
-export default PatientFollowUpsPage;
+export default PatientLearningPage;

@@ -5,6 +5,7 @@ import HomePage from './components/HomePage.jsx';
 import DashboardPage from './containers/DashboardPage.jsx';
 import LoginPage from './containers/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
+import LearningPage from './containers/LearningPage.jsx'
 import Auth from './modules/Auth';
 import AllPatientsPage from './containers/AllPatientsPage.jsx';
 import NavBarControl from './containers/NavBarControl.jsx';
@@ -17,12 +18,16 @@ const routes = {
       path: '/',
       getComponent: (location, callback) => {
         if (Auth.isUserAuthenticated()) {
-          console.log("User is authenticated");
           callback(null, AllPatientsPage);
         } else {
           callback(null, HomePage);
         }
       }
+    },
+
+    {
+      path: 'learning',
+      component: LearningPage
     },
 
     {

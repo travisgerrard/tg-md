@@ -1,6 +1,7 @@
 /*jshint esversion: 6 */
 
 // Our decoder!
+var CryptoJS = require("crypto-js");
 
 class Crypto {
   static decodeString(stringToDecode, secretCode) {

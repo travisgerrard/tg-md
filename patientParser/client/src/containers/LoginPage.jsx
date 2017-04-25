@@ -22,7 +22,7 @@ class LoginPage extends React.Component {
     this.state = {
       errors: {},
       successMessage,
-      baseWebpage: 'http://localhost:3000',
+      baseWebpage: '',
       user: {
         email: '',
         password: ''

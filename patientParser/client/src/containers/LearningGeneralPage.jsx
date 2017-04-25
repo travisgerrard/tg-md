@@ -1,10 +1,10 @@
 import React, { PropTypes } from 'react';
-import PatientGeneralInputBoxes from '../components/PatientGeneralInputBoxes.jsx';
+import LearningGeneralInputBoxes from '../components/LearningGeneralInputBoxes.jsx';
 import Crypto from '../modules/Crypto';
 
 require('../sass/PatientGeneral.scss');
 
-class PatientGeneralPage extends React.Component {
+class LearningGeneralPage extends React.Component {
   /**
     * Class constructor
     */
@@ -25,13 +25,11 @@ class PatientGeneralPage extends React.Component {
       this.handleChange = this.handleChange.bind(this);
       this.calcAge = this.calcAge.bind(this);
       this.calcDays = this.calcDays.bind(this);
-      this.handleDeletePatient = this.handleDeletePatient.bind(this);
-
     }
 
     handleChange(event) {
-      //console.log("value, " + event.target.value);
-      //console.log("id, " + event.target.id);
+      console.log("value, " + event.target.value);
+      console.log("id, " + event.target.id);
 
       this.props.onUpdate(event.target, this.props.patientData._id);
 
@@ -63,14 +61,9 @@ class PatientGeneralPage extends React.Component {
       return days;
     }
 
-    // Added a buddton to delete patient to this section... This handels that button
-    handleDeletePatient(event) {
-      if(confirm("Are you sure?")) this.props.onUpdate(event.target, this.props.patientData._id);
-    }
-
     render() {
       return (
-        <PatientGeneralInputBoxes
+        <LearningGeneralInputBoxes
           handleChange={this.handleChange}
           name={this.state.name}
           room={this.state.room}
@@ -80,10 +73,9 @@ class PatientGeneralPage extends React.Component {
           ro={this.state.ro}
           intern={this.state.intern}
           admitDate={this.state.admitDate}
-          age={this.state.age}
-          handleDeletePatient={this.handleDeletePatient} />
+          age={this.state.age} />
       );
     }
 }
 
-export default PatientGeneralPage;
+export default LearningGeneralPage;
