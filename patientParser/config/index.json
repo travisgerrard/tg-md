@@ -1,4 +1,0 @@
-{
-  "dbUri": "mongodb://tgRun:iw78NfQb@ec2-52-24-38-89.us-west-2.compute.amazonaws.com:27017/runTheList",
-  "jwtSecret": "a secret phrase!"
-}

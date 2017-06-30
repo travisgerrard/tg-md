@@ -1,4 +1,0 @@
-{
-  "dbUri": "mongodb://localhost:27017/runTheList",
-  "jwtSecret": "D738CF69AC48AE73BEDAD2817F20F124225C017D52DDCF4F41B678A8DD844535"
-}
