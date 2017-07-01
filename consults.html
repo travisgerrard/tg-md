@@ -1,0 +1,351 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Ford's Consult PDSA</title>
+<link rel="icon" href="http://vnet2.vmmc.org/favicon.ico">
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<META HTTP-EQUIV="pragma" CONTENT="no-cache">
+	<META HTTP-EQUIV="Expires" CONTENT="Thu, 01 Dec 1994 120000 GMT">
+
+<!--
+	<SCRIPT SRC="/PCS/js/CrossSelect.js" type="text/javascript"></SCRIPT>
+	<SCRIPT SRC="/PCS/js/client.js" type="text/javascript"></SCRIPT>
+-->
+	<script type="text/javascript">window.name = "mainwin";</script>
+	<link rel="stylesheet" type="text/css" href="style.css">
+  <STYLE TYPE="text/css" MEDIA="print">
+    .noprint {display: none;}
+  </STYLE>
+
+
+</HEAD>
+
+<BODY>
+<div id="dhtmltooltip"></div>
+
+
+<!-- <SCRIPT type="text/javascript">window.history.forward(1);</SCRIPT> -->
+
+<!-- <SCRIPT SRC="/PCS/js/dhtmltooltip.js" type="text/javascript"></SCRIPT> -->
+
+<!--===========  PARENT TABLE ============  -->
+
+<table cellspacing="0" style="margin: auto;">
+	<tr>
+		<td style="padding:0px; border:Black solid 1px;">
+<table width="780" border="0" cellspacing="0" class="RowContrastColor" bordercolor="black">
+	<tr>
+		<th nowrap class="TitleBar">
+			VM Provider Contact System
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<b>User: View Only Permissions &nbsp;-&nbsp;
+			Access Level: 7</b>
+		</th>
+		<th colspan="2" class="TitleBar">
+
+			</div>
+		</th>
+	</tr>
+	<tr>
+		<td class="MenuBar">&nbsp;&nbsp;
+
+			<nobr>
+			<b><a href="http://vmwebapps/PCS/index.cfm?fuseaction=viewmain&SiteID=1&DeptID=0&SectionID=0"><font class="menuText">Home</font></a></b>
+			<b>| <a href="http://vmwebapps/PCS/index.cfm?fuseaction=Login&SiteID=1&DeptID=0&SectionID=0"><font class="menuText">Login</font></a></b>
+
+			<b>| <a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&SiteID=1&DeptID=0&SectionID=0&mode=view"><font class="menuText"style="background-color:#a7a7a7">View Monthly</font></b></a>
+			<b>| <a href="http://vmwebapps/PCS/index.cfm?fuseaction=r_TimeAway&SiteID=1&DeptID=0&SectionID=0&mode=view"><font class="menuText">Time Away</font></b></a>
+			<b>| <a href="http://vnet2.vmmc.org/documents/GME/Daily.pdf" target="not_PCS" title="Housestaff Daily Schedules"><font class="menuText">Housestaff</font></a></b>
+
+	    <nobr>
+
+		</td>
+		<td class="MenuBar" colspan="2" style="text-align:right; width:180px;">
+
+		</td>
+	</tr>
+	<tr>
+		<td height="10" colspan="3"></td>
+	</tr>
+	<tr>
+		<td colspan="3" class="pageBorder">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" bordercolor="black">
+				<tr>
+					<td class="pageBackground" style="padding-bottom:10px;">
+
+<table width="95%" border="0" cellspacing="0" style="margin:auto;">
+	<tr>
+		<td>
+
+		</td>
+	</tr>
+</table>
+
+<form name="updateform" method="POST" action="http://vmwebapps/PCS/index.cfm">
+	<input type="hidden" name="fuseaction" value="ViewScheduleMonth">
+	<input type="hidden" name="oldSiteID" value="1">
+	<input type="hidden" name="oldDeptID" value="0">
+	<input type="hidden" name="oldSectionID" value="0">
+	<input type="hidden" name="NumberOfShifts" value="0">
+
+
+	<table width="100%" border="0" cellspacing="0" bordercolor="lime">
+		<tr>
+			<td colspan="2">
+
+				<table width="95%" border="0" cellspacing="0" bordercolor="black" style="margin: auto;">
+					<tr>
+						<td style="text-align: center; padding-top:6px; padding-bottom:11px;" class="pageTitle">
+
+							Viewing Monthly Schedule
+
+						</td>
+					</tr>
+					<tr>
+						<td>
+
+							<table width="100%" border="0" bordercolor="green" cellspacing="0">
+								<tr>
+									<td style="text-align: center;" class="FieldTitle">Site:</td>
+									<td style="text-align: center;" class="FieldTitle">Department:</td>
+									<td style="text-align: center;" class="FieldTitle">Section:</td>
+								</tr>
+
+								<tr>
+									<td style="text-align: center; height:25px;">
+																	  <select size="1" name="SiteID" onchange="form.submit()">
+						  		<option value="0">Select a Site</option>
+
+				                <option value="35" >Bailey-Boushay</option>
+
+				                <option value="12" >Bainbridge Island Urgent Care</option>
+
+				                <option value="2" >Bellevue</option>
+
+				                <option value="27" >BRI @VMMC Main</option>
+
+				                <option value="3" >Federal Way</option>
+
+				                <option value="36" >Federal Way Urgent Care</option>
+
+				                <option value="34" >Georgetown</option>
+
+				                <option value="29" >GH Hospitalists @ VMMC</option>
+
+				                <option value="31" >GHC AT VM</option>
+
+				                <option value="24" >Hospital </option>
+
+				                <option value="4" >Issaquah</option>
+
+				                <option value="5" >Kirkland</option>
+
+				                <option value="6" >Lynnwood</option>
+
+				                <option value="1" selected>Main Campus</option>
+
+				                <option value="13" >Metro Park West</option>
+
+				                <option value="23" >Pacific Medical Center at VMMC Main</option>
+
+				                <option value="17" >University Village</option>
+
+				                <option value="32" >Urgent Care in Seattle:  Doctors Express</option>
+
+							   </select>
+									</td>
+									<td style="text-align: center;">
+																	 <select size="1" name="DeptID" onchange="form.submit()">
+							  <option value="0">Select a Dept</option>
+
+					        	  <option value="1" >Administration VP</option>
+
+					        	  <option value="157" >AMB RN Response</option>
+
+					        	  <option value="122" >Ambulatory AD ON Call</option>
+
+					        	  <option value="3" >Asthma & Allergy</option>
+
+					        	  <option value="5" >BIOETHICS</option>
+
+					        	  <option value="7" >Cardiology - Main Campus</option>
+
+					        	  <option value="64" >Care Resource Management</option>
+
+					        	  <option value="44" >Clinicial Engineering</option>
+
+					        	  <option value="74" >Dare Center - Lindeman 11</option>
+
+					        	  <option value="8" >Dermatology lindeman 9</option>
+
+					        	  <option value="160" >Device Clinic (Pacemaker RN)</option>
+
+					        	  <option value="10" >Endocrinology</option>
+
+					        	  <option value="159" >ENT--See otolaryngology</option>
+
+					        	  <option value="11" >Gastroenterology - Main Campus</option>
+
+					        	  <option value="12" >General Internal Medicine - Main Campus</option>
+
+					        	  <option value="19" >GYN - DT</option>
+
+					        	  <option value="13" >Hematolgy-Oncolgy</option>
+
+					        	  <option value="14" >Hyperbarics - After Hours Line</option>
+
+					        	  <option value="15" >Infectious Disease</option>
+
+					        	  <option value="167" >Jones - Integrated Procedural Center</option>
+
+					        	  <option value="110" >Media Communications(oncall shared pager only)</option>
+
+					        	  <option value="17" >Nephrology buck level 7</option>
+
+					        	  <option value="18" >Neurology - DT</option>
+
+					        	  <option value="49" >Neurosurgery</option>
+
+					        	  <option value="131" >NUTRITION</option>
+
+					        	  <option value="20" >Ophthalmology</option>
+
+					        	  <option value="21" >Orthopedics/Hand/Podiatry-DT</option>
+
+					        	  <option value="22" >Otolaryngology(ENT)</option>
+
+					        	  <option value="23" >Pathology</option>
+
+					        	  <option value="95" >Patient Relations</option>
+
+					        	  <option value="37" >Plastic Surgery</option>
+
+					        	  <option value="25" >PMR INpatient</option>
+
+					        	  <option value="149" >PMR OUTpatient</option>
+
+					        	  <option value="161" >Psychiatry & Psychology</option>
+
+					        	  <option value="51" >Pulmonary</option>
+
+					        	  <option value="29" >Radiation Oncology</option>
+
+					        	  <option value="32" >Rheumatology</option>
+
+					        	  <option value="93" >Sleep Disorder Center - DT</option>
+
+					        	  <option value="109" >Spiritual Care Services</option>
+
+					        	  <option value="141" >Sports Medicine/Podiatry</option>
+
+					        	  <option value="33" >Surgery </option>
+
+					        	  <option value="34" >Telecommunications</option>
+
+					        	  <option value="52" >Transplant</option>
+
+					        	  <option value="35" >Urology - DT</option>
+
+					        	  <option value="158" >Virginia Mason Command Center</option>
+
+							</select>
+									</td>
+									<td style="text-align: center;">
+
+							<select size="1" name="SectionID" onchange="form.submit()">
+								<option value="0">Select a Section</option>
+
+							</select>
+									</td>
+								</tr>
+
+							</table>
+
+						</td>
+					</tr>
+
+					<tr>
+						<td xstyle="text-align: center; height:35px;">
+							<center>Please select
+
+							a Department and
+
+							a Section from the pick list above.</center>
+
+							<hr />
+
+							<h3>5S Departments: Sorted and Streamlined</h3>
+
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=24&amp;DeptID=2&amp;SectionID=144#today">Anesthesia</a> | <a href="http://vnet2.vmmc.org/mblank.cfm?id=3132&amp;action=List&amp;UserName=Anesthesia%20Pain%20Services">APS</a> </li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=3#today">Asthma & Allergy</a></li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=7&amp;SectionID=7#today">Cardiology MD</a> | <a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=7&amp;SectionID=299#today">ARNP</a></li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=24&amp;DeptID=154#today">Critical Care</a></li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=8&amp;SectionID=13#today">Dermatology</a></li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=10#today">Endocrinology</a></li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=11&amp;SectionID=17#today">Gastroenterology (GI)</a></li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=19#today">Gynecology (Gyn)</a></li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=13#today">Hematology-Oncology (HemeOnc)</a></li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=24&amp;DeptID=63#today">Hospital Medicine</a></li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=15&amp;SectionID=22#today">Infectious Disease (ID)</a></li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=24&amp;DeptID=30&amp;SectionID=83#today">Interventional Radiology (IR)</a></li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=17#today">Nephrology</a></li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=18&amp;SectionID=344#today">Neurology</a></li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=49#today">Neurosurgery</a></li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=20#today">Ophthalmology</a></li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=21#today">Orthopedics/Hand/Podiatry</a></li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=22#today">Otolaryngology (ENT)</a></li>
+<li><a href="http://vnet2.vmmc.org/mblank.cfm?id=3132&amp;action=List&amp;UserName=Pharmacist">Pharmacist</a></li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=161#today">Psychiatry & Psychology</a></li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=51#today">Pulmonary</a></li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=32#today">Rheumatology</a></li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=33#today">Surgery</a>:
+    <a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=33&amp;SectionID=184#today">Residents</a> |
+    <a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=33&amp;SectionID=264#today">Bariatric</a> |
+    <a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=33&amp;SectionID=54#today">General</a> |
+    <a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=33&amp;SectionID=126#today">Thoracic</a> |
+    <a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=33&amp;SectionID=123#today">Vascular</a> |
+    <a href="http://vnet2.vmmc.org/mblank.cfm?id=3132&amp;action=List&amp;UserName=210">210</a>
+</li>
+<li><a href="http://vmwebapps/PCS/index.cfm?fuseaction=ViewScheduleMonth&amp;SiteID=1&amp;DeptID=35#today">Urology</a></li>
+
+
+
+						</td>
+					</tr>
+
+				</table>
+			</td>
+		</tr>
+	</table>
+</form>
+
+
+<hr>
+
+<form action="post.php" method=post>
+PDSA Feedback to Ford<br />
+<textarea name=text rows=4 cols=40></textarea><br />
+<input type="submit" name=button value="Love it!">
+<input type=submit name=button value="Hate it!">
+</form>
+
+<!-- Sites Footer -->
+
+        </TD>
+      </TR>
+    </TABLE>
+  </TR>
+  <TR>
+    <TD colspan="5" height="10" style="text-align:center; font-size:smaller;">Monday, August 3, 2015 - - 7:23:03 PM PDT<br />24.19.49.115</TD>
+  </TR>
+</TABLE>
+		</td>
+	</tr>
+</table>
+<div style="z-index:1; position:absolute; bottom:0px;">
+	<iframe src="" name="codeframe" id="codeframe" width="0" height="0"></iframe>
+</div>
+
+</BODY>
+</HTML>

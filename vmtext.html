@@ -1,0 +1,319 @@
+
+<!doctype html>
+<html manifest="index.manifest">
+	<head>
+		<title>VM Phone</title>
+		<base href="http://snosrap.com/vmext/">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+		<link rel="apple-touch-icon" href="VMMC.jpg">
+		<style>
+		    body {
+                font-family: Helvetica, "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica;
+                font-size: 20px;
+                margin:0px;
+                -webkit-user-select: none;
+		    }
+		    a { color:#0091FF; font-weight: bold;}
+		    div { border: 0px solid red }
+		    div.name { width:200px; float:left; color:#000 }
+		    div.number { margin-left:auto; margin-right:0px; color:#0091FF; width:120px; text-align:right; font-weight:bold;}
+		    a { text-decoration:none; }
+		    div.row { display:block; padding:8px; border-bottom: 1px solid #ddd; }
+		    div.header { background-color: #eee; font-weight: bolder; padding-left: 8px;border-bottom: 1px solid #ddd;}
+		    div.footer { background-color: #eee; text-align: center; padding:8px; font-size: 17px; }
+		    div.footer a { font-size: 17px; }
+		    div.row:active { background-color:#ddd; }
+		    img.icon { width:20px; }
+		    span.jones { color:#4e387e; font-weight: bold; }
+		    a.comment { color:#fff; font-size: smaller; background-color:#bbb; border-radius:20px; padding:0 8px 2px 8px;}
+		    span.floor { display:inline-block; width:22px; height:22px; color:#fff; background-color:#bbb; border-radius:20px; text-align: center; }
+		    input{padding:0px;margin:0px;border:0px;display:inline-block;webkit-appearance:none;font-size:20px;width:100px;border-radius:0px;color:#0091FF; text-align:right; font-weight:bold;background-color:transparent;}
+		    input:invalid{background-color:#fdd;}
+		</style>
+		<script type='application/javascript' src='fastclick.js'></script>
+		<script>
+        window.addEventListener('load', function() {
+            FastClick.attach(document.body);
+        }, false);
+
+        var rooms = {
+            "7": { "min": 56, "max": 80, "doubles": [57, 59, 69] },
+            "8": { "min": 53, "max": 80, "doubles": [53, 57, 61, 69, 73, 75, 79] },
+            "9": { "min": 56, "max": 82, "doubles": [63, 65, 73, 75, 77, 79] },
+            "10": { "min": 56, "max": 82, "doubles": [63, 65, 73, 75, 77, 79] },
+            "11": { "min": 64, "max": 82, "doubles": [73, 75, 77] },
+            "12": { "min": 56, "max": 82, "doubles": [63, 65, 73, 75] },
+            "14": { "min": 58, "max": 82, "doubles": [58, 79, 81] },
+            "16": { "min": 56, "max": 82, "doubles": [63, 65, 73, 75, 77, 79] },
+            "17": { "min": 56, "max": 82, "doubles": [63, 65, 73, 75, 77, 79] }
+        };
+
+        function room2ext(roomnum) {
+        	var floor_room_bed = roomnum.match(/^(1[^\D359]|[7-9])([0-9]{2})([1-2])?$/);
+        	if(floor_room_bed) {
+	        	var floor = parseInt(floor_room_bed[1]);
+	        	var room = parseInt(floor_room_bed[2]);
+	        	var bed = parseInt(floor_room_bed[3]) || 0;
+
+                if([11,18].indexOf(floor) >= 0 && room <= 30) { // Jones (Note: no way to call CCU directly)
+                	//return '14' + roomnum.substring(1, 4); // or 20634...
+                	return '2063414' + roomnum.substring(1, 4); // or 20634...
+                } else if(rooms[floor] && rooms[floor].min <= room && room <= rooms[floor].max) { // Main
+                    var prefix = (rooms[floor].doubles.indexOf(room) < 0 || [1,2].indexOf(bed) >= 0) ? String(Math.max(1, bed)) : '';
+                	return prefix + String('0' + floor + room).slice(-4);
+                } else {
+                	console.log("Not a known room");
+                }
+        	}
+        	return '';
+        }
+
+        function tryDialExtension(event) {
+            var ext = document.getElementById('ext').value.replace(/\D/g, '');
+            if(ext.length == 5) location.href='tel:2066257373,' + ext + '#';
+            else if(ext == '0') location.href='tel:2066257373,0#';
+        }
+
+        function tryDialPatientRoom(event) {
+            var room = document.getElementById('room').value;
+            ext = room2ext(room);
+            if(ext.length == 10)
+                location.href='tel:' + ext;
+            else if(ext.length == 5)
+                location.href='tel:2066257373,' + ext + '#';
+            else if(event.keyCode == 13 /*Return*/ && ext.length == 4 && confirm('This room has 2 beds.  Call bed #1 ?'))
+                location.href='tel:2066257373,' + '1' + ext + '#';
+            else if(event.keyCode == 8 /*Delete*/)
+                return;
+        }
+		</script>
+	</head>
+	<body>
+
+	<div class="row">
+		<div class="name" onclick="location.href='tel:2066257373';"><img src="vmmc_tight.jpg" class="icon"> VM Extension</div>
+    	<div class="number"><input pattern="\d*" maxlength="5" id="ext" placeholder="Ext #" onkeyup="tryDialExtension(event);" autocomplete="off" /></div>
+	</div>
+
+
+	<div class="row" onclick="location.href='tel:2063025000';">
+		<div class="name">📟 Vocera</div>
+    	<div class="number">2-5000</div>
+	</div>
+
+
+	<div class="row" onclick="location.href='tel:2066257373,63663#';">
+		<div class="name">🍔 Cafeteria <a href="https://www.virginiamason.org/workfiles/pdfdocs/Cafe_Menu.pdf" class="comment">menu</a></div>
+    	<div class="number">6-FOOD</div>
+	</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,67756#';">
+		<div class="name">💊 Inpt Pharmacist</div>
+    	<div class="number">6-7756</div>
+	</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,62446#';">
+		<div class="name">❤️ CSC/Remote Tele</div>
+    	<div class="number">6-2446</div>
+	</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,11141#';">
+		<div class="name">🏥️ Admissions</div>
+    	<div class="number">1-1141</div>
+	</div>
+
+	<div class="row">
+		<div class="name" onclick="alert('\nBETA\n\nFor 965-02, type \'9652\'.\nFor J1106, type \'1106\'.\n\nLet me know if you have any problems.');">👤 Patient Room</div>
+    	<div class="number"><input pattern="\d*" maxlength="5" id="room" placeholder="Room #" onkeyup="tryDialPatientRoom(event);" autocomplete="off" /></div>
+	</div>
+
+	<div class="header">Floors</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,17432#';">
+		<div class="name">&#x2464; Procedures RN <span class="jones">&#x24BF;</span></div>
+    	<div class="number">1-7432</div>
+	</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,36450#';">
+		<div class="name">&#x2466; ED <span class="jones">&#x24BF;</span></div>
+    	<div class="number">3-6450</div>
+	</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,11707#';">
+		<div class="name">&#x2466; PACE </div>
+    	<div class="number">1-1707</div>
+	</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,64145#';">
+		<div class="name">&#x2466; Dialysis</div>
+    	<div class="number">6-4145</div>
+	</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,64155#';">
+		<div class="name">&#x2468; Tele</div>
+    	<div class="number">6-4155</div>
+	</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,64477#';">
+		<div class="name">&#x2468; Prog <span class="jones">&#x24BF;</span></div>
+    	<div class="number">6-4477</div>
+	</div>
+
+	<div class="row" onclick="location.href='tel:2063413009';">
+		<div class="name">&#x2468; CCU North <span class="jones">&#x24BF;</span></div>
+    	<div class="number">1-3009</div>
+	</div>
+
+	<div class="row" onclick="location.href='tel:2063413019';">
+		<div class="name">&#x2468; CCU South <span class="jones">&#x24BF;</span></div>
+    	<div class="number">1-3019</div>
+	</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,64211#';">
+		<div class="name">&#x2469; GI</div>
+    	<div class="number">6-4211</div>
+	</div>
+
+	<!--div class="row" onclick="location.href='tel:2066257373,64731#';">
+		<div class="name">&#x246A; PCU</div>
+    	<div class="number">6-4731</div>
+	</div-->
+
+	<div class="row" onclick="location.href='tel:2066257373,64168#';">
+		<div class="name">&#x246A; Ortho <span class="jones">&#x24BF;</span></div>
+    	<div class="number">6-4168</div>
+	</div>
+
+	<!--div class="row" onclick="location.href='tel:2066257373,63055#';">
+		<div class="name">&#x246B; Short Stay</div>
+    	<div class="number">6-3055</div>
+	</div-->
+
+	<!--div class="row" onclick="location.href='tel:2066257373,64185#';">
+		<div class="name">&#x246D; ACE</div>
+    	<div class="number">6-4185</div>
+	</div-->
+
+	<div class="row" onclick="location.href='tel:2066257373,13095#';">
+		<div class="name">&#x246E; GenSurg</div>
+    	<div class="number">1-3095</div>
+	</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,64545#';">
+		<div class="name">&#x246F; Pulm/Thoracic</div>
+    	<div class="number">6-4545</div>
+	</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,64550#';">
+		<div class="name">&#x2470; Neuro/Nephro</div>
+    	<div class="number">6-4550</div>
+	</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,64550#';">
+		<div class="name">&#x2470; PNCU</div>
+    	<div class="number">6-4550</div>
+	</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,13018#';">
+		<div class="name"><span class="icon">&#x2471;</span> Oncology <span class="jones">&#x24BF;</span></div>
+    	<div class="number">1-3018</div>
+	</div>
+
+
+	<div class="header">Lab</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,36701#';">
+		<div class="name"><img src="beaker3.png" class="icon"> Chemistry</div>
+    	<div class="number">3-6701</div>
+	</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,36899#';">
+		<div class="name">💉 Heme</div>
+    	<div class="number">3-6899</div>
+	</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,36868#';">
+		<div class="name">👾 Micro</div>
+    	<div class="number">3-6868</div>
+	</div>
+
+		<div class="row" onclick="location.href='tel:2066257373,57257#';">
+		<div class="name">🅾 Blood Bank</div>
+    	<div class="number">5-7257</div>
+	</div>
+
+	<div class="header">Imaging</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,64343#,1';">
+		<div class="name">💻 CT Read</div>
+    	<div class="number">6-4343</div>
+	</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,68288#';">
+		<div class="name">💻 MRI Read</div>
+    	<div class="number">6-8288</div>
+	</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,61368#';">
+		<div class="name">💻 US Read</div>
+    	<div class="number">6-1368</div>
+	</div>
+
+	<div class="header">Pharmacy</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,67756#';">
+		<div class="name">  💊 Inpatient</div>
+		<div class="number">6-7756</div>
+	</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,36877#';">
+		<div class="name">  💊 Buck</div>
+		<div class="number">3-6877</div>
+	</div>
+
+	<div class="row" onclick="location.href='tel:2066257373,57202#';">
+		<div class="name"> 💊 Lindeman</div>
+		<div class="number">5-7202</div>
+	</div>
+
+	<!--div class="row" onclick="location.href='mailto:&quot;Tele%20Pharmacist%20Pager&quot;&lt;2065404387@page.metrocall.com&gt;';">
+		<div class="name"> 📟 7H, 8, 9H, 11H</div>
+		<div class="number">540-4387</div>
+	</div>
+
+	<div class="row" onclick="location.href='mailto:&quot;CCU%20Pharmacist%20Pager&quot;&lt;2064059564@page.metrocall.com&gt;';">
+		<div class="name"> 📟 9J/CCU</div>
+		<div class="number">405-9564</div>
+	</div>
+
+	<div class="row" onclick="location.href='mailto:&quot;MedSurg%20Pharmacist%20Pager&quot;&lt;2065404387@page.metrocall.com&gt;';">
+		<div class="name"> 📟 RHU, 10, 14, 15</div>
+		<div class="number">540-4387</div>
+	</div>
+
+	<div class="row" onclick="location.href='mailto:&quot;Transplant%20Pharmacist%20Pager&quot;&lt;2069919219@page.metrocall.com&gt;';">
+		<div class="name"> 📟 16, 17</div>
+		<div class="number">991-9219</div>
+	</div-->
+
+	<div class="footer">
+
+	<a href="mailto:Ford&lt;vmext@snosrap.com&gt;?subject=VM%20Phone%20Idea">💌 Ford</a>
+	&nbsp;
+
+<!--
+	<a href="webcal://www.google.com/calendar/ical/vmmcphone%40gmail.com/public/basic.ics">📅 Cal</a>
+	&nbsp;
+-->
+
+	<a href="mailto:?subject=VM%20Phone%20Extensions&amp;bcc=Ford&lt;vmext@snosrap.com&gt;&amp;body=http://snosrap.com/vmext/">🌎️ Share</a>
+
+	</div>
+
+	</body>
+</html>

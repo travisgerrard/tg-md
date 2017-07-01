@@ -9,8 +9,9 @@ const LinkButton = ({
 }) => (
   <div className="col">
     <FlatButton
+      href={link}
+      target="_blank"
       label={name}
-      id={link}
       labelPosition="after"
       primary={true}
       onTouchTap={onPress}

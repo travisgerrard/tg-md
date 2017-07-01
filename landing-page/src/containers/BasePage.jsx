@@ -12,9 +12,7 @@ class BasePage extends React.Component {
   }
 
   onPressLink(event) {
-    console.log("Pressed");
-    console.log(event.target);
-//    window.open(event.target.id);
+    // runs when link button pressed, although at this point seems unneccsary
   }
 
   onKeyPressSearchBox(event) {
