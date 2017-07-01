@@ -1,0 +1,556 @@
+
+/* 	CSS STYLE SETTINGS FOR PROVIDER CONTACT SYSTEM  */
+
+/* 	Sets the top margin at zero */
+BODY {
+	font-family: Verdana,Arial,Geneva,sans-serif;
+	font-size: 9pt;
+	margin: 0px;
+	background-image : url(/PCS/images/tan-Corduroy.gif);
+	background-color : #B1A594;
+}
+
+/* 	Applies to Input fields  */
+INPUT {
+	font-family: Arial,Geneva,sans-serif;
+	font-size: 9pt;
+	font-weight:normal;
+}
+
+.ButtonSmall {
+	font-family: Arial,Geneva,sans-serif;
+	font-size: 6pt;
+	width:22px;
+}
+
+.inputtextbox {
+	font-family: Arial,Geneva,sans-serif;
+	font-size: 8pt;
+}
+
+/* 	Tables Settings  */
+
+td {
+	text-align:left;
+}
+
+td.pad2 {
+	padding-right: 2px;
+	padding-left: 2px;
+}
+
+/*   TextArea fields   */
+TEXTAREA {
+	font-family: Verdana,Arial,Geneva,sans-serif;
+	font-size: 8pt;
+}
+
+/*   Not used   */
+TH {
+	font-family: Verdana,Arial,Geneva,sans-serif;
+	font-size: 9pt;
+	font-weight: bold;
+	font-style: normal;
+	color: #FFFFFF;
+	background: #000099;
+	text-align: left;
+	text-indent: 5px;
+}
+
+th.plain { }
+
+.WhiteTable TABLE, .WhiteTable TD, .WhiteTable TH {
+	border:1px solid black;
+	background-color:#FFFFFF;
+}
+
+.BlueTable TABLE, .BlueTable TD, .BlueTable TH {
+	border:1px solid black;
+	background-color : #AFC8E5;
+	padding:0px 10px;
+	text-indent: 0px;
+}
+
+.BlueTable TH {
+	font-size: 8pt;
+	font-weight: bold;
+	font-style: normal;
+	color: #FFFFFF;
+	background-color : #000099;
+}
+
+.Bluite TABLE, .Bluite TD, .Bluite TH {
+	border:1px solid black;
+	font-size: 8pt;
+	font-style: normal;
+	color: Black;
+	padding:1px 10px;
+	text-indent: 0px;
+}
+
+.Bluite TH {
+	font-weight: bold;
+	background-color : #ADD8E6;
+}
+
+.thin, .thinh {
+	border: 1px solid Black;
+}
+
+.thin TD {
+	padding-left:10px;
+}
+
+.thinh {
+	background-color : #ADD8E6;
+}
+
+.boldRight {
+	text-align: right;
+	font-weight:bold;
+}
+
+/*   SelectBox Settings   */
+SELECT {
+	font-family	: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+}
+
+/*   HR settings   */
+HR	{
+	font-size: 8pt;
+}
+
+/*   Not Defined   */
+P  {}
+
+
+/*   Not Defined   */
+H1  {}
+
+/*   Not Defined   */
+H2  {}
+
+/*   Not Defined   */
+H3  {}
+
+/*   Form settings   */
+Form {
+	margin:0px;
+	padding:0px;
+}
+
+/*   Hyperlink decoration  */
+A  {
+	text-decoration: none;
+}
+
+/*   Link Settings 1 of 4  */
+A:link
+{
+	BACKGROUND: transparent;
+	COLOR: black;
+    font-size: 8pt;
+	TEXT-DECORATION: underline;
+	font-family: Verdana,Arial,Geneva,sans-serif;
+}
+
+/*   Link Settings 2 of 4  */
+A:visited
+{
+	BACKGROUND: transparent;
+	COLOR: black;
+    font-size: 8pt;
+	TEXT-DECORATION: underline;
+	font-family: Verdana,Arial,Geneva,sans-serif;
+
+}
+
+/*   Link Settings 3 of 4  */
+A:hover
+{
+	BACKGROUND: transparent;
+	COLOR: Blue;
+    font-size: 8pt;
+	TEXT-DECORATION: underline;
+	font-family: Verdana,Arial,Geneva,sans-serif;
+}
+
+/*   Link Settings 4 of 4  */
+A:active
+{
+	BACKGROUND: transparent;
+	COLOR: Black;
+    font-size: 8pt;
+	TEXT-DECORATION: none;
+	font-family: Verdana,Arial,Geneva,sans-serif;
+}
+
+A.cplus {
+	BACKGROUND: transparent;
+	COLOR: black;
+    font-size: 8pt;
+	TEXT-DECORATION: underline;
+	font-family: Verdana,Arial,Geneva,sans-serif;
+}
+
+/* used for setting a red font  */
+.smRed
+{	FONT-SIZE: 10pt;
+	COLOR: Red;
+	font-family: Verdana,Arial,Geneva,sans-serif;
+}
+
+/*   Application Title Settings located in the Main.cfm page  */
+.appTitle
+{	FONT-SIZE: 18pt;
+	COLOR: #000099;
+	font-family: Arial,Geneva,sans-serif;
+}
+
+/*   Application Title Settings located in the Main.cfm page  */
+.appTitle2
+{	FONT-SIZE: 12pt;
+	COLOR: #000099;
+	font-family: Arial,Geneva,sans-serif;
+}
+
+/*   Sets inner page background color "currently set to E4DE94 (PALE YELLOW)"  F0E68C */
+.pageBackground
+{
+	background: #F0E68C;
+	text-align:center;
+}
+
+.pageBorder {
+	border-left:10px solid #6495ED; /* CornflowerBlue; */
+	border-right:10px solid #6495ED; /* CornflowerBlue; */
+}
+
+/*   Page  -  View Title Settings  */
+.pageTitle
+{	FONT-SIZE: 12pt;
+	COLOR: black;
+    font-weight: bold;
+	font-family: Verdana,Arial,Geneva,sans-serif;
+	text-align:center;
+}
+
+.CenterTitleBar {
+	font-family: Verdana,Arial,Geneva,sans-serif;
+	font-size: 8pt;
+	font-weight: bold;
+	font-style: normal;
+	color: #FFFFFF;
+	background: #000099;
+	text-align: Center;
+	padding-right : 5px;
+	padding-left : 5px;
+	border-color: #000099;
+}
+
+.CenterTitleBarRed {
+	font-family: Verdana,Arial,Geneva,sans-serif;
+	font-size: 8pt;
+	font-weight: bold;
+	font-style: normal;
+	color: #FFFFFF;
+	background: #C71585; /* MediumVioletRed; */
+	text-align: Center;
+	padding-right : 5px;
+	padding-left : 5px;
+}
+
+/*   Company Name and Application Name the top-most TR of the display  */
+.TitleBar {
+	font-family: Verdana,Arial,Geneva,sans-serif;
+	font-size: 8pt;
+	font-weight: bold;
+	font-style: normal;
+	color: #FFFFFF;
+	background-color: #000099;
+	text-align: left;
+	padding-left: 0px;
+	text-indent: 5px;
+	padding:0px;
+}
+
+/*   Left side of the Menu Bar TR  */
+.MenuBar {
+	font-family: Verdana,Arial,Geneva,sans-serif;
+	font-size: 7.5pt;
+	font-weight: bold;
+	font-style: normal;
+	background: #CBCBAF;
+	text-align: left;
+	padding: 3px 0px;
+	text-indent: 3px;
+}
+
+/*   SubMenu Bar TR Settings  */
+.SubMenu {
+	font-family: Verdana,Arial,Geneva,sans-serif;
+	font-size: 7.5pt;
+	font-weight: bold;
+	font-style: normal;
+	color: #ffffff;
+	background: transparent;
+	text-align: left;
+	padding-left: 0px;
+    padding-right: 2px;
+	text-indent: 3px;
+}
+
+/*   Menu Bar Text Settings  */
+.menuText {
+    font-size: 7.5pt;
+}
+
+
+/*   Footer Text Setting (Global Footer)  */
+.FooterText {
+	font-family: Verdana,Arial,Geneva,sans-serif;
+	font-size: 7.5pt;
+	font-weight: bold;
+	font-style: normal;
+}
+
+/*   SubMenu Bar Text Settings  */
+.SubmenuText {
+    font-size: 7.5pt;
+    color: White;
+    background: Red;
+
+}
+
+/*   SelectBoxText Settings  */
+.SelectBoxText
+{	font-size: 7pt;
+	color: black;
+	font-family: Verdana,Arial,Geneva,sans-serif;
+}
+
+/*   Days of the week  */
+.dow
+{	font-size: 9pt;
+	color: black;
+	font-family: Verdana,Arial,Geneva,sans-serif;
+}
+
+/*   Setting for the text boxes  */
+.TextBoxText
+{	font-size: 8pt;
+	color: black;
+	font-family: Verdana,Arial,Geneva,sans-serif;
+}
+
+/*   Sets option settings for dropdown/combobox  */
+.option
+{
+	font-family : Arial,Geneva, sans-serif;
+	font-size	: 7pt;
+	color		: white;
+	background	: black;
+	width		: 80px;
+}
+
+/*   Selected option settings  */
+.selected
+{
+	font-family : Arial,Geneva, sans-serif;
+	font-size	: 7pt;
+	font-weight : bold;
+	color		: black;
+	background	: #F0F1D3;
+}
+.selectedD
+{
+	background	: #ffff66;
+}
+
+/*  Controls the cells that hold FieldTitles  */
+.tdDisplayRight
+{	font-weight: bold;
+	color: black;
+	vertical-align : middle;
+	text-align : right;
+}
+
+/*  Controls the cells that hold FieldTitles  */
+.tdDisplayRighta
+{	font-weight: bold;
+	color: black;
+	vertical-align : middle;
+	text-align : right;
+	font-family: Verdana,Arial,Geneva,sans-serif;
+	font-size: 9pt;
+	font-style: normal;
+	padding-right : 15px;
+}
+
+/*   Sets defaults for field cells that display data  */
+.tdDisplayLeft
+{	font-weight: Normal;
+	color: black;
+	vertical-align : middle;
+	text-align : Left;
+}
+
+/*   Sets main background color  */
+.RowMainColor
+{	background-color : #E4DE94;
+}
+
+/*   Sets Main Contrast color  */
+.RowContrastColor
+{	background-color: #6495ED; /* CornflowerBlue; */
+	margin: auto;
+}
+
+/*   Sets Main Contrast color  */
+.RowLightColor
+{	background-color : #E0FFFF; /* LightBlue; */
+}
+
+/*   Sets Main Contrast color  */
+.CellTopBdr
+{	border-top: thin solid White;
+}
+
+/*   Sets the contrast color for cells displaying data Left Side  */
+.tdFieldDisplayLeft
+{	background-color : #AFC8E5;
+}
+
+/*   Sets the contrast color for cells displaying data Center  */
+.tdDisplayCenter
+{	vertical-align : middle;
+	padding-left : 0px;
+	padding-right : 0px;
+	padding-top : 0px;
+	padding-bottom : 0px;
+	text-align : Center;
+}
+
+/*   Selectbox/Combobox settings  */
+.selectbox {
+	width : 200px;
+	height : 100px;
+	font-size : 7pt;
+	font-family: Verdana,Arial,Geneva,sans-serif;
+	color : black;
+}
+
+/*  Alert JS Settings  */
+.Alert {
+	font-family: Verdana,Arial,Geneva,sans-serif;
+	font-size: 12pt;
+	font-weight: bold;
+	font-style: normal;
+	color: red;
+	background: white;
+	text-align: center;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-left: 15px;
+	text-indent: 5px;
+}
+
+/*  ???????????Used for Calendar settings???????  */
+.Border {
+	border-top: ridge;
+	border-bottom: ridge;
+	border-left: ridge;
+	border-right: ridge;
+}
+
+/*  Sets top margin in dsp_header.cfm */
+.Flush {
+	padding-left: 0px;
+	padding-right: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	border-left: none;
+	border-right: none;
+	text-align:	left;
+}
+
+/*  Sets titles  */
+.Title {
+	font-size: 9pt;
+	font-weight: bold;
+	font-style: normal;
+}
+
+/* Sets background color when an option is selected for dropdowns in the edit schedule view  */
+.option
+{
+	font-family: Verdana,Arial,Geneva,sans-serif;
+	font-size	: 7pt;
+	color		: black;
+	background	: white;
+}
+
+/*   Menu settings in the dsp_header.cfm  */
+.menu {
+	background-color: #c0c0c0;
+	border-style: solid;
+	border-width: 2px;
+	border-top-color: #f0f0f0;
+	border-right-color: #909090;
+	border-bottom-color: #909090;
+	border-left-color: #f0f0f0;
+	padding: 0px;
+	text-align: left;
+	width: 108px;
+	position: absolute;
+	visibility: hidden;
+	z-index: 101;
+}
+
+/*  Javascript settings for the popup used for Pager nums and House staff  */
+.popper
+{
+	position: absolute;
+	visibility: hidden;
+}
+
+/*  Sets defaults for all field titles  */
+.FieldTitle {
+	font-family: Verdana,Arial,Geneva,sans-serif;
+	font-size: 9pt;
+	font-weight: bold;
+	font-style: normal;
+	padding-right : 5px;
+	text-align: center;
+}
+
+/*  Sets defaults for all field displayed data  */
+.FieldDisplay {
+	font-family: Verdana,Arial,Geneva,sans-serif;
+	font-size: 10pt;
+	font-weight: normal;
+	font-style: normal;
+	text-decoration : none;
+	background-color : #AFC8E5;
+	padding-left : 2px;
+}
+
+.RedHref {
+	background-color: Red;
+	color: White;
+	font: bold xx-small Verdana;
+	text-decoration: underline;
+}
+
+#dhtmltooltip{
+	position: absolute;
+	width: 150px;
+	border: 2px solid black;
+	padding: 2px;
+	background-color: #FFFFCC;
+	visibility: hidden;
+	z-index: 100;
+	/*Remove below line to remove shadow. Below line should always appear last within this CSS*/
+	filter: progid:DXImageTransform.Microsoft.Shadow(color=#CCCCCC,direction=135);
+}
