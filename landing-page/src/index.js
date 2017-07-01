@@ -9,6 +9,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import BasePage from './containers/BasePage.jsx'
 
+injectTapEventPlugin();
 
 ReactDOM.render(<MuiThemeProvider muiTheme={getMuiTheme()}>
   <BasePage />

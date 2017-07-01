@@ -3,17 +3,19 @@ import TextField from 'material-ui/TextField';
 import PropTypes from 'prop-types';
 
 const SearchBox = ({
-  handleChange,
-  name
+  onKeyPress,
+  name,
+  searchPrefix
 }) => (
   <div className="col">
-    <TextField id="Name" onChange={handleChange} defaultValue={name} hintText="Name" floatingLabelText="Name" style = {{width: 150}} />
+    <TextField id={searchPrefix} onKeyPress={onKeyPress} hintText={name} floatingLabelText={name} style = {{width: 150}} />
   </div>
 )
 
 SearchBox.PropTypes = {
   handleChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
+  searchPrefix: PropTypes.string.isRequired,
 };
 
 export default SearchBox;
