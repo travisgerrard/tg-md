@@ -36,16 +36,21 @@ class BasePage extends React.Component {
           name="Johns Hopkins ABX"
           searchPrefix="https://www.unboundmedicine.com/ucentral/search?st=OSS&q="
           />
-        <SearchBox
-          onKeyPress={this.onKeyPressSearchBox}
-          name="Johns Hopkins ABX"
-          searchPrefix="https://www.unboundmedicine.com/ucentral/search?st=OSS&q="
-          />
         <br/>
         <LinkButton
           onPress={this.onPressLink}
           name="MKSAP"
           link="https://mksap17.acponline.org/app/"
+          />
+        <LinkButton
+          onPress={this.onPressLink}
+          name="Consult"
+          link="http://www.travisgerrardmd.com/consults.html"
+          />
+        <LinkButton
+          onPress={this.onPressLink}
+          name="VM Call app"
+          link="http://www.travisgerrardmd.com/vmtext.html"
           />
       </div>
     )
