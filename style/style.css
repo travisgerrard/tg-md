@@ -1,0 +1,10 @@
+.change-sliders {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 45%;
+  min-width: 300px;
+}
